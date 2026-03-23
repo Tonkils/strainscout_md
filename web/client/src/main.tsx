@@ -13,17 +13,32 @@ import "./index.css";
 initAnalytics();
 trackSessionStarted(window.location.pathname);
 
-const queryClient = new QueryClient();
+const queryClient = new QueryClient({
+  defaultOptions: {
+    queries: {
+      retry: false,        // Don't retry failed API calls (no backend in static deploy)
+      refetchOnWindowFocus: false,
+      staleTime: 5 * 60 * 1000, // 5 min
+    },
+    mutations: {
+      retry: false,
+    },
+  },
+});
 
 const redirectToLoginIfUnauthorized = (error: unknown) => {
-  if (!(error instanceof TRPCClientError)) return;
-  if (typeof window === "undefined") return;
+  try {
+    if (!(error instanceof TRPCClientError)) return;
+    if (typeof window === "undefined") return;
 
-  const isUnauthorized = error.message === UNAUTHED_ERR_MSG;
+    const isUnauthorized = error.message === UNAUTHED_ERR_MSG;
 
-  if (!isUnauthorized) return;
+    if (!isUnauthorized) return;
 
-  window.location.href = getLoginUrl();
+    window.location.href = getLoginUrl();
+  } catch {
+    // Silently ignore auth redirect errors in static deployment
+  }
 };
 
 queryClient.getQueryCache().subscribe(event => {

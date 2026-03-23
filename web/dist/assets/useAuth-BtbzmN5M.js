@@ -1,1 +1,0 @@
-import{r as o}from"./index-CBqMSJgj.js";function i(){const[t]=o.useState(null),[n]=o.useState(!1);return{user:t,isLoading:n,isAuthenticated:!!t,isAdmin:t?.role==="admin",login:()=>{window.location.href="/account"},logout:()=>{window.location.href="/"}}}export{i as u};

@@ -211,6 +211,31 @@ def main():
             if not clean_name or len(clean_name) < 2:
                 continue
 
+            # ── Filter out non-flower products that leaked through ──
+            raw_lower = raw_name.lower()
+            skip_keywords = [
+                "cart", "cartridge", "disposable", "vape", "pen",
+                "live resin", "live sugar", "budder", "shatter", "wax",
+                "rso", "tincture", "topical", "edible", "gummi",
+                "all-in-one", "all in one", "cloud bar",
+                "isolate", "batter", "baller jar", "cured resin",
+                "distillate", "concentrate",
+            ]
+            if any(kw in raw_lower for kw in skip_keywords):
+                continue
+
+            # ── Filter out price-as-name entries ──
+            if clean_name.startswith("$") or clean_name.replace(".", "").replace(",", "").isdigit():
+                continue
+
+            # ── Strip remaining weight prefixes/suffixes ──
+            clean_name = re.sub(r'^\d+(\.\d+)?\s*[gG]\s+', '', clean_name)  # "3.5g Melonade" → "Melonade"
+            clean_name = re.sub(r'\s*\[\d+(\.\d+)?[gG]?\]?\s*$', '', clean_name)  # "Alien Breath [3.5g" → "Alien Breath"
+            clean_name = re.sub(r'\s*\d+(\.\d+)?\s*[gG]\s*$', '', clean_name)  # trailing "3.5g"
+            clean_name = clean_name.strip(" |[]()-")
+            if not clean_name or len(clean_name) < 3:
+                continue
+
             thc = parse_thc(prod.get("thc_pct"))
             price_eighth = parse_price(prod.get("price_eighth"))
 

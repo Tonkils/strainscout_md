@@ -91,12 +91,18 @@ def upload_recursive(sftp, local_path: Path, remote_path: str) -> int:
 
 def upload_catalog_only(sftp):
     """Upload just the catalog JSON files to /data/."""
-    # Find the latest catalog
-    catalogs = sorted(OUTPUT_DIR.glob("strainscout_catalog_v*.min.json"))
+    # Find the latest catalog (sort by version number, not alphabetically)
+    import re as _re
+    catalogs = list(OUTPUT_DIR.glob("strainscout_catalog_v*.min.json"))
     if not catalogs:
         print("ERROR: No catalog JSON found in", OUTPUT_DIR)
         return False
 
+    def version_key(p):
+        m = _re.search(r'_v(\d+)', p.name)
+        return int(m.group(1)) if m else 0
+
+    catalogs.sort(key=version_key)
     latest = catalogs[-1]
     version = latest.stem.replace("strainscout_catalog_", "").replace(".min", "")
     print(f"  Uploading catalog {version}: {latest.name} ({latest.stat().st_size:,} bytes)")
