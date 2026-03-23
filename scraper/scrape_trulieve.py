@@ -307,7 +307,7 @@ async def scrape_location(page: Page, loc: dict) -> dict:
     all_products = []
     method = "none"
     page_num = 0
-    max_pages = 100  # safety limit
+    max_pages = 1  # Trulieve SSR only returns first 15; pagination requires JS scroll
 
     try:
         while page_num < max_pages:
