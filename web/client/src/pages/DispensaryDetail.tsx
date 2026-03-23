@@ -4,21 +4,20 @@
  * Internal links to strain pages for SEO cross-linking.
  */
 
-import { useMemo, useEffect } from "react";
+import { useMemo, useEffect, useState } from "react";
 import { Link, useParams } from "wouter";
 import {
   MapPin, Star, Leaf, Phone, Globe, ArrowLeft,
-  Loader2, ExternalLink, Navigation, DollarSign, BadgeCheck
+  Loader2, ExternalLink, Navigation, DollarSign, ShoppingBag, Search
 } from "lucide-react";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import SEO from "@/components/SEO";
-import DealCard from "@/components/DealCard";
 import { PartnerVerifiedBadge } from "@/components/PartnerVerifiedBadge";
 import { useDispensaryDirectory, type DirectoryDispensary } from "@/hooks/useDispensaryDirectory";
 import { useCatalog, type CatalogStrain } from "@/hooks/useCatalog";
 import { trpc } from "@/lib/trpc";
-import { trackPageViewed, trackDispensaryClicked } from "@/lib/analytics";
+import { trackPageViewed, trackDispensaryClicked, trackOutboundLinkClicked } from "@/lib/analytics";
 
 function slugify(name: string): string {
   return name
@@ -82,6 +81,8 @@ export default function DispensaryDetail() {
     }
     return Object.entries(counts).sort((a, b) => b[1] - a[1]);
   }, [strains]);
+
+  const [strainSearch, setStrainSearch] = useState("");
 
   // Partner verification status for this dispensary
   const { data: partnerInfo } = trpc.partners.bySlug.useQuery(
@@ -301,16 +302,30 @@ export default function DispensaryDetail() {
 
       {/* Strains at this dispensary */}
       <section className="container py-8 sm:py-12">
-        <h2 className="font-serif text-xl sm:text-2xl text-foreground mb-6">
-          Available Strains ({strains.length})
-        </h2>
+        <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 mb-6">
+          <h2 className="font-serif text-xl sm:text-2xl text-foreground">
+            Available Strains ({strains.length})
+          </h2>
+          {strains.length > 6 && (
+            <div className="flex items-center bg-card border border-border/50 rounded-lg overflow-hidden sm:w-64">
+              <Search className="w-4 h-4 text-muted-foreground ml-3 shrink-0" />
+              <input
+                type="text"
+                placeholder="Filter strains..."
+                value={strainSearch}
+                onChange={(e) => setStrainSearch(e.target.value)}
+                className="flex-1 bg-transparent px-3 py-2 text-sm text-foreground placeholder:text-muted-foreground focus:outline-none"
+              />
+            </div>
+          )}
+        </div>
 
         {strains.length > 0 ? (
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
-            {strains.map((strain) => (
-              <DealCard key={strain.id} strain={strain} />
-            ))}
-          </div>
+          <DispensaryStrainList
+            strains={strains}
+            dispensaryName={dispensary.name}
+            filter={strainSearch}
+          />
         ) : (
           <div className="text-center py-12">
             <p className="text-muted-foreground">
@@ -324,6 +339,153 @@ export default function DispensaryDetail() {
       <NearbyDispensaries current={dispensary} all={dispensaries} />
 
       <Footer />
+    </div>
+  );
+}
+
+function DispensaryStrainList({
+  strains,
+  dispensaryName,
+  filter,
+}: {
+  strains: CatalogStrain[];
+  dispensaryName: string;
+  filter: string;
+}) {
+  const [typeFilter, setTypeFilter] = useState("All");
+  const [showCount, setShowCount] = useState(30);
+
+  const visible = strains.filter((s) => {
+    const q = filter.toLowerCase();
+    const matchesSearch =
+      !q ||
+      s.name.toLowerCase().includes(q) ||
+      s.brand.toLowerCase().includes(q) ||
+      (s.terpenes || []).some((t) => t.toLowerCase().includes(q));
+    const matchesType = typeFilter === "All" || s.type.toLowerCase() === typeFilter.toLowerCase();
+    return matchesSearch && matchesType;
+  });
+
+  const paged = visible.slice(0, showCount);
+
+  return (
+    <div>
+      {/* Type filter chips */}
+      <div className="flex items-center gap-1.5 mb-4">
+        {["All", "Indica", "Sativa", "Hybrid"].map((t) => (
+          <button
+            key={t}
+            onClick={() => setTypeFilter(t)}
+            className={`px-3 py-1.5 rounded-full text-xs font-medium transition-all ${
+              typeFilter === t
+                ? "bg-primary text-primary-foreground"
+                : "bg-card border border-border/50 text-muted-foreground hover:text-foreground"
+            }`}
+          >
+            {t}
+          </button>
+        ))}
+        <span className="text-xs text-muted-foreground ml-auto">{visible.length} strains</span>
+      </div>
+
+      {/* Table header */}
+      <div className="hidden md:grid grid-cols-12 gap-4 px-4 py-2 text-[10px] uppercase tracking-wider text-muted-foreground border-b border-border/30">
+        <div className="col-span-4">Strain</div>
+        <div className="col-span-2">Brand</div>
+        <div className="col-span-1">Type</div>
+        <div className="col-span-1">THC</div>
+        <div className="col-span-2">Price here</div>
+        <div className="col-span-2">Order</div>
+      </div>
+
+      <div className="divide-y divide-border/20 bg-card border border-border/30 rounded-lg overflow-hidden">
+        {paged.map((strain) => {
+          const dispPrice = strain.prices.find(
+            (p) => p.dispensary.toLowerCase() === dispensaryName.toLowerCase()
+          );
+          const orderUrl =
+            (strain as any).ordering_links?.[dispensaryName] ||
+            strain.dispensary_links?.[dispensaryName];
+
+          return (
+            <div key={strain.id} className="grid grid-cols-1 md:grid-cols-12 gap-2 md:gap-4 px-4 py-3 hover:bg-accent/10 transition-colors items-center">
+              {/* Strain name */}
+              <div className="md:col-span-4 flex items-center gap-2">
+                <Link href={`/strain/${strain.id}`} className="font-medium text-sm text-foreground hover:text-primary transition-colors">
+                  {strain.name}
+                </Link>
+                {strain.grade === "A" && <span className="text-[9px] text-primary">★</span>}
+              </div>
+              {/* Brand */}
+              <div className="md:col-span-2 hidden md:block">
+                <span className="text-xs text-muted-foreground truncate">{strain.brand || "—"}</span>
+              </div>
+              {/* Type */}
+              <div className="md:col-span-1 hidden md:block">
+                <span className={`px-1.5 py-0.5 rounded text-[10px] font-semibold uppercase ${
+                  strain.type === "Indica" ? "bg-indigo-500/15 text-indigo-400" :
+                  strain.type === "Sativa" ? "bg-amber-500/15 text-amber-400" :
+                  "bg-emerald-500/15 text-emerald-400"
+                }`}>{strain.type}</span>
+              </div>
+              {/* THC */}
+              <div className="md:col-span-1 hidden md:block">
+                <span className="font-price text-sm text-foreground">{strain.thc || "—"}</span>
+              </div>
+              {/* Price at this dispensary */}
+              <div className="md:col-span-2">
+                {dispPrice ? (
+                  <div>
+                    <span className="font-price text-base font-bold text-savings">${dispPrice.price}</span>
+                    <span className="font-price text-[10px] text-muted-foreground ml-1">${(dispPrice.price / 3.5).toFixed(2)}/g</span>
+                  </div>
+                ) : strain.price_min != null ? (
+                  <span className="font-price text-sm text-muted-foreground">~${strain.price_min}</span>
+                ) : <span className="text-muted-foreground text-xs">—</span>}
+              </div>
+              {/* Order button */}
+              <div className="md:col-span-2">
+                {orderUrl ? (
+                  <a
+                    href={orderUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    onClick={() => trackOutboundLinkClicked(orderUrl, dispensaryName, "dispensary_detail")}
+                    className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-semibold bg-cta text-cta-foreground hover:bg-cta-hover transition-colors shadow-cta active:scale-95"
+                  >
+                    <ShoppingBag className="w-3 h-3" />
+                    Order
+                  </a>
+                ) : (
+                  <Link
+                    href={`/strain/${strain.id}`}
+                    className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-medium bg-card border border-border/50 text-muted-foreground hover:text-foreground hover:border-primary/30 transition-colors"
+                  >
+                    View
+                  </Link>
+                )}
+              </div>
+            </div>
+          );
+        })}
+      </div>
+
+      {visible.length > showCount && (
+        <div className="flex justify-center mt-6">
+          <button
+            onClick={() => setShowCount((n) => n + 30)}
+            className="px-6 py-2.5 bg-card border border-border/50 rounded-lg text-sm text-foreground hover:border-primary/30 transition-all"
+          >
+            Load more ({visible.length - showCount} remaining)
+          </button>
+        </div>
+      )}
+
+      {visible.length === 0 && (
+        <div className="text-center py-10 text-muted-foreground text-sm">
+          No strains match your filter.
+        </div>
+      )}
     </div>
   );
 }

@@ -1,10 +1,8 @@
 import { useState, useMemo, useEffect } from "react";
 import { Link, useParams } from "wouter";
-import { ArrowLeft, MapPin, Beaker, Store, Loader2, ShieldCheck, Tag, ExternalLink, Dna, Sparkles, Cherry, Bell, BadgeCheck } from "lucide-react";
+import { ArrowLeft, MapPin, Beaker, Store, Loader2, ShieldCheck, Tag, ExternalLink, Dna, Sparkles, Cherry, BadgeCheck, ShoppingBag, ChevronDown } from "lucide-react";
+import { getBuyLink, getProductCategory, CATEGORY_COLORS } from "@/lib/utils";
 import PriceAlertSignup from "@/components/PriceAlertSignup";
-import StrainVoting from "@/components/StrainVoting";
-import StrainComments from "@/components/StrainComments";
-import PriceAlertModal from "@/components/PriceAlertModal";
 import { VerificationBadge, StrainVerificationSummary } from "@/components/VerificationBadge";
 import { PartnerVerifiedBadge, PartnerPriceBadge } from "@/components/PartnerVerifiedBadge";
 import Navbar from "@/components/Navbar";
@@ -12,16 +10,43 @@ import Footer from "@/components/Footer";
 import { StrainDetailSEO } from "@/components/SEO";
 import { useCatalog, type CatalogStrain } from "@/hooks/useCatalog";
 import { trpc } from "@/lib/trpc";
-import { trackPageViewed, trackStrainViewed, trackOutboundLinkClicked, trackDispensaryClicked, trackPriceAlertSet } from "@/lib/analytics";
+import { trackPageViewed, trackStrainViewed, trackOutboundLinkClicked, trackDispensaryClicked } from "@/lib/analytics";
 
 const STRAIN_BG = "https://d2xsxph8kpxj0f.cloudfront.net/310519663317311392/oGX3NFZ9WLXhuXs89evvau/strain-detail-bg-MuBFq8w4dgZqkcQFoZjuYp.webp";
 
-/** Get the best link for a dispensary: dispensary website, or fall back to strain-level Leafly/Weedmaps */
-function getDispensaryLink(strain: CatalogStrain, dispensaryName: string): { url: string; label: string; classes: string } | null {
+/** Get the best action link for a dispensary — prioritizes direct ordering links */
+function getDispensaryLink(strain: CatalogStrain, dispensaryName: string, isBestPrice = false): {
+  url: string; label: string; classes: string; icon: "order" | "visit" | "external";
+} | null {
+  // 1. Direct ordering link (Weedmaps menu, Dutchie, dispensary shop page)
+  const orderUrl = (strain as any).ordering_links?.[dispensaryName];
+  if (orderUrl) {
+    const isWeedmaps = orderUrl.includes("weedmaps.com");
+    const isDutchie = orderUrl.includes("dutchie.com");
+    return {
+      url: orderUrl,
+      label: isBestPrice ? "Order — Best Price" : (isWeedmaps ? "Order on Weedmaps" : isDutchie ? "Order on Dutchie" : "Order Here"),
+      classes: isBestPrice
+        ? "bg-primary/20 border-primary/40 text-primary hover:bg-primary/30 font-semibold"
+        : "bg-emerald-500/10 border-emerald-500/25 text-emerald-400 hover:bg-emerald-500/20",
+      icon: "order",
+    };
+  }
+  // 2. Dispensary website
   const website = strain.dispensary_links?.[dispensaryName];
-  if (website) return { url: website, label: "Visit Website", classes: "bg-blue-500/10 border-blue-500/25 text-blue-400 hover:bg-blue-500/20" };
-  if (strain.leafly_url) return { url: strain.leafly_url, label: "View on Leafly", classes: "bg-emerald-500/10 border-emerald-500/25 text-emerald-400 hover:bg-emerald-500/20" };
-  if (strain.weedmaps_url) return { url: strain.weedmaps_url, label: "Find on Weedmaps", classes: "bg-orange-500/10 border-orange-500/25 text-orange-400 hover:bg-orange-500/20" };
+  if (website) return {
+    url: website,
+    label: "Visit Store",
+    classes: "bg-blue-500/10 border-blue-500/25 text-blue-400 hover:bg-blue-500/20",
+    icon: "visit",
+  };
+  // 3. Leafly strain page
+  if (strain.leafly_url) return {
+    url: strain.leafly_url,
+    label: "View on Leafly",
+    classes: "bg-muted/50 border-border/30 text-muted-foreground hover:bg-muted",
+    icon: "external",
+  };
   return null;
 }
 
@@ -34,9 +59,6 @@ export default function StrainDetail() {
     return catalog.strains.find((s) => s.id === params.id) || null;
   }, [catalog, params.id]);
 
-  // Alert Me modal state — must be before early returns to maintain hooks order
-  const [alertModalOpen, setAlertModalOpen] = useState(false);
-
   // Partner data: verified dispensary slugs + partner-verified prices for this strain
   const { data: verifiedSlugs } = trpc.partners.verifiedSlugs.useQuery();
   const { data: partnerPrices } = trpc.partners.verifiedPrices.useQuery(
@@ -44,6 +66,22 @@ export default function StrainDetail() {
     { enabled: !!params.id }
   );
   const verifiedSlugSet = useMemo(() => new Set(verifiedSlugs ?? []), [verifiedSlugs]);
+
+  // Similar strains — must be before early returns to maintain hooks order
+  const similarStrains = useMemo(() => {
+    if (!catalog || !strain) return [];
+    return catalog.strains
+      .filter((s) => s.id !== strain.id && s.price_min != null)
+      .map((s) => ({
+        ...s,
+        similarity:
+          (s.type === strain.type ? 30 : 0) +
+          (s.terpenes || []).filter((t) => (strain.terpenes || []).includes(t)).length * 20 +
+          (s.brand === strain.brand ? 15 : 0),
+      }))
+      .sort((a, b) => b.similarity - a.similarity)
+      .slice(0, 6);
+  }, [catalog, strain]);
 
   // Analytics: track page view + strain view
   useEffect(() => {
@@ -101,6 +139,7 @@ export default function StrainDetail() {
 
   const dispensaryDetails = catalog?.dispensaries || [];
   const dispLinks = strain.dispensary_links || {};
+  const category = getProductCategory(strain.name);
 
   // Count dispensaries with direct website links
   const withWebsites = strain.dispensaries.filter(d => strain.dispensary_links?.[d]).length;
@@ -138,6 +177,11 @@ export default function StrainDetail() {
                   strain.type.toLowerCase() === "sativa" ? "bg-amber-500/15 text-amber-400" :
                   "bg-emerald-500/15 text-emerald-400"
                 }`}>{typeLabel}</span>
+                {category !== "Flower" && (
+                  <span className={`px-2 py-0.5 rounded text-[10px] font-semibold uppercase tracking-wider ${CATEGORY_COLORS[category]}`}>
+                    {category}
+                  </span>
+                )}
                 {strain.brand && (
                   <span className="flex items-center gap-1 text-[10px] text-muted-foreground uppercase tracking-wider">
                     <Tag className="w-3 h-3" />
@@ -200,31 +244,20 @@ export default function StrainDetail() {
                   <p className="text-[10px] text-muted-foreground uppercase mt-1">Price Status</p>
                 </div>
               )}
-              {/* Alert Me Button */}
-              <button
-                onClick={() => {
-                  setAlertModalOpen(true);
-                  trackPriceAlertSet(strain.id, strain.name, 0); // track modal open
-                }}
-                className="flex flex-col items-center gap-1 px-4 py-2 rounded-lg bg-cta/10 border border-cta/20 hover:bg-cta/20 transition-colors group"
-              >
-                <Bell className="w-5 h-5 text-cta group-hover:animate-bounce" />
-                <span className="text-[10px] text-cta font-medium uppercase">Alert Me</span>
-              </button>
+              {/* Jump to Prices — mobile shortcut */}
+              {strain.prices.length > 0 && (
+                <a
+                  href="#prices-section"
+                  className="flex flex-col items-center gap-1 px-4 py-2 rounded-lg bg-cta/10 border border-cta/20 hover:bg-cta/20 transition-colors group"
+                >
+                  <ChevronDown className="w-5 h-5 text-cta group-hover:translate-y-0.5 transition-transform" />
+                  <span className="text-[10px] text-cta font-medium uppercase">See Prices</span>
+                </a>
+              )}
             </div>
           </div>
         </div>
       </section>
-
-      {/* Price Alert Modal */}
-      <PriceAlertModal
-        open={alertModalOpen}
-        onOpenChange={setAlertModalOpen}
-        strainId={strain.id}
-        strainName={strain.name}
-        currentPrice={strain.price_min}
-        dispensaries={strain.dispensaries}
-      />
 
       <div className="container py-4 sm:py-8">
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
@@ -290,28 +323,36 @@ export default function StrainDetail() {
 
             {/* Prices by Dispensary — with Buy Now links */}
             {strain.prices.length > 0 && (
-              <div className="bg-card border border-border/30 rounded-lg overflow-hidden">
+              <div id="prices-section" className="bg-card border border-border/30 rounded-lg overflow-hidden">
                 <div className="px-5 py-4 border-b border-border/30 flex items-center justify-between">
-                  <h2 className="font-serif text-xl text-foreground">Prices by Dispensary</h2>
+                  <div>
+                    <h2 className="font-serif text-xl text-foreground">Prices by Dispensary</h2>
+                    <p className="text-[10px] text-muted-foreground mt-0.5">Per 1/8 oz (3.5g) unless noted</p>
+                  </div>
                   <span className="text-xs text-muted-foreground">{strain.prices.length} dispensar{strain.prices.length === 1 ? "y" : "ies"}</span>
                 </div>
                 <div className="divide-y divide-border/20">
                   {strain.prices.map((p, i) => {
-                    const link = getDispensaryLink(strain, p.dispensary);
+                    const isBestPrice = i === 0;
+                    const link = getDispensaryLink(strain, p.dispensary, isBestPrice);
+                    const LinkIcon = link?.icon === "order" ? ShoppingBag : ExternalLink;
                     return (
-                      <div key={`${p.dispensary}-${i}`} className="px-4 sm:px-5 py-3 hover:bg-accent/10 transition-colors">
+                      <div key={`${p.dispensary}-${i}`} className={`px-4 sm:px-5 py-3 hover:bg-accent/10 transition-colors ${isBestPrice ? "bg-primary/5 border-l-2 border-l-primary" : ""}`}>
                         {/* Desktop: single row */}
                         <div className="hidden sm:flex items-center gap-3">
                           <span className={`w-6 h-6 rounded-full flex items-center justify-center text-[10px] font-bold shrink-0 ${
-                            i === 0 ? "bg-savings/20 text-savings" : "bg-muted text-muted-foreground"
+                            isBestPrice ? "bg-savings/20 text-savings" : "bg-muted text-muted-foreground"
                           }`}>{i + 1}</span>
                           <div className="min-w-0 flex-1">
                             <p className="text-sm text-foreground truncate">{p.dispensary}</p>
                             <p className="text-[10px] text-muted-foreground">{p.source || "Flower"}</p>
                           </div>
-                          <span className={`font-price text-lg font-bold shrink-0 ${i === 0 ? "text-savings" : "text-foreground"}`}>
-                            ${p.price}
-                          </span>
+                          <div className="text-right shrink-0">
+                            <span className={`font-price text-lg font-bold block ${isBestPrice ? "text-savings" : "text-foreground"}`}>
+                              ${p.price}
+                            </span>
+                            <span className="font-price text-[10px] text-muted-foreground">${(p.price / 3.5).toFixed(2)}/g</span>
+                          </div>
                           <VerificationBadge
                             timestamp={p.last_verified}
                             dispensaryName={p.dispensary}
@@ -322,9 +363,10 @@ export default function StrainDetail() {
                               href={link.url}
                               target="_blank"
                               rel="noopener noreferrer"
+                              onClick={() => trackOutboundLinkClicked(link.url, p.dispensary, "price_row")}
                               className={`inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-medium shrink-0 transition-colors border ${link.classes}`}
                             >
-                              <ExternalLink className="w-3 h-3" />
+                              <LinkIcon className="w-3 h-3" />
                               {link.label}
                             </a>
                           )}
@@ -334,11 +376,11 @@ export default function StrainDetail() {
                           <div className="flex items-center justify-between mb-1.5">
                             <div className="flex items-center gap-2 min-w-0 flex-1">
                               <span className={`w-5 h-5 rounded-full flex items-center justify-center text-[9px] font-bold shrink-0 ${
-                                i === 0 ? "bg-savings/20 text-savings" : "bg-muted text-muted-foreground"
+                                isBestPrice ? "bg-savings/20 text-savings" : "bg-muted text-muted-foreground"
                               }`}>{i + 1}</span>
                               <p className="text-sm text-foreground truncate">{p.dispensary}</p>
                             </div>
-                            <span className={`font-price text-lg font-bold shrink-0 ${i === 0 ? "text-savings" : "text-foreground"}`}>
+                            <span className={`font-price text-lg font-bold shrink-0 ${isBestPrice ? "text-savings" : "text-foreground"}`}>
                               ${p.price}
                             </span>
                           </div>
@@ -353,9 +395,10 @@ export default function StrainDetail() {
                                 href={link.url}
                                 target="_blank"
                                 rel="noopener noreferrer"
+                                onClick={() => trackOutboundLinkClicked(link.url, p.dispensary, "price_row_mobile")}
                                 className={`inline-flex items-center gap-1 px-2.5 py-1.5 rounded-lg text-[11px] font-medium transition-colors border active:scale-95 ${link.classes}`}
                               >
-                                <ExternalLink className="w-3 h-3" />
+                                <LinkIcon className="w-3 h-3" />
                                 {link.label}
                               </a>
                             )}
@@ -658,12 +701,6 @@ export default function StrainDetail() {
               </div>
             </div>
 
-            {/* Community Voting */}
-            <StrainVoting strainId={strain.id} strainName={strain.name} />
-
-            {/* Community Reviews */}
-            <StrainComments strainId={strain.id} strainName={strain.name} />
-
             {/* Similar Strains */}
             <div className="bg-card border border-border/30 rounded-lg overflow-hidden">
               <div className="px-5 py-4 border-b border-border/30">
@@ -691,7 +728,84 @@ export default function StrainDetail() {
         </div>
       </div>
 
+      {/* Similar Strains — keeps users engaged and exploring */}
+      {similarStrains.length > 0 && (
+        <section className="container py-8 border-t border-border/30">
+          <h2 className="font-serif text-xl text-foreground mb-4">Similar Strains</h2>
+          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-3">
+            {similarStrains.map((s) => {
+              const bestPrice = s.prices?.[0];
+              const sBuyLink = bestPrice ? getBuyLink(s, bestPrice.dispensary) : null;
+              return (
+                <div
+                  key={s.id}
+                  onClick={() => window.location.href = `/strain/${s.id}`}
+                  className="bg-card border border-border/30 rounded-lg p-3 hover:border-primary/30 transition-all group cursor-pointer h-full flex flex-col"
+                >
+                  <div className="flex items-center gap-1.5 mb-2">
+                    <span className={`px-1.5 py-0.5 rounded text-[9px] font-semibold uppercase ${
+                      s.type?.toLowerCase() === "indica" ? "bg-indigo-500/15 text-indigo-400" :
+                      s.type?.toLowerCase() === "sativa" ? "bg-amber-500/15 text-amber-400" :
+                      "bg-emerald-500/15 text-emerald-400"
+                    }`}>{s.type}</span>
+                  </div>
+                  <h3 className="text-sm font-medium text-foreground group-hover:text-primary transition-colors line-clamp-2 mb-1">{s.name}</h3>
+                  {s.brand && <p className="text-[9px] text-muted-foreground truncate mb-2">{s.brand}</p>}
+                  <div className="mt-auto flex items-center justify-between">
+                    {s.price_min != null ? (
+                      <span className="font-price text-sm font-bold text-savings">${s.price_min}</span>
+                    ) : (
+                      <span className="text-xs text-muted-foreground">N/A</span>
+                    )}
+                    {sBuyLink && (
+                      <a
+                        href={sBuyLink}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        onClick={(e) => e.stopPropagation()}
+                        className="px-2 py-0.5 rounded bg-primary/15 text-primary text-[9px] font-semibold hover:bg-primary/25 transition-colors"
+                      >
+                        Buy
+                      </a>
+                    )}
+                  </div>
+                </div>
+              );
+            })}
+          </div>
+        </section>
+      )}
+
       <Footer />
+
+      {/* Sticky mobile "Best Price" bar — shows cheapest dispensary with direct order link */}
+      {strain.prices.length > 0 && (() => {
+        const best = strain.prices[0];
+        const bestLink = getDispensaryLink(strain, best.dispensary, true);
+        if (!bestLink) return null;
+        return (
+          <div className="fixed bottom-0 left-0 right-0 z-40 sm:hidden">
+            <div className="bg-background/95 backdrop-blur-lg border-t border-border/50 px-4 py-3 safe-area-bottom">
+              <div className="flex items-center justify-between gap-3">
+                <div className="min-w-0 flex-1">
+                  <p className="text-xs text-muted-foreground truncate">Best price at {best.dispensary}</p>
+                  <p className="text-lg font-bold text-savings">${best.price}<span className="text-xs font-normal text-muted-foreground ml-1">/ 8th</span></p>
+                </div>
+                <a
+                  href={bestLink.url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  onClick={() => trackOutboundLinkClicked(bestLink.url, best.dispensary, "sticky_bar")}
+                  className="inline-flex items-center gap-2 px-5 py-2.5 rounded-lg bg-primary text-primary-foreground font-semibold text-sm shadow-lg hover:bg-primary/90 active:scale-95 transition-all shrink-0"
+                >
+                  <ShoppingBag className="w-4 h-4" />
+                  Order Now
+                </a>
+              </div>
+            </div>
+          </div>
+        );
+      })()}
     </div>
   );
 }

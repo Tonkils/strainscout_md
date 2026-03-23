@@ -7,7 +7,7 @@
 
 import { useState, useMemo, useEffect } from "react";
 import { Link } from "wouter";
-import { Search, X, ArrowUpDown, GitCompareArrows, Loader2, Beaker } from "lucide-react";
+import { Search, X, ArrowUpDown, GitCompareArrows, Loader2, Beaker, ChevronDown, Building2 } from "lucide-react";
 import { StrainVerificationSummary } from "@/components/VerificationBadge";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
@@ -24,6 +24,8 @@ export default function CompareStrains() {
   const { catalog, loading } = useCatalog();
   const [searchQuery, setSearchQuery] = useState("");
   const [typeFilter, setTypeFilter] = useState<string>("All");
+  const [quickFilter, setQuickFilter] = useState<string>("");
+  const [dispensaryFilter, setDispensaryFilter] = useState<string>("");
 
   // Analytics: track page view
   useEffect(() => { trackPageViewed("compare_strains"); }, []);
@@ -48,6 +50,11 @@ export default function CompareStrains() {
   const [page, setPage] = useState(1);
   const perPage = 50;
 
+  const dispensaryNames = useMemo(() => {
+    if (!catalog) return [];
+    return [...new Set(catalog.strains.flatMap((s) => s.dispensaries))].sort();
+  }, [catalog]);
+
   const filtered = useMemo(() => {
     if (!catalog) return [];
     let result = catalog.strains;
@@ -63,6 +70,15 @@ export default function CompareStrains() {
         (s.genetics || "").toLowerCase().includes(q)
       );
     }
+    if (dispensaryFilter) {
+      result = result.filter((s) =>
+        s.dispensaries.some((d) => d.toLowerCase() === dispensaryFilter.toLowerCase())
+      );
+    }
+    if (quickFilter === "under30") result = result.filter((s) => (s.price_min ?? 999) < 30);
+    else if (quickFilter === "under40") result = result.filter((s) => (s.price_min ?? 999) < 40);
+    else if (quickFilter === "highthc") result = result.filter((s) => (s.thc as number) >= 25);
+    else if (quickFilter === "indica40") result = result.filter((s) => s.type.toLowerCase() === "indica" && (s.price_min ?? 999) < 40);
     result = [...result].sort((a, b) => {
       let cmp = 0;
       if (sortBy === "name") cmp = a.name.localeCompare(b.name);
@@ -73,7 +89,7 @@ export default function CompareStrains() {
       return sortDir === "desc" ? -cmp : cmp;
     });
     return result;
-  }, [catalog, searchQuery, typeFilter, sortBy, sortDir]);
+  }, [catalog, searchQuery, typeFilter, sortBy, sortDir, quickFilter, dispensaryFilter]);
 
   const paged = useMemo(() => filtered.slice(0, page * perPage), [filtered, page]);
   const hasMore = paged.length < filtered.length;
@@ -157,6 +173,58 @@ export default function CompareStrains() {
             >
               <GitCompareArrows className="w-4 h-4" />
               Compare ({compareList.length})
+            </button>
+          )}
+        </div>
+
+        {/* Quick Filters + Dispensary Filter */}
+        <div className="flex flex-wrap items-center gap-2 mb-4 sm:mb-6">
+          {/* Quick filter chips */}
+          <div className="flex items-center gap-1.5 flex-wrap">
+            {[
+              { id: "under30", label: "Under $30" },
+              { id: "under40", label: "Under $40" },
+              { id: "highthc", label: "High THC 25%+" },
+              { id: "indica40", label: "Indica Under $40" },
+            ].map((chip) => (
+              <button
+                key={chip.id}
+                onClick={() => { setQuickFilter(quickFilter === chip.id ? "" : chip.id); setPage(1); }}
+                className={`px-3 py-1.5 rounded-full text-xs font-medium transition-all active:scale-95 ${
+                  quickFilter === chip.id
+                    ? "bg-cta text-cta-foreground shadow-cta"
+                    : "bg-card border border-border/50 text-muted-foreground hover:text-foreground hover:border-primary/30"
+                }`}
+              >
+                {chip.label}
+              </button>
+            ))}
+          </div>
+
+          {/* Dispensary filter */}
+          <div className="relative ml-auto">
+            <Building2 className="absolute left-3 top-1/2 -translate-y-1/2 w-3.5 h-3.5 text-muted-foreground pointer-events-none" />
+            <select
+              value={dispensaryFilter}
+              onChange={(e) => { setDispensaryFilter(e.target.value); setPage(1); }}
+              className="pl-8 pr-8 py-1.5 rounded-lg bg-card border border-border/50 text-xs text-foreground hover:border-primary/30 focus:outline-none focus:border-primary/50 transition-colors appearance-none cursor-pointer"
+            >
+              <option value="">All Dispensaries</option>
+              {dispensaryNames.map((d) => (
+                <option key={d} value={d}>{d}</option>
+              ))}
+            </select>
+            <ChevronDown className="absolute right-2.5 top-1/2 -translate-y-1/2 w-3 h-3 text-muted-foreground pointer-events-none" />
+          </div>
+
+          {/* Active filter summary */}
+          {(quickFilter || dispensaryFilter) && (
+            <button
+              onClick={() => { setQuickFilter(""); setDispensaryFilter(""); setPage(1); }}
+              className="flex items-center gap-1 px-2.5 py-1.5 rounded-full text-xs text-muted-foreground bg-card border border-border/50 hover:text-foreground transition-colors"
+            >
+              <X className="w-3 h-3" />
+              Clear filters
             </button>
           )}
         </div>
@@ -256,7 +324,7 @@ export default function CompareStrains() {
                       ))}
                     </div>
 
-                    {/* Price */}
+                    {/* Price + Quick Order */}
                     <div className="col-span-1 hidden md:flex md:items-center md:gap-2">
                       <span className="font-price text-lg font-bold text-foreground">
                         {strain.price_min != null ? `$${strain.price_min}` : "—"}
@@ -264,9 +332,26 @@ export default function CompareStrains() {
                       {strain.prices?.length > 0 && <StrainVerificationSummary prices={strain.prices} />}
                     </div>
 
-                    {/* Dispensary Count */}
-                    <div className="col-span-1 hidden md:block">
+                    {/* Avail + Quick Order */}
+                    <div className="col-span-1 hidden md:flex md:items-center md:gap-1.5">
                       <span className="font-price text-sm text-primary">{(strain.dispensary_count ?? 0)}</span>
+                      {(() => {
+                        const bestDisp = strain.prices?.[0]?.dispensary;
+                        const orderUrl = bestDisp && (strain as any).ordering_links?.[bestDisp];
+                        if (!orderUrl) return null;
+                        return (
+                          <a
+                            href={orderUrl}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            onClick={(e) => e.stopPropagation()}
+                            className="inline-flex items-center gap-1 px-2 py-1 rounded text-[10px] font-semibold bg-emerald-500/10 border border-emerald-500/25 text-emerald-400 hover:bg-emerald-500/20 transition-colors"
+                            title={`Order at ${bestDisp}`}
+                          >
+                            Order
+                          </a>
+                        );
+                      })()}
                     </div>
 
                     {/* Mobile Layout — card-style with touch targets */}

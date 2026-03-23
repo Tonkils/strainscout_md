@@ -14,9 +14,13 @@ Credentials from .env:
 
 Usage:
     python -m publish.upload_ionos                # Upload catalog only
-    python -m publish.upload_ionos --full-deploy  # Rebuild SPA + upload everything
+    python -m publish.upload_ionos --full-deploy  # Rebuild Vite SPA (web/) + upload everything
+    python -m publish.upload_ionos --next-deploy        # Deploy Next.js static export (web_2/out/) + upload everything
+    python -m publish.upload_ionos --next-incremental   # Only upload changed Next.js files (fast)
+    python -m publish.upload_ionos --next-incremental  # Only upload changed Next.js files (fast)
 """
 
+import hashlib
 import json
 import os
 import sys
@@ -37,8 +41,10 @@ except ImportError:
 
 BASE = Path(__file__).resolve().parent.parent
 OUTPUT_DIR = BASE / "data" / "output"
-WEB_DIST = BASE / "web" / "dist"
+WEB_DIST = BASE / "web" / "dist"          # Vite SPA build output (--full-deploy)
+NEXT_OUT = BASE / "web_2" / "out"         # Next.js static export output (--next-deploy)
 ENV_FILE = BASE / ".env"
+MANIFEST_FILE = Path(__file__).resolve().parent / "deploy_manifest_next.json"
 
 # Default IONOS credentials (override via .env)
 DEFAULT_HOST = "access-5019966776.webspace-host.com"
@@ -87,6 +93,127 @@ def upload_recursive(sftp, local_path: Path, remote_path: str) -> int:
             print(f"    PUT: {remote_item} ({size:,} bytes)")
             uploaded += 1
     return uploaded
+
+
+def md5_file(path: Path) -> str:
+    """Compute MD5 hash of a file."""
+    h = hashlib.md5()
+    with open(path, "rb") as f:
+        for chunk in iter(lambda: f.read(65536), b""):
+            h.update(chunk)
+    return h.hexdigest()
+
+
+def load_manifest() -> dict:
+    """Load the previous deploy manifest {remote_path: md5}."""
+    if MANIFEST_FILE.exists():
+        try:
+            return json.loads(MANIFEST_FILE.read_text())
+        except Exception:
+            pass
+    return {}
+
+
+def save_manifest(manifest: dict):
+    """Save updated deploy manifest to disk."""
+    MANIFEST_FILE.write_text(json.dumps(manifest, indent=2))
+
+
+def ensure_remote_dirs(sftp, remote_path: str):
+    """Ensure all parent directories of a remote path exist."""
+    parts = remote_path.replace("\\", "/").lstrip("./").split("/")
+    current = "."
+    for part in parts[:-1]:  # skip the filename
+        if not part:
+            continue
+        current = current + "/" + part
+        try:
+            sftp.mkdir(current)
+        except IOError:
+            pass  # already exists
+
+
+def next_deploy_incremental(sftp):
+    """Upload only changed/new files from web_2/out/ compared to last deploy.
+
+    Uses a local manifest (deploy_manifest_next.json) tracking MD5 hashes of
+    every previously uploaded file. Only uploads files whose hash changed or
+    that are new. Skips identical files entirely, making repeated deploys fast.
+    """
+    if not NEXT_OUT.exists():
+        print("ERROR: web_2/out/ not found. Run 'next build' in web_2/ first.")
+        return False
+
+    old_manifest = load_manifest()
+    new_manifest = {}
+
+    # Collect all files in the build output
+    all_files = sorted(p for p in NEXT_OUT.rglob("*") if p.is_file())
+    total = len(all_files)
+
+    # Compute which files need uploading
+    to_upload = []
+    skipped = 0
+    for local_path in all_files:
+        rel = local_path.relative_to(NEXT_OUT)
+        remote_path = "./" + rel.as_posix()
+        file_hash = md5_file(local_path)
+        new_manifest[remote_path] = file_hash
+        if old_manifest.get(remote_path) == file_hash:
+            skipped += 1
+        else:
+            to_upload.append((local_path, remote_path, file_hash))
+
+    print(f"  Next.js incremental deploy from: {NEXT_OUT}")
+    print(f"  {total} total files — {skipped} unchanged, {len(to_upload)} to upload")
+
+    if not to_upload:
+        print("  Nothing changed — skipping upload.")
+        save_manifest(new_manifest)
+        return True
+
+    # Upload changed/new files
+    for local_path, remote_path, _ in to_upload:
+        ensure_remote_dirs(sftp, remote_path)
+        sftp.put(str(local_path), remote_path)
+        size = local_path.stat().st_size
+        print(f"    PUT: {remote_path} ({size:,} bytes)")
+
+    print(f"\n  Uploaded {len(to_upload)} files, skipped {skipped} unchanged")
+
+    # Upload .htaccess (always refresh it)
+    htaccess_content = """# StrainScout MD — Next.js Static Export
+RewriteEngine On
+RewriteBase /
+
+# Force HTTPS
+RewriteCond %{HTTPS} off
+RewriteRule ^(.*)$ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
+
+# Enable gzip compression
+<IfModule mod_deflate.c>
+  AddOutputFilterByType DEFLATE text/html text/css application/javascript application/json
+</IfModule>
+
+# Cache static assets for 1 year, JSON for 1 day
+<IfModule mod_expires.c>
+  ExpiresActive On
+  ExpiresByType text/css "access plus 1 year"
+  ExpiresByType application/javascript "access plus 1 year"
+  ExpiresByType image/webp "access plus 1 year"
+  ExpiresByType application/json "access plus 1 day"
+</IfModule>
+
+# Custom 404 page (Next.js generates this as /404.html)
+ErrorDocument 404 /404.html
+"""
+    with sftp.open("./.htaccess", "w") as f:
+        f.write(htaccess_content)
+    print("    PUT: .htaccess")
+
+    save_manifest(new_manifest)
+    print(f"  Manifest saved: {MANIFEST_FILE.name}")
+    return True
 
 
 def upload_catalog_only(sftp):
@@ -177,10 +304,61 @@ RewriteRule ^(.*)$ /index.html [L]
     return True
 
 
+def next_deploy(sftp):
+    """Upload Next.js static export (web_2/out/) to IONOS.
+
+    Next.js generates real HTML files per route, so no SPA rewrite is needed.
+    The .htaccess handles HTTPS, compression, caching, and a clean 404 page.
+    """
+    if not NEXT_OUT.exists():
+        print("ERROR: web_2/out/ not found. Run 'next build' in web_2/ first.")
+        print("  cd web_2 && npm run build")
+        return False
+
+    print(f"  Next.js deploy from: {NEXT_OUT}")
+    count = upload_recursive(sftp, NEXT_OUT, ".")
+    print(f"  Uploaded {count} files")
+
+    htaccess_content = """# StrainScout MD — Next.js Static Export
+RewriteEngine On
+RewriteBase /
+
+# Force HTTPS
+RewriteCond %{HTTPS} off
+RewriteRule ^(.*)$ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
+
+# Enable gzip compression
+<IfModule mod_deflate.c>
+  AddOutputFilterByType DEFLATE text/html text/css application/javascript application/json
+</IfModule>
+
+# Cache static assets for 1 year, JSON for 1 day
+<IfModule mod_expires.c>
+  ExpiresActive On
+  ExpiresByType text/css "access plus 1 year"
+  ExpiresByType application/javascript "access plus 1 year"
+  ExpiresByType image/webp "access plus 1 year"
+  ExpiresByType application/json "access plus 1 day"
+</IfModule>
+
+# Custom 404 page (Next.js generates this as /404.html)
+ErrorDocument 404 /404.html
+"""
+    with sftp.open("./.htaccess", "w") as f:
+        f.write(htaccess_content)
+    print("    PUT: .htaccess (Next.js static routing)")
+
+    return True
+
+
 def main(full_deploy_override=None):
     parser = argparse.ArgumentParser(description="Upload to IONOS webspace")
     parser.add_argument("--full-deploy", action="store_true",
-                        help="Upload entire SPA, not just catalog")
+                        help="Upload Vite SPA (web/dist/), not just catalog")
+    parser.add_argument("--next-deploy", action="store_true",
+                        help="Upload Next.js static export (web_2/out/) instead of Vite SPA")
+    parser.add_argument("--next-incremental", action="store_true",
+                        help="Only upload changed/new Next.js files (fast incremental deploy)")
     args, _ = parser.parse_known_args()
 
     if full_deploy_override is not None:
@@ -212,7 +390,11 @@ def main(full_deploy_override=None):
     print("Connected!")
 
     try:
-        if args.full_deploy:
+        if args.next_incremental:
+            success = upload_catalog_only(sftp) and next_deploy_incremental(sftp)
+        elif args.next_deploy:
+            success = upload_catalog_only(sftp) and next_deploy(sftp)
+        elif args.full_deploy:
             success = full_deploy(sftp)
         else:
             success = upload_catalog_only(sftp)

@@ -56,6 +56,78 @@ def load_dispensary_benchmark() -> dict:
     return lookup
 
 
+def load_ordering_links() -> dict:
+    """Build dispensary name → ordering URL mapping from all available sources."""
+    ordering = {}
+
+    # 1. Scraping targets (confirmed Weedmaps/Dutchie slugs)
+    targets_path = MANUS_DIR / "scraping_targets.json"
+    if targets_path.exists():
+        with open(targets_path, encoding="utf-8") as f:
+            targets = json.load(f)
+        for t in targets:
+            name = t.get("name", "").lower().strip()
+            wm = t.get("weedmaps", "")
+            du = t.get("dutchie", "")
+            if wm:
+                ordering[name] = f"https://weedmaps.com/dispensaries/{wm}/menu"
+            if du:
+                ordering[name] = f"https://dutchie.com/dispensary/{du}"
+
+    # 2. White-label Dutchie sites (from our scraper config)
+    wl_urls = {
+        "green point wellness - linthicum": "https://www.gpwellness.com/linthicum-menu",
+        "green point wellness - laurel": "https://www.gpwellness.com/laurel-menu",
+        "green point wellness - millersville": "https://www.gpwellness.com/millersville-menu",
+        "the edge (green point wellness)": "https://www.gpwellness.com/edgewater-menu",
+        "cookies - baltimore": "https://noxx.com/location/cookies-baltimore/",
+        "chesacanna": "https://menu.chesacanna.com/stores/chesacanna1",
+        "kent reserve": "https://kentreserve.com/shop/",
+        "the living room": "https://thelvrm.com/order",
+        "koan cannabis": "https://koandispensary.com/",
+        "far & dotter - elkton": "https://fardotter.com/dispensaries/elkton-md/",
+    }
+    for name, url in wl_urls.items():
+        ordering[name] = url
+
+    # 3. Chain-specific ordering URLs
+    chain_urls = {
+        # Ascend (Dutchie API)
+        "ascend cannabis dispensary - aberdeen": "https://letsascend.com/locations/maryland/aberdeen/",
+        "ascend cannabis dispensary - crofton": "https://letsascend.com/locations/maryland/crofton/",
+        "ascend cannabis dispensary - ellicott city": "https://letsascend.com/locations/maryland/ellicott-city/",
+        "ascend cannabis dispensary - laurel": "https://letsascend.com/locations/maryland/laurel/",
+        # Trulieve
+        "trulieve - rockville": "https://www.trulieve.com/category/flower?storeId=MDROKB2",
+        "trulieve - halethorpe": "https://www.trulieve.com/category/flower?storeId=MDHALT1",
+        "trulieve - lutherville": "https://www.trulieve.com/category/flower?storeId=MDLUTH1",
+        # Curaleaf
+        "curaleaf - reisterstown": "https://curaleaf.com/shop/maryland/curaleaf-md-reisterstown/recreational/menu/flower-542",
+        "curaleaf - columbia": "https://curaleaf.com/shop/maryland/curaleaf-md-columbia/recreational/menu/flower-542",
+        # Zen Leaf
+        "zen leaf - elkridge": "https://zenleafdispensaries.com/locations/elkridge/menu/recreational",
+        "zen leaf - germantown": "https://zenleafdispensaries.com/locations/germantown/menu/recreational",
+        "zen leaf - pasadena": "https://zenleafdispensaries.com/locations/pasadena/menu/recreational",
+        "zen leaf - towson": "https://zenleafdispensaries.com/locations/towson/menu/recreational",
+        # Verilife (Jane)
+        "verilife - westminster": "https://www.verilife.com/md/locations/westminster",
+        "verilife - silver spring": "https://www.verilife.com/md/locations/silver-spring",
+        "verilife - new market": "https://www.verilife.com/md/locations/new-market",
+        # Jane stores
+        "gold leaf": "https://goldleafmd.com/shop/",
+        "potomac holistics": "https://potomacholistics.com/rockville-maryland-recreational-menu/",
+        "ash + ember": "https://www.iheartjane.com/stores/463/ash-ember/menu",
+        # Grow West
+        "grow west cannabis company": "https://www.growwestmd.com/shop/",
+        # SweedPOS
+        "enlightened dispensary abingdon": "https://shop.revcanna.com/abingdon/recreational",
+    }
+    for name, url in chain_urls.items():
+        ordering[name] = url
+
+    return ordering
+
+
 def load_grower_benchmark() -> dict:
     """Load grower benchmark for brand resolution."""
     path = MANUS_DIR / "grower_benchmark.json"
@@ -90,8 +162,10 @@ def main():
 
     disp_lookup = load_dispensary_benchmark()
     grower_lookup = load_grower_benchmark()
+    ordering_lookup = load_ordering_links()
     print(f"Dispensary benchmark: {len(disp_lookup)} entries")
     print(f"Grower benchmark: {len(grower_lookup)} entries")
+    print(f"Ordering links: {len(ordering_lookup)} dispensary menu URLs")
 
     # Build the catalog array matching CatalogStrain interface
     catalog = []
@@ -110,14 +184,26 @@ def main():
                 "verified_source": "automated_scrape",
             })
 
-        # Resolve dispensary website links
+        # Resolve dispensary website links AND ordering links
         dispensary_links = dict(s.get("dispensary_links", {}))
+        ordering_links = {}
         for disp_name in s.get("dispensaries", []):
             dl = disp_name.lower().strip()
+            # Website links (for "Visit Store" buttons)
             if dl in disp_lookup and disp_name not in dispensary_links:
                 website = disp_lookup[dl].get("website", "")
                 if website:
                     dispensary_links[disp_name] = website
+            # Ordering links (for "Order Here" buttons — direct menu URLs)
+            # Try exact match first, then fuzzy prefix match
+            if dl in ordering_lookup:
+                ordering_links[disp_name] = ordering_lookup[dl]
+            else:
+                # Fuzzy match: "culta columbia" should match "culta" ordering link
+                for okey, ourl in ordering_lookup.items():
+                    if dl.startswith(okey) or okey.startswith(dl):
+                        ordering_links[disp_name] = ourl
+                        break
             disp_set.add(disp_name)
 
         brand = s.get("brand", "")
@@ -168,6 +254,7 @@ def main():
             "dispensaries": s.get("dispensaries", []),
             "dispensary_count": s.get("dispensary_count", 0),
             "dispensary_links": dispensary_links,
+            "ordering_links": ordering_links,
 
             # External links
             "leafly_url": s.get("leafly_url", ""),

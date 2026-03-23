@@ -10,22 +10,15 @@
  */
 
 import { Link, useLocation } from "wouter";
-import { Search, Menu, X, Leaf, MapPin, GitCompareArrows, TrendingUp, Home, TrendingDown, Bell, BarChart3, Building2, Handshake } from "lucide-react";
+import { Search, Menu, X, Leaf, MapPin, GitCompareArrows, TrendingUp, Home, Building2 } from "lucide-react";
 import { useState, useEffect, useRef } from "react";
 
 const navLinks = [
   { href: "/", label: "Home", icon: Home },
   { href: "/compare", label: "Compare", icon: GitCompareArrows },
+  { href: "/top-value", label: "Top Value", icon: TrendingUp },
   { href: "/map", label: "Map", icon: MapPin },
   { href: "/dispensaries", label: "Dispensaries", icon: Building2 },
-  { href: "/deals", label: "Price Drops", icon: TrendingDown },
-  { href: "/market", label: "Market", icon: BarChart3 },
-];
-
-const mobileExtraLinks = [
-  { href: "/top-value", label: "Top Value", icon: TrendingUp },
-  { href: "/alerts", label: "My Alerts", icon: Bell },
-  { href: "/partner", label: "Partner Portal", icon: Handshake },
 ];
 
 export default function Navbar() {
@@ -91,31 +84,14 @@ export default function Navbar() {
           ))}
         </div>
 
-        {/* Desktop Actions — Alerts + Search + Account */}
+        {/* Desktop Actions — Search */}
         <div className="hidden md:flex items-center gap-2">
-          <Link
-            href="/alerts"
-            className={`w-9 h-9 rounded-md flex items-center justify-center transition-colors ${
-              location === "/alerts"
-                ? "text-primary bg-primary/10"
-                : "text-muted-foreground hover:text-foreground hover:bg-accent"
-            }`}
-            title="My Alerts"
-          >
-            <Bell className="w-4 h-4" />
-          </Link>
           <Link
             href="/search"
             className="w-9 h-9 rounded-md flex items-center justify-center text-muted-foreground hover:text-foreground hover:bg-accent transition-colors"
             title="Search"
           >
             <Search className="w-4 h-4" />
-          </Link>
-          <Link
-            href="/account"
-            className="px-4 py-2 text-sm font-medium rounded-md border border-border text-foreground hover:bg-accent transition-colors"
-          >
-            Account
           </Link>
         </div>
 
@@ -161,35 +137,14 @@ export default function Navbar() {
               );
             })}
 
-            {/* Divider + secondary links */}
+            {/* Search link */}
             <div className="pt-2 mt-1 border-t border-border/30">
-              {mobileExtraLinks.map((link) => {
-                const Icon = link.icon;
-                const isActive = location === link.href;
-                return (
-                  <Link
-                    key={link.href}
-                    href={link.href}
-                    className={`flex items-center gap-3 px-4 py-3.5 text-base font-medium rounded-lg transition-colors ${
-                      isActive
-                        ? "text-primary bg-primary/10"
-                        : "text-foreground/80 hover:text-foreground active:bg-accent"
-                    }`}
-                  >
-                    <Icon className={`w-5 h-5 ${isActive ? "text-primary" : "text-muted-foreground"}`} />
-                    {link.label}
-                    {isActive && (
-                      <span className="ml-auto w-2 h-2 rounded-full bg-primary" />
-                    )}
-                  </Link>
-                );
-              })}
               <Link
-                href="/account"
+                href="/search"
                 className="flex items-center gap-3 px-4 py-3.5 text-base font-medium text-foreground/80 hover:text-foreground active:bg-accent rounded-lg transition-colors"
               >
                 <Search className="w-5 h-5 text-muted-foreground" />
-                Search & Account
+                Search
               </Link>
             </div>
           </div>

@@ -17,10 +17,11 @@ interface SEOProps {
 }
 
 const SITE_NAME = "StrainScout MD";
-const BASE_URL = "https://strainscout-md.manus.space";
+const BASE_URL = "https://strainscoutmd.com";
 const DEFAULT_DESCRIPTION =
-  "Compare cannabis prices across 100+ Maryland dispensaries. Track 2,220+ strains with real-time pricing, find the best deals, and save money on your next purchase.";
+  "Compare cannabis prices across 66 Maryland dispensaries. Browse 844+ verified strains with real pricing data — find the best deal near you.";
 const DEFAULT_IMAGE = "https://d2xsxph8kpxj0f.cloudfront.net/310519663317311392/oGX3NFZ9WLXhuXs89evvau/hero-bg-RHmxN49YmGmHDGx8nptRYW.webp";
+const STRAIN_BG_IMAGE = "https://d2xsxph8kpxj0f.cloudfront.net/310519663317311392/oGX3NFZ9WLXhuXs89evvau/strain-detail-bg-MuBFq8w4dgZqkcQFoZjuYp.webp";
 
 export default function SEO({
   title,
@@ -65,6 +66,8 @@ export default function SEO({
       <meta property="og:title" content={fullTitle} />
       <meta property="og:description" content={description} />
       <meta property="og:image" content={image} />
+      <meta property="og:image:width" content="1200" />
+      <meta property="og:image:height" content="630" />
       <meta property="og:site_name" content={SITE_NAME} />
       <meta property="og:locale" content="en_US" />
 
@@ -97,13 +100,13 @@ export function HomePageSEO() {
         "@context": "https://schema.org",
         "@type": "WebSite",
         name: "StrainScout MD",
-        url: "https://strainscout-md.manus.space",
+        url: "https://strainscoutmd.com",
         description: "Compare cannabis prices across Maryland dispensaries",
         potentialAction: {
           "@type": "SearchAction",
           target: {
             "@type": "EntryPoint",
-            urlTemplate: "https://strainscout-md.manus.space/compare?q={search_term_string}",
+            urlTemplate: "https://strainscoutmd.com/compare?q={search_term_string}",
           },
           "query-input": "required name=search_term_string",
         },
@@ -123,7 +126,7 @@ export function ComparePageSEO() {
         "@type": "CollectionPage",
         name: "Compare Cannabis Strains — StrainScout MD",
         description: "Compare prices and availability of cannabis strains across Maryland dispensaries",
-        url: "https://strainscout-md.manus.space/compare",
+        url: "https://strainscoutmd.com/compare",
       }}
     />
   );
@@ -140,7 +143,7 @@ export function MapPageSEO() {
         "@type": "CollectionPage",
         name: "Maryland Dispensary Map — StrainScout MD",
         description: "Find cannabis dispensaries near you in Maryland",
-        url: "https://strainscout-md.manus.space/map",
+        url: "https://strainscoutmd.com/map",
       }}
     />
   );
@@ -179,36 +182,48 @@ export function StrainDetailSEO({
 }: StrainSEOProps) {
   const desc =
     description ||
-    `${name} by ${brand} — ${type} cannabis strain${thc ? ` with ${thc} THC` : ""}. Compare prices${priceMin ? ` from $${priceMin}` : ""}${priceMax ? ` to $${priceMax}` : ""} across Maryland dispensaries.`;
+    `${name} by ${brand} — ${type} cannabis strain${thc ? ` with ${thc} THC` : ""}. Compare prices${priceMin ? ` from $${priceMin}/eighth` : ""}${priceMax ? ` to $${priceMax}` : ""} across Maryland dispensaries.`;
 
   const jsonLd: Record<string, unknown> = {
     "@context": "https://schema.org",
-    "@type": "Product",
-    name: `${name} — ${brand}`,
-    description: desc,
-    url: `https://strainscout-md.manus.space/strain/${slug}`,
-    brand: {
-      "@type": "Brand",
-      name: brand,
-    },
-    category: `Cannabis / ${type}`,
+    "@graph": [
+      {
+        "@type": "Product",
+        name: `${name} — ${brand}`,
+        description: desc,
+        image: STRAIN_BG_IMAGE,
+        url: `https://strainscoutmd.com/strain/${slug}`,
+        brand: { "@type": "Brand", name: brand },
+        category: `Cannabis / ${type}`,
+        ...(priceMin || priceMax
+          ? {
+              offers: {
+                "@type": "AggregateOffer",
+                priceCurrency: "USD",
+                ...(priceMin && { lowPrice: priceMin }),
+                ...(priceMax && { highPrice: priceMax }),
+                availability: "https://schema.org/InStock",
+              },
+            }
+          : {}),
+      },
+      {
+        "@type": "BreadcrumbList",
+        itemListElement: [
+          { "@type": "ListItem", position: 1, name: "Home", item: "https://strainscoutmd.com" },
+          { "@type": "ListItem", position: 2, name: "Compare Strains", item: "https://strainscoutmd.com/compare" },
+          { "@type": "ListItem", position: 3, name: name, item: `https://strainscoutmd.com/strain/${slug}` },
+        ],
+      },
+    ],
   };
-
-  if (priceMin || priceMax) {
-    jsonLd.offers = {
-      "@type": "AggregateOffer",
-      priceCurrency: "USD",
-      ...(priceMin && { lowPrice: priceMin }),
-      ...(priceMax && { highPrice: priceMax }),
-      availability: "https://schema.org/InStock",
-    };
-  }
 
   return (
     <SEO
-      title={`${name} by ${brand}`}
+      title={`${name} by ${brand} — ${type}${thc ? ` ${thc} THC` : ""}`}
       description={desc}
       path={`/strain/${slug}`}
+      image={STRAIN_BG_IMAGE}
       type="product"
       jsonLd={jsonLd}
     />
