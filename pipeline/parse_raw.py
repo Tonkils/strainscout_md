@@ -163,7 +163,9 @@ def main():
     print("=" * 70)
 
     # Find all per-dispensary raw files across ALL platforms (exclude run summaries)
-    platforms = ["weedmaps", "dutchie", "jane"]
+    platforms = ["weedmaps", "dutchie", "dutchie_wl", "dutchie_ascend",
+                 "jane", "jane_verilife", "trulieve", "curaleaf",
+                 "zenleaf", "sweedpos"]
     raw_files = []
     for platform in platforms:
         pfiles = sorted(glob.glob(str(RAW_DIR / f"{platform}_*.json")))

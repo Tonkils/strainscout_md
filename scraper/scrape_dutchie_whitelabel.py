@@ -480,10 +480,17 @@ def main():
     parser = argparse.ArgumentParser(description="Scrape Dutchie white-label dispensaries")
     parser.add_argument("--test", action="store_true", help="Scrape only 2 locations")
     parser.add_argument("--headed", action="store_true", help="Run browser in headed mode")
+    parser.add_argument("--slugs", type=str, help="Comma-separated slugs to scrape")
     args = parser.parse_args()
 
     locations = WHITELABEL_LOCATIONS
-    if args.test:
+    if args.slugs:
+        slug_set = set(s.strip() for s in args.slugs.split(","))
+        locations = [l for l in locations if l["slug"] in slug_set]
+        if not locations:
+            log.error("No matching locations for slugs: %s", args.slugs)
+            sys.exit(1)
+    elif args.test:
         locations = locations[:2]
 
     log.info("Dutchie white-label scraper starting — %d locations", len(locations))

@@ -25,10 +25,10 @@ MANUS_DIR = BASE / "Manus JSONs"
 OUTPUT_DIR.mkdir(parents=True, exist_ok=True)
 
 INPUT = PROCESSED_DIR / "deduped_strains.json"
-OUTPUT_FULL = OUTPUT_DIR / "strainscout_catalog_v9.json"
-OUTPUT_MIN = OUTPUT_DIR / "strainscout_catalog_v9.min.json"
+OUTPUT_FULL = OUTPUT_DIR / "strainscout_catalog_v10.json"
+OUTPUT_MIN = OUTPUT_DIR / "strainscout_catalog_v10.min.json"
 
-CATALOG_VERSION = "v9"
+CATALOG_VERSION = "v10"
 
 
 def load_dispensary_benchmark() -> dict:
