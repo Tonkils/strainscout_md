@@ -140,6 +140,33 @@ WHITELABEL_LOCATIONS = [
         "slug": "forest-canton",
         "menu_url": "https://theforestdispensary.com/stores/the-forest-canton/",
     },
+    # ── Rise / GTI (Dutchie-powered, needs headed mode) ──
+    {
+        "name": "Rise Dispensary - Bethesda",
+        "slug": "rise-bethesda",
+        "menu_url": "https://risecannabis.com/dispensaries/maryland/bethesda/5476/recreational-menu/",
+    },
+    {
+        "name": "Rise Dispensary - Hagerstown",
+        "slug": "rise-hagerstown",
+        "menu_url": "https://risecannabis.com/dispensaries/maryland/hagerstown/5421/recreational-menu/",
+    },
+    {
+        "name": "Rise Dispensary - Joppa",
+        "slug": "rise-joppa",
+        "menu_url": "https://risecannabis.com/dispensaries/maryland/joppa/5480/recreational-menu/",
+    },
+    # ── gLeaf (Dutchie-powered) ──
+    {
+        "name": "gLeaf - Rockville",
+        "slug": "gleaf-rockville",
+        "menu_url": "https://www.gleaf.com/stores/maryland/rockville/shop/recreational/menu",
+    },
+    {
+        "name": "gLeaf - Frederick",
+        "slug": "gleaf-frederick",
+        "menu_url": "https://www.gleaf.com/stores/maryland/frederick/shop/recreational/menu",
+    },
 ]
 
 AGE_GATE_DOB = {"month": "05", "day": "27", "year": "1997"}

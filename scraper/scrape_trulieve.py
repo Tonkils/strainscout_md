@@ -306,51 +306,97 @@ async def scrape_location(page: Page, loc: dict) -> dict:
 
     all_products = []
     method = "none"
-    page_num = 0
-    max_pages = 1  # Trulieve SSR only returns first 15; pagination requires JS scroll
+    max_load_more_clicks = 50  # Safety limit (~800 products max)
 
     try:
-        while page_num < max_pages:
-            url = f"{base_url}&page={page_num}" if page_num > 0 else base_url
-            log.info("  Page %d: %s", page_num, url)
+        url = base_url
+        log.info("  Loading: %s", url)
 
-            await page.goto(url, wait_until="domcontentloaded", timeout=PAGE_TIMEOUT)
-            await page.wait_for_timeout(3_000)
+        await page.goto(url, wait_until="domcontentloaded", timeout=PAGE_TIMEOUT)
+        await page.wait_for_timeout(3_000)
+        await handle_age_gate(page)
+        await page.wait_for_timeout(1_000)
 
-            if page_num == 0:
-                await handle_age_gate(page)
-                await page.wait_for_timeout(1_000)
+        # First, extract initial SSR data
+        html = await page.content()
+        next_data = _extract_next_data(html)
 
-            html = await page.content()
-            next_data = _extract_next_data(html)
-
-            if not next_data:
-                log.info("  No __NEXT_DATA__ on page %d, stopping", page_num)
-                break
-
-            # Extract products from categoryData.products.items
+        if next_data:
             props = next_data.get("props", {}).get("pageProps", {})
             cat_data = props.get("categoryData", {})
             items = cat_data.get("products", {}).get("items", [])
-
-            if not items:
-                log.info("  No products on page %d, stopping", page_num)
-                break
 
             for item in items:
                 parsed = _parse_trulieve_item(item)
                 if parsed:
                     all_products.append(parsed)
 
-            log.info("  Page %d: %d items (total so far: %d)", page_num, len(items), len(all_products))
+            log.info("  SSR initial: %d items", len(items))
             method = "ssr"
 
-            # If fewer than 15 items, we've hit the last page
-            if len(items) < 15:
+        # Now click "Load More" button repeatedly to get all products
+        load_more_clicks = 0
+        while load_more_clicks < max_load_more_clicks:
+            try:
+                load_more = page.locator('button:has-text("Load More"), button:has-text("Show More"), [data-testid="load-more"]')
+                if await load_more.count() == 0:
+                    log.info("  No more 'Load More' button found after %d clicks", load_more_clicks)
+                    break
+
+                # Scroll to the button first
+                await load_more.first.scroll_into_view_if_needed(timeout=3_000)
+                await load_more.first.click(timeout=5_000)
+                load_more_clicks += 1
+                await page.wait_for_timeout(2_000)
+
+                # Re-extract page content after loading more
+                if load_more_clicks % 5 == 0:
+                    log.info("  Clicked 'Load More' %d times...", load_more_clicks)
+
+            except Exception as e:
+                log.info("  Load More stopped: %s", str(e)[:80])
                 break
 
-            page_num += 1
-            await asyncio.sleep(1.5)
+        # After all Load More clicks, extract all visible products from the DOM
+        if load_more_clicks > 0:
+            log.info("  Extracting products from DOM after %d Load More clicks...", load_more_clicks)
+            # Get all product cards from the page
+            dom_products = await page.evaluate("""() => {
+                const products = [];
+                // Look for product cards with data attributes or structured content
+                const cards = document.querySelectorAll('[data-testid*="product"], [class*="ProductCard"], [class*="product-card"], article');
+                cards.forEach(card => {
+                    const nameEl = card.querySelector('h2, h3, [class*="name"], [class*="Name"], [class*="title"]');
+                    const priceEl = card.querySelector('[class*="price"], [class*="Price"]');
+                    const thcEl = card.querySelector('[class*="thc"], [class*="THC"], [class*="potency"]');
+
+                    if (nameEl) {
+                        const name = nameEl.textContent.trim();
+                        const price = priceEl ? priceEl.textContent.trim() : '';
+                        const thc = thcEl ? thcEl.textContent.trim() : '';
+                        if (name && name.length > 2) {
+                            products.push({ name, price, thc });
+                        }
+                    }
+                });
+                return products;
+            }""")
+
+            if dom_products:
+                log.info("  DOM extraction: %d product cards found", len(dom_products))
+                for dp in dom_products:
+                    price_match = re.search(r'\$(\d+(?:\.\d{2})?)', dp.get('price', ''))
+                    thc_match = re.search(r'(\d+(?:\.\d+)?)\s*%', dp.get('thc', ''))
+                    all_products.append({
+                        "id": f"dom-{len(all_products)}",
+                        "name": dp['name'],
+                        "brand": "",
+                        "strain_type": "",
+                        "thc_pct": thc_match.group(1) if thc_match else "",
+                        "price_eighth": price_match.group(1) if price_match else "",
+                        "product_type": "flower",
+                    })
+                method = "ssr+dom"
 
         # Deduplicate
         seen = set()
@@ -362,8 +408,8 @@ async def scrape_location(page: Page, loc: dict) -> dict:
                 unique.append(p)
         all_products = unique
 
-        log.info("  %s: %d unique flower products  (method: %s, pages: %d)",
-                 slug, len(all_products), method, page_num + 1)
+        log.info("  %s: %d unique flower products  (method: %s, load_more_clicks: %d)",
+                 slug, len(all_products), method, load_more_clicks)
 
     except Exception as e:
         log.error("  %s: ERROR — %s", slug, e)
