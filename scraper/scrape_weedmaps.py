@@ -676,9 +676,21 @@ def main():
 
     if args.slugs:
         wanted = {s.strip() for s in args.slugs.split(",")}
+        # Match against existing targets first
         targets = [t for t in all_targets if t["weedmaps"] in wanted]
+        matched_slugs = {t["weedmaps"] for t in targets}
+        # For slugs not in the targets file, create ad-hoc target entries
+        for slug in wanted - matched_slugs:
+            # Generate a display name from the slug
+            display_name = slug.replace("-", " ").title()
+            targets.append({
+                "name": display_name,
+                "city": "",
+                "weedmaps": slug,
+                "urls": [f"https://weedmaps.com/dispensaries/{slug}"],
+            })
         if not targets:
-            log.error("No matching targets found for slugs: %s", args.slugs)
+            log.error("No slugs provided")
             sys.exit(1)
     elif args.test:
         targets = all_targets[:3]
