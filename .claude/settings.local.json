@@ -1,0 +1,7 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(find /c/Users/jaretwyatt/.local/bin/strainscoutmd/strainscout_md/web_2/src/hooks -type f \\\\\\(-name *.ts -o -name *.tsx -o -name *.js -o -name *.jsx \\\\\\))"
+    ]
+  }
+}
