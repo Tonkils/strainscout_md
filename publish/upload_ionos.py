@@ -403,9 +403,9 @@ def main(full_deploy_override=None):
         transport.close()
 
     if success:
-        print(f"\n✓ Upload completed at {datetime.now(timezone.utc).strftime('%Y-%m-%d %H:%M:%S UTC')}")
+        print(f"\nUpload completed at {datetime.now(timezone.utc).strftime('%Y-%m-%d %H:%M:%S UTC')}")
     else:
-        print("\n✗ Upload failed")
+        print("\nUpload FAILED")
         sys.exit(1)
 
 
