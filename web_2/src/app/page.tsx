@@ -102,7 +102,7 @@ export default function HomePage() {
                     placeholder="Search strain, brand, or terpene..."
                     value={searchQuery}
                     onChange={(e) => setSearchQuery(e.target.value)}
-                    className="flex-1 bg-transparent px-3 sm:px-4 py-3.5 sm:py-4 text-sm sm:text-base text-foreground placeholder:text-muted-foreground focus:outline-none"
+                    className="flex-1 bg-transparent px-3 sm:px-4 py-3.5 sm:py-4 text-sm sm:text-base text-foreground placeholder:text-muted-foreground focus:outline-none focus-visible:ring-2 focus-visible:ring-primary/50"
                   />
                 </div>
                 <Link
@@ -209,8 +209,8 @@ export default function HomePage() {
         </div>
 
         {loading ? (
-          <div className="flex items-center justify-center py-20">
-            <Loader2 className="w-8 h-8 text-primary animate-spin" />
+          <div role="status" className="flex items-center justify-center py-20">
+            <Loader2 aria-hidden="true" className="w-8 h-8 text-primary animate-spin" />
             <span className="ml-3 text-muted-foreground">Loading catalog...</span>
           </div>
         ) : filteredStrains.length > 0 ? (

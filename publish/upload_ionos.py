@@ -45,6 +45,80 @@ WEB_DIST = BASE / "web" / "dist"          # Vite SPA build output (--full-deploy
 NEXT_OUT = BASE / "web_2" / "out"         # Next.js static export output (--next-deploy)
 ENV_FILE = BASE / ".env"
 MANIFEST_FILE = Path(__file__).resolve().parent / "deploy_manifest_next.json"
+DEPLOY_LOG = Path(__file__).resolve().parent / "deploy_log.jsonl"
+
+# ── Security-hardened .htaccess content ──────────────────────────────────────
+# CSP allows: self, PostHog analytics, Google Maps, CloudFront catalog CDN.
+# Next.js static export requires 'unsafe-inline' for hydration script tags.
+_SECURITY_HEADERS = """\
+# Security headers (OWASP recommended)
+<IfModule mod_headers.c>
+  Header always set X-Frame-Options "SAMEORIGIN"
+  Header always set X-Content-Type-Options "nosniff"
+  Header always set Referrer-Policy "strict-origin-when-cross-origin"
+  Header always set Permissions-Policy "camera=(), microphone=(), geolocation=(self)"
+  Header always set Content-Security-Policy "default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval'; style-src 'self' 'unsafe-inline'; connect-src 'self' https://us.i.posthog.com https://us-assets.i.posthog.com https://d2xsxph8kpxj0f.cloudfront.net https://*.supabase.co; img-src 'self' data: https: blob:; font-src 'self' data:; frame-src https://www.google.com https://maps.google.com; frame-ancestors 'none'; form-action 'self'; base-uri 'self'"
+</IfModule>
+
+"""
+
+HTACCESS_NEXT = _SECURITY_HEADERS + """\
+# StrainScout MD — Next.js Static Export
+RewriteEngine On
+RewriteBase /
+
+# Force HTTPS
+RewriteCond %{HTTPS} off
+RewriteRule ^(.*)$ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
+
+# Enable gzip compression
+<IfModule mod_deflate.c>
+  AddOutputFilterByType DEFLATE text/html text/css application/javascript application/json
+</IfModule>
+
+# Cache static assets for 1 year, JSON for 1 day
+<IfModule mod_expires.c>
+  ExpiresActive On
+  ExpiresByType text/css "access plus 1 year"
+  ExpiresByType application/javascript "access plus 1 year"
+  ExpiresByType image/webp "access plus 1 year"
+  ExpiresByType application/json "access plus 1 day"
+</IfModule>
+
+# Custom 404 page (Next.js generates this as /404.html)
+ErrorDocument 404 /404.html
+"""
+
+HTACCESS_SPA = _SECURITY_HEADERS + """\
+# StrainScout MD — SPA Routing
+RewriteEngine On
+RewriteBase /
+
+# Force HTTPS
+RewriteCond %{HTTPS} off
+RewriteRule ^(.*)$ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
+
+# If file or directory exists, serve it directly
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+
+# Otherwise, serve index.html (SPA client-side routing)
+RewriteRule ^(.*)$ /index.html [L]
+
+# Enable gzip compression
+<IfModule mod_deflate.c>
+  AddOutputFilterByType DEFLATE text/html text/css application/javascript application/json
+</IfModule>
+
+# Cache static assets for 1 year
+<IfModule mod_expires.c>
+  ExpiresActive On
+  ExpiresByType text/css "access plus 1 year"
+  ExpiresByType application/javascript "access plus 1 year"
+  ExpiresByType image/webp "access plus 1 year"
+  ExpiresByType application/json "access plus 1 day"
+</IfModule>
+"""
 
 # Default IONOS credentials (override via .env)
 DEFAULT_HOST = "access-5019966776.webspace-host.com"
@@ -119,6 +193,34 @@ def save_manifest(manifest: dict):
     MANIFEST_FILE.write_text(json.dumps(manifest, indent=2))
 
 
+def catalog_hash() -> str:
+    """Return MD5 of the catalog JSON in public/data/ (used in manifest to detect catalog changes)."""
+    import re as _re
+    candidates = list((BASE / "data" / "output").glob("strainscout_catalog_v*.min.json"))
+    if not candidates:
+        candidates = list((BASE / "web_2" / "public" / "data").glob("strainscout_catalog_v*.min.json"))
+    if not candidates:
+        return ""
+    def version_key(p: Path) -> int:
+        m = _re.search(r"_v(\d+)", p.name)
+        return int(m.group(1)) if m else 0
+    candidates.sort(key=version_key)
+    return md5_file(candidates[-1])
+
+
+def write_deploy_log(mode: str, uploaded: int, skipped: int, catalog_md5: str):
+    """Append a JSON line to deploy_log.jsonl for auditing."""
+    entry = {
+        "ts": datetime.now(timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ"),
+        "mode": mode,
+        "uploaded": uploaded,
+        "skipped": skipped,
+        "catalog_md5": catalog_md5,
+    }
+    with open(DEPLOY_LOG, "a", encoding="utf-8") as f:
+        f.write(json.dumps(entry) + "\n")
+
+
 def ensure_remote_dirs(sftp, remote_path: str):
     """Ensure all parent directories of a remote path exist."""
     parts = remote_path.replace("\\", "/").lstrip("./").split("/")
@@ -167,9 +269,17 @@ def next_deploy_incremental(sftp):
     print(f"  Next.js incremental deploy from: {NEXT_OUT}")
     print(f"  {total} total files — {skipped} unchanged, {len(to_upload)} to upload")
 
-    if not to_upload:
+    # Include catalog hash in manifest so a new catalog always triggers upload
+    cat_md5 = catalog_hash()
+    if cat_md5:
+        new_manifest["__catalog_md5__"] = cat_md5
+        if old_manifest.get("__catalog_md5__") != cat_md5:
+            print(f"  Catalog changed ({cat_md5[:8]}…) — catalog upload will refresh")
+
+    if not to_upload and old_manifest.get("__catalog_md5__") == cat_md5:
         print("  Nothing changed — skipping upload.")
         save_manifest(new_manifest)
+        write_deploy_log("incremental", 0, skipped, cat_md5)
         return True
 
     # Upload changed/new files
@@ -182,36 +292,12 @@ def next_deploy_incremental(sftp):
     print(f"\n  Uploaded {len(to_upload)} files, skipped {skipped} unchanged")
 
     # Upload .htaccess (always refresh it)
-    htaccess_content = """# StrainScout MD — Next.js Static Export
-RewriteEngine On
-RewriteBase /
-
-# Force HTTPS
-RewriteCond %{HTTPS} off
-RewriteRule ^(.*)$ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
-
-# Enable gzip compression
-<IfModule mod_deflate.c>
-  AddOutputFilterByType DEFLATE text/html text/css application/javascript application/json
-</IfModule>
-
-# Cache static assets for 1 year, JSON for 1 day
-<IfModule mod_expires.c>
-  ExpiresActive On
-  ExpiresByType text/css "access plus 1 year"
-  ExpiresByType application/javascript "access plus 1 year"
-  ExpiresByType image/webp "access plus 1 year"
-  ExpiresByType application/json "access plus 1 day"
-</IfModule>
-
-# Custom 404 page (Next.js generates this as /404.html)
-ErrorDocument 404 /404.html
-"""
     with sftp.open("./.htaccess", "w") as f:
-        f.write(htaccess_content)
+        f.write(HTACCESS_NEXT)
     print("    PUT: .htaccess")
 
     save_manifest(new_manifest)
+    write_deploy_log("incremental", len(to_upload), skipped, cat_md5)
     print(f"  Manifest saved: {MANIFEST_FILE.name}")
     return True
 
@@ -268,39 +354,11 @@ def full_deploy(sftp):
     print(f"  Uploaded {count} files")
 
     # Upload .htaccess for SPA routing
-    htaccess_content = """# StrainScout MD — SPA Routing
-RewriteEngine On
-RewriteBase /
-
-# Force HTTPS
-RewriteCond %{HTTPS} off
-RewriteRule ^(.*)$ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
-
-# If file or directory exists, serve it directly
-RewriteCond %{REQUEST_FILENAME} !-f
-RewriteCond %{REQUEST_FILENAME} !-d
-
-# Otherwise, serve index.html (SPA client-side routing)
-RewriteRule ^(.*)$ /index.html [L]
-
-# Enable gzip compression
-<IfModule mod_deflate.c>
-  AddOutputFilterByType DEFLATE text/html text/css application/javascript application/json
-</IfModule>
-
-# Cache static assets for 1 year
-<IfModule mod_expires.c>
-  ExpiresActive On
-  ExpiresByType text/css "access plus 1 year"
-  ExpiresByType application/javascript "access plus 1 year"
-  ExpiresByType image/webp "access plus 1 year"
-  ExpiresByType application/json "access plus 1 day"
-</IfModule>
-"""
     with sftp.open("./.htaccess", "w") as f:
-        f.write(htaccess_content)
+        f.write(HTACCESS_SPA)
     print("    PUT: .htaccess (SPA routing)")
 
+    write_deploy_log("full_spa", count, 0, catalog_hash())
     return True
 
 
@@ -319,35 +377,11 @@ def next_deploy(sftp):
     count = upload_recursive(sftp, NEXT_OUT, ".")
     print(f"  Uploaded {count} files")
 
-    htaccess_content = """# StrainScout MD — Next.js Static Export
-RewriteEngine On
-RewriteBase /
-
-# Force HTTPS
-RewriteCond %{HTTPS} off
-RewriteRule ^(.*)$ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
-
-# Enable gzip compression
-<IfModule mod_deflate.c>
-  AddOutputFilterByType DEFLATE text/html text/css application/javascript application/json
-</IfModule>
-
-# Cache static assets for 1 year, JSON for 1 day
-<IfModule mod_expires.c>
-  ExpiresActive On
-  ExpiresByType text/css "access plus 1 year"
-  ExpiresByType application/javascript "access plus 1 year"
-  ExpiresByType image/webp "access plus 1 year"
-  ExpiresByType application/json "access plus 1 day"
-</IfModule>
-
-# Custom 404 page (Next.js generates this as /404.html)
-ErrorDocument 404 /404.html
-"""
     with sftp.open("./.htaccess", "w") as f:
-        f.write(htaccess_content)
+        f.write(HTACCESS_NEXT)
     print("    PUT: .htaccess (Next.js static routing)")
 
+    write_deploy_log("next_full", count, 0, catalog_hash())
     return True
 
 

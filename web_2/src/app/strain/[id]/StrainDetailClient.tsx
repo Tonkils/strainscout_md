@@ -2,7 +2,7 @@
 
 import { useMemo, useState, useEffect } from "react";
 import Link from "next/link";
-import { trackStrainViewed, trackOutboundLinkClicked, trackDispensaryClicked } from "@/lib/analytics";
+import { trackStrainViewed } from "@/lib/analytics";
 import {
   ArrowLeft, MapPin, Beaker, Store, Loader2, ShieldCheck,
   Tag, ExternalLink, Dna, Sparkles, Cherry, ChevronDown, Bell,
@@ -57,8 +57,8 @@ export default function StrainDetailClient({ id }: { id: string }) {
 
   if (loading) {
     return (
-      <div className="flex items-center justify-center py-32">
-        <Loader2 className="w-8 h-8 text-primary animate-spin" />
+      <div role="status" className="flex items-center justify-center py-32">
+        <Loader2 aria-hidden="true" className="w-8 h-8 text-primary animate-spin" />
         <span className="ml-3 text-muted-foreground">Loading strain data...</span>
       </div>
     );
@@ -412,7 +412,7 @@ export default function StrainDetailClient({ id }: { id: string }) {
                     value={alertEmail}
                     onChange={(e) => setAlertEmail(e.target.value)}
                     required
-                    className="flex-1 bg-background border border-border/50 rounded-lg px-3 py-2 text-sm text-foreground placeholder:text-muted-foreground focus:outline-none focus:border-cta/50"
+                    className="flex-1 bg-background border border-border/50 rounded-lg px-3 py-2 text-sm text-foreground placeholder:text-muted-foreground focus:outline-none focus-visible:ring-2 focus-visible:ring-primary/50 focus:border-cta/50"
                   />
                   <button
                     type="submit"

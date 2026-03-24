@@ -195,11 +195,7 @@ export function useCatalog() {
   const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
-    if (catalogCache) {
-      setCatalog(catalogCache);
-      setLoading(false);
-      return;
-    }
+    if (catalogCache) return;
     fetchCatalog()
       .then((data) => {
         setCatalog(data);
@@ -223,26 +219,27 @@ export function useStrains(options?: {
   limit?: number;
 }) {
   const { catalog, loading, error } = useCatalog();
+  const { brand, type, search, dispensary, sortBy: sortByOpt, limit } = options ?? {};
 
   const strains = useMemo(() => {
     if (!catalog) return [];
     let result = [...catalog.strains];
 
-    if (options?.brand) {
-      result = result.filter((s) => s.brand.toLowerCase() === options.brand!.toLowerCase());
+    if (brand) {
+      result = result.filter((s) => s.brand.toLowerCase() === brand.toLowerCase());
     }
-    if (options?.type) {
-      result = result.filter((s) => s.type.toLowerCase() === options.type!.toLowerCase());
+    if (type) {
+      result = result.filter((s) => s.type.toLowerCase() === type.toLowerCase());
     }
-    if (options?.dispensary) {
+    if (dispensary) {
       result = result.filter(
         (s) =>
-          s.dispensaries.some((d) => d.toLowerCase() === options.dispensary!.toLowerCase()) ||
-          s.prices.some((p) => p.dispensary.toLowerCase() === options.dispensary!.toLowerCase())
+          s.dispensaries.some((d) => d.toLowerCase() === dispensary.toLowerCase()) ||
+          s.prices.some((p) => p.dispensary.toLowerCase() === dispensary.toLowerCase())
       );
     }
-    if (options?.search) {
-      const q = options.search.toLowerCase();
+    if (search) {
+      const q = search.toLowerCase();
       result = result.filter(
         (s) =>
           s.name.toLowerCase().includes(q) ||
@@ -255,7 +252,7 @@ export function useStrains(options?: {
       );
     }
 
-    switch (options?.sortBy) {
+    switch (sortByOpt) {
       case "price_asc":
         result.sort((a, b) => (a.price_avg ?? 999) - (b.price_avg ?? 999));
         break;
@@ -281,12 +278,12 @@ export function useStrains(options?: {
         result.sort((a, b) => (b.dispensary_count ?? 0) - (a.dispensary_count ?? 0));
     }
 
-    if (options?.limit) {
-      result = result.slice(0, options.limit);
+    if (limit) {
+      result = result.slice(0, limit);
     }
 
     return result;
-  }, [catalog, options?.brand, options?.type, options?.search, options?.dispensary, options?.sortBy, options?.limit]);
+  }, [catalog, brand, type, search, dispensary, sortByOpt, limit]);
 
   return { strains, loading, error, total: catalog?.strains.length ?? 0 };
 }

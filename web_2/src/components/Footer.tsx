@@ -49,7 +49,7 @@ export default function Footer() {
                       value={email}
                       onChange={(e) => setEmail(e.target.value)}
                       disabled={status === "submitting"}
-                      className="flex-1 bg-background/80 border border-border/50 rounded-lg px-4 py-3 text-sm text-foreground placeholder:text-muted-foreground focus:outline-none focus:border-cta/50 transition-all disabled:opacity-50"
+                      className="flex-1 bg-background/80 border border-border/50 rounded-lg px-4 py-3 text-sm text-foreground placeholder:text-muted-foreground focus:outline-none focus-visible:ring-2 focus-visible:ring-primary/50 focus:border-cta/50 transition-all disabled:opacity-50"
                     />
                     <button
                       type="submit"
@@ -57,7 +57,7 @@ export default function Footer() {
                       className="px-6 py-3 bg-cta text-cta-foreground font-semibold text-sm rounded-lg hover:bg-cta-hover active:opacity-90 transition-all shadow-cta disabled:opacity-50 flex items-center justify-center gap-2 shrink-0"
                     >
                       {status === "submitting" ? (
-                        <Loader2 className="w-4 h-4 animate-spin" />
+                        <Loader2 aria-hidden="true" className="w-4 h-4 animate-spin" />
                       ) : (
                         <>Get Free Alerts<ArrowRight className="w-4 h-4" /></>
                       )}

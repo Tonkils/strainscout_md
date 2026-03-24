@@ -1,3 +1,6 @@
+/* eslint-disable react-hooks/refs */
+// usePersistFn uses the stable-ref pattern which accesses .current during render by design.
+// The React Compiler lint rule is disabled here intentionally.
 import { useRef } from "react";
 
 type noop = (...args: unknown[]) => unknown;
@@ -10,10 +13,8 @@ export function usePersistFn<T extends noop>(fn: T) {
   fnRef.current = fn;
 
   const persistFn = useRef<T | null>(null);
-  if (!persistFn.current) {
-    persistFn.current = function (this: unknown, ...args: unknown[]) {
-      return fnRef.current!.apply(this, args);
-    } as T;
+  if (persistFn.current == null) {
+    persistFn.current = ((...args: unknown[]) => fnRef.current!(...args)) as T;
   }
 
   return persistFn.current!;

@@ -18,6 +18,7 @@ export default function Navbar() {
   const [mobileOpen, setMobileOpen] = useState(false);
   const menuRef = useRef<HTMLDivElement>(null);
 
+  // eslint-disable-next-line react-hooks/set-state-in-effect
   useEffect(() => { setMobileOpen(false); }, [pathname]);
 
   useEffect(() => {

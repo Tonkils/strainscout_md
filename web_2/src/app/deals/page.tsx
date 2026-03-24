@@ -190,7 +190,7 @@ export default function DealsPage() {
                 placeholder="Search strain, brand, or dispensary..."
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
-                className="w-full pl-10 pr-8 py-2.5 bg-card border border-border/50 rounded-lg text-sm text-foreground placeholder:text-muted-foreground focus:outline-none focus:border-primary/50"
+                className="w-full pl-10 pr-8 py-2.5 bg-card border border-border/50 rounded-lg text-sm text-foreground placeholder:text-muted-foreground focus:outline-none focus-visible:ring-2 focus-visible:ring-primary/50 focus:border-primary/50"
               />
               {searchQuery && (
                 <button onClick={() => setSearchQuery("")} className="absolute right-3 top-1/2 -translate-y-1/2">
@@ -220,7 +220,7 @@ export default function DealsPage() {
                 <select
                   value={sortBy}
                   onChange={(e) => setSortBy(e.target.value as SortKey)}
-                  className="bg-card border border-border/50 rounded-lg px-3 py-1.5 text-xs text-foreground focus:outline-none focus:border-primary/50"
+                  className="bg-card border border-border/50 rounded-lg px-3 py-1.5 text-xs text-foreground focus:outline-none focus-visible:ring-2 focus-visible:ring-primary/50 focus:border-primary/50"
                 >
                   <option value="savings_pct">Biggest % Off</option>
                   <option value="savings_abs">Most $ Saved</option>
@@ -235,8 +235,8 @@ export default function DealsPage() {
       {/* Grid */}
       <section className="container py-8 sm:py-12">
         {loading ? (
-          <div className="flex items-center justify-center py-20">
-            <Loader2 className="w-8 h-8 text-primary animate-spin" />
+          <div role="status" className="flex items-center justify-center py-20">
+            <Loader2 aria-hidden="true" className="w-8 h-8 text-primary animate-spin" />
             <span className="ml-3 text-muted-foreground">Loading deals...</span>
           </div>
         ) : displayDeals.length > 0 ? (

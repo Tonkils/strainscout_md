@@ -77,7 +77,7 @@ export default function DealDigestBanner({ totalStrains, totalDispensaries }: De
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
                     disabled={status === "submitting"}
-                    className="w-full bg-background/80 border border-border/50 rounded-lg px-4 py-3.5 text-sm text-foreground placeholder:text-muted-foreground focus:outline-none focus:border-cta/50 transition-all disabled:opacity-50"
+                    className="w-full bg-background/80 border border-border/50 rounded-lg px-4 py-3.5 text-sm text-foreground placeholder:text-muted-foreground focus:outline-none focus-visible:ring-2 focus-visible:ring-primary/50 focus:border-cta/50 transition-all disabled:opacity-50"
                   />
                   <button
                     type="submit"
@@ -85,7 +85,7 @@ export default function DealDigestBanner({ totalStrains, totalDispensaries }: De
                     className="w-full px-5 py-3.5 bg-cta text-cta-foreground font-bold text-sm rounded-lg hover:bg-cta-hover transition-all shadow-cta-lg disabled:opacity-50 flex items-center justify-center gap-2"
                   >
                     {status === "submitting" ? (
-                      <Loader2 className="w-4 h-4 animate-spin" />
+                      <Loader2 aria-hidden="true" className="w-4 h-4 animate-spin" />
                     ) : (
                       <><Mail className="w-4 h-4" />Get Free Weekly Deals</>
                     )}

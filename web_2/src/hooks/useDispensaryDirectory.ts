@@ -55,11 +55,7 @@ export function useDispensaryDirectory() {
   const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
-    if (directoryCache) {
-      setDispensaries(directoryCache);
-      setLoading(false);
-      return;
-    }
+    if (directoryCache) return;
     fetchDirectory()
       .then((data) => { setDispensaries(data); setLoading(false); })
       .catch((err) => { setError(err.message); setLoading(false); });

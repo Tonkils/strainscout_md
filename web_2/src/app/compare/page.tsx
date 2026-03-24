@@ -27,27 +27,23 @@ const QUICK_FILTERS = [
 function ComparePageInner() {
   const { catalog, loading } = useCatalog();
   const searchParams = useSearchParams();
-  const [searchQuery, setSearchQuery] = useState("");
+  const [searchQuery, setSearchQuery] = useState(() => searchParams.get("q") ?? "");
   const [typeFilter, setTypeFilter] = useState("All");
-  const [categoryFilter, setCategoryFilter] = useState<ProductCategory | "">("");
-  const [sortBy, setSortBy] = useState<SortKey>("price");
+  const [categoryFilter, setCategoryFilter] = useState<ProductCategory | "">(() => {
+    const cat = searchParams.get("category");
+    return cat ? cat as ProductCategory : "";
+  });
+  const [sortBy, setSortBy] = useState<SortKey>(() => {
+    const sort = searchParams.get("sort");
+    return (sort === "dispensaries" || sort === "name" || sort === "thc" || sort === "price" || sort === "brand")
+      ? sort as SortKey : "price";
+  });
   const [sortDir, setSortDir] = useState<"asc" | "desc">("asc");
   const [quickFilter, setQuickFilter] = useState("");
   const [dispensaryFilter, setDispensaryFilter] = useState("");
 
   // Analytics: track page view on mount
   useEffect(() => { trackPageViewed("compare"); }, []);
-
-  useEffect(() => {
-    const q = searchParams.get("q");
-    if (q) setSearchQuery(q);
-    const sort = searchParams.get("sort");
-    if (sort === "dispensaries" || sort === "name" || sort === "thc" || sort === "price" || sort === "brand") {
-      setSortBy(sort as SortKey);
-    }
-    const cat = searchParams.get("category");
-    if (cat) setCategoryFilter(cat as ProductCategory);
-  }, [searchParams]);
 
   const [compareList, setCompareList] = useState<CatalogStrain[]>([]);
   const [showComparePanel, setShowComparePanel] = useState(false);
@@ -140,7 +136,7 @@ function ComparePageInner() {
           {(["Flower", "Pre-Roll", "Vape", "Edible", "Concentrate"] as ProductCategory[]).map((cat) => (
             <button
               key={cat}
-              onClick={() => { setCategoryFilter(categoryFilter === cat ? "" : cat); setPage(1); }}
+              onClick={() => { const next = categoryFilter === cat ? "" : cat; setCategoryFilter(next); setPage(1); trackFilterApplied("category", next || "all", "compare"); }}
               className={`px-3 py-1.5 rounded-full text-xs font-medium border transition-all ${
                 categoryFilter === cat
                   ? "bg-primary text-primary-foreground border-primary"
@@ -157,7 +153,7 @@ function ComparePageInner() {
           {QUICK_FILTERS.map((qf) => (
             <button
               key={qf.id}
-              onClick={() => { setQuickFilter(quickFilter === qf.id ? "" : qf.id); setPage(1); }}
+              onClick={() => { const next = quickFilter === qf.id ? "" : qf.id; setQuickFilter(next); setPage(1); trackFilterApplied("quick_filter", next || "all", "compare"); }}
               className={`px-3 py-1.5 rounded-full text-xs font-medium border transition-all ${
                 quickFilter === qf.id
                   ? "bg-primary text-primary-foreground border-primary"
@@ -175,7 +171,7 @@ function ComparePageInner() {
             <select
               value={dispensaryFilter}
               onChange={(e) => { setDispensaryFilter(e.target.value); setPage(1); }}
-              className={`appearance-none pl-8 pr-7 py-1.5 rounded-full text-xs font-medium border transition-all bg-card cursor-pointer focus:outline-none ${
+              className={`appearance-none pl-8 pr-7 py-1.5 rounded-full text-xs font-medium border transition-all bg-card cursor-pointer focus:outline-none focus-visible:ring-2 focus-visible:ring-primary/50 ${
                 dispensaryFilter
                   ? "border-primary text-primary"
                   : "border-border/50 text-muted-foreground hover:border-primary/40"
@@ -208,7 +204,7 @@ function ComparePageInner() {
                 placeholder="Search strain, brand, terpene..."
                 value={searchQuery}
                 onChange={(e) => { setSearchQuery(e.target.value); setPage(1); }}
-                className="flex-1 bg-transparent px-3 py-2.5 text-sm text-foreground placeholder:text-muted-foreground focus:outline-none"
+                className="flex-1 bg-transparent px-3 py-2.5 text-sm text-foreground placeholder:text-muted-foreground focus:outline-none focus-visible:ring-2 focus-visible:ring-primary/50"
               />
               {searchQuery && (
                 <button onClick={() => setSearchQuery("")} className="mr-2 text-muted-foreground hover:text-foreground">
@@ -237,8 +233,8 @@ function ComparePageInner() {
         </div>
 
         {loading ? (
-          <div className="flex items-center justify-center py-20">
-            <Loader2 className="w-8 h-8 text-primary animate-spin" />
+          <div role="status" className="flex items-center justify-center py-20">
+            <Loader2 aria-hidden="true" className="w-8 h-8 text-primary animate-spin" />
             <span className="ml-3 text-muted-foreground">Loading catalog...</span>
           </div>
         ) : (
@@ -422,8 +418,8 @@ function ComparePageInner() {
 export default function ComparePage() {
   return (
     <Suspense fallback={
-      <div className="flex items-center justify-center py-32">
-        <Loader2 className="w-8 h-8 text-primary animate-spin" />
+      <div role="status" className="flex items-center justify-center py-32">
+        <Loader2 aria-hidden="true" className="w-8 h-8 text-primary animate-spin" />
         <span className="ml-3 text-muted-foreground">Loading...</span>
       </div>
     }>

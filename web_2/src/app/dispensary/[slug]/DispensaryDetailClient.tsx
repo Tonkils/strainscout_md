@@ -59,7 +59,7 @@ function DispensaryStrainList({ strains, dispensaryName }: { strains: CatalogStr
             placeholder="Search strains..."
             value={search}
             onChange={(e) => { setSearch(e.target.value); setDisplayCount(30); }}
-            className="flex-1 bg-transparent px-3 py-2 text-sm text-foreground placeholder:text-muted-foreground focus:outline-none"
+            className="flex-1 bg-transparent px-3 py-2 text-sm text-foreground placeholder:text-muted-foreground focus:outline-none focus-visible:ring-2 focus-visible:ring-primary/50"
           />
           {search && (
             <button onClick={() => setSearch("")} className="mr-2 text-muted-foreground hover:text-foreground">
@@ -252,8 +252,8 @@ export default function DispensaryDetailClient({ slug }: { slug: string }) {
 
   if (loading) {
     return (
-      <div className="flex items-center justify-center py-32">
-        <Loader2 className="w-8 h-8 text-primary animate-spin" />
+      <div role="status" className="flex items-center justify-center py-32">
+        <Loader2 aria-hidden="true" className="w-8 h-8 text-primary animate-spin" />
         <span className="ml-3 text-muted-foreground">Loading dispensary...</span>
       </div>
     );

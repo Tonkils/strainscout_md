@@ -4,8 +4,8 @@ import { useState, useMemo, useRef, useCallback, useEffect } from "react";
 import Link from "next/link";
 import { useSearchParams } from "next/navigation";
 import {
-  Search, MapPin, Phone, Globe, Star, Navigation, ExternalLink,
-  ChevronDown, X, Loader2, Leaf, ArrowUpDown, Crosshair, Clock, Car,
+  Search, MapPin, Phone, Globe, Star, Navigation,
+  ChevronDown, X, Loader2, Leaf, Crosshair, Car,
 } from "lucide-react";
 import { GoogleMapView } from "@/components/GoogleMap";
 import { useCatalog, type CatalogStrain } from "@/hooks/useCatalog";
@@ -38,7 +38,6 @@ export default function MapPageClient() {
   const [userLocation, setUserLocation] = useState<{ lat: number; lng: number } | null>(null);
   const [locatingUser, setLocatingUser] = useState(false);
   const [selectedDispensary, setSelectedDispensary] = useState<DirectoryDispensary | null>(null);
-  const [hoveredDispensary, setHoveredDispensary] = useState<string | null>(null);
   const [autoLocateAttempted, setAutoLocateAttempted] = useState(false);
   const [zipCode, setZipCode] = useState("");
   const [zipError, setZipError] = useState("");
@@ -51,7 +50,7 @@ export default function MapPageClient() {
   const userMarkerRef = useRef<google.maps.marker.AdvancedMarkerElement | null>(null);
 
   const loading = catalogLoading || dirLoading;
-  const strains = catalog?.strains || [];
+  const strains = useMemo(() => catalog?.strains ?? [], [catalog]);
 
   const strainsWithDisps = useMemo(() =>
     strains.filter(s => (s.dispensary_count ?? 0) > 0)
@@ -174,6 +173,7 @@ export default function MapPageClient() {
     const locateParam = searchParams.get("locate");
     if (strainParam) {
       const match = catalog.strains.find(s => s.id === strainParam);
+      // eslint-disable-next-line react-hooks/set-state-in-effect
       if (match) setSelectedStrain(match);
     }
     if (locateParam === "true") requestLocation(false);
@@ -182,6 +182,7 @@ export default function MapPageClient() {
   // Auto-detect location
   useEffect(() => {
     if (autoLocateAttempted || loading) return;
+    // eslint-disable-next-line react-hooks/set-state-in-effect
     setAutoLocateAttempted(true);
     navigator.permissions?.query({ name: "geolocation" }).then(result => {
       if (result.state === "granted") requestLocation(true);
@@ -222,8 +223,8 @@ export default function MapPageClient() {
       ${dt ? `<p style="margin:0 0 6px;font-size:12px;color:#f59e0b;font-weight:600;">🚗 ${dt.driveTime} (${dt.driveDistance})</p>` : ""}
       ${price !== null ? `<p style="margin:0 0 8px;font-size:16px;font-weight:700;color:#10b981;font-family:'JetBrains Mono',monospace;">$${price} <span style="font-size:11px;font-weight:400;color:#555;">for ${selectedStrain?.name}</span></p>` : ""}
       <div style="display:flex;gap:6px;flex-wrap:wrap;">
-        <a href="https://www.google.com/maps/dir/?api=1&destination=${encodeURIComponent(d.full_address)}" target="_blank" rel="noopener" style="padding:6px 12px;background:#10b981;color:white;border-radius:6px;font-size:12px;font-weight:600;text-decoration:none;">🧭 Directions</a>
-        ${d.website ? `<a href="${d.website}" target="_blank" rel="noopener" style="padding:6px 12px;background:#3b82f6;color:white;border-radius:6px;font-size:12px;font-weight:600;text-decoration:none;">🌐 Website</a>` : ""}
+        <a href="https://www.google.com/maps/dir/?api=1&destination=${encodeURIComponent(d.full_address)}" target="_blank" rel="noopener noreferrer" style="padding:6px 12px;background:#10b981;color:white;border-radius:6px;font-size:12px;font-weight:600;text-decoration:none;">🧭 Directions</a>
+        ${d.website ? `<a href="${d.website}" target="_blank" rel="noopener noreferrer" style="padding:6px 12px;background:#3b82f6;color:white;border-radius:6px;font-size:12px;font-weight:600;text-decoration:none;">🌐 Website</a>` : ""}
       </div>
     </div>`;
   }, [selectedStrain, getStrainPrice, driveTimesMap]);
@@ -270,8 +271,8 @@ export default function MapPageClient() {
   // ─── Render ────────────────────────────────────────────────
   if (loading) {
     return (
-      <div className="flex items-center justify-center min-h-[60vh]">
-        <Loader2 className="w-8 h-8 animate-spin text-emerald-500" />
+      <div role="status" className="flex items-center justify-center min-h-[60vh]">
+        <Loader2 aria-hidden="true" className="w-8 h-8 animate-spin text-emerald-500" />
         <span className="ml-3 text-muted-foreground">Loading dispensary map…</span>
       </div>
     );
@@ -327,7 +328,7 @@ export default function MapPageClient() {
                     placeholder="Search strains…"
                     value={strainSearchQuery}
                     onChange={e => setStrainSearchQuery(e.target.value)}
-                    className="w-full px-3 py-1.5 text-sm bg-muted/50 border border-border rounded focus:outline-none"
+                    className="w-full px-3 py-1.5 text-sm bg-muted/50 border border-border rounded focus:outline-none focus-visible:ring-1 focus-visible:ring-emerald-500"
                   />
                 </div>
                 <div className="max-h-52 overflow-y-auto">
@@ -353,13 +354,13 @@ export default function MapPageClient() {
               disabled={locatingUser}
               className="flex items-center gap-1.5 px-3 py-1.5 text-xs font-medium bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 rounded-lg hover:bg-emerald-500/20 transition-colors disabled:opacity-50"
             >
-              {locatingUser ? <Loader2 className="w-3.5 h-3.5 animate-spin" /> : <Crosshair className="w-3.5 h-3.5" />}
+              {locatingUser ? <Loader2 aria-hidden="true" className="w-3.5 h-3.5 animate-spin" /> : <Crosshair className="w-3.5 h-3.5" />}
               {locatingUser ? "Locating…" : userLocation ? "Re-locate" : "Use my location"}
             </button>
             <select
               value={sortMode}
               onChange={e => { setSortMode(e.target.value as SortMode); if (e.target.value === "distance" && !userLocation) requestLocation(); }}
-              className="flex-1 text-xs bg-muted/50 border border-border rounded-lg px-2 py-1.5 focus:outline-none"
+              className="flex-1 text-xs bg-muted/50 border border-border rounded-lg px-2 py-1.5 focus:outline-none focus-visible:ring-1 focus-visible:ring-emerald-500"
             >
               <option value="strains">Most strains</option>
               <option value="distance">Nearest first</option>
@@ -379,14 +380,14 @@ export default function MapPageClient() {
                 onChange={e => setZipCode(e.target.value)}
                 onKeyDown={e => e.key === "Enter" && geocodeZip(zipCode)}
                 maxLength={5}
-                className="flex-1 px-3 py-1.5 text-sm bg-muted/50 border border-border rounded-lg focus:outline-none"
+                className="flex-1 px-3 py-1.5 text-sm bg-muted/50 border border-border rounded-lg focus:outline-none focus-visible:ring-1 focus-visible:ring-emerald-500"
               />
               <button
                 onClick={() => geocodeZip(zipCode)}
                 disabled={zipLocating}
                 className="px-3 py-1.5 text-sm bg-emerald-500 text-white rounded-lg hover:bg-emerald-600 disabled:opacity-50"
               >
-                {zipLocating ? <Loader2 className="w-4 h-4 animate-spin" /> : "Go"}
+                {zipLocating ? <Loader2 aria-hidden="true" className="w-4 h-4 animate-spin" /> : "Go"}
               </button>
             </div>
           )}
@@ -406,8 +407,6 @@ export default function MapPageClient() {
                 key={d.id}
                 id={`disp-card-${d.id}`}
                 onClick={() => handleCardClick(d)}
-                onMouseEnter={() => setHoveredDispensary(d.name)}
-                onMouseLeave={() => setHoveredDispensary(null)}
                 className={`p-3 border-b border-border cursor-pointer transition-colors ${
                   isSelected ? "bg-emerald-500/10 border-l-2 border-l-emerald-500" : "hover:bg-muted/50"
                 }`}

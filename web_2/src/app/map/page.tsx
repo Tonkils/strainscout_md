@@ -12,8 +12,8 @@ export const metadata: Metadata = {
 export default function MapPage() {
   return (
     <Suspense fallback={
-      <div className="flex items-center justify-center min-h-[60vh]">
-        <Loader2 className="w-8 h-8 animate-spin text-emerald-500" />
+      <div role="status" className="flex items-center justify-center min-h-[60vh]">
+        <Loader2 aria-hidden="true" className="w-8 h-8 animate-spin text-emerald-500" />
         <span className="ml-3 text-muted-foreground">Loading map…</span>
       </div>
     }>

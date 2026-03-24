@@ -86,7 +86,7 @@ export default function CompareInlineCTA({ activeFilter, totalResults }: Compare
                     placeholder="your@email.com"
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
-                    className="w-full sm:w-56 bg-card border border-border/50 rounded-lg px-4 py-2.5 text-sm text-foreground placeholder:text-muted-foreground focus:outline-none focus:border-cta/50 transition-all"
+                    className="w-full sm:w-56 bg-card border border-border/50 rounded-lg px-4 py-2.5 text-sm text-foreground placeholder:text-muted-foreground focus:outline-none focus-visible:ring-2 focus-visible:ring-primary/50 focus:border-cta/50 transition-all"
                   />
                   {errorMsg && <p className="absolute -bottom-5 left-0 text-[10px] text-red-400">{errorMsg}</p>}
                 </div>
@@ -95,7 +95,7 @@ export default function CompareInlineCTA({ activeFilter, totalResults }: Compare
                   disabled={status === "submitting"}
                   className="px-5 py-2.5 bg-cta text-cta-foreground rounded-lg text-sm font-semibold hover:bg-cta-hover transition-colors shadow-cta disabled:opacity-60 flex items-center justify-center gap-2 shrink-0"
                 >
-                  {status === "submitting" ? <Loader2 className="w-4 h-4 animate-spin" /> : "Get Alerts"}
+                  {status === "submitting" ? <Loader2 aria-hidden="true" className="w-4 h-4 animate-spin" /> : "Get Alerts"}
                 </button>
               </form>
             </div>

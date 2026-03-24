@@ -137,13 +137,13 @@ export default function DispensaryDirectoryPage() {
                 placeholder="Search dispensary name, city, or brand..."
                 value={search}
                 onChange={(e) => setSearch(e.target.value)}
-                className="flex-1 bg-transparent px-3 py-2.5 text-sm text-foreground placeholder:text-muted-foreground focus:outline-none"
+                className="flex-1 bg-transparent px-3 py-2.5 text-sm text-foreground placeholder:text-muted-foreground focus:outline-none focus-visible:ring-2 focus-visible:ring-primary/50"
               />
             </div>
             <select
               value={cityFilter}
               onChange={(e) => setCityFilter(e.target.value)}
-              className="bg-card border border-border/50 rounded-lg px-3 py-2.5 text-sm text-foreground focus:outline-none focus:border-primary/50 min-w-[160px]"
+              className="bg-card border border-border/50 rounded-lg px-3 py-2.5 text-sm text-foreground focus:outline-none focus-visible:ring-2 focus-visible:ring-primary/50 focus:border-primary/50 min-w-[160px]"
             >
               <option value="">All Cities</option>
               {cities.map((city) => <option key={city} value={city}>{city}</option>)}
@@ -180,8 +180,8 @@ export default function DispensaryDirectoryPage() {
         </p>
 
         {loading ? (
-          <div className="flex items-center justify-center py-20">
-            <Loader2 className="w-8 h-8 text-primary animate-spin" />
+          <div role="status" className="flex items-center justify-center py-20">
+            <Loader2 aria-hidden="true" className="w-8 h-8 text-primary animate-spin" />
             <span className="ml-3 text-muted-foreground">Loading dispensaries...</span>
           </div>
         ) : error ? (

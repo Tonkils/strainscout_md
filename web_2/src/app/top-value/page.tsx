@@ -79,8 +79,8 @@ export default function TopValuePage() {
       </section>
 
       {loading ? (
-        <div className="flex items-center justify-center py-20">
-          <Loader2 className="w-8 h-8 text-primary animate-spin" />
+        <div role="status" className="flex items-center justify-center py-20">
+          <Loader2 aria-hidden="true" className="w-8 h-8 text-primary animate-spin" />
           <span className="ml-3 text-muted-foreground">Loading catalog...</span>
         </div>
       ) : (

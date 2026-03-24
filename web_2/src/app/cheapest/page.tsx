@@ -162,7 +162,7 @@ export default function CheapestPage() {
             <h1 className="font-serif text-2xl sm:text-3xl md:text-4xl text-foreground">Cheapest by Category</h1>
           </div>
           <p className="text-sm sm:text-base text-muted-foreground">
-            Lowest prices in Maryland, sorted by product type — so you always know what you're comparing.
+            Lowest prices in Maryland, sorted by product type — so you always know what you&apos;re comparing.
           </p>
         </div>
       </section>
@@ -199,8 +199,8 @@ export default function CheapestPage() {
       {/* Content */}
       <div className="container py-6">
         {loading ? (
-          <div className="flex items-center justify-center py-24">
-            <Loader2 className="w-8 h-8 text-primary animate-spin" />
+          <div role="status" className="flex items-center justify-center py-24">
+            <Loader2 aria-hidden="true" className="w-8 h-8 text-primary animate-spin" />
             <span className="ml-3 text-muted-foreground">Loading catalog...</span>
           </div>
         ) : activeCategory === "All" ? (

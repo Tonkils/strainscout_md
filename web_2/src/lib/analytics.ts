@@ -1,31 +1,15 @@
 /**
  * StrainScout MD — PostHog Analytics (Next.js edition)
- * Mirrors web/client/src/lib/analytics.ts with NEXT_PUBLIC_ env vars
+ *
+ * PostHog is initialized exclusively by PostHogProvider (components/PostHogProvider.tsx).
+ * This module only fires capture() calls — no init here to prevent double-initialization.
  */
 import posthog from "posthog-js";
-
-let initialized = false;
-
-/** Initialize PostHog — called by PostHogProvider */
-export function initAnalytics() {
-  const key = process.env.NEXT_PUBLIC_POSTHOG_KEY;
-  const host = process.env.NEXT_PUBLIC_POSTHOG_HOST || "https://us.i.posthog.com";
-  if (initialized || !key) return;
-  posthog.init(key, {
-    api_host: host,
-    capture_pageview: false, // PostHogProvider fires $pageview manually
-    capture_pageleave: true,
-    autocapture: false,
-    persistence: "localStorage+cookie",
-  });
-  initialized = true;
-}
 
 // ─── Helpers ──────────────────────────────────────────────
 function track(event: string, properties?: Record<string, unknown>) {
   if (typeof window === "undefined") return;
-  const key = process.env.NEXT_PUBLIC_POSTHOG_KEY;
-  if (!key) return;
+  if (!process.env.NEXT_PUBLIC_POSTHOG_KEY) return;
   posthog.capture(event, properties);
 }
 
