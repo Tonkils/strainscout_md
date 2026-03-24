@@ -21,7 +21,7 @@ set -euo pipefail
 
 REPO_ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 WEB2="$REPO_ROOT/web_2"
-PYTHON="${PYTHON:-python}"
+PYTHON="${PYTHON:-python3}"
 
 SKIP_VALIDATE=0
 SKIP_BUILD=0

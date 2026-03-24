@@ -10,7 +10,18 @@
       "Bash(node ./node_modules/.bin/tsc --noEmit)",
       "Bash(node \"node_modules/typescript/bin/tsc\" --noEmit)",
       "Bash(node \"node_modules/eslint/bin/eslint.js\" src --ext .ts,.tsx --max-warnings 0)",
-      "Bash(node \"node_modules/next/dist/bin/next\" build)"
+      "Bash(node \"node_modules/next/dist/bin/next\" build)",
+      "Bash(bash deploy.sh)",
+      "Bash(where npx:*)",
+      "Bash(where python:*)",
+      "Bash(where python3:*)",
+      "Bash(cmd /c \"where node & where npm & where npx\")",
+      "Bash(python3 -m pip install paramiko python-dotenv)",
+      "Bash(python3 -m publish.upload_ionos --next-incremental)",
+      "Bash(npm install:*)"
+    ],
+    "additionalDirectories": [
+      "c:\\Users\\jaretwyatt\\.claude\\projects\\c--Users-jaretwyatt--local-bin-strainscoutmd-strainscout-md\\memory"
     ]
   }
 }

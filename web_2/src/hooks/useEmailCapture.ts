@@ -1,12 +1,7 @@
 "use client";
 
-/**
- * useEmailCapture — localStorage-only version for static export.
- * Stores signups in localStorage. No backend required.
- * Same interface as the web/ version so all components work unchanged.
- */
-
 import { useState, useCallback, useEffect } from "react";
+import { supabase } from "@/lib/supabase";
 
 const STORAGE_KEY = "strainscout_email_signups";
 const DISMISSED_KEY = "strainscout_email_dismissed";
@@ -95,9 +90,17 @@ export function useEmailCapture(source: EmailSource) {
         return false;
       }
       setStatus("submitting");
-      await new Promise((r) => setTimeout(r, 400));
+      const normalized = email.trim().toLowerCase();
+      try {
+        await supabase.from("email_signups").insert({
+          email: normalized,
+          source,
+          strain_id: opts?.strainId ?? null,
+          strain_name: opts?.strainName ?? null,
+        });
+      } catch { /* network failure — still save locally */ }
       storeSignupLocally({
-        email: email.trim().toLowerCase(),
+        email: normalized,
         source,
         strainId: opts?.strainId,
         strainName: opts?.strainName,
