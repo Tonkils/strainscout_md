@@ -1,0 +1,41 @@
+▲ Next.js 16.2.1 (Turbopack)
+- Environments: .env.local
+
+  Creating an optimized production build ...
+✓ Compiled successfully in 6.5s
+  Running TypeScript ...
+  Finished TypeScript in 8.3s ...
+  Collecting page data using 11 workers ...
+  Generating static pages using 11 workers (0/1409) ...
+  Generating static pages using 11 workers (352/1409) 
+  Generating static pages using 11 workers (704/1409) 
+  Generating static pages using 11 workers (1056/1409) 
+✓ Generating static pages using 11 workers (1409/1409) in 10.6s
+  Finalizing page optimization ...
+
+Route (app)
+┌ ○ /
+├ ○ /_not-found
+├ ○ /alerts
+├ ○ /cheapest
+├ ○ /compare
+├ ○ /deals
+├ ○ /dispensaries
+├ ● /dispensary/[slug]
+│ ├ /dispensary/ascend-cannabis-dispensary-laurel
+│ ├ /dispensary/revolution-releaf-laurel
+│ ├ /dispensary/ascend-cannabis-dispensary-aberdeen
+│ └ [+97 more paths]
+├ ○ /map
+├ ○ /market
+├ ● /strain/[id]
+│ ├ /strain/hash-wax-nana-s-wedding-cake-budder
+│ ├ /strain/hash-wax-yeti-og-budder
+│ ├ /strain/110
+│ └ [+1294 more paths]
+└ ○ /top-value
+
+
+○  (Static)  prerendered as static content
+●  (SSG)     prerendered as static HTML (uses generateStaticParams)
+

@@ -1,0 +1,108 @@
+@import "tailwindcss";
+@import "tw-animate-css";
+@import "shadcn/tailwind.css";
+
+@custom-variant dark (&:is(.dark *));
+
+@theme inline {
+  --font-sans: 'Space Grotesk', system-ui, sans-serif;
+  --font-serif: 'DM Serif Display', Georgia, serif;
+  --font-mono: 'JetBrains Mono', monospace;
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+  --color-emerald-950: oklch(0.22 0.07 160);
+  --color-cta: oklch(0.80 0.18 75);
+  --color-cta-hover: oklch(0.72 0.20 70);
+  --color-cta-foreground: oklch(0.14 0.04 160);
+  --color-cta-glow: oklch(0.80 0.18 75 / 0.15);
+  --color-savings: oklch(0.72 0.19 150);
+  --color-expensive: oklch(0.63 0.22 25);
+  --color-midrange: oklch(0.80 0.15 85);
+  --animate-marquee: marquee 30s linear infinite;
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+}
+
+@keyframes marquee {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+
+:root {
+  --radius: 0.5rem;
+  --background: oklch(0.14 0.04 160);
+  --foreground: oklch(0.95 0.01 85);
+  --card: oklch(0.18 0.05 160);
+  --card-foreground: oklch(0.95 0.01 85);
+  --popover: oklch(0.18 0.05 160);
+  --popover-foreground: oklch(0.95 0.01 85);
+  --primary: oklch(0.62 0.17 155);
+  --primary-foreground: oklch(0.14 0.04 160);
+  --secondary: oklch(0.22 0.05 160);
+  --secondary-foreground: oklch(0.85 0.02 85);
+  --muted: oklch(0.20 0.04 160);
+  --muted-foreground: oklch(0.65 0.04 160);
+  --accent: oklch(0.25 0.06 160);
+  --accent-foreground: oklch(0.95 0.01 85);
+  --destructive: oklch(0.63 0.22 25);
+  --border: oklch(0.28 0.06 160);
+  --input: oklch(0.25 0.05 160);
+  --ring: oklch(0.62 0.17 155);
+}
+
+@layer base {
+  * { @apply border-border outline-ring/50; }
+  body {
+    @apply bg-background text-foreground antialiased;
+    font-family: 'Space Grotesk', system-ui, sans-serif;
+  }
+  h1, h2, h3, h4 { font-family: 'DM Serif Display', Georgia, serif; }
+  button:not(:disabled), a[href], select:not(:disabled) { @apply cursor-pointer; }
+}
+
+@layer components {
+  .container {
+    width: 100%;
+    margin-left: auto;
+    margin-right: auto;
+    padding-left: 1rem;
+    padding-right: 1rem;
+  }
+  @media (min-width: 640px) { .container { padding-left: 1.5rem; padding-right: 1.5rem; } }
+  @media (min-width: 1024px) { .container { padding-left: 2rem; padding-right: 2rem; max-width: 1400px; } }
+  .font-price { font-family: 'JetBrains Mono', monospace; font-variant-numeric: tabular-nums; }
+  .price-bar { background: linear-gradient(90deg, oklch(0.72 0.19 150), oklch(0.80 0.15 85), oklch(0.63 0.22 25)); }
+  .animate-marquee { animation: var(--animate-marquee); }
+}
+
+@layer utilities {
+  .text-savings { color: oklch(0.72 0.19 150); }
+  .text-expensive { color: oklch(0.63 0.22 25); }
+  .text-midrange { color: oklch(0.80 0.15 85); }
+  .text-cta { color: oklch(0.80 0.18 75); }
+  .bg-savings { background-color: oklch(0.72 0.19 150 / 0.15); }
+  .bg-expensive { background-color: oklch(0.63 0.22 25 / 0.15); }
+  .bg-cta { background-color: oklch(0.80 0.18 75); }
+  .bg-cta-hover { background-color: oklch(0.72 0.20 70); }
+  .bg-cta-glow { background-color: oklch(0.80 0.18 75 / 0.15); }
+  .shadow-cta { box-shadow: 0 4px 20px oklch(0.80 0.18 75 / 0.20); }
+  .shadow-cta-lg { box-shadow: 0 8px 32px oklch(0.80 0.18 75 / 0.25); }
+}
