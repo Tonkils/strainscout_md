@@ -211,18 +211,10 @@ def main():
             if not clean_name or len(clean_name) < 2:
                 continue
 
-            # ── Filter out non-flower products that leaked through ──
-            raw_lower = raw_name.lower()
-            skip_keywords = [
-                "cart", "cartridge", "disposable", "vape", "pen",
-                "live resin", "live sugar", "budder", "shatter", "wax",
-                "rso", "tincture", "topical", "edible", "gummi",
-                "all-in-one", "all in one", "cloud bar",
-                "isolate", "batter", "baller jar", "cured resin",
-                "distillate", "concentrate",
-            ]
-            if any(kw in raw_lower for kw in skip_keywords):
-                continue
+            # ── Determine product category (trust platform label over name guessing) ──
+            from scraper.category_map import normalize_category
+            raw_cat = prod.get("product_category") or prod.get("product_type") or ""
+            product_category = normalize_category(raw_cat, platform) if raw_cat else "Flower"
 
             # ── Filter out price-as-name entries ──
             if clean_name.startswith("$") or clean_name.replace(".", "").replace(",", "").isdigit():
@@ -251,7 +243,8 @@ def main():
                 "source_platform": platform,
                 "source_url": source_url,
                 "product_id": prod.get("id", ""),
-                "product_type": prod.get("product_type", "flower"),
+                "product_category": product_category,
+                "product_type": product_category,  # backwards compat
                 "scraped_at": scraped_at,
             }
             all_records.append(record)

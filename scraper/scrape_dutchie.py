@@ -122,25 +122,20 @@ def _is_dutchie_api(url: str) -> bool:
 
 
 def _parse_graphql_products(data: dict, slug: str) -> list[dict]:
-    """Extract flower products from Dutchie GraphQL response."""
+    """Extract all products from Dutchie GraphQL response, capturing authoritative category."""
     products = []
 
     def _walk(obj, depth=0):
-        """Recursively walk JSON looking for product arrays."""
+        """Recursively walk JSON looking for product objects."""
         if depth > 8:
             return
         if isinstance(obj, list):
             for item in obj:
                 _walk(item, depth + 1)
         elif isinstance(obj, dict):
-            # Check if this looks like a product
             name = obj.get("name", "")
-            if name and obj.get("type") in ("Flower", "flower", "FLOWER") or \
-               (name and obj.get("category", "").lower() in ("flower", "buds")):
-                parsed = _parse_product(obj)
-                if parsed:
-                    products.append(parsed)
-            elif name and "strainType" in obj:
+            # A product has a name AND either a type/category field or a strainType
+            if name and (obj.get("type") or obj.get("category") or "strainType" in obj):
                 parsed = _parse_product(obj)
                 if parsed:
                     products.append(parsed)
@@ -155,6 +150,8 @@ def _parse_graphql_products(data: dict, slug: str) -> list[dict]:
 
 def _parse_product(obj: dict) -> dict | None:
     """Parse a single Dutchie product object."""
+    from scraper.category_map import normalize_category
+
     name = (obj.get("name") or "").strip()
     if not name:
         return None
@@ -164,6 +161,10 @@ def _parse_product(obj: dict) -> dict | None:
         brand_name = brand.get("name", "")
     else:
         brand_name = str(brand)
+
+    # Capture authoritative category from Dutchie's type field
+    raw_category = obj.get("type", "") or obj.get("category", "") or ""
+    product_category = normalize_category(str(raw_category), "dutchie") if raw_category else "Flower"
 
     strain_type = obj.get("strainType", "") or obj.get("strain_type", "") or ""
 
@@ -209,7 +210,8 @@ def _parse_product(obj: dict) -> dict | None:
         "strain_type": strain_type.strip(),
         "thc_pct": thc.replace("%", "").strip(),
         "price_eighth": price.replace("$", "").strip(),
-        "product_type": "flower",
+        "product_category": product_category,
+        "product_type": product_category,  # backwards compat
     }
 
 

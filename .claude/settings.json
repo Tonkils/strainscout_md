@@ -18,7 +18,8 @@
       "Bash(cmd /c \"where node & where npm & where npx\")",
       "Bash(python3 -m pip install paramiko python-dotenv)",
       "Bash(python3 -m publish.upload_ionos --next-incremental)",
-      "Bash(npm install:*)"
+      "Bash(npm install:*)",
+      "Bash(curl -s -X POST \"https://gubmbkizmredrnsuzael.supabase.co/rest/v1/email_signups\" -H \"apikey: sb_publishable_c3mkHucol7a7z8NUwalHGA_Z0Yd8YCT\" -H \"Authorization: Bearer sb_publishable_c3mkHucol7a7z8NUwalHGA_Z0Yd8YCT\" -H \"Content-Type: application/json\" -H \"Prefer: return=representation\" -d '{\"\"email\"\":\"\"test@strainscoutmd.com\"\",\"\"source\"\":\"\"footer\"\",\"\"strain_id\"\":null,\"\"strain_name\"\":null}')"
     ],
     "additionalDirectories": [
       "c:\\Users\\jaretwyatt\\.claude\\projects\\c--Users-jaretwyatt--local-bin-strainscoutmd-strainscout-md\\memory"

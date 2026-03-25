@@ -107,16 +107,17 @@ def _parse_jane_products(data, slug: str) -> list[dict]:
     products = []
 
     def _extract_product(obj: dict) -> dict | None:
+        from scraper.category_map import normalize_category
+
         name = (obj.get("name") or obj.get("product_name") or "").strip()
         if not name:
             return None
 
-        # Filter for flower category
+        # Capture authoritative category from Jane's kind field
         kind = (obj.get("kind") or obj.get("product_type") or obj.get("category") or "").lower()
         root_subtype = (obj.get("root_subtype") or obj.get("root_type") or "").lower()
-        if kind and kind not in ("flower", "buds", "bud", "pre-packaged-flower"):
-            if root_subtype not in ("flower", "buds"):
-                return None
+        raw_category = kind or root_subtype or ""
+        product_category = normalize_category(raw_category, "jane") if raw_category else "Flower"
 
         brand = (obj.get("brand") or obj.get("brand_name") or "")
         if isinstance(brand, dict):
@@ -171,7 +172,8 @@ def _parse_jane_products(data, slug: str) -> list[dict]:
             "strain_type": strain_type.strip(),
             "thc_pct": thc,
             "price_eighth": price.replace("$", "").strip(),
-            "product_type": "flower",
+            "product_category": product_category,
+            "product_type": product_category,  # backwards compat
         }
 
     def _walk(obj, depth=0):

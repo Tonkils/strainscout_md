@@ -114,7 +114,7 @@ def run_evaluation(raw_dir: Path, sample_n: int = 5, show_unknowns_only: bool = 
 
     print(f"  Loaded {len(records):,} products from {len(set(r['file'] for r in records))} files\n")
 
-    # ── 1. Platform coverage ─────────────────────────────────────────────────
+    # -- 1. Platform coverage -------------------------------------------------
     print("-- 1. PLATFORM CATEGORY FIELD COVERAGE -------------------------------------")
     platform_stats: dict[str, dict] = defaultdict(lambda: {"total": 0, "has_category": 0, "raw_labels": defaultdict(int)})
 
@@ -134,12 +134,12 @@ def run_evaluation(raw_dir: Path, sample_n: int = 5, show_unknowns_only: bool = 
         labels = sorted(stats["raw_labels"].items(), key=lambda x: -x[1])
         for label, count in labels[:10]:
             normalized = normalize_category(label, platform)
-            marker = "✓" if normalized != "Other" else "?"
-            print(f"    {marker}  '{label}'  ({count}x)  →  {normalized}")
+            marker = "[ok]" if normalized != "Other" else "?"
+            print(f"    {marker}  '{label}'  ({count}x)  ->  {normalized}")
 
-    # ── 2. Normalization gaps ────────────────────────────────────────────────
-    print("\n\n── 2. UNMAPPED CATEGORY LABELS (need to add to category_map.py) ───")
-    unknown_labels: dict[str, list[str]] = defaultdict(list)  # label → [dispensary names]
+    # -- 2. Normalization gaps ------------------------------------------------
+    print("\n\n-- 2. UNMAPPED CATEGORY LABELS (need to add to category_map.py) ---")
+    unknown_labels: dict[str, list[str]] = defaultdict(list)  # label -> [dispensary names]
 
     for rec in records:
         raw_cat = extract_platform_category(rec["product"], rec["platform"])
@@ -153,7 +153,7 @@ def run_evaluation(raw_dir: Path, sample_n: int = 5, show_unknowns_only: bool = 
         print(f"  Found {len(unknown_labels)} unmapped labels:\n")
         for label, disps in sorted(unknown_labels.items(), key=lambda x: -len(x[1])):
             unique_disps = sorted(set(disps))
-            print(f"  ✗  '{label}'  ({len(disps)} products, {len(unique_disps)} dispensaries)")
+            print(f"  [!!]  '{label}'  ({len(disps)} products, {len(unique_disps)} dispensaries)")
             if len(unique_disps) <= 3:
                 print(f"     Dispensaries: {', '.join(unique_disps)}")
     else:
@@ -162,8 +162,8 @@ def run_evaluation(raw_dir: Path, sample_n: int = 5, show_unknowns_only: bool = 
     if show_unknowns_only:
         return
 
-    # ── 3. Category distribution ──────────────────────────────────────────────
-    print("\n\n── 3. CATEGORY DISTRIBUTION (after normalization) ──────────────────")
+    # -- 3. Category distribution ----------------------------------------------
+    print("\n\n-- 3. CATEGORY DISTRIBUTION (after normalization) ------------------")
     cat_counts: dict[str, int] = defaultdict(int)
     cat_samples: dict[str, list[str]] = defaultdict(list)
     no_category_count = 0
@@ -192,7 +192,7 @@ def run_evaluation(raw_dir: Path, sample_n: int = 5, show_unknowns_only: bool = 
     print(f"  {'TOTAL':<15}  {total_all:>6}")
 
     if sample_n > 0:
-        print(f"\n\n── 4. SAMPLE PRODUCTS PER CATEGORY (up to {sample_n} each) ─────────────")
+        print(f"\n\n-- 4. SAMPLE PRODUCTS PER CATEGORY (up to {sample_n} each) -------------")
         for cat in ["Flower", "Pre-Roll", "Vape", "Concentrate", "Edible", "Topical", "Other"]:
             samples = cat_samples.get(cat, [])
             if samples:
@@ -202,19 +202,19 @@ def run_evaluation(raw_dir: Path, sample_n: int = 5, show_unknowns_only: bool = 
             else:
                 print(f"\n  {cat}: (none in current raw data)")
 
-    # ── 5. Scrapers that need updating ───────────────────────────────────────
-    print("\n\n── 5. SCRAPER UPDATE STATUS ────────────────────────────────────────")
+    # -- 5. Scrapers that need updating ---------------------------------------
+    print("\n\n-- 5. SCRAPER UPDATE STATUS ----------------------------------------")
     notes = {
-        "weedmaps":        "✓ edge_category.slug available in API — remove flower-only filter, capture slug",
-        "dutchie":         "✓ type field available in GraphQL — remove flower-only filter, capture type",
-        "jane":            "✓ kind field available in API — remove flower-only filter, capture kind",
-        "verilife":        "✓ same as jane — kind field available",
-        "ascend":          "✓ same as dutchie — type field available",
+        "weedmaps":        "[ok] edge_category.slug available in API — remove flower-only filter, capture slug",
+        "dutchie":         "[ok] type field available in GraphQL — remove flower-only filter, capture type",
+        "jane":            "[ok] kind field available in API — remove flower-only filter, capture kind",
+        "verilife":        "[ok] same as jane — kind field available",
+        "ascend":          "[ok] same as dutchie — type field available",
         "trulieve":        "⚡ navigates to /category/flower URL — must iterate all TRULIEVE_CATEGORY_URLS",
         "curaleaf":        "⚡ navigates to /menu/flower-542 URL — must iterate all CURALEAF_CATEGORY_IDS",
         "zenleaf":         "? check category field in API response",
         "sweedpos":        "? check category field in API response",
-        "dutchie_whitelabel": "✓ same as dutchie — type field available",
+        "dutchie_whitelabel": "[ok] same as dutchie — type field available",
     }
     for platform, note in notes.items():
         print(f"  {platform:<22}  {note}")

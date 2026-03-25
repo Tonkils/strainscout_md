@@ -129,11 +129,12 @@ def _parse_discovery_item(item: dict) -> dict | None:
     Parse one item from discovery/v1 API format.
     { id, name, edge_category, category, metrics, prices, ... }
     """
-    # edge_category.slug = product type ("flower", "pre-roll", etc.)
+    from scraper.category_map import normalize_category
+
+    # edge_category.slug = authoritative product category ("flower", "pre-roll", etc.)
     edge_cat = item.get("edge_category") or {}
-    product_type = (edge_cat.get("slug") or "").lower() if isinstance(edge_cat, dict) else ""
-    if product_type and product_type not in ("flower", "buds", "bud"):
-        return None  # not a flower product
+    raw_category = (edge_cat.get("slug") or "").lower() if isinstance(edge_cat, dict) else ""
+    product_category = normalize_category(raw_category, "weedmaps") if raw_category else "Flower"
 
     name = (item.get("name") or "").strip()
     if not name:
@@ -187,7 +188,8 @@ def _parse_discovery_item(item: dict) -> dict | None:
         "strain_type": strain_type,
         "thc_pct": thc,
         "price_eighth": price,
-        "product_type": "flower",
+        "product_category": product_category,
+        "product_type": product_category,  # backwards compat
     }
 
 
@@ -200,17 +202,17 @@ def _parse_jsonapi_item(item: dict) -> dict | None:
     if not isinstance(attrs, dict):
         return None
 
-    # Filter: parent_category is a dict {"slug": "flower"} or just category_name == "Flower"
+    from scraper.category_map import normalize_category
+
+    # Capture authoritative category from parent_category slug or category_name
     parent_cat_raw = attrs.get("parent_category") or {}
     if isinstance(parent_cat_raw, dict):
-        parent_cat = (parent_cat_raw.get("slug") or parent_cat_raw.get("name") or "").lower()
+        raw_category = (parent_cat_raw.get("slug") or parent_cat_raw.get("name") or "").lower()
     else:
-        parent_cat = str(parent_cat_raw).lower()
-    # Also check category_name (flat string version)
-    if not parent_cat:
-        parent_cat = (attrs.get("category_name") or "").lower()
-    if parent_cat and parent_cat not in ("flower", "buds", "bud"):
-        return None
+        raw_category = str(parent_cat_raw).lower()
+    if not raw_category:
+        raw_category = (attrs.get("category_name") or "").lower()
+    product_category = normalize_category(raw_category, "weedmaps") if raw_category else "Flower"
 
     name = (attrs.get("name") or "").strip()
     if not name:
@@ -254,7 +256,8 @@ def _parse_jsonapi_item(item: dict) -> dict | None:
         "strain_type": attrs.get("genetics", ""),
         "thc_pct": thc,
         "price_eighth": price,
-        "product_type": "flower",
+        "product_category": product_category,
+        "product_type": product_category,  # backwards compat
     }
 
 
