@@ -33,6 +33,7 @@ from datetime import datetime, timezone
 from pathlib import Path
 
 from playwright.async_api import async_playwright, Page, Response
+from scraper.utils import async_retry
 
 # ── Paths ────────────────────────────────────────────────────────────────────
 BASE = Path(__file__).resolve().parent.parent
@@ -259,6 +260,7 @@ async def _scrape_dom(page: Page, slug: str) -> list[dict]:
 
 # ── Main scraping logic ──────────────────────────────────────────────────────
 
+@async_retry(max_attempts=3, delay=2.0, backoff=2.0, exceptions=(Exception,))
 async def scrape_dispensary(page: Page, slug: str, name: str) -> dict:
     """Scrape a single Dutchie dispensary. Returns a result dict."""
     url = f"{DUTCHIE_BASE}/{slug}/products/flower"

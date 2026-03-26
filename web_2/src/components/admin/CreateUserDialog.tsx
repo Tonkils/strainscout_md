@@ -68,7 +68,7 @@ export function CreateUserDialog({ onUserCreated }: CreateUserDialogProps) {
 
   return (
     <Dialog open={open} onOpenChange={setOpen}>
-      <DialogTrigger asChild>
+      <DialogTrigger>
         <Button>
           <UserPlus className="h-4 w-4 mr-2" />
           Create User

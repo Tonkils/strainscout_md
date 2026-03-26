@@ -30,6 +30,7 @@ from datetime import datetime, timezone
 from pathlib import Path
 
 from playwright.async_api import async_playwright, Page, Response
+from scraper.utils import async_retry
 
 # ── Paths ────────────────────────────────────────────────────────────────────
 BASE = Path(__file__).resolve().parent.parent
@@ -381,6 +382,7 @@ async def _dom_extract_products(page: Page) -> list[dict]:
 
 # ── Core scrape logic ─────────────────────────────────────────────────────────
 
+@async_retry(max_attempts=3, delay=2.0, backoff=2.0, exceptions=(Exception,))
 async def scrape_dispensary(
     page: Page, slug: str, name: str, *, timeout: int = PAGE_TIMEOUT
 ) -> dict:

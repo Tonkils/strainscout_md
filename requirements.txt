@@ -1,0 +1,20 @@
+# StrainScout MD — Python pipeline dependencies
+# Generated 2026-03-25
+# Install with: pip install -r requirements.txt
+# After installing playwright, run: playwright install chromium
+
+# Web scraping
+playwright==1.58.0
+
+# SFTP deployment
+paramiko==4.0.0
+
+# Environment variable management
+python-dotenv==1.2.2
+
+# HTTP requests (used by scraper utilities)
+requests==2.32.5
+
+# HTML parsing
+beautifulsoup4==4.14.3
+lxml==6.0.2

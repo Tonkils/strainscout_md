@@ -1,17 +1,11 @@
 import Link from "next/link";
 import type { CatalogStrain } from "@/hooks/useCatalog";
 import { MapPin, Beaker, ExternalLink } from "lucide-react";
-import { getProductCategory, CATEGORY_COLORS } from "@/lib/utils";
+import { getProductCategory, CATEGORY_COLORS, TYPE_COLORS } from "@/lib/utils";
 
 interface DealCardProps {
   strain: CatalogStrain;
 }
-
-const TYPE_COLORS: Record<string, string> = {
-  indica: "bg-indigo-500/15 text-indigo-400",
-  sativa: "bg-amber-500/15 text-amber-400",
-  hybrid: "bg-emerald-500/15 text-emerald-400",
-};
 
 const GRADE_COLORS: Record<string, string> = {
   A: "bg-primary/15 text-primary",
@@ -61,8 +55,8 @@ export default function DealCard({ strain }: DealCardProps) {
               </span>
             )}
             {savings >= 15 && (
-              <span className="ml-auto text-[10px] font-semibold text-savings bg-savings/20 px-2 py-0.5 rounded">
-                Save {savings}%
+              <span className="ml-auto text-[10px] font-semibold text-muted-foreground px-2 py-0.5 rounded bg-muted/40">
+                {savings}% spread
               </span>
             )}
           </div>
@@ -108,15 +102,17 @@ export default function DealCard({ strain }: DealCardProps) {
                   <span className="text-xs truncate">{bestPrice.dispensary}</span>
                 </div>
                 {buyLink && (
-                  <a
-                    href={buyLink}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    onClick={(e) => e.stopPropagation()}
+                  <button
+                    type="button"
+                    onClick={(e) => {
+                      e.preventDefault();
+                      e.stopPropagation();
+                      window.open(buyLink, "_blank", "noopener,noreferrer");
+                    }}
                     className="shrink-0 inline-flex items-center gap-1 px-2.5 py-1 rounded bg-cta text-cta-foreground text-[10px] font-semibold hover:bg-cta-hover transition-colors shadow-cta"
                   >
-                    Buy <ExternalLink className="w-2.5 h-2.5" />
-                  </a>
+                    Buy <ExternalLink className="w-2.5 h-2.5" aria-hidden="true" />
+                  </button>
                 )}
               </div>
             )}

@@ -70,9 +70,9 @@ export default function Navbar() {
           <Link
             href="/compare"
             className="w-9 h-9 rounded-md flex items-center justify-center text-muted-foreground hover:text-foreground hover:bg-accent transition-colors"
-            title="Search"
+            aria-label="Search"
           >
-            <Search className="w-4 h-4" />
+            <Search className="w-4 h-4" aria-hidden="true" />
           </Link>
         </div>
 
@@ -81,12 +81,13 @@ export default function Navbar() {
           className="md:hidden w-12 h-12 -mr-2 rounded-lg flex items-center justify-center text-muted-foreground hover:text-foreground active:bg-accent transition-colors"
           aria-label={mobileOpen ? "Close menu" : "Open menu"}
           aria-expanded={mobileOpen}
+          aria-controls="mobile-nav-menu"
         >
           {mobileOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
         </button>
       </nav>
 
-      <div className={`md:hidden overflow-hidden transition-all duration-300 ease-in-out ${mobileOpen ? "max-h-[500px] opacity-100" : "max-h-0 opacity-0"}`}>
+      <div id="mobile-nav-menu" className={`md:hidden overflow-hidden transition-all duration-300 ease-in-out ${mobileOpen ? "max-h-[500px] opacity-100" : "max-h-0 opacity-0"}`}>
         <div className="border-t border-border/50 bg-background/98 backdrop-blur-xl">
           <div className="container py-3 space-y-1">
             {navLinks.map((link) => {

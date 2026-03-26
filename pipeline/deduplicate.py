@@ -132,6 +132,22 @@ def main():
         group.sort(key=score_record, reverse=True)
         winner = copy.deepcopy(group[0])
 
+        # Determine product_category: vote on the most common category in group
+        cat_votes = Counter(
+            r.get("product_category", "Flower") for r in group
+            if r.get("product_category")
+        )
+        product_category = cat_votes.most_common(1)[0][0] if cat_votes else "Flower"
+
+        # Determine category_confidence: prefer "verified" > "inferred" > "conflict"
+        conf_set = set(r.get("category_confidence", "inferred") for r in group)
+        if "verified" in conf_set:
+            category_confidence = "verified"
+        elif "conflict" in conf_set:
+            category_confidence = "conflict"
+        else:
+            category_confidence = "inferred"
+
         # Build the unified strain entry
         strain = {
             "id": "",  # will be set below
@@ -140,6 +156,8 @@ def main():
             "type": winner.get("strain_type", "Hybrid"),
             "type_source": winner.get("type_source", ""),
             "type_confidence": winner.get("type_confidence"),
+            "product_category": product_category,
+            "category_confidence": category_confidence,
             "thc": winner.get("thc"),
             "cbd": 0,
             "terpenes": winner.get("terpenes", []),
@@ -299,12 +317,19 @@ def main():
     has_brand = sum(1 for s in deduped if s["brand"])
     has_desc = sum(1 for s in deduped if s["description"])
 
+    cat_dist = Counter(s.get("product_category", "Flower") for s in deduped)
+    conf_dist = Counter(s.get("category_confidence", "inferred") for s in deduped)
+
     print(f"\nCoverage:")
     print(f"  Prices: {has_prices}/{len(deduped)} ({100*has_prices/len(deduped):.1f}%)")
     print(f"  Type: {has_type}/{len(deduped)} ({100*has_type/len(deduped):.1f}%)")
     print(f"  Terpenes: {has_terpenes}/{len(deduped)} ({100*has_terpenes/len(deduped):.1f}%)")
     print(f"  Brand: {has_brand}/{len(deduped)} ({100*has_brand/len(deduped):.1f}%)")
     print(f"  Description: {has_desc}/{len(deduped)} ({100*has_desc/len(deduped):.1f}%)")
+    print(f"\nProduct categories:")
+    for cat, count in cat_dist.most_common():
+        print(f"  {cat}: {count}")
+    print(f"Category confidence: verified={conf_dist['verified']}, inferred={conf_dist['inferred']}, conflict={conf_dist['conflict']}")
 
     # Save
     output_data = {

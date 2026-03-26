@@ -4,6 +4,7 @@ import "./globals.css";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import PostHogProvider, { PostHogPageView } from "@/components/PostHogProvider";
+import ErrorBoundary from "@/components/ErrorBoundary";
 import { Suspense } from "react";
 
 const dmSerif = DM_Serif_Display({
@@ -93,7 +94,9 @@ export default function RootLayout({
           }}
         />
         <Navbar />
-        <main className="flex-1">{children}</main>
+        <ErrorBoundary>
+          <main className="flex-1">{children}</main>
+        </ErrorBoundary>
         <Footer />
         </PostHogProvider>
       </body>

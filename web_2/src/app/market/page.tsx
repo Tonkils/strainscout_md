@@ -4,12 +4,7 @@ import { useMemo } from "react";
 import Link from "next/link";
 import { BarChart3, TrendingUp, TrendingDown, Building2, Loader2, Leaf, DollarSign, Award } from "lucide-react";
 import { useCatalog, useCatalogStats } from "@/hooks/useCatalog";
-
-const TYPE_COLORS: Record<string, string> = {
-  indica: "bg-indigo-500/15 text-indigo-400",
-  sativa: "bg-amber-500/15 text-amber-400",
-  hybrid: "bg-emerald-500/15 text-emerald-400",
-};
+import { TYPE_COLORS } from "@/lib/utils";
 
 export default function MarketDashboardPage() {
   const { catalog, loading } = useCatalog();

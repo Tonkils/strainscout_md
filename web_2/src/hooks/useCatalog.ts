@@ -30,6 +30,8 @@ export interface CatalogStrain {
   catalog_updated?: string;
   dispensaries: string[];
   grade: "A" | "B" | "C";
+  product_category?: string;
+  category_confidence?: "verified" | "inferred" | "conflict";
   leafly_url: string;
   weedmaps_url: string;
   dispensary_links: Record<string, string>;
@@ -184,6 +186,10 @@ async function fetchCatalog(): Promise<Catalog> {
 
       catalogCache = catalog;
       return catalog;
+    })
+    .catch((err) => {
+      loadingPromise = null; // reset so retry is possible on next call
+      throw err;
     });
 
   return loadingPromise;
@@ -213,13 +219,14 @@ export function useCatalog() {
 export function useStrains(options?: {
   brand?: string;
   type?: string;
+  category?: string;
   search?: string;
   dispensary?: string;
   sortBy?: "price_asc" | "price_desc" | "name" | "savings" | "dispensary_count" | "grade";
   limit?: number;
 }) {
   const { catalog, loading, error } = useCatalog();
-  const { brand, type, search, dispensary, sortBy: sortByOpt, limit } = options ?? {};
+  const { brand, type, category, search, dispensary, sortBy: sortByOpt, limit } = options ?? {};
 
   const strains = useMemo(() => {
     if (!catalog) return [];
@@ -230,6 +237,11 @@ export function useStrains(options?: {
     }
     if (type) {
       result = result.filter((s) => s.type.toLowerCase() === type.toLowerCase());
+    }
+    if (category) {
+      result = result.filter(
+        (s) => (s.product_category || "Flower").toLowerCase() === category.toLowerCase()
+      );
     }
     if (dispensary) {
       result = result.filter(
@@ -283,7 +295,7 @@ export function useStrains(options?: {
     }
 
     return result;
-  }, [catalog, brand, type, search, dispensary, sortByOpt, limit]);
+  }, [catalog, brand, type, category, search, dispensary, sortByOpt, limit]);
 
   return { strains, loading, error, total: catalog?.strains.length ?? 0 };
 }

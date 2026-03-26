@@ -57,7 +57,7 @@ _SECURITY_HEADERS = """\
   Header always set X-Content-Type-Options "nosniff"
   Header always set Referrer-Policy "strict-origin-when-cross-origin"
   Header always set Permissions-Policy "camera=(), microphone=(), geolocation=(self)"
-  Header always set Content-Security-Policy "default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval'; style-src 'self' 'unsafe-inline'; connect-src 'self' https://us.i.posthog.com https://us-assets.i.posthog.com https://d2xsxph8kpxj0f.cloudfront.net https://*.supabase.co; img-src 'self' data: https: blob:; font-src 'self' data:; frame-src https://www.google.com https://maps.google.com; frame-ancestors 'none'; form-action 'self'; base-uri 'self'"
+  Header always set Content-Security-Policy "default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; connect-src 'self' https://us.i.posthog.com https://us-assets.i.posthog.com https://d2xsxph8kpxj0f.cloudfront.net https://*.supabase.co; img-src 'self' data: https: blob:; font-src 'self' data:; frame-src https://www.google.com https://maps.google.com; frame-ancestors 'none'; form-action 'self'; base-uri 'self'"
 </IfModule>
 
 """
@@ -120,10 +120,10 @@ RewriteRule ^(.*)$ /index.html [L]
 </IfModule>
 """
 
-# Default IONOS credentials (override via .env)
-DEFAULT_HOST = "access-5019966776.webspace-host.com"
-DEFAULT_PORT = 22
-DEFAULT_USER = "a3051710"
+# IONOS credentials — must be set in .env (no hardcoded fallbacks)
+DEFAULT_HOST = os.environ.get("IONOS_SFTP_HOST", "")
+DEFAULT_PORT = int(os.environ.get("IONOS_SFTP_PORT", "22"))
+DEFAULT_USER = os.environ.get("IONOS_SFTP_USER", "")
 
 
 def load_env():

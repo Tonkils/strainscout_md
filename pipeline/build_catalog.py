@@ -6,8 +6,8 @@ Assembles deduped strains + dispensary benchmark + grower benchmark into
 the format expected by the StrainScout MD web app (CatalogStrain interface).
 
 Input:  data/processed/deduped_strains.json
-Output: data/output/strainscout_catalog_v9.json
-        data/output/strainscout_catalog_v9.min.json
+Output: data/output/strainscout_catalog_v10.json
+        data/output/strainscout_catalog_v10.min.json
 """
 
 import json
@@ -74,56 +74,14 @@ def load_ordering_links() -> dict:
             if du:
                 ordering[name] = f"https://dutchie.com/dispensary/{du}"
 
-    # 2. White-label Dutchie sites (from our scraper config)
-    wl_urls = {
-        "green point wellness - linthicum": "https://www.gpwellness.com/linthicum-menu",
-        "green point wellness - laurel": "https://www.gpwellness.com/laurel-menu",
-        "green point wellness - millersville": "https://www.gpwellness.com/millersville-menu",
-        "the edge (green point wellness)": "https://www.gpwellness.com/edgewater-menu",
-        "cookies - baltimore": "https://noxx.com/location/cookies-baltimore/",
-        "chesacanna": "https://menu.chesacanna.com/stores/chesacanna1",
-        "kent reserve": "https://kentreserve.com/shop/",
-        "the living room": "https://thelvrm.com/order",
-        "koan cannabis": "https://koandispensary.com/",
-        "far & dotter - elkton": "https://fardotter.com/dispensaries/elkton-md/",
-    }
-    for name, url in wl_urls.items():
-        ordering[name] = url
-
-    # 3. Chain-specific ordering URLs
-    chain_urls = {
-        # Ascend (Dutchie API)
-        "ascend cannabis dispensary - aberdeen": "https://letsascend.com/locations/maryland/aberdeen/",
-        "ascend cannabis dispensary - crofton": "https://letsascend.com/locations/maryland/crofton/",
-        "ascend cannabis dispensary - ellicott city": "https://letsascend.com/locations/maryland/ellicott-city/",
-        "ascend cannabis dispensary - laurel": "https://letsascend.com/locations/maryland/laurel/",
-        # Trulieve
-        "trulieve - rockville": "https://www.trulieve.com/category/flower?storeId=MDROKB2",
-        "trulieve - halethorpe": "https://www.trulieve.com/category/flower?storeId=MDHALT1",
-        "trulieve - lutherville": "https://www.trulieve.com/category/flower?storeId=MDLUTH1",
-        # Curaleaf
-        "curaleaf - reisterstown": "https://curaleaf.com/shop/maryland/curaleaf-md-reisterstown/recreational/menu/flower-542",
-        "curaleaf - columbia": "https://curaleaf.com/shop/maryland/curaleaf-md-columbia/recreational/menu/flower-542",
-        # Zen Leaf
-        "zen leaf - elkridge": "https://zenleafdispensaries.com/locations/elkridge/menu/recreational",
-        "zen leaf - germantown": "https://zenleafdispensaries.com/locations/germantown/menu/recreational",
-        "zen leaf - pasadena": "https://zenleafdispensaries.com/locations/pasadena/menu/recreational",
-        "zen leaf - towson": "https://zenleafdispensaries.com/locations/towson/menu/recreational",
-        # Verilife (Jane)
-        "verilife - westminster": "https://www.verilife.com/md/locations/westminster",
-        "verilife - silver spring": "https://www.verilife.com/md/locations/silver-spring",
-        "verilife - new market": "https://www.verilife.com/md/locations/new-market",
-        # Jane stores
-        "gold leaf": "https://goldleafmd.com/shop/",
-        "potomac holistics": "https://potomacholistics.com/rockville-maryland-recreational-menu/",
-        "ash + ember": "https://www.iheartjane.com/stores/463/ash-ember/menu",
-        # Grow West
-        "grow west cannabis company": "https://www.growwestmd.com/shop/",
-        # SweedPOS
-        "enlightened dispensary abingdon": "https://shop.revcanna.com/abingdon/recreational",
-    }
-    for name, url in chain_urls.items():
-        ordering[name] = url
+    # 2. Static ordering links from config file (white-label + chain-specific URLs)
+    config_path = BASE / "data" / "config" / "ordering_links.json"
+    if config_path.exists():
+        with open(config_path, encoding="utf-8") as f:
+            static_links = json.load(f)
+        for name, url in static_links.items():
+            if not name.startswith("_"):  # skip comment keys
+                ordering[name] = url
 
     return ordering
 
@@ -161,10 +119,8 @@ def main():
     print(f"Input: {len(strains)} deduped strains")
 
     disp_lookup = load_dispensary_benchmark()
-    grower_lookup = load_grower_benchmark()
     ordering_lookup = load_ordering_links()
     print(f"Dispensary benchmark: {len(disp_lookup)} entries")
-    print(f"Grower benchmark: {len(grower_lookup)} entries")
     print(f"Ordering links: {len(ordering_lookup)} dispensary menu URLs")
 
     # Build the catalog array matching CatalogStrain interface
@@ -229,6 +185,8 @@ def main():
             "name": s["name"],
             "brand": brand,
             "type": raw_type,
+            "product_category": s.get("product_category", "Flower"),
+            "category_confidence": s.get("category_confidence", "inferred"),
 
             # Lab data
             "thc": s.get("thc") or 0,
@@ -286,6 +244,13 @@ def main():
     for t, c in type_dist.most_common():
         print(f"  {t}: {c} ({100*c/len(catalog):.1f}%)")
 
+    cat_dist = Counter(s.get("product_category", "Flower") for s in catalog)
+    conf_dist = Counter(s.get("category_confidence", "inferred") for s in catalog)
+    print(f"\nProduct category distribution:")
+    for cat, c in cat_dist.most_common():
+        print(f"  {cat}: {c} ({100*c/len(catalog):.1f}%)")
+    print(f"Category confidence: verified={conf_dist['verified']}, inferred={conf_dist['inferred']}, conflict={conf_dist['conflict']}")
+
     fields = {
         "brand": lambda s: bool(s["brand"]),
         "thc": lambda s: s["thc"] and s["thc"] > 0,
@@ -333,7 +298,7 @@ def main():
 
     full_size = os.path.getsize(OUTPUT_FULL) / 1024
     min_size = os.path.getsize(OUTPUT_MIN) / 1024
-    print(f"\nCatalog v9 written:")
+    print(f"\nCatalog {CATALOG_VERSION} written:")
     print(f"  Full: {OUTPUT_FULL} ({full_size:.1f} KB)")
     print(f"  Min:  {OUTPUT_MIN} ({min_size:.1f} KB)")
 

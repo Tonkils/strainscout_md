@@ -35,12 +35,12 @@ function DealDropCard({ deal }: { deal: DealItem }) {
   return (
     <Link href={`/strain/${deal.strainId}`}>
       <div className="group bg-card border border-border/30 rounded-lg overflow-hidden hover:border-primary/40 hover:shadow-lg hover:shadow-primary/5 transition-all cursor-pointer h-full flex flex-col">
-        <div className="bg-red-500/10 border-b border-red-500/20 px-4 py-2 flex items-center justify-between">
+        <div className="bg-primary/5 border-b border-border/20 px-4 py-2 flex items-center justify-between">
           <div className="flex items-center gap-2">
-            <TrendingDown className="w-4 h-4 text-red-400" />
-            <span className="text-sm font-bold text-red-400">{deal.dropPercent}% OFF</span>
+            <TrendingDown className="w-4 h-4 text-muted-foreground" />
+            <span className="text-sm font-medium text-muted-foreground">Price Spread</span>
           </div>
-          <span className="text-xs font-price text-red-300">Save ${deal.savings.toFixed(0)}</span>
+          <span className="text-xs font-price text-savings">${deal.savings.toFixed(0)} cheaper by shopping around</span>
         </div>
         <div className="p-4 flex-1 flex flex-col">
           <div className="flex items-center gap-2 mb-2">
@@ -62,12 +62,12 @@ function DealDropCard({ deal }: { deal: DealItem }) {
           <div className="mt-auto pt-3 border-t border-border/20">
             <div className="flex items-end justify-between">
               <div>
-                <p className="text-[10px] text-muted-foreground uppercase">Best Price</p>
+                <p className="text-[10px] text-muted-foreground uppercase">Cheapest</p>
                 <p className="font-price text-xl font-bold text-savings">${deal.newPrice}</p>
               </div>
               <div className="text-right">
-                <p className="text-[10px] text-muted-foreground uppercase">Was</p>
-                <p className="font-price text-sm text-muted-foreground line-through">${deal.oldPrice}</p>
+                <p className="text-[10px] text-muted-foreground uppercase">Priciest</p>
+                <p className="font-price text-sm text-muted-foreground">${deal.oldPrice}</p>
               </div>
             </div>
             <p className="text-[10px] text-muted-foreground mt-1.5 truncate">
@@ -142,11 +142,11 @@ export default function DealsPage() {
   return (
     <div className="min-h-screen bg-background">
       {/* Hero */}
-      <section className="border-b border-border/30 bg-gradient-to-b from-red-500/5 to-transparent">
+      <section className="border-b border-border/30 bg-gradient-to-b from-primary/5 to-transparent">
         <div className="container py-8 sm:py-12">
           <div className="flex items-center gap-3 mb-4">
-            <div className="w-10 h-10 rounded-lg bg-red-500/15 flex items-center justify-center">
-              <TrendingDown className="w-5 h-5 text-red-400" />
+            <div className="w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center">
+              <TrendingDown className="w-5 h-5 text-primary" />
             </div>
             <div>
               <h1 className="font-serif text-2xl sm:text-3xl md:text-4xl text-foreground">Best Prices Across Dispensaries</h1>
@@ -159,19 +159,19 @@ export default function DealsPage() {
           {stats && (
             <div className="flex flex-wrap gap-3 sm:gap-4">
               <div className="bg-card/80 border border-border/30 rounded-lg px-4 py-3">
-                <p className="text-[10px] text-muted-foreground uppercase tracking-wider">Total Deals</p>
+                <p className="text-[10px] text-muted-foreground uppercase tracking-wider">Strains to Compare</p>
                 <p className="font-price text-xl font-bold text-foreground">{stats.total.toLocaleString()}</p>
               </div>
               <div className="bg-card/80 border border-border/30 rounded-lg px-4 py-3">
-                <p className="text-[10px] text-muted-foreground uppercase tracking-wider">Avg Savings</p>
+                <p className="text-[10px] text-muted-foreground uppercase tracking-wider">Avg Spread</p>
                 <p className="font-price text-xl font-bold text-savings">${stats.avgSavings}</p>
               </div>
               <div className="bg-card/80 border border-border/30 rounded-lg px-4 py-3">
-                <p className="text-[10px] text-muted-foreground uppercase tracking-wider">Max Savings</p>
-                <p className="font-price text-xl font-bold text-red-400">${stats.maxSavings}</p>
+                <p className="text-[10px] text-muted-foreground uppercase tracking-wider">Widest Spread</p>
+                <p className="font-price text-xl font-bold text-primary">${stats.maxSavings}</p>
               </div>
               <div className="bg-card/80 border border-border/30 rounded-lg px-4 py-3">
-                <p className="text-[10px] text-muted-foreground uppercase tracking-wider">Avg % Off</p>
+                <p className="text-[10px] text-muted-foreground uppercase tracking-wider">Avg Spread %</p>
                 <p className="font-price text-xl font-bold text-amber-400">{stats.avgPct}%</p>
               </div>
             </div>
@@ -222,8 +222,8 @@ export default function DealsPage() {
                   onChange={(e) => setSortBy(e.target.value as SortKey)}
                   className="bg-card border border-border/50 rounded-lg px-3 py-1.5 text-xs text-foreground focus:outline-none focus-visible:ring-2 focus-visible:ring-primary/50 focus:border-primary/50"
                 >
-                  <option value="savings_pct">Biggest % Off</option>
-                  <option value="savings_abs">Most $ Saved</option>
+                  <option value="savings_pct">Widest Spread %</option>
+                  <option value="savings_abs">Widest Spread $</option>
                   <option value="price_low">Lowest Price</option>
                 </select>
               </div>
@@ -252,7 +252,7 @@ export default function DealsPage() {
                   onClick={() => setShowCount((c) => c + 24)}
                   className="inline-flex items-center gap-2 px-6 py-3 rounded-lg bg-cta text-cta-foreground font-semibold text-sm hover:bg-cta-hover transition-colors shadow-cta"
                 >
-                  Load More Deals
+                  Load More
                   <ArrowDown className="w-4 h-4" />
                 </button>
               </div>

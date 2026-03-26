@@ -9,6 +9,7 @@ import {
 } from "lucide-react";
 import { useDispensaryDirectory, type DirectoryDispensary, haversineDistance } from "@/hooks/useDispensaryDirectory";
 import { useCatalog, type CatalogStrain } from "@/hooks/useCatalog";
+import { TYPE_COLORS } from "@/lib/utils";
 
 function getBuyLink(strain: CatalogStrain, dispensaryName: string): { url: string; isOrder: boolean } | null {
   const orderLink = (strain.ordering_links as Record<string, string> | undefined)?.[dispensaryName];
@@ -85,12 +86,6 @@ function DispensaryStrainList({ strains, dispensaryName }: { strains: CatalogStr
           const price = dispPrice?.price ?? strain.price_min;
           const link = getBuyLink(strain, dispensaryName);
           const typeKey = strain.type.toLowerCase();
-          const TYPE_COLORS: Record<string, string> = {
-            indica: "bg-purple-500/15 text-purple-400",
-            sativa: "bg-amber-500/15 text-amber-400",
-            hybrid: "bg-emerald-500/15 text-emerald-400",
-          };
-
           return (
             <div key={strain.id} className="grid grid-cols-1 md:grid-cols-12 gap-2 px-4 py-3 hover:bg-card/40 transition-colors">
               {/* Mobile */}

@@ -5,17 +5,12 @@ import Link from "next/link";
 import { useSearchParams } from "next/navigation";
 import { Search, ArrowUpDown, GitCompareArrows, Loader2, Beaker, MapPin, X, Building2, ChevronDown } from "lucide-react";
 import { useCatalog, type CatalogStrain } from "@/hooks/useCatalog";
-import { getProductCategory, type ProductCategory } from "@/lib/utils";
+import StrainCardSkeleton from "@/components/StrainCardSkeleton";
+import { getCategoryFromStrain, getProductCategory, TYPE_COLORS, filterStrains, type ProductCategory } from "@/lib/utils";
 import CompareInlineCTA from "@/components/CompareInlineCTA";
 import { trackPageViewed, trackFilterApplied } from "@/lib/analytics";
 
 type SortKey = "name" | "thc" | "price" | "dispensaries" | "brand";
-
-const TYPE_COLORS: Record<string, string> = {
-  indica: "bg-purple-500/15 text-purple-400",
-  sativa: "bg-amber-500/15 text-amber-400",
-  hybrid: "bg-emerald-500/15 text-emerald-400",
-};
 
 const QUICK_FILTERS = [
   { id: "under30", label: "Under $30" },
@@ -27,7 +22,14 @@ const QUICK_FILTERS = [
 function ComparePageInner() {
   const { catalog, loading } = useCatalog();
   const searchParams = useSearchParams();
+  const [searchInput, setSearchInput] = useState(() => searchParams.get("q") ?? "");
   const [searchQuery, setSearchQuery] = useState(() => searchParams.get("q") ?? "");
+
+  // Debounce search input 300ms — input value updates immediately, filter applies after delay
+  useEffect(() => {
+    const timer = setTimeout(() => setSearchQuery(searchInput), 300);
+    return () => clearTimeout(timer);
+  }, [searchInput]);
   const [typeFilter, setTypeFilter] = useState("All");
   const [categoryFilter, setCategoryFilter] = useState<ProductCategory | "">(() => {
     const cat = searchParams.get("category");
@@ -58,19 +60,11 @@ function ComparePageInner() {
   const filtered = useMemo(() => {
     if (!catalog) return [];
     // Exclude junk entries (t-shirts, "Shop by Effects" pages, discount strings)
-    let result = catalog.strains.filter((s) => getProductCategory(s.name) !== "Other");
+    let result = catalog.strains.filter((s) => getCategoryFromStrain(s) !== "Other");
     if (typeFilter !== "All") result = result.filter((s) => s.type.toLowerCase() === typeFilter.toLowerCase());
-    if (categoryFilter) result = result.filter((s) => getProductCategory(s.name) === categoryFilter);
+    if (categoryFilter) result = result.filter((s) => getCategoryFromStrain(s) === categoryFilter);
     if (searchQuery) {
-      const q = searchQuery.toLowerCase();
-      result = result.filter(
-        (s) =>
-          s.name.toLowerCase().includes(q) ||
-          s.brand.toLowerCase().includes(q) ||
-          (s.terpenes || []).some((t) => t.toLowerCase().includes(q)) ||
-          (s.effects || []).some((e) => e.toLowerCase().includes(q)) ||
-          (s.genetics || "").toLowerCase().includes(q)
-      );
+      result = filterStrains(result, searchQuery);
     }
     if (dispensaryFilter) {
       result = result.filter((s) => s.dispensaries.some((d) => d.toLowerCase() === dispensaryFilter.toLowerCase()));
@@ -92,13 +86,14 @@ function ComparePageInner() {
 
   const paged = useMemo(() => filtered.slice(0, page * perPage), [filtered, page]);
 
-  const hasActiveFilter = quickFilter || dispensaryFilter || categoryFilter || typeFilter !== "All" || searchQuery;
+  const hasActiveFilter = quickFilter || dispensaryFilter || categoryFilter || typeFilter !== "All" || searchInput;
 
   const clearFilters = () => {
     setQuickFilter("");
     setDispensaryFilter("");
     setCategoryFilter("");
     setTypeFilter("All");
+    setSearchInput("");
     setSearchQuery("");
     setPage(1);
   };
@@ -154,6 +149,7 @@ function ComparePageInner() {
             <button
               key={qf.id}
               onClick={() => { const next = quickFilter === qf.id ? "" : qf.id; setQuickFilter(next); setPage(1); trackFilterApplied("quick_filter", next || "all", "compare"); }}
+              aria-pressed={quickFilter === qf.id}
               className={`px-3 py-1.5 rounded-full text-xs font-medium border transition-all ${
                 quickFilter === qf.id
                   ? "bg-primary text-primary-foreground border-primary"
@@ -202,12 +198,13 @@ function ComparePageInner() {
               <input
                 type="text"
                 placeholder="Search strain, brand, terpene..."
-                value={searchQuery}
-                onChange={(e) => { setSearchQuery(e.target.value); setPage(1); }}
+                value={searchInput}
+                onChange={(e) => { setSearchInput(e.target.value); setPage(1); }}
+                maxLength={200}
                 className="flex-1 bg-transparent px-3 py-2.5 text-sm text-foreground placeholder:text-muted-foreground focus:outline-none focus-visible:ring-2 focus-visible:ring-primary/50"
               />
-              {searchQuery && (
-                <button onClick={() => setSearchQuery("")} className="mr-2 text-muted-foreground hover:text-foreground">
+              {searchInput && (
+                <button onClick={() => { setSearchInput(""); setSearchQuery(""); }} className="mr-2 text-muted-foreground hover:text-foreground">
                   <X className="w-4 h-4" />
                 </button>
               )}
@@ -233,9 +230,10 @@ function ComparePageInner() {
         </div>
 
         {loading ? (
-          <div role="status" className="flex items-center justify-center py-20">
-            <Loader2 aria-hidden="true" className="w-8 h-8 text-primary animate-spin" />
-            <span className="ml-3 text-muted-foreground">Loading catalog...</span>
+          <div role="status" className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-3 sm:gap-4 mt-4">
+            {Array.from({ length: 24 }).map((_, i) => (
+              <StrainCardSkeleton key={i} />
+            ))}
           </div>
         ) : (
           <>
@@ -379,8 +377,8 @@ function ComparePageInner() {
 
         {/* Compare Panel Modal */}
         {showComparePanel && compareList.length > 0 && (
-          <div className="fixed inset-0 bg-black/60 z-50 flex items-end sm:items-center justify-center p-4">
-            <div className="bg-card border border-border/50 rounded-xl w-full max-w-4xl max-h-[90vh] overflow-y-auto">
+          <div className="fixed inset-0 bg-black/60 z-50 flex items-end sm:items-center justify-center p-4" aria-modal="true">
+            <div role="dialog" aria-label="Side-by-Side Comparison" className="bg-card border border-border/50 rounded-xl w-full max-w-4xl max-h-[90vh] overflow-y-auto">
               <div className="sticky top-0 bg-card border-b border-border/30 px-6 py-4 flex items-center justify-between">
                 <h2 className="font-serif text-xl text-foreground">Side-by-Side Comparison</h2>
                 <button onClick={() => setShowComparePanel(false)} className="text-muted-foreground hover:text-foreground">

@@ -45,6 +45,58 @@ BRANDS = [
 BRANDS.sort(key=len, reverse=True)
 
 
+def extract_category_from_url(url: str) -> str | None:
+    """
+    Extract the product category from a scraper source URL, where the URL
+    encodes the category the scraper was navigating when it collected products.
+
+    Supported patterns:
+      Dutchie:   .../dispensary/<slug>/products/<category>
+      Trulieve:  .../category/<category>
+      Curaleaf:  .../menu/<category>-<id>   e.g. /menu/flower-542
+      Jane:      no category in URL  -> None
+      Weedmaps:  no category in URL  -> None
+    """
+    if not url:
+        return None
+    from scraper.category_map import normalize_category
+
+    # Dutchie: /dispensary/<slug>/products/<category>
+    m = re.search(r"/dispensary/[^/]+/products/([^/?#]+)", url, re.I)
+    if m:
+        return normalize_category(m.group(1), "dutchie")
+
+    # Trulieve: /category/<category>
+    m = re.search(r"/category/([^/?#]+)", url, re.I)
+    if m:
+        return normalize_category(m.group(1), "trulieve")
+
+    # Curaleaf: /menu/<category>-<digits>
+    m = re.search(r"/menu/([a-zA-Z][a-zA-Z\-]*?)-\d", url, re.I)
+    if m:
+        return normalize_category(m.group(1), "curaleaf")
+
+    return None
+
+
+def assign_category_confidence(
+    product_category: str, url_category: str | None
+) -> str:
+    """
+    Assign a confidence level based on how many independent signals agree.
+
+    Returns:
+        "verified"  - platform API field AND URL path both agree
+        "inferred"  - only one signal available (API field only, or URL only)
+        "conflict"  - both signals present but disagree
+    """
+    if url_category is None:
+        return "inferred"
+    if product_category.lower() == url_category.lower():
+        return "verified"
+    return "conflict"
+
+
 def clean_product_name(raw_name: str) -> str:
     """Extract the pure strain name from a Weedmaps product listing name.
 
@@ -183,6 +235,8 @@ def main():
     disp_name_lookup = load_dispensary_names()
     all_records = []
     parse_errors = []
+    stale_files = []
+    now_utc = datetime.now(timezone.utc)
 
     for fpath in raw_files:
         try:
@@ -199,8 +253,25 @@ def main():
         source_url = data.get("url", "")
         products = data.get("products", [])
 
+        # ── Data freshness check ──────────────────────────────────────────────
+        if scraped_at:
+            try:
+                scraped_dt = datetime.fromisoformat(scraped_at.replace("Z", "+00:00"))
+                if scraped_dt.tzinfo is None:
+                    scraped_dt = scraped_dt.replace(tzinfo=timezone.utc)
+                age_days = (now_utc - scraped_dt).days
+                if age_days > 7:
+                    fname = os.path.basename(fpath)
+                    print(f"  [STALE] {fname}: data is {age_days} days old")
+                    stale_files.append({"file": fname, "age_days": age_days})
+            except (ValueError, TypeError):
+                pass  # unparseable scraped_at — skip freshness check
+
         if not products:
             continue
+
+        # ── Derive URL-level category once per file (not per product) ──
+        url_category = extract_category_from_url(source_url)
 
         for prod in products:
             raw_name = prod.get("name", "")
@@ -215,6 +286,9 @@ def main():
             from scraper.category_map import normalize_category
             raw_cat = prod.get("product_category") or prod.get("product_type") or ""
             product_category = normalize_category(raw_cat, platform) if raw_cat else "Flower"
+
+            # ── Cross-verify using URL-encoded category ──
+            category_confidence = assign_category_confidence(product_category, url_category)
 
             # ── Filter out price-as-name entries ──
             if clean_name.startswith("$") or clean_name.replace(".", "").replace(",", "").isdigit():
@@ -244,12 +318,15 @@ def main():
                 "source_url": source_url,
                 "product_id": prod.get("id", ""),
                 "product_category": product_category,
+                "category_confidence": category_confidence,
                 "product_type": product_category,  # backwards compat
                 "scraped_at": scraped_at,
             }
             all_records.append(record)
 
     print(f"\nTotal product records parsed: {len(all_records)}")
+    if stale_files:
+        print(f"Stale files (>7 days old): {len(stale_files)}")
     if parse_errors:
         print(f"Parse errors: {len(parse_errors)}")
         for e in parse_errors:
@@ -273,6 +350,9 @@ def main():
     with_thc = sum(1 for r in unique_records if r["thc"] is not None)
     with_brand = sum(1 for r in unique_records if r["brand"])
     with_type = sum(1 for r in unique_records if r["strain_type"])
+    verified = sum(1 for r in unique_records if r["category_confidence"] == "verified")
+    inferred = sum(1 for r in unique_records if r["category_confidence"] == "inferred")
+    conflicts = sum(1 for r in unique_records if r["category_confidence"] == "conflict")
 
     print(f"Unique strain names: {len(unique_strains)}")
     print(f"Dispensaries with data: {len(unique_disps)}")
@@ -280,6 +360,12 @@ def main():
     print(f"Records with THC: {with_thc}/{len(unique_records)} ({100*with_thc/len(unique_records):.1f}%)")
     print(f"Records with brand: {with_brand}/{len(unique_records)} ({100*with_brand/len(unique_records):.1f}%)")
     print(f"Records with type: {with_type}/{len(unique_records)} ({100*with_type/len(unique_records):.1f}%)")
+    print(f"Category confidence: verified={verified}, inferred={inferred}, conflict={conflicts}")
+    if conflicts:
+        print("  [!!] Conflicting category records:")
+        for r in unique_records:
+            if r["category_confidence"] == "conflict":
+                print(f"    {r['dispensary_slug']} | {r['strain_name']} | cat={r['product_category']} | url={r['source_url'][:80]}")
 
     # Brand distribution
     from collections import Counter

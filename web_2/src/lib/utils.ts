@@ -117,6 +117,67 @@ export function getProductCategory(name: string): ProductCategory {
   return classifyProduct(name).category;
 }
 
+/**
+ * Get the authoritative category for a catalog strain.
+ * Uses the platform-verified product_category field when available;
+ * falls back to name-based classification only as a last resort.
+ */
+export function getCategoryFromStrain(strain: { product_category?: string; name: string }): ProductCategory {
+  const cat = strain.product_category;
+  if (cat && cat !== "Other") {
+    // Validate it maps to a known ProductCategory
+    const known: ProductCategory[] = ["Flower", "Pre-Roll", "Vape", "Concentrate", "Edible", "Topical", "Other"];
+    if (known.includes(cat as ProductCategory)) {
+      return cat as ProductCategory;
+    }
+  }
+  return classifyProduct(strain.name).category;
+}
+
+/**
+ * Filter a list of strains by a search query across multiple fields.
+ * Default fields match: name, brand, type, terpenes, effects, flavors, genetics.
+ */
+export function filterStrains<T extends {
+  name: string;
+  brand: string;
+  type: string;
+  terpenes?: string[];
+  effects?: string[];
+  flavors?: string[];
+  genetics?: string;
+}>(
+  strains: T[],
+  query: string,
+  fields: Array<"name" | "brand" | "type" | "terpenes" | "effects" | "flavors" | "genetics"> = [
+    "name", "brand", "type", "terpenes", "effects", "flavors", "genetics",
+  ]
+): T[] {
+  if (!query) return strains;
+  const q = query.toLowerCase();
+  return strains.filter((s) =>
+    fields.some((field) => {
+      switch (field) {
+        case "name":    return s.name.toLowerCase().includes(q);
+        case "brand":   return s.brand.toLowerCase().includes(q);
+        case "type":    return s.type.toLowerCase().includes(q);
+        case "terpenes": return (s.terpenes || []).some((t) => t.toLowerCase().includes(q));
+        case "effects":  return (s.effects || []).some((e) => e.toLowerCase().includes(q));
+        case "flavors":  return (s.flavors || []).some((f) => f.toLowerCase().includes(q));
+        case "genetics": return (s.genetics || "").toLowerCase().includes(q);
+        default: return false;
+      }
+    })
+  );
+}
+
+/** Canonical type badge colors — single source of truth across all pages. */
+export const TYPE_COLORS: Record<string, string> = {
+  indica: "bg-indigo-500/15 text-indigo-400",
+  sativa: "bg-amber-500/15 text-amber-400",
+  hybrid: "bg-emerald-500/15 text-emerald-400",
+};
+
 export const CATEGORY_COLORS: Record<ProductCategory, string> = {
   Flower:      "bg-emerald-500/15 text-emerald-400",
   "Pre-Roll":  "bg-orange-500/15 text-orange-400",
