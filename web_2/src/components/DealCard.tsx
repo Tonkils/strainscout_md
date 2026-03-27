@@ -1,10 +1,11 @@
 import Link from "next/link";
 import type { CatalogStrain } from "@/hooks/useCatalog";
 import { MapPin, Beaker, ExternalLink } from "lucide-react";
-import { getProductCategory, CATEGORY_COLORS, TYPE_COLORS } from "@/lib/utils";
+import { getCategoryFromStrain, CATEGORY_COLORS, TYPE_COLORS } from "@/lib/utils";
 
 interface DealCardProps {
   strain: CatalogStrain;
+  hideCategory?: boolean;
 }
 
 const GRADE_COLORS: Record<string, string> = {
@@ -22,7 +23,7 @@ function getBuyLink(strain: CatalogStrain, dispensaryName: string): string | nul
   return null;
 }
 
-export default function DealCard({ strain }: DealCardProps) {
+export default function DealCard({ strain, hideCategory }: DealCardProps) {
   const typeLabel = strain.type.charAt(0).toUpperCase() + strain.type.slice(1);
   const typeKey = strain.type.toLowerCase();
   const bestPrice = [...(strain.prices || [])].sort((a, b) => a.price - b.price)[0];
@@ -32,7 +33,7 @@ export default function DealCard({ strain }: DealCardProps) {
       : 0;
   const terpenes = (strain.terpenes || []).filter((t) => t && t !== "Not_Found");
   const buyLink = bestPrice ? getBuyLink(strain, bestPrice.dispensary) : null;
-  const category = getProductCategory(strain.name);
+  const category = getCategoryFromStrain(strain);
   const categoryColor = CATEGORY_COLORS[category];
 
   return (
@@ -44,7 +45,7 @@ export default function DealCard({ strain }: DealCardProps) {
             <span className={`px-2 py-0.5 rounded text-[10px] font-semibold uppercase tracking-wider ${TYPE_COLORS[typeKey] || TYPE_COLORS.hybrid}`}>
               {typeLabel}
             </span>
-            {category !== "Flower" && (
+            {!hideCategory && category !== "Flower" && (
               <span className={`px-2 py-0.5 rounded text-[10px] font-semibold uppercase tracking-wider ${categoryColor}`}>
                 {category}
               </span>

@@ -6,7 +6,7 @@ import { useSearchParams } from "next/navigation";
 import { Search, ArrowUpDown, GitCompareArrows, Loader2, Beaker, MapPin, X, Building2, ChevronDown } from "lucide-react";
 import { useCatalog, type CatalogStrain } from "@/hooks/useCatalog";
 import StrainCardSkeleton from "@/components/StrainCardSkeleton";
-import { getCategoryFromStrain, getProductCategory, TYPE_COLORS, filterStrains, type ProductCategory } from "@/lib/utils";
+import { getCategoryFromStrain, getProductCategory, TYPE_COLORS, CATEGORY_COLORS, CATEGORY_LABELS, filterStrains, type ProductCategory } from "@/lib/utils";
 import CompareInlineCTA from "@/components/CompareInlineCTA";
 import { trackPageViewed, trackFilterApplied } from "@/lib/analytics";
 
@@ -55,6 +55,19 @@ function ComparePageInner() {
   const dispensaryNames = useMemo(() => {
     if (!catalog) return [];
     return [...new Set(catalog.strains.flatMap((s) => s.dispensaries))].sort();
+  }, [catalog]);
+
+  const categoryCounts = useMemo(() => {
+    if (!catalog) return {} as Record<string, number>;
+    const counts: Record<string, number> = { All: 0 };
+    for (const s of catalog.strains) {
+      const c = getCategoryFromStrain(s);
+      if (c !== "Other") {
+        counts[c] = (counts[c] || 0) + 1;
+        counts.All += 1;
+      }
+    }
+    return counts;
   }, [catalog]);
 
   const filtered = useMemo(() => {
@@ -128,17 +141,27 @@ function ComparePageInner() {
       <div className="container py-4 sm:py-8">
         {/* Category filters */}
         <div className="flex flex-wrap items-center gap-2 mb-2">
-          {(["Flower", "Pre-Roll", "Vape", "Edible", "Concentrate"] as ProductCategory[]).map((cat) => (
+          <button
+            onClick={() => { setCategoryFilter(""); setPage(1); trackFilterApplied("category", "all", "compare"); }}
+            className={`px-3 py-1.5 rounded-full text-xs font-medium transition-colors ${
+              !categoryFilter
+                ? "bg-primary text-primary-foreground"
+                : "bg-card border border-border/30 text-muted-foreground hover:text-foreground"
+            }`}
+          >
+            All {categoryCounts.All ? `(${categoryCounts.All.toLocaleString()})` : ""}
+          </button>
+          {(["Flower", "Pre-Roll", "Vape", "Concentrate", "Edible"] as ProductCategory[]).map((cat) => (
             <button
               key={cat}
               onClick={() => { const next = categoryFilter === cat ? "" : cat; setCategoryFilter(next); setPage(1); trackFilterApplied("category", next || "all", "compare"); }}
-              className={`px-3 py-1.5 rounded-full text-xs font-medium border transition-all ${
+              className={`px-3 py-1.5 rounded-full text-xs font-medium transition-colors ${
                 categoryFilter === cat
-                  ? "bg-primary text-primary-foreground border-primary"
-                  : "bg-card border-border/50 text-muted-foreground hover:text-foreground hover:border-primary/40"
+                  ? CATEGORY_COLORS[cat]
+                  : "bg-card border border-border/30 text-muted-foreground hover:text-foreground"
               }`}
             >
-              {cat}
+              {CATEGORY_LABELS[cat]} {categoryCounts[cat] ? `(${categoryCounts[cat].toLocaleString()})` : ""}
             </button>
           ))}
         </div>

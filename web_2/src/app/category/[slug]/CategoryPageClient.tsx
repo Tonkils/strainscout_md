@@ -198,7 +198,7 @@ export default function CategoryPageClient({ slug }: { slug: string }) {
             ) : strains.length > 0 ? (
               <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 sm:gap-4">
                 {strains.map((strain) => (
-                  <DealCard key={strain.id} strain={strain} />
+                  <DealCard key={strain.id} strain={strain} hideCategory />
                 ))}
               </div>
             ) : (

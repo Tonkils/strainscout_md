@@ -5,7 +5,8 @@
       "Bash(python3 -c \":*)",
       "Bash(python3 -c \"import json; data=json.load\\(open\\(''C:/Users/jaretwyatt/.local/bin/strainscoutmd/strainscout_md/data/output/strainscout_catalog_v10.json'',''r'',encoding=''utf-8''\\)\\); types=set\\(d.get\\(''type'',''''\\) for d in data\\); print\\(sorted\\(types\\)\\)\")",
       "Bash(python3 classify_test.py)",
-      "Bash(find . -type d -iname \"*manus*\" 2>/dev/null | head -20)"
+      "Bash(find . -type d -iname \"*manus*\" 2>/dev/null | head -20)",
+      "Bash(wc -l data/raw/weedmaps_*.json)"
     ]
   }
 }
