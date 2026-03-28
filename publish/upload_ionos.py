@@ -71,6 +71,13 @@ RewriteBase /
 RewriteCond %{HTTPS} off
 RewriteRule ^(.*)$ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
 
+# Add trailing slash for clean URLs (Next.js trailingSlash: true)
+# Redirects /cheapest -> /cheapest/ so Apache finds cheapest/index.html
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_URI} !/$
+RewriteCond %{REQUEST_URI} !\\.\\w+$
+RewriteRule ^(.*)$ /$1/ [L,R=301]
+
 # Enable gzip compression
 <IfModule mod_deflate.c>
   AddOutputFilterByType DEFLATE text/html text/css application/javascript application/json

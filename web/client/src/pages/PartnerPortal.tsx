@@ -319,6 +319,8 @@ function PriceUpdateForm({ strains }: { strains: CatalogStrain[] }) {
   const [price, setPrice] = useState("");
   const [unit, setUnit] = useState<"3.5g" | "7g" | "14g" | "28g">("3.5g");
 
+  const utils = trpc.useUtils();
+
   const submitMutation = trpc.partners.submitPrice.useMutation({
     onSuccess: () => {
       if (selectedStrain) {
@@ -336,6 +338,8 @@ function PriceUpdateForm({ strains }: { strains: CatalogStrain[] }) {
       setSelectedStrain(null);
       setPrice("");
       setSearchQuery("");
+      utils.partners.myPriceUpdates.invalidate();
+      utils.partners.myStats.invalidate();
     },
     onError: (err) => {
       toast.error("Submission failed", { description: err.message });

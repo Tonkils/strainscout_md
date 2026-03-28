@@ -999,21 +999,29 @@ export async function claimDispensary(claim: {
     throw new Error("You already have a dispensary partnership. Each account can claim one dispensary.");
   }
 
-  const result = await db.insert(dispensaryPartners).values({
-    userId: claim.userId,
-    dispensarySlug: claim.dispensarySlug,
-    dispensaryName: claim.dispensaryName,
-    businessName: claim.businessName,
-    contactEmail: claim.contactEmail,
-    contactPhone: claim.contactPhone ?? null,
-    verificationStatus: "pending",
-    partnerTier: "basic",
-  });
+  let insertResult;
+  try {
+    insertResult = await db.insert(dispensaryPartners).values({
+      userId: claim.userId,
+      dispensarySlug: claim.dispensarySlug,
+      dispensaryName: claim.dispensaryName,
+      businessName: claim.businessName,
+      contactEmail: claim.contactEmail,
+      contactPhone: claim.contactPhone ?? null,
+      verificationStatus: "pending",
+      partnerTier: "basic",
+    });
+  } catch (err: any) {
+    if (err?.code === "ER_DUP_ENTRY" || err?.message?.includes("Duplicate entry")) {
+      throw new Error("This dispensary has already been claimed by another user.");
+    }
+    throw err;
+  }
 
   const inserted = await db
     .select()
     .from(dispensaryPartners)
-    .where(eq(dispensaryPartners.id, Number(result[0].insertId)))
+    .where(eq(dispensaryPartners.id, Number(insertResult[0].insertId)))
     .limit(1);
 
   return inserted[0];
