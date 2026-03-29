@@ -14,6 +14,15 @@ const nextConfig: NextConfig = {
   images: {
     unoptimized: true,
   },
+
+  // Pin Turbopack's root to this project directory.
+  // Without this, Turbopack may detect multiple package-lock.json files across
+  // the filesystem and pick the wrong one as the workspace root, causing worker
+  // processes to crash when resolving modules for dynamically-compiled routes
+  // (e.g. /dispensary/[slug]).
+  turbopack: {
+    root: process.cwd(),
+  },
 };
 
 export default nextConfig;

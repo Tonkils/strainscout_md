@@ -1,4 +1,4 @@
-import { readFileSync } from "fs";
+import { readFile } from "fs/promises";
 import { join } from "path";
 import DispensaryDetailClient from "./DispensaryDetailClient";
 
@@ -9,10 +9,10 @@ function slugify(name: string): string {
   return name.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/(^-|-$)/g, "");
 }
 
-function dispensariesFromLocalCatalog(): { slug: string }[] {
+async function dispensariesFromLocalCatalog(): Promise<{ slug: string }[]> {
   try {
     const catalogPath = join(process.cwd(), "public", "data", "strainscout_catalog_v10.min.json");
-    const raw = readFileSync(catalogPath, "utf-8");
+    const raw = await readFile(catalogPath, "utf-8");
     const strains: { dispensaries?: string[] }[] = JSON.parse(raw);
     const names = new Set<string>();
     for (const s of strains) {

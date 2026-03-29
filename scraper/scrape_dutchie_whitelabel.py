@@ -35,6 +35,7 @@ from datetime import datetime, timezone
 from pathlib import Path
 
 from playwright.async_api import async_playwright, Page, Response
+from scraper.utils import async_retry
 
 # ── Paths ────────────────────────────────────────────────────────────────────
 BASE = Path(__file__).resolve().parent.parent
@@ -313,6 +314,7 @@ def _parse_product(obj: dict) -> dict | None:
 
 # ── Scrape single location ───────────────────────────────────────────────────
 
+@async_retry(max_attempts=3, delay=5.0, backoff=2.0, exceptions=(Exception,))
 async def scrape_location(page: Page, loc: dict) -> dict:
     slug = loc["slug"]
     name = loc["name"]
@@ -414,7 +416,7 @@ async def scrape_location(page: Page, loc: dict) -> dict:
 
     except Exception as e:
         log.error("  %s: ERROR — %s", slug, e)
-        method = "error"
+        raise  # re-raise so @async_retry can trigger retries
     finally:
         page.remove_listener("response", on_response)
 
@@ -452,7 +454,19 @@ async def run(locations: list[dict], headed: bool = False):
 
         for i, loc in enumerate(locations):
             log.info("[%d/%d] %s", i + 1, len(locations), loc["name"])
-            result = await scrape_location(page, loc)
+            try:
+                result = await scrape_location(page, loc)
+            except Exception as exc:
+                log.error("  All retries failed for %s: %s", loc["slug"], exc)
+                result = {
+                    "slug": loc["slug"],
+                    "name": loc["name"],
+                    "url": loc["menu_url"],
+                    "platform": "dutchie-whitelabel",
+                    "scraped_at": datetime.now(timezone.utc).isoformat(),
+                    "products": [],
+                    "method": "error",
+                }
             results.append(result)
             if i < len(locations) - 1:
                 await asyncio.sleep(INTER_PAGE_DELAY)

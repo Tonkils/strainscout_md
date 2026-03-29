@@ -37,7 +37,6 @@ import os
 import time
 import asyncio
 import argparse
-import subprocess
 import traceback
 from datetime import datetime, timezone
 from pathlib import Path
@@ -69,27 +68,34 @@ SCRAPERS = [
 ]
 
 
-def run_scraper(name: str, module: str) -> dict:
+async def run_scraper(name: str, module: str) -> dict:
     """Run a single scraper as a subprocess. Returns result dict."""
-    print(f"\n  → {name}")
     start = time.time()
 
     try:
-        result = subprocess.run(
-            [sys.executable, "-B", "-X", "utf8", "-m", module],
+        proc = await asyncio.create_subprocess_exec(
+            sys.executable, "-B", "-X", "utf8", "-m", module,
             cwd=str(BASE),
-            capture_output=True,
-            text=True,
-            timeout=1800,  # 30 minute timeout per scraper
-            encoding="utf-8",
-            errors="replace",
+            stdout=asyncio.subprocess.PIPE,
+            stderr=asyncio.subprocess.PIPE,
         )
+        try:
+            stdout_bytes, stderr_bytes = await asyncio.wait_for(proc.communicate(), timeout=1800)
+        except asyncio.TimeoutError:
+            proc.kill()
+            await proc.communicate()
+            elapsed = time.time() - start
+            print(f"  {name}: TIMEOUT after {elapsed:.0f}s")
+            return {"name": name, "status": "timeout", "dispensaries": 0, "products": 0, "elapsed": round(elapsed)}
+
+        stdout = stdout_bytes.decode("utf-8", errors="replace")
+        stderr = stderr_bytes.decode("utf-8", errors="replace")
         elapsed = time.time() - start
 
         # Extract product count from output
         products = 0
         dispensaries = 0
-        for line in result.stdout.split("\n"):
+        for line in stdout.split("\n"):
             if "Products" in line and ":" in line:
                 try:
                     products = int(line.split(":")[-1].strip())
@@ -101,14 +107,14 @@ def run_scraper(name: str, module: str) -> dict:
                 except ValueError:
                     pass
 
-        status = "success" if result.returncode == 0 else "error"
-        print(f"    {name}: {dispensaries} dispensaries, {products} products ({elapsed:.0f}s) [{status}]")
+        status = "success" if proc.returncode == 0 else "error"
+        print(f"  ✓ {name}: {dispensaries} dispensaries, {products} products ({elapsed:.0f}s) [{status}]")
 
-        if result.returncode != 0 and result.stderr:
+        if proc.returncode != 0 and stderr:
             # Print last 3 lines of stderr for debugging
-            err_lines = [l for l in result.stderr.strip().split("\n") if l.strip()]
+            err_lines = [l for l in stderr.strip().split("\n") if l.strip()]
             for line in err_lines[-3:]:
-                print(f"    STDERR: {line}")
+                print(f"    STDERR [{name}]: {line}")
 
         return {
             "name": name,
@@ -118,41 +124,39 @@ def run_scraper(name: str, module: str) -> dict:
             "elapsed": round(elapsed),
         }
 
-    except subprocess.TimeoutExpired:
-        elapsed = time.time() - start
-        print(f"    {name}: TIMEOUT after {elapsed:.0f}s")
-        return {"name": name, "status": "timeout", "dispensaries": 0, "products": 0, "elapsed": round(elapsed)}
     except Exception as e:
         elapsed = time.time() - start
-        print(f"    {name}: ERROR — {e}")
+        print(f"  {name}: ERROR — {e}")
         return {"name": name, "status": "error", "dispensaries": 0, "products": 0, "elapsed": round(elapsed)}
 
 
-def run_all_scrapers() -> list[dict]:
-    """Run all scrapers sequentially."""
+async def run_all_scrapers() -> list[dict]:
+    """Run all scrapers in parallel."""
     print(f"\n{'#'*70}")
-    print(f"# PHASE 1: SCRAPE ALL SOURCES")
+    print(f"# PHASE 1: SCRAPE ALL SOURCES (parallel)")
     print(f"{'#'*70}")
 
-    results = []
+    tasks = []
+    skipped = []
     for name, module in SCRAPERS:
-        # Check if module exists
         try:
             __import__(module.rsplit(".", 1)[0])
-            result = run_scraper(name, module)
+            tasks.append(run_scraper(name, module))
         except ImportError:
             print(f"\n  → {name} — SKIPPED (module not found: {module})")
-            result = {"name": name, "status": "skipped", "dispensaries": 0, "products": 0, "elapsed": 0}
-        results.append(result)
+            skipped.append({"name": name, "status": "skipped", "dispensaries": 0, "products": 0, "elapsed": 0})
+
+    print(f"\n  Launching {len(tasks)} scrapers in parallel...\n")
+    results = list(await asyncio.gather(*tasks)) + skipped
 
     # Summary
     total_disps = sum(r["dispensaries"] for r in results)
     total_prods = sum(r["products"] for r in results)
-    total_time = sum(r["elapsed"] for r in results)
+    wall_time = max((r["elapsed"] for r in results), default=0)
     successes = sum(1 for r in results if r["status"] == "success")
 
     print(f"\n  Scrape Summary: {successes}/{len(results)} scrapers succeeded")
-    print(f"  Total: {total_disps} dispensaries, {total_prods} products in {total_time}s")
+    print(f"  Total: {total_disps} dispensaries, {total_prods} products in {wall_time}s (wall clock)")
 
     return results
 
@@ -205,7 +209,7 @@ def main():
 
     # ── Phase 1: Scrape ──
     if args.scrape or args.scrape_only:
-        scrape_results = run_all_scrapers()
+        scrape_results = asyncio.run(run_all_scrapers())
         results["scrape"] = scrape_results
 
         if args.scrape_only:
