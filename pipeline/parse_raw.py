@@ -126,7 +126,7 @@ def clean_product_name(raw_name: str) -> str:
         format_words = {
             "flower", "buds", "smalls", "shake", "pre-roll", "preroll",
             "whole", "premium", "select", "ground", "popcorn", "prepack",
-            "pre-pack", "prepacked", "indica", "sativa", "hybrid", "reserve",
+            "pre-pack", "prepacked", "pre-packaged", "indica", "sativa", "hybrid", "reserve",
         }
         # Filter out parts that are just sizes/format words
         meaningful = []
@@ -155,7 +155,7 @@ def clean_product_name(raw_name: str) -> str:
     # ── Strip format suffixes ──
     for pat in [
         r'\s*(Smalls?|Shake|Ground|Popcorn|Mini|Minis|Whole|Full|Littles?)\s*$',
-        r'\s*(Pre-?Roll|Pre-?Pack|PrePack|Prepacked?|Pre-?Ground)\s*$',
+        r'\s*(Pre-?Roll|Pre-?Pack|Pre-?Packaged?|PrePack|Prepacked?|Pre-?Ground)\s*$',
         r'\s*(Premium|Select|Reserve|Exclusive|Limited)\s*$',
         r'\s*(Flower|Buds?|Nug|Nugs|Mixed\s*Buds?)\s*$',
         r'\s*(Mixed|Trim|Kief|PRJs?)\s*$',

@@ -106,7 +106,7 @@ def extract_pure_name(name: str) -> str:
     # Remove format words
     for pat in [
         r"\s*(Smalls?|Shake|Ground|Popcorn|Mini|Minis|Whole|Full|Littles?)\s*$",
-        r"\s*(Pre-?Roll|Pre-?Pack|PrePack|Prepacked?|Pre-?Ground)\s*$",
+        r"\s*(Pre-?Roll|Pre-?Pack|Pre-?Packaged?|PrePack|Prepacked?|Pre-?Ground)\s*$",
         r"\s*(Premium|Select|Reserve|Exclusive|Limited)\s*$",
         r"\s*(Flower|Buds?|Nug|Nugs|Mixed\s*Buds?)\s*$",
     ]:

@@ -39,8 +39,8 @@ The Leafly URL is algorithmically generated from the product name, which include
 **Root cause:** `pipeline/enrich_leafly.py` runs `extract_pure_name()` before generating the slug, but "Pre-Packaged" is not in the format-word strip list, so it survives into the slug.
 
 **Action items:**
-- [ ] Add `Pre-?Packaged?` to the format-word strip list in `extract_pure_name()` in `enrich_leafly.py`
-- [ ] Add `Pre-?Packaged?` to the strip patterns in `clean_product_name()` in `parse_raw.py` as well
+- [x] Add `Pre-?Packaged?` to the format-word strip list in `extract_pure_name()` in `enrich_leafly.py`
+- [x] Add `Pre-?Packaged?` to the strip patterns in `clean_product_name()` in `parse_raw.py` as well
 - [ ] Consider a one-time HEAD-request sweep to validate all generated Leafly URLs and null out 404s (QA audit CRITICAL-07 recommendation)
 
 ---
