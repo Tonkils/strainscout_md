@@ -363,15 +363,21 @@ async def run(slugs: list[tuple[str, str]], headed: bool = False):
 
     async with async_playwright() as pw:
         browser = await pw.chromium.launch(headless=not headed)
-        context = await browser.new_context(
+        # Fresh context + page per dispensary: isolates cookies, localStorage,
+        # and response listeners so a bad/rate-limited page can't affect later ones.
+        _ctx_kwargs = dict(
             viewport={"width": 1280, "height": 900},
             user_agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36",
         )
-        page = await context.new_page()
 
         for i, (slug, name) in enumerate(slugs):
             log.info("[%d/%d] %s", i + 1, len(slugs), name)
-            result = await scrape_dispensary(page, slug, name)
+            context = await browser.new_context(**_ctx_kwargs)
+            page = await context.new_page()
+            try:
+                result = await scrape_dispensary(page, slug, name)
+            finally:
+                await context.close()
             results.append(result)
 
             if i < len(slugs) - 1:

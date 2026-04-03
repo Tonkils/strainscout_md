@@ -564,7 +564,9 @@ async def run(targets: list[dict], *, headless: bool = True) -> dict:
                 "--disable-dev-shm-usage",
             ],
         )
-        context = await browser.new_context(
+        # Fresh context + page per dispensary: isolates cookies, localStorage,
+        # and response listeners so a bad/rate-limited page can't affect later ones.
+        _ctx_kwargs = dict(
             user_agent=(
                 "Mozilla/5.0 (Windows NT 10.0; Win64; x64) "
                 "AppleWebKit/537.36 (KHTML, like Gecko) "
@@ -575,20 +577,23 @@ async def run(targets: list[dict], *, headless: bool = True) -> dict:
             timezone_id="America/New_York",
         )
 
-        # Persist cookies/storage across dispensary pages (keeps age-gate dismissed)
-        page = await context.new_page()
-
         for i, target in enumerate(targets):
             slug = target["weedmaps"]
             name = target.get("name", slug)
 
-            result = await scrape_dispensary(page, slug, name)
+            context = await browser.new_context(**_ctx_kwargs)
+            page = await context.new_page()
+            try:
+                result = await scrape_dispensary(page, slug, name)
+            finally:
+                await context.close()
+
             all_results.append(result)
 
             # Save individual result immediately
             save_dispensary_result(result)
 
-            # Pause between pages (except after last)
+            # Pause between dispensaries (except after last)
             if i < len(targets) - 1:
                 await asyncio.sleep(INTER_PAGE_DELAY)
 

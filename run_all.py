@@ -131,7 +131,7 @@ def run_scraper(name: str, module: str) -> dict:
 
 # Max scrapers to run simultaneously. Each Playwright scraper launches a browser,
 # so keep this low enough not to exhaust RAM. 3 is safe on a 4–8 GB machine.
-MAX_CONCURRENT_SCRAPERS = 3
+MAX_CONCURRENT_SCRAPERS = 4
 
 
 def _run_scraper_task(name: str, module: str) -> dict:
