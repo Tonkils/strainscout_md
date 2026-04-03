@@ -39,6 +39,7 @@ import asyncio
 import argparse
 import subprocess
 import traceback
+from concurrent.futures import ThreadPoolExecutor, as_completed
 from datetime import datetime, timezone
 from pathlib import Path
 
@@ -128,31 +129,53 @@ def run_scraper(name: str, module: str) -> dict:
         return {"name": name, "status": "error", "dispensaries": 0, "products": 0, "elapsed": round(elapsed)}
 
 
+# Max scrapers to run simultaneously. Each Playwright scraper launches a browser,
+# so keep this low enough not to exhaust RAM. 3 is safe on a 4–8 GB machine.
+MAX_CONCURRENT_SCRAPERS = 3
+
+
+def _run_scraper_task(name: str, module: str) -> dict:
+    """Worker function: checks module availability then runs scraper. Thread-safe."""
+    try:
+        __import__(module.rsplit(".", 1)[0])
+    except ImportError:
+        print(f"\n  → {name} — SKIPPED (module not found: {module})")
+        return {"name": name, "status": "skipped", "dispensaries": 0, "products": 0, "elapsed": 0}
+    return run_scraper(name, module)
+
+
 def run_all_scrapers() -> list[dict]:
-    """Run all scrapers sequentially."""
+    """Run all scrapers in parallel (up to MAX_CONCURRENT_SCRAPERS at a time)."""
     print(f"\n{'#'*70}")
-    print(f"# PHASE 1: SCRAPE ALL SOURCES")
+    print(f"# PHASE 1: SCRAPE ALL SOURCES  (max {MAX_CONCURRENT_SCRAPERS} concurrent)")
     print(f"{'#'*70}")
 
-    results = []
-    for name, module in SCRAPERS:
-        # Check if module exists
-        try:
-            __import__(module.rsplit(".", 1)[0])
-            result = run_scraper(name, module)
-        except ImportError:
-            print(f"\n  → {name} — SKIPPED (module not found: {module})")
-            result = {"name": name, "status": "skipped", "dispensaries": 0, "products": 0, "elapsed": 0}
-        results.append(result)
+    wall_start = time.time()
+
+    # Preserve original order in results regardless of completion order
+    ordered: dict[str, dict] = {}
+    with ThreadPoolExecutor(max_workers=MAX_CONCURRENT_SCRAPERS) as pool:
+        future_to_name = {
+            pool.submit(_run_scraper_task, name, module): name
+            for name, module in SCRAPERS
+        }
+        for future in as_completed(future_to_name):
+            result = future.result()
+            ordered[result["name"]] = result
+
+    # Restore original scraper order
+    results = [ordered[name] for name, _ in SCRAPERS if name in ordered]
 
     # Summary
+    wall_elapsed = time.time() - wall_start
+    cpu_time = sum(r["elapsed"] for r in results)
     total_disps = sum(r["dispensaries"] for r in results)
     total_prods = sum(r["products"] for r in results)
-    total_time = sum(r["elapsed"] for r in results)
     successes = sum(1 for r in results if r["status"] == "success")
 
     print(f"\n  Scrape Summary: {successes}/{len(results)} scrapers succeeded")
-    print(f"  Total: {total_disps} dispensaries, {total_prods} products in {total_time}s")
+    print(f"  Total: {total_disps} dispensaries, {total_prods} products")
+    print(f"  Wall time: {wall_elapsed:.0f}s  |  CPU time: {cpu_time:.0f}s")
 
     return results
 
