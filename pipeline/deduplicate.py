@@ -114,6 +114,8 @@ def main():
 
     with open(INPUT, encoding="utf-8") as f:
         data = json.load(f)
+    from pipeline.validate import validate_enriched, abort_if_invalid
+    abort_if_invalid(validate_enriched(data), "deduplicate ← enriched_strains.json")
     records = data["records"]
     print(f"Input: {len(records)} enriched records")
 

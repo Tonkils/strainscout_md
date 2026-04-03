@@ -204,9 +204,11 @@ def main():
     print("PIPELINE STEP 2: ENRICH WITH LEAFLY DATA")
     print("=" * 70)
 
-    # Load parsed data
+    # Load and validate parsed data
     with open(INPUT, encoding="utf-8") as f:
         data = json.load(f)
+    from pipeline.validate import validate_parsed, abort_if_invalid
+    abort_if_invalid(validate_parsed(data), "enrich_leafly ← parsed_strains.json")
     records = data["records"]
     print(f"Loaded {len(records)} parsed records")
 

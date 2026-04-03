@@ -115,6 +115,8 @@ def main():
 
     with open(INPUT, encoding="utf-8") as f:
         data = json.load(f)
+    from pipeline.validate import validate_deduped, abort_if_invalid
+    abort_if_invalid(validate_deduped(data), "build_catalog ← deduped_strains.json")
     strains = data["strains"]
     print(f"Input: {len(strains)} deduped strains")
 
