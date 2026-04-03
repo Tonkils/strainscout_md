@@ -22,8 +22,8 @@
 **Root cause:** The scraper looks for 1/8 oz pricing tiers. $222 passes the `5 ≤ price ≤ 500` validation range, but it's almost certainly an **ounce price that was misread as an eighth** — or a bundle/multi-pack price that got picked up instead of the per-unit eighth price. The correct eighth price is $100.
 
 **Action items:**
-- [ ] Audit `scraper/scrape_weedmaps.py` price-tier selection logic to ensure the 1/8 oz tier is being selected and not the 1 oz tier
-- [ ] Add a soft warning in `pipeline/parse_raw.py` for eighth prices above $100 (flag for manual review, don't discard)
+- [x] Audit `scraper/scrape_weedmaps.py` price-tier selection logic to ensure the 1/8 oz tier is being selected and not the 1 oz tier
+- [x] Add a soft warning in `pipeline/parse_raw.py` for eighth prices above $100 (flag for manual review, don't discard)
 - [ ] Re-scrape Far & Dotter and verify corrected price appears in next catalog build
 
 ---
@@ -54,7 +54,7 @@ The Leafly URL is algorithmically generated from the product name, which include
 Far & Dotter - Elkton is not present in `data/config/ordering_links.json` or `Manus JSONs/scraping_targets.json`, so the catalog has no "Order Here" link for this dispensary.
 
 **Action items:**
-- [ ] Look up Far & Dotter - Elkton's ordering platform (Weedmaps, Dutchie, or direct site) and add to `data/config/ordering_links.json`
+- [x] Look up Far & Dotter - Elkton's ordering platform (Weedmaps, Dutchie, or direct site) and add to `data/config/ordering_links.json` — **already present** (`fardotter.com/dispensaries/elkton-md/`); will appear in catalog on next rebuild
 - [ ] Verify whether Far & Dotter has other locations (e.g., Silver Spring) that are also missing links
 
 ---
@@ -63,9 +63,9 @@ Far & Dotter - Elkton is not present in `data/config/ordering_links.json` or `Ma
 
 | # | Finding | Severity | File / Config | Status |
 |---|---------|----------|---------------|--------|
-| 1 | $222 ounce price misread as eighth (Rainbow Sundae @ Far & Dotter) | High | `scraper/scrape_weedmaps.py`, `pipeline/parse_raw.py` | Open |
-| 2 | Leafly URL includes "Pre-Packaged" — likely 404 | Medium | `pipeline/enrich_leafly.py`, `pipeline/parse_raw.py` | Open |
-| 3 | Far & Dotter - Elkton missing from ordering_links config | Low | `data/config/ordering_links.json` | Open |
+| 1 | $222 ounce price misread as eighth (Rainbow Sundae @ Far & Dotter) | High | `scraper/scrape_weedmaps.py`, `pipeline/parse_raw.py` | **Fixed** |
+| 2 | Leafly URL includes "Pre-Packaged" — likely 404 | Medium | `pipeline/enrich_leafly.py`, `pipeline/parse_raw.py` | **Fixed** |
+| 3 | Far & Dotter - Elkton missing from ordering_links config | Low | `data/config/ordering_links.json` | **Already in config** |
 
 ---
 

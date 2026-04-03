@@ -171,11 +171,16 @@ def _parse_discovery_item(item: dict) -> dict | None:
                 price = str(tier.get("price", ""))
                 break
         if not price and ounce_tiers:
-            # fallback: smallest tier by price
+            # Fallback: prefer the smallest sub-ounce weight tier.
+            # NEVER pick a full-ounce tier here — it would be misread as
+            # an eighth price (e.g. $222/oz recorded as $222/eighth).
+            _tier_rank = {"1/8": 1, "1/4": 2, "1/2": 3}
             valid = [t for t in ounce_tiers if isinstance(t, dict) and t.get("price")]
-            if valid:
-                cheapest = min(valid, key=lambda t: float(t.get("price", 999)))
-                price = str(cheapest.get("price", ""))
+            sub_oz = [t for t in valid
+                       if str(t.get("units", "1")) in _tier_rank]
+            if sub_oz:
+                sub_oz.sort(key=lambda t: _tier_rank.get(str(t.get("units", "")), 99))
+                price = str(sub_oz[0].get("price", ""))
     # Also check top-level price field
     if not price:
         top_price = item.get("price") or {}

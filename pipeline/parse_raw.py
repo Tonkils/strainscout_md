@@ -12,8 +12,11 @@ import re
 import glob
 import os
 import sys
+import logging
 from datetime import datetime, timezone
 from pathlib import Path
+
+log = logging.getLogger(__name__)
 
 BASE = Path(__file__).resolve().parent.parent
 RAW_DIR = BASE / "data" / "raw"
@@ -304,6 +307,14 @@ def main():
 
             thc = parse_thc(prod.get("thc_pct"))
             price_eighth = parse_price(prod.get("price_eighth"))
+
+            # Soft warning: eighth prices above $100 are suspicious —
+            # may be an ounce or bundle price misread as an eighth.
+            if price_eighth is not None and price_eighth > 100:
+                log.warning(
+                    "  [PRICE CHECK] %s @ %s: $%.2f eighth — verify this isn't an ounce/bundle price",
+                    clean_name, disp_display, price_eighth,
+                )
 
             record = {
                 "strain_name": clean_name,
