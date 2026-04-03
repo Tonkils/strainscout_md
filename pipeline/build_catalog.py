@@ -187,6 +187,7 @@ def main():
             "name": s["name"],
             "brand": brand,
             "type": raw_type,
+            "type_source": s.get("type_source", ""),  # "leafly" | "weedmaps" | "name_pattern" | "default"
             "product_category": s.get("product_category", "Flower"),
             "category_confidence": s.get("category_confidence", "inferred"),
 

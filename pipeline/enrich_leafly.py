@@ -156,10 +156,12 @@ def find_leafly_match(name: str, index: dict) -> dict | None:
 # ── Name-pattern type inference (fallback) ──
 
 INDICA_PATTERNS = [
-    r"\bkush\b", r"\bog\b", r"\bpurple\b", r"\bbubba\b", r"\bgranddaddy\b",
+    # \bog\b removed — too many OG-named strains are Hybrid (Cherry Pie OG, Sour OG, etc.)
+    # \bpunch\b moved to HYBRID — Purple Punch, Cherry Punch, Black Cherry Punch are Hybrid
+    r"\bkush\b", r"\bpurple\b", r"\bbubba\b", r"\bgranddaddy\b",
     r"\bafghani?\b", r"\bnorthern.?lights?\b", r"\bblueberry\b", r"\bgrape\b",
     r"\bpurp\b", r"\bskywalker\b", r"\bgorilla\b", r"\bdo.?si.?do\b",
-    r"\bgmo\b", r"\bmk.?ultra\b", r"\bdiablo\b", r"\bpunch\b",
+    r"\bgmo\b", r"\bmk.?ultra\b", r"\bdiablo\b",
     r"\bzerbert\b", r"\blavender\b", r"\bmendo\b", r"\bforbidden\b",
     r"\bslurricane\b",
 ]
@@ -173,12 +175,13 @@ SATIVA_PATTERNS = [
 ]
 
 HYBRID_PATTERNS = [
+    # \bpunch\b moved here from INDICA — Purple Punch, Cherry Punch, Black Cherry Punch
     r"\bgelato\b", r"\bruntz\b", r"\bcookies?\b", r"\bzkittlez\b",
     r"\bblue.?dream\b", r"\bgirl.?scout\b", r"\bgsc\b", r"\bwhite.?widow\b",
     r"\bgorilla.?glue\b", r"\bgg\d?\b", r"\bchemdog\b", r"\bdiesel\b",
     r"\bsherbet\b", r"\bice.?cream\b", r"\bcandy\b", r"\bsundae\b",
     r"\bwedding.?cake\b", r"\bapple\b", r"\bmac\b", r"\bgarlic\b",
-    r"\bglue\b", r"\bbiscotti\b", r"\bcake\b", r"\bbanana\b",
+    r"\bglue\b", r"\bbiscotti\b", r"\bcake\b", r"\bbanana\b", r"\bpunch\b",
 ]
 
 
@@ -227,13 +230,13 @@ def main():
         if match:
             stats["leafly_matched"] += 1
 
-            # Type
-            if not rec.get("strain_type"):
-                ltype = (match.get("strain_type") or "").strip()
-                if ltype.lower() in ("indica", "sativa", "hybrid"):
-                    rec["strain_type"] = ltype.capitalize()
-                    rec["type_source"] = "leafly"
-                    stats["type_from_leafly"] += 1
+            # Type — Leafly is authoritative; always override platform-sourced type.
+            # Weedmaps dispensary menus mislabel strain types more often than Leafly.
+            ltype = (match.get("strain_type") or "").strip()
+            if ltype.lower() in ("indica", "sativa", "hybrid"):
+                rec["strain_type"] = ltype.capitalize()
+                rec["type_source"] = "leafly"
+                stats["type_from_leafly"] += 1
 
             # Terpenes
             terps = parse_csv_field(match.get("terpenes", ""))
