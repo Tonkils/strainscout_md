@@ -1,0 +1,3602 @@
+[
+  {
+    "product_id": "110",
+    "product_name": "$110",
+    "brand": "",
+    "product_category": "Flower",
+    "reason": "scrape_artifact",
+    "detail": "Scraping artifact \u2014 price tag, promotion, merch, or generic category label incorrectly ingested as a product.",
+    "recommendation": "Remove from product list."
+  },
+  {
+    "product_id": "120",
+    "product_name": "$120",
+    "brand": "",
+    "product_category": "Flower",
+    "reason": "scrape_artifact",
+    "detail": "Scraping artifact \u2014 price tag, promotion, merch, or generic category label incorrectly ingested as a product.",
+    "recommendation": "Remove from product list."
+  },
+  {
+    "product_id": "185",
+    "product_name": "$185",
+    "brand": "",
+    "product_category": "Flower",
+    "reason": "scrape_artifact",
+    "detail": "Scraping artifact \u2014 price tag, promotion, merch, or generic category label incorrectly ingested as a product.",
+    "recommendation": "Remove from product list."
+  },
+  {
+    "product_id": "20-off-extra-savvy-2g-vapes",
+    "product_name": "$20 OFF Extra Savvy 2g Vapes",
+    "brand": "",
+    "product_category": "Other",
+    "reason": "scrape_artifact",
+    "detail": "Scraping artifact \u2014 price tag, promotion, merch, or generic category label incorrectly ingested as a product.",
+    "recommendation": "Remove from product list."
+  },
+  {
+    "product_id": "35",
+    "product_name": "$35",
+    "brand": "",
+    "product_category": "Flower",
+    "reason": "scrape_artifact",
+    "detail": "Scraping artifact \u2014 price tag, promotion, merch, or generic category label incorrectly ingested as a product.",
+    "recommendation": "Remove from product list."
+  },
+  {
+    "product_id": "45",
+    "product_name": "$45",
+    "brand": "",
+    "product_category": "Flower",
+    "reason": "scrape_artifact",
+    "detail": "Scraping artifact \u2014 price tag, promotion, merch, or generic category label incorrectly ingested as a product.",
+    "recommendation": "Remove from product list."
+  },
+  {
+    "product_id": "50",
+    "product_name": "$50",
+    "brand": "",
+    "product_category": "Flower",
+    "reason": "scrape_artifact",
+    "detail": "Scraping artifact \u2014 price tag, promotion, merch, or generic category label incorrectly ingested as a product.",
+    "recommendation": "Remove from product list."
+  },
+  {
+    "product_id": "60",
+    "product_name": "$60",
+    "brand": "",
+    "product_category": "Flower",
+    "reason": "scrape_artifact",
+    "detail": "Scraping artifact \u2014 price tag, promotion, merch, or generic category label incorrectly ingested as a product.",
+    "recommendation": "Remove from product list."
+  },
+  {
+    "product_id": "65",
+    "product_name": "$65",
+    "brand": "",
+    "product_category": "Flower",
+    "reason": "scrape_artifact",
+    "detail": "Scraping artifact \u2014 price tag, promotion, merch, or generic category label incorrectly ingested as a product.",
+    "recommendation": "Remove from product list."
+  },
+  {
+    "product_id": "75",
+    "product_name": "$75",
+    "brand": "",
+    "product_category": "Flower",
+    "reason": "scrape_artifact",
+    "detail": "Scraping artifact \u2014 price tag, promotion, merch, or generic category label incorrectly ingested as a product.",
+    "recommendation": "Remove from product list."
+  },
+  {
+    "product_id": "80",
+    "product_name": "$80",
+    "brand": "",
+    "product_category": "Flower",
+    "reason": "scrape_artifact",
+    "detail": "Scraping artifact \u2014 price tag, promotion, merch, or generic category label incorrectly ingested as a product.",
+    "recommendation": "Remove from product list."
+  },
+  {
+    "product_id": "95",
+    "product_name": "$95",
+    "brand": "",
+    "product_category": "Flower",
+    "reason": "scrape_artifact",
+    "detail": "Scraping artifact \u2014 price tag, promotion, merch, or generic category label incorrectly ingested as a product.",
+    "recommendation": "Remove from product list."
+  },
+  {
+    "product_id": "12oz-can",
+    "product_name": "(12oz Can)",
+    "brand": "Keef",
+    "product_category": "Edible",
+    "reason": "strain_agnostic",
+    "detail": "Product defined by dosage/formulation (edible/topical), not by a specific cannabis strain.",
+    "recommendation": "Keep in product list with strain_id=null. Categorize by product type and brand only."
+  },
+  {
+    "product_id": "20ct",
+    "product_name": "(20ct)",
+    "brand": "All Caps",
+    "product_category": "Flower",
+    "reason": "strain_not_identified",
+    "detail": "Cannabis-derived product but strain name could not be extracted or matched. May be proprietary blend, brand-specific formulation, or product name lacks standard strain identifiers.",
+    "recommendation": "Flag for manual review. Check dispensary menu to identify underlying strain."
+  },
+  {
+    "product_id": "the-essence",
+    "product_name": "(the) Essence",
+    "brand": "",
+    "product_category": "Flower",
+    "reason": "strain_not_identified",
+    "detail": "Cannabis-derived product but strain name could not be extracted or matched. May be proprietary blend, brand-specific formulation, or product name lacks standard strain identifiers.",
+    "recommendation": "Flag for manual review. Check dispensary menu to identify underlying strain."
+  },
+  {
+    "product_id": "0-35g-mini-joints",
+    "product_name": "0.35g mini joints",
+    "brand": "District Cannabis",
+    "product_category": "Pre-Roll",
+    "reason": "scrape_artifact",
+    "detail": "Scraping artifact \u2014 price tag, promotion, merch, or generic category label incorrectly ingested as a product.",
+    "recommendation": "Remove from product list."
+  },
+  {
+    "product_id": "1-0g-ready-to-use",
+    "product_name": "1.0g (Ready-To-Use)",
+    "brand": "Rove",
+    "product_category": "Flower",
+    "reason": "strain_not_identified",
+    "detail": "Cannabis-derived product but strain name could not be extracted or matched. May be proprietary blend, brand-specific formulation, or product name lacks standard strain identifiers.",
+    "recommendation": "Flag for manual review. Check dispensary menu to identify underlying strain."
+  },
+  {
+    "product_id": "1-0g-reload",
+    "product_name": "1.0g (Reload)",
+    "brand": "Rove",
+    "product_category": "Flower",
+    "reason": "strain_not_identified",
+    "detail": "Cannabis-derived product but strain name could not be extracted or matched. May be proprietary blend, brand-specific formulation, or product name lacks standard strain identifiers.",
+    "recommendation": "Flag for manual review. Check dispensary menu to identify underlying strain."
+  },
+  {
+    "product_id": "1-8th",
+    "product_name": "1/8th",
+    "brand": "Culta",
+    "product_category": "Flower",
+    "reason": "scrape_artifact",
+    "detail": "Scraping artifact \u2014 price tag, promotion, merch, or generic category label incorrectly ingested as a product.",
+    "recommendation": "Remove from product list."
+  },
+  {
+    "product_id": "10-pack",
+    "product_name": "10 Pack",
+    "brand": "Ozone",
+    "product_category": "Other",
+    "reason": "non_cannabis_or_bundle",
+    "detail": "Bundle, accessory, pack-count reference, or non-cannabis item.",
+    "recommendation": "Remove or reclassify as accessory/bundle."
+  },
+  {
+    "product_id": "100mg-cbn-50mg-thc",
+    "product_name": "100mg CBN : 50mg THC",
+    "brand": "Curio Wellness",
+    "product_category": "Edible",
+    "reason": "strain_agnostic",
+    "detail": "Product defined by dosage/formulation (edible/topical), not by a specific cannabis strain.",
+    "recommendation": "Keep in product list with strain_id=null. Categorize by product type and brand only."
+  },
+  {
+    "product_id": "100mg-cbn-100mg-thc",
+    "product_name": "100mg CBN: 100mg THC",
+    "brand": "DO Drops",
+    "product_category": "Edible",
+    "reason": "strain_agnostic",
+    "detail": "Product defined by dosage/formulation (edible/topical), not by a specific cannabis strain.",
+    "recommendation": "Keep in product list with strain_id=null. Categorize by product type and brand only."
+  },
+  {
+    "product_id": "100mg-thc",
+    "product_name": "100mg THC",
+    "brand": "Incredibles",
+    "product_category": "Edible",
+    "reason": "strain_agnostic",
+    "detail": "Product defined by dosage/formulation (edible/topical), not by a specific cannabis strain.",
+    "recommendation": "Keep in product list with strain_id=null. Categorize by product type and brand only."
+  },
+  {
+    "product_id": "100mg-thc-100mg-cbg",
+    "product_name": "100mg THC / 100mg CBG",
+    "brand": "Incredibles",
+    "product_category": "Edible",
+    "reason": "strain_agnostic",
+    "detail": "Product defined by dosage/formulation (edible/topical), not by a specific cannabis strain.",
+    "recommendation": "Keep in product list with strain_id=null. Categorize by product type and brand only."
+  },
+  {
+    "product_id": "100mg-thc-50mg-cbn-50mg-cbg",
+    "product_name": "100mg THC / 50mg CBN / 50mg CBG",
+    "brand": "Incredibles",
+    "product_category": "Edible",
+    "reason": "strain_agnostic",
+    "detail": "Product defined by dosage/formulation (edible/topical), not by a specific cannabis strain.",
+    "recommendation": "Keep in product list with strain_id=null. Categorize by product type and brand only."
+  },
+  {
+    "product_id": "100mg-thc-200mg-cbd-200mg-cbg",
+    "product_name": "100mg THC 200mg CBD  200mg CBG",
+    "brand": "DO Drops",
+    "product_category": "Edible",
+    "reason": "strain_agnostic",
+    "detail": "Product defined by dosage/formulation (edible/topical), not by a specific cannabis strain.",
+    "recommendation": "Keep in product list with strain_id=null. Categorize by product type and brand only."
+  },
+  {
+    "product_id": "100mg-thc-100mg-cbn-100mg-cbd",
+    "product_name": "100mg THC : 100mg CBN : 100mg CBD",
+    "brand": "Oria",
+    "product_category": "Edible",
+    "reason": "strain_agnostic",
+    "detail": "Product defined by dosage/formulation (edible/topical), not by a specific cannabis strain.",
+    "recommendation": "Keep in product list with strain_id=null. Categorize by product type and brand only."
+  },
+  {
+    "product_id": "100mg-thc-100mg-thcv-100mg-cbg",
+    "product_name": "100mg THC : 100mg THCv : 100mg CBG",
+    "brand": "DO Drops",
+    "product_category": "Edible",
+    "reason": "strain_agnostic",
+    "detail": "Product defined by dosage/formulation (edible/topical), not by a specific cannabis strain.",
+    "recommendation": "Keep in product list with strain_id=null. Categorize by product type and brand only."
+  },
+  {
+    "product_id": "100mg-thc-150mg-cbd-50mg-cbn",
+    "product_name": "100mg THC : 150mg CBD : 50mg CBN",
+    "brand": "InHouse",
+    "product_category": "Edible",
+    "reason": "strain_agnostic",
+    "detail": "Product defined by dosage/formulation (edible/topical), not by a specific cannabis strain.",
+    "recommendation": "Keep in product list with strain_id=null. Categorize by product type and brand only."
+  },
+  {
+    "product_id": "100mg-thc-200mg-cbd-50mg-cbn",
+    "product_name": "100mg THC : 200mg CBD : 50mg CBN",
+    "brand": "Betty's Eddies",
+    "product_category": "Edible",
+    "reason": "strain_agnostic",
+    "detail": "Product defined by dosage/formulation (edible/topical), not by a specific cannabis strain.",
+    "recommendation": "Keep in product list with strain_id=null. Categorize by product type and brand only."
+  },
+  {
+    "product_id": "100mg-thc-25mg-thcv",
+    "product_name": "100mg THC : 25mg THCV",
+    "brand": "Betty's Eddies",
+    "product_category": "Edible",
+    "reason": "strain_agnostic",
+    "detail": "Product defined by dosage/formulation (edible/topical), not by a specific cannabis strain.",
+    "recommendation": "Keep in product list with strain_id=null. Categorize by product type and brand only."
+  },
+  {
+    "product_id": "100mg-thc-400mg-cbd-50mg-cbc",
+    "product_name": "100mg THC : 400mg CBD : 50mg CBC",
+    "brand": "Betty's Eddies",
+    "product_category": "Edible",
+    "reason": "strain_agnostic",
+    "detail": "Product defined by dosage/formulation (edible/topical), not by a specific cannabis strain.",
+    "recommendation": "Keep in product list with strain_id=null. Categorize by product type and brand only."
+  },
+  {
+    "product_id": "100mg-thc-50mg-cbg-25mg-cbdv",
+    "product_name": "100mg THC : 50mg CBG : 25mg CBDV",
+    "brand": "Betty's Eddies",
+    "product_category": "Edible",
+    "reason": "strain_agnostic",
+    "detail": "Product defined by dosage/formulation (edible/topical), not by a specific cannabis strain.",
+    "recommendation": "Keep in product list with strain_id=null. Categorize by product type and brand only."
+  },
+  {
+    "product_id": "100mg-thc-50mg-cbn-50mg-cbc",
+    "product_name": "100mg THC : 50mg CBN : 50mg CBC",
+    "brand": "Betty's Eddies",
+    "product_category": "Edible",
+    "reason": "strain_agnostic",
+    "detail": "Product defined by dosage/formulation (edible/topical), not by a specific cannabis strain.",
+    "recommendation": "Keep in product list with strain_id=null. Categorize by product type and brand only."
+  },
+  {
+    "product_id": "100mg-thc-100mg-cbd",
+    "product_name": "100mg THC: 100mg CBD",
+    "brand": "IN HOUSE",
+    "product_category": "Edible",
+    "reason": "strain_agnostic",
+    "detail": "Product defined by dosage/formulation (edible/topical), not by a specific cannabis strain.",
+    "recommendation": "Keep in product list with strain_id=null. Categorize by product type and brand only."
+  },
+  {
+    "product_id": "100mg-thc-50mg-cbc",
+    "product_name": "100mg THC: 50mg CBC",
+    "brand": "Oria",
+    "product_category": "Edible",
+    "reason": "strain_agnostic",
+    "detail": "Product defined by dosage/formulation (edible/topical), not by a specific cannabis strain.",
+    "recommendation": "Keep in product list with strain_id=null. Categorize by product type and brand only."
+  },
+  {
+    "product_id": "100mg-thc-50mg-cbg",
+    "product_name": "100mg THC: 50mg CBG",
+    "brand": "Oria",
+    "product_category": "Edible",
+    "reason": "strain_agnostic",
+    "detail": "Product defined by dosage/formulation (edible/topical), not by a specific cannabis strain.",
+    "recommendation": "Keep in product list with strain_id=null. Categorize by product type and brand only."
+  },
+  {
+    "product_id": "100mg-thc-50mg-cbn",
+    "product_name": "100mg THC: 50mg CBN",
+    "brand": "Oria",
+    "product_category": "Edible",
+    "reason": "strain_agnostic",
+    "detail": "Product defined by dosage/formulation (edible/topical), not by a specific cannabis strain.",
+    "recommendation": "Keep in product list with strain_id=null. Categorize by product type and brand only."
+  },
+  {
+    "product_id": "100mg-thc-cbd",
+    "product_name": "100mg THC: CBD",
+    "brand": "InHouse",
+    "product_category": "Edible",
+    "reason": "strain_agnostic",
+    "detail": "Product defined by dosage/formulation (edible/topical), not by a specific cannabis strain.",
+    "recommendation": "Keep in product list with strain_id=null. Categorize by product type and brand only."
+  },
+  {
+    "product_id": "100mg-thc-100mg-cbd-2",
+    "product_name": "100mg THC:100mg CBD",
+    "brand": "Wana",
+    "product_category": "Edible",
+    "reason": "strain_agnostic",
+    "detail": "Product defined by dosage/formulation (edible/topical), not by a specific cannabis strain.",
+    "recommendation": "Keep in product list with strain_id=null. Categorize by product type and brand only."
+  },
+  {
+    "product_id": "100mg-thc-formerly-move-relief-mobility-chews",
+    "product_name": "100mg THC] (Formerly Move Relief + Mobility Chews)",
+    "brand": "Curio Wellness",
+    "product_category": "Edible",
+    "reason": "strain_agnostic",
+    "detail": "Product defined by dosage/formulation (edible/topical), not by a specific cannabis strain.",
+    "recommendation": "Keep in product list with strain_id=null. Categorize by product type and brand only."
+  },
+  {
+    "product_id": "100mgthc-100mg-cbd-100mg-cbn",
+    "product_name": "100mgTHC : 100mg CBD : 100mg CBN",
+    "brand": "Wyld",
+    "product_category": "Edible",
+    "reason": "strain_agnostic",
+    "detail": "Product defined by dosage/formulation (edible/topical), not by a specific cannabis strain.",
+    "recommendation": "Keep in product list with strain_id=null. Categorize by product type and brand only."
+  },
+  {
+    "product_id": "10ct",
+    "product_name": "10ct",
+    "brand": "Wana",
+    "product_category": "Other",
+    "reason": "scrape_artifact",
+    "detail": "Scraping artifact \u2014 price tag, promotion, merch, or generic category label incorrectly ingested as a product.",
+    "recommendation": "Remove from product list."
+  },
+  {
+    "product_id": "10gs",
+    "product_name": "10Gs",
+    "brand": "Strane",
+    "product_category": "Flower",
+    "reason": "strain_not_identified",
+    "detail": "Cannabis-derived product but strain name could not be extracted or matched. May be proprietary blend, brand-specific formulation, or product name lacks standard strain identifiers.",
+    "recommendation": "Flag for manual review. Check dispensary menu to identify underlying strain."
+  },
+  {
+    "product_id": "10mg-10ct",
+    "product_name": "10mg (10ct)",
+    "brand": "All Caps",
+    "product_category": "Edible",
+    "reason": "strain_agnostic",
+    "detail": "Product defined by dosage/formulation (edible/topical), not by a specific cannabis strain.",
+    "recommendation": "Keep in product list with strain_id=null. Categorize by product type and brand only."
+  },
+  {
+    "product_id": "10mg-2ct",
+    "product_name": "10mg (2ct)",
+    "brand": "ORIA",
+    "product_category": "Edible",
+    "reason": "strain_agnostic",
+    "detail": "Product defined by dosage/formulation (edible/topical), not by a specific cannabis strain.",
+    "recommendation": "Keep in product list with strain_id=null. Categorize by product type and brand only."
+  },
+  {
+    "product_id": "10mg-all-caps-feco-capsules-10pk",
+    "product_name": "10mg ALL CAPS FECO Capsules (10pk)",
+    "brand": "Evermore",
+    "product_category": "Concentrate",
+    "reason": "strain_not_identified",
+    "detail": "Cannabis-derived product but strain name could not be extracted or matched. May be proprietary blend, brand-specific formulation, or product name lacks standard strain identifiers.",
+    "recommendation": "Flag for manual review. Check dispensary menu to identify underlying strain."
+  },
+  {
+    "product_id": "10mg-black-cherry-vanilla-chews",
+    "product_name": "10mg Black Cherry Vanilla Chews",
+    "brand": "Curio Wellness",
+    "product_category": "Edible",
+    "reason": "strain_agnostic",
+    "detail": "Product defined by dosage/formulation (edible/topical), not by a specific cannabis strain.",
+    "recommendation": "Keep in product list with strain_id=null. Categorize by product type and brand only."
+  },
+  {
+    "product_id": "10mg-citrus-fast-acting-chews",
+    "product_name": "10mg Citrus Fast Acting Chews",
+    "brand": "Curio Wellness",
+    "product_category": "Edible",
+    "reason": "strain_agnostic",
+    "detail": "Product defined by dosage/formulation (edible/topical), not by a specific cannabis strain.",
+    "recommendation": "Keep in product list with strain_id=null. Categorize by product type and brand only."
+  },
+  {
+    "product_id": "10mg-dark-chocolate-salted-caramel-topping",
+    "product_name": "10mg Dark Chocolate Salted Caramel Topping",
+    "brand": "Discos",
+    "product_category": "Edible",
+    "reason": "strain_agnostic",
+    "detail": "Product defined by dosage/formulation (edible/topical), not by a specific cannabis strain.",
+    "recommendation": "Keep in product list with strain_id=null. Categorize by product type and brand only."
+  },
+  {
+    "product_id": "10mg-elderberry-hibiscus-chews",
+    "product_name": "10mg Elderberry Hibiscus Chews",
+    "brand": "Curio Wellness",
+    "product_category": "Edible",
+    "reason": "strain_agnostic",
+    "detail": "Product defined by dosage/formulation (edible/topical), not by a specific cannabis strain.",
+    "recommendation": "Keep in product list with strain_id=null. Categorize by product type and brand only."
+  },
+  {
+    "product_id": "10mg-fruit-punch-1-1-thc-cbg-discos",
+    "product_name": "10mg Fruit Punch 1:1 THC:CBG Discos",
+    "brand": "Discos",
+    "product_category": "Edible",
+    "reason": "strain_agnostic",
+    "detail": "Product defined by dosage/formulation (edible/topical), not by a specific cannabis strain.",
+    "recommendation": "Keep in product list with strain_id=null. Categorize by product type and brand only."
+  },
+  {
+    "product_id": "10mg-juicy-watermelon-chews",
+    "product_name": "10mg Juicy Watermelon Chews",
+    "brand": "Curio Wellness",
+    "product_category": "Edible",
+    "reason": "strain_agnostic",
+    "detail": "Product defined by dosage/formulation (edible/topical), not by a specific cannabis strain.",
+    "recommendation": "Keep in product list with strain_id=null. Categorize by product type and brand only."
+  },
+  {
+    "product_id": "10mg-keef-soda",
+    "product_name": "10mg Keef Soda",
+    "brand": "Keef",
+    "product_category": "Edible",
+    "reason": "strain_agnostic",
+    "detail": "Product defined by dosage/formulation (edible/topical), not by a specific cannabis strain.",
+    "recommendation": "Keep in product list with strain_id=null. Categorize by product type and brand only."
+  },
+  {
+    "product_id": "10mg-mango-ginger-chews",
+    "product_name": "10mg Mango Ginger Chews",
+    "brand": "Curio Wellness",
+    "product_category": "Edible",
+    "reason": "strain_agnostic",
+    "detail": "Product defined by dosage/formulation (edible/topical), not by a specific cannabis strain.",
+    "recommendation": "Keep in product list with strain_id=null. Categorize by product type and brand only."
+  },
+  {
+    "product_id": "10mg-milk-chocolate-discos-salted-caramel-topping",
+    "product_name": "10mg Milk Chocolate Discos Salted Caramel Topping",
+    "brand": "Discos",
+    "product_category": "Edible",
+    "reason": "strain_agnostic",
+    "detail": "Product defined by dosage/formulation (edible/topical), not by a specific cannabis strain.",
+    "recommendation": "Keep in product list with strain_id=null. Categorize by product type and brand only."
+  },
+  {
+    "product_id": "10mg-peach-passion-2-1-thc-thcv-discos",
+    "product_name": "10mg Peach Passion 2:1 THC:THCv Discos",
+    "brand": "Discos",
+    "product_category": "Edible",
+    "reason": "strain_agnostic",
+    "detail": "Product defined by dosage/formulation (edible/topical), not by a specific cannabis strain.",
+    "recommendation": "Keep in product list with strain_id=null. Categorize by product type and brand only."
+  },
+  {
+    "product_id": "10mg-pomme-jelly-rso-capsules",
+    "product_name": "10mg Pomme Jelly RSO Capsules",
+    "brand": "Grassroots",
+    "product_category": "Concentrate",
+    "reason": "strain_not_identified",
+    "detail": "Cannabis-derived product but strain name could not be extracted or matched. May be proprietary blend, brand-specific formulation, or product name lacks standard strain identifiers.",
+    "recommendation": "Flag for manual review. Check dispensary menu to identify underlying strain."
+  },
+  {
+    "product_id": "10mg-snowberry-chews",
+    "product_name": "10mg Snowberry Chews",
+    "brand": "Curio Wellness",
+    "product_category": "Edible",
+    "reason": "strain_agnostic",
+    "detail": "Product defined by dosage/formulation (edible/topical), not by a specific cannabis strain.",
+    "recommendation": "Keep in product list with strain_id=null. Categorize by product type and brand only."
+  },
+  {
+    "product_id": "10mg-strawberry-discos-10pk-live-resin",
+    "product_name": "10mg Strawberry Discos 10pk (Live Resin)",
+    "brand": "Discos",
+    "product_category": "Concentrate",
+    "reason": "strain_not_identified",
+    "detail": "Cannabis-derived product but strain name could not be extracted or matched. May be proprietary blend, brand-specific formulation, or product name lacks standard strain identifiers.",
+    "recommendation": "Flag for manual review. Check dispensary menu to identify underlying strain."
+  },
+  {
+    "product_id": "10mg-white-peach-chews",
+    "product_name": "10mg White Peach Chews",
+    "brand": "Curio Wellness",
+    "product_category": "Edible",
+    "reason": "strain_agnostic",
+    "detail": "Product defined by dosage/formulation (edible/topical), not by a specific cannabis strain.",
+    "recommendation": "Keep in product list with strain_id=null. Categorize by product type and brand only."
+  },
+  {
+    "product_id": "10mg-wild-cherriezzz-discos-5-1-1-cbd-thc-cbn",
+    "product_name": "10mg Wild Cherriezzz Discos 5:1:1 CBD:THC:CBN",
+    "brand": "Discos",
+    "product_category": "Edible",
+    "reason": "strain_agnostic",
+    "detail": "Product defined by dosage/formulation (edible/topical), not by a specific cannabis strain.",
+    "recommendation": "Keep in product list with strain_id=null. Categorize by product type and brand only."
+  },
+  {
+    "product_id": "1-1-thc-cbd",
+    "product_name": "1:1 (THC:CBD)",
+    "brand": "Discos",
+    "product_category": "Edible",
+    "reason": "strain_agnostic",
+    "detail": "Product defined by dosage/formulation (edible/topical), not by a specific cannabis strain.",
+    "recommendation": "Keep in product list with strain_id=null. Categorize by product type and brand only."
+  },
+  {
+    "product_id": "1-1-downtime-blackberry-20-pack-100mg-thc-100mg-cbd",
+    "product_name": "1:1 Downtime Blackberry [20-pack] (100mg THC/100mg CBD)",
+    "brand": "Beboe",
+    "product_category": "Edible",
+    "reason": "strain_agnostic",
+    "detail": "Product defined by dosage/formulation (edible/topical), not by a specific cannabis strain.",
+    "recommendation": "Keep in product list with strain_id=null. Categorize by product type and brand only."
+  },
+  {
+    "product_id": "1ct",
+    "product_name": "1ct",
+    "brand": "Evermore Cannabis Company",
+    "product_category": "Other",
+    "reason": "scrape_artifact",
+    "detail": "Scraping artifact \u2014 price tag, promotion, merch, or generic category label incorrectly ingested as a product.",
+    "recommendation": "Remove from product list."
+  },
+  {
+    "product_id": "1g-1-1-thc-cbd-rso",
+    "product_name": "1g 1:1 THC:CBD RSO",
+    "brand": "Nature's Heritage",
+    "product_category": "Concentrate",
+    "reason": "strain_not_identified",
+    "detail": "Cannabis-derived product but strain name could not be extracted or matched. May be proprietary blend, brand-specific formulation, or product name lacks standard strain identifiers.",
+    "recommendation": "Flag for manual review. Check dispensary menu to identify underlying strain."
+  },
+  {
+    "product_id": "1g-cherry-circa-1995-x-grapple-noir-live-sugar",
+    "product_name": "1g Cherry Circa 1995 X Grapple Noir Live Sugar",
+    "brand": "Kind Tree",
+    "product_category": "Concentrate",
+    "reason": "strain_not_identified",
+    "detail": "Cannabis-derived product but strain name could not be extracted or matched. May be proprietary blend, brand-specific formulation, or product name lacks standard strain identifiers.",
+    "recommendation": "Flag for manual review. Check dispensary menu to identify underlying strain."
+  },
+  {
+    "product_id": "1g-pineapple-punk-live-sugar",
+    "product_name": "1g Pineapple Punk Live Sugar",
+    "brand": "Kind Tree",
+    "product_category": "Concentrate",
+    "reason": "strain_not_identified",
+    "detail": "Cannabis-derived product but strain name could not be extracted or matched. May be proprietary blend, brand-specific formulation, or product name lacks standard strain identifiers.",
+    "recommendation": "Flag for manual review. Check dispensary menu to identify underlying strain."
+  },
+  {
+    "product_id": "1g-pre-roll",
+    "product_name": "1g Pre Roll",
+    "brand": "Strane",
+    "product_category": "Pre-Roll",
+    "reason": "scrape_artifact",
+    "detail": "Scraping artifact \u2014 price tag, promotion, merch, or generic category label incorrectly ingested as a product.",
+    "recommendation": "Remove from product list."
+  },
+  {
+    "product_id": "2-pack",
+    "product_name": "2 Pack",
+    "brand": "SunMed",
+    "product_category": "Other",
+    "reason": "non_cannabis_or_bundle",
+    "detail": "Bundle, accessory, pack-count reference, or non-cannabis item.",
+    "recommendation": "Remove or reclassify as accessory/bundle."
+  },
+  {
+    "product_id": "20-pack",
+    "product_name": "20 Pack",
+    "brand": "Beboe",
+    "product_category": "Other",
+    "reason": "non_cannabis_or_bundle",
+    "detail": "Bundle, accessory, pack-count reference, or non-cannabis item.",
+    "recommendation": "Remove or reclassify as accessory/bundle."
+  },
+  {
+    "product_id": "20-off-or-30-off-3-savvy-items",
+    "product_name": "20% OFF or 30% OFF 3+ Savvy Items",
+    "brand": "",
+    "product_category": "Other",
+    "reason": "scrape_artifact",
+    "detail": "Scraping artifact \u2014 price tag, promotion, merch, or generic category label incorrectly ingested as a product.",
+    "recommendation": "Remove from product list."
+  },
+  {
+    "product_id": "200mg-cbd-20mg-thc",
+    "product_name": "200mg CBD : 20mg THC",
+    "brand": "Curio Wellness",
+    "product_category": "Edible",
+    "reason": "strain_agnostic",
+    "detail": "Product defined by dosage/formulation (edible/topical), not by a specific cannabis strain.",
+    "recommendation": "Keep in product list with strain_id=null. Categorize by product type and brand only."
+  },
+  {
+    "product_id": "200mgcbd-100mgthc-100mgcbn",
+    "product_name": "200mgCBD : 100MGTHC : 100MGCBN",
+    "brand": "Evermore",
+    "product_category": "Flower",
+    "reason": "strain_not_identified",
+    "detail": "Cannabis-derived product but strain name could not be extracted or matched. May be proprietary blend, brand-specific formulation, or product name lacks standard strain identifiers.",
+    "recommendation": "Flag for manual review. Check dispensary menu to identify underlying strain."
+  },
+  {
+    "product_id": "20mg-thc-10mg-cbn",
+    "product_name": "20mg THC: 10mg CBN",
+    "brand": "Oria",
+    "product_category": "Edible",
+    "reason": "strain_agnostic",
+    "detail": "Product defined by dosage/formulation (edible/topical), not by a specific cannabis strain.",
+    "recommendation": "Keep in product list with strain_id=null. Categorize by product type and brand only."
+  },
+  {
+    "product_id": "25-off-the-essence-vapes",
+    "product_name": "25% OFF (the) Essence Vapes",
+    "brand": "",
+    "product_category": "Other",
+    "reason": "scrape_artifact",
+    "detail": "Scraping artifact \u2014 price tag, promotion, merch, or generic category label incorrectly ingested as a product.",
+    "recommendation": "Remove from product list."
+  },
+  {
+    "product_id": "25mg-cbn-5mg-thc",
+    "product_name": "25mg CBN :5mg THC",
+    "brand": "COAST Cannabis Co.",
+    "product_category": "Edible",
+    "reason": "strain_agnostic",
+    "detail": "Product defined by dosage/formulation (edible/topical), not by a specific cannabis strain.",
+    "recommendation": "Keep in product list with strain_id=null. Categorize by product type and brand only."
+  },
+  {
+    "product_id": "25mg-thc-50mg-cbd-12-5mg-cbn",
+    "product_name": "25mg THC : 50mg CBD : 12.5mg CBN",
+    "brand": "Nature's Heritage",
+    "product_category": "Edible",
+    "reason": "strain_agnostic",
+    "detail": "Product defined by dosage/formulation (edible/topical), not by a specific cannabis strain.",
+    "recommendation": "Keep in product list with strain_id=null. Categorize by product type and brand only."
+  },
+  {
+    "product_id": "2g-pineapple-runtz-disposable",
+    "product_name": "2g Pineapple Runtz Disposable",
+    "brand": "&Shine",
+    "product_category": "Vape",
+    "reason": "strain_not_identified",
+    "detail": "Cannabis-derived product but strain name could not be extracted or matched. May be proprietary blend, brand-specific formulation, or product name lacks standard strain identifiers.",
+    "recommendation": "Flag for manual review. Check dispensary menu to identify underlying strain."
+  },
+  {
+    "product_id": "2pk-pre-rolls",
+    "product_name": "2pk Pre-Rolls",
+    "brand": "SunMed Growers",
+    "product_category": "Pre-Roll",
+    "reason": "scrape_artifact",
+    "detail": "Scraping artifact \u2014 price tag, promotion, merch, or generic category label incorrectly ingested as a product.",
+    "recommendation": "Remove from product list."
+  },
+  {
+    "product_id": "3-5g",
+    "product_name": "3.5G",
+    "brand": "(the) Essence",
+    "product_category": "Flower",
+    "reason": "scrape_artifact",
+    "detail": "Scraping artifact \u2014 price tag, promotion, merch, or generic category label incorrectly ingested as a product.",
+    "recommendation": "Remove from product list."
+  },
+  {
+    "product_id": "3-5g-baller-jar",
+    "product_name": "3.5g \"Baller Jar\"",
+    "brand": "Sunnies",
+    "product_category": "Flower",
+    "reason": "strain_not_identified",
+    "detail": "Cannabis-derived product but strain name could not be extracted or matched. May be proprietary blend, brand-specific formulation, or product name lacks standard strain identifiers.",
+    "recommendation": "Flag for manual review. Check dispensary menu to identify underlying strain."
+  },
+  {
+    "product_id": "3-5g-hybrid",
+    "product_name": "3.5g Hybrid",
+    "brand": "Khalifa Kush",
+    "product_category": "Flower",
+    "reason": "scrape_artifact",
+    "detail": "Scraping artifact \u2014 price tag, promotion, merch, or generic category label incorrectly ingested as a product.",
+    "recommendation": "Remove from product list."
+  },
+  {
+    "product_id": "3-5g-premium",
+    "product_name": "3.5g Premium",
+    "brand": "Cultivar Collection",
+    "product_category": "Flower",
+    "reason": "scrape_artifact",
+    "detail": "Scraping artifact \u2014 price tag, promotion, merch, or generic category label incorrectly ingested as a product.",
+    "recommendation": "Remove from product list."
+  },
+  {
+    "product_id": "35g-10ct",
+    "product_name": "35g (10ct)",
+    "brand": "KOA",
+    "product_category": "Flower",
+    "reason": "strain_not_identified",
+    "detail": "Cannabis-derived product but strain name could not be extracted or matched. May be proprietary blend, brand-specific formulation, or product name lacks standard strain identifiers.",
+    "recommendation": "Flag for manual review. Check dispensary menu to identify underlying strain."
+  },
+  {
+    "product_id": "35g-5ct",
+    "product_name": "35g (5ct)",
+    "brand": "Happy J's",
+    "product_category": "Flower",
+    "reason": "strain_not_identified",
+    "detail": "Cannabis-derived product but strain name could not be extracted or matched. May be proprietary blend, brand-specific formulation, or product name lacks standard strain identifiers.",
+    "recommendation": "Flag for manual review. Check dispensary menu to identify underlying strain."
+  },
+  {
+    "product_id": "400mg-thc-150-cbd-50mg-cbn",
+    "product_name": "400mg THC : 150 CBD : 50mg CBN",
+    "brand": "InHouse",
+    "product_category": "Edible",
+    "reason": "strain_agnostic",
+    "detail": "Product defined by dosage/formulation (edible/topical), not by a specific cannabis strain.",
+    "recommendation": "Keep in product list with strain_id=null. Categorize by product type and brand only."
+  },
+  {
+    "product_id": "400mg-thc-50-cbg",
+    "product_name": "400mg THC : 50 CBG",
+    "brand": "Betty's Eddies",
+    "product_category": "Edible",
+    "reason": "strain_agnostic",
+    "detail": "Product defined by dosage/formulation (edible/topical), not by a specific cannabis strain.",
+    "recommendation": "Keep in product list with strain_id=null. Categorize by product type and brand only."
+  },
+  {
+    "product_id": "400mg-thc-50mg-cbn-50mg-cbc",
+    "product_name": "400mg THC : 50mg CBN : 50mg CBC",
+    "brand": "Betty's Eddies",
+    "product_category": "Edible",
+    "reason": "strain_agnostic",
+    "detail": "Product defined by dosage/formulation (edible/topical), not by a specific cannabis strain.",
+    "recommendation": "Keep in product list with strain_id=null. Categorize by product type and brand only."
+  },
+  {
+    "product_id": "400mgthc-100mg-cbc",
+    "product_name": "400mgTHC : 100mg CBC",
+    "brand": "InHouse",
+    "product_category": "Edible",
+    "reason": "strain_agnostic",
+    "detail": "Product defined by dosage/formulation (edible/topical), not by a specific cannabis strain.",
+    "recommendation": "Keep in product list with strain_id=null. Categorize by product type and brand only."
+  },
+  {
+    "product_id": "45g-5ct",
+    "product_name": "45g (5ct)",
+    "brand": "Quickies",
+    "product_category": "Flower",
+    "reason": "strain_not_identified",
+    "detail": "Cannabis-derived product but strain name could not be extracted or matched. May be proprietary blend, brand-specific formulation, or product name lacks standard strain identifiers.",
+    "recommendation": "Flag for manual review. Check dispensary menu to identify underlying strain."
+  },
+  {
+    "product_id": "5-pack",
+    "product_name": "5 Pack",
+    "brand": "Grassroots",
+    "product_category": "Other",
+    "reason": "non_cannabis_or_bundle",
+    "detail": "Bundle, accessory, pack-count reference, or non-cannabis item.",
+    "recommendation": "Remove or reclassify as accessory/bundle."
+  },
+  {
+    "product_id": "50mg-cbg-200mg-cbd-100mg-thc",
+    "product_name": "50mg CBG : 200mg CBD : 100mg THC",
+    "brand": "Curio Wellness",
+    "product_category": "Edible",
+    "reason": "strain_agnostic",
+    "detail": "Product defined by dosage/formulation (edible/topical), not by a specific cannabis strain.",
+    "recommendation": "Keep in product list with strain_id=null. Categorize by product type and brand only."
+  },
+  {
+    "product_id": "50mg-cbn-100mg-thc",
+    "product_name": "50mg CBN : 100mg THC",
+    "brand": "Curio Wellness",
+    "product_category": "Edible",
+    "reason": "strain_agnostic",
+    "detail": "Product defined by dosage/formulation (edible/topical), not by a specific cannabis strain.",
+    "recommendation": "Keep in product list with strain_id=null. Categorize by product type and brand only."
+  },
+  {
+    "product_id": "50mg-thcv-100mg-cbd-50mg-thc",
+    "product_name": "50mg THCv : 100mg CBD : 50mg THC",
+    "brand": "Curio Wellness",
+    "product_category": "Edible",
+    "reason": "strain_agnostic",
+    "detail": "Product defined by dosage/formulation (edible/topical), not by a specific cannabis strain.",
+    "recommendation": "Keep in product list with strain_id=null. Categorize by product type and brand only."
+  },
+  {
+    "product_id": "5g-7ct",
+    "product_name": "5g (7ct)",
+    "brand": "Happy-er J's",
+    "product_category": "Flower",
+    "reason": "strain_not_identified",
+    "detail": "Cannabis-derived product but strain name could not be extracted or matched. May be proprietary blend, brand-specific formulation, or product name lacks standard strain identifiers.",
+    "recommendation": "Flag for manual review. Check dispensary menu to identify underlying strain."
+  },
+  {
+    "product_id": "5mg-20ct",
+    "product_name": "5mg (20ct)",
+    "brand": "Bits",
+    "product_category": "Edible",
+    "reason": "strain_agnostic",
+    "detail": "Product defined by dosage/formulation (edible/topical), not by a specific cannabis strain.",
+    "recommendation": "Keep in product list with strain_id=null. Categorize by product type and brand only."
+  },
+  {
+    "product_id": "5mg-cbc-20mg-cbd-5mg-thc",
+    "product_name": "5mg CBC: 20mg CBD :5mg THC",
+    "brand": "COAST Cannabis Co.",
+    "product_category": "Edible",
+    "reason": "strain_agnostic",
+    "detail": "Product defined by dosage/formulation (edible/topical), not by a specific cannabis strain.",
+    "recommendation": "Keep in product list with strain_id=null. Categorize by product type and brand only."
+  },
+  {
+    "product_id": "5mg-cbc-5mg-cbn-5mg-thc",
+    "product_name": "5mg CBC: 5mg CBN: 5mg THC",
+    "brand": "COAST Cannabis Co.",
+    "product_category": "Edible",
+    "reason": "strain_agnostic",
+    "detail": "Product defined by dosage/formulation (edible/topical), not by a specific cannabis strain.",
+    "recommendation": "Keep in product list with strain_id=null. Categorize by product type and brand only."
+  },
+  {
+    "product_id": "5mg-cbg-5mg-cbd-5mg-thc",
+    "product_name": "5mg CBG:5mg CBD:5mg THC",
+    "brand": "COAST Cannabis Co.",
+    "product_category": "Edible",
+    "reason": "strain_agnostic",
+    "detail": "Product defined by dosage/formulation (edible/topical), not by a specific cannabis strain.",
+    "recommendation": "Keep in product list with strain_id=null. Categorize by product type and brand only."
+  },
+  {
+    "product_id": "5mg-chill-pineapple-breeze-terpene-chews-20pk",
+    "product_name": "5mg Chill Pineapple Breeze Terpene Chews (20pk)",
+    "brand": "Curio Wellness",
+    "product_category": "Edible",
+    "reason": "strain_agnostic",
+    "detail": "Product defined by dosage/formulation (edible/topical), not by a specific cannabis strain.",
+    "recommendation": "Keep in product list with strain_id=null. Categorize by product type and brand only."
+  },
+  {
+    "product_id": "5mg-thcv-5mg-cbd-5mg-thc",
+    "product_name": "5mg THCV:5mg CBD: 5mg THC",
+    "brand": "COAST Cannabis Co.",
+    "product_category": "Edible",
+    "reason": "strain_agnostic",
+    "detail": "Product defined by dosage/formulation (edible/topical), not by a specific cannabis strain.",
+    "recommendation": "Keep in product list with strain_id=null. Categorize by product type and brand only."
+  },
+  {
+    "product_id": "7-pack",
+    "product_name": "7 Pack",
+    "brand": "Legend",
+    "product_category": "Other",
+    "reason": "non_cannabis_or_bundle",
+    "detail": "Bundle, accessory, pack-count reference, or non-cannabis item.",
+    "recommendation": "Remove or reclassify as accessory/bundle."
+  },
+  {
+    "product_id": "accessories",
+    "product_name": "Accessories",
+    "brand": "",
+    "product_category": "Flower",
+    "reason": "scrape_artifact",
+    "detail": "Scraping artifact \u2014 price tag, promotion, merch, or generic category label incorrectly ingested as a product.",
+    "recommendation": "Remove from product list."
+  },
+  {
+    "product_id": "adult-use",
+    "product_name": "Adult Use",
+    "brand": "",
+    "product_category": "Flower",
+    "reason": "scrape_artifact",
+    "detail": "Scraping artifact \u2014 price tag, promotion, merch, or generic category label incorrectly ingested as a product.",
+    "recommendation": "Remove from product list."
+  },
+  {
+    "product_id": "aio-disposable-berry-haze",
+    "product_name": "AIO Disposable Berry Haze",
+    "brand": "&Shine",
+    "product_category": "Vape",
+    "reason": "strain_not_identified",
+    "detail": "Cannabis-derived product but strain name could not be extracted or matched. May be proprietary blend, brand-specific formulation, or product name lacks standard strain identifiers.",
+    "recommendation": "Flag for manual review. Check dispensary menu to identify underlying strain."
+  },
+  {
+    "product_id": "airo-5g-mixtape-live-resin-cart",
+    "product_name": "Airo .5g Mixtape Live Resin Cart",
+    "brand": "Airo MD",
+    "product_category": "Vape",
+    "reason": "strain_not_identified",
+    "detail": "Cannabis-derived product but strain name could not be extracted or matched. May be proprietary blend, brand-specific formulation, or product name lacks standard strain identifiers.",
+    "recommendation": "Flag for manual review. Check dispensary menu to identify underlying strain."
+  },
+  {
+    "product_id": "airo-berry-bliss-pod",
+    "product_name": "Airo Berry Bliss Pod",
+    "brand": "Airo",
+    "product_category": "Vape",
+    "reason": "strain_not_identified",
+    "detail": "Cannabis-derived product but strain name could not be extracted or matched. May be proprietary blend, brand-specific formulation, or product name lacks standard strain identifiers.",
+    "recommendation": "Flag for manual review. Check dispensary menu to identify underlying strain."
+  },
+  {
+    "product_id": "airopod-berry-bliss",
+    "product_name": "AiroPod Berry Bliss",
+    "brand": "Airo MD",
+    "product_category": "Vape",
+    "reason": "strain_not_identified",
+    "detail": "Cannabis-derived product but strain name could not be extracted or matched. May be proprietary blend, brand-specific formulation, or product name lacks standard strain identifiers.",
+    "recommendation": "Flag for manual review. Check dispensary menu to identify underlying strain."
+  },
+  {
+    "product_id": "airox-blade-midnight-moon-disposable",
+    "product_name": "AiroX Blade Midnight Moon Disposable",
+    "brand": "Airo",
+    "product_category": "Vape",
+    "reason": "strain_not_identified",
+    "detail": "Cannabis-derived product but strain name could not be extracted or matched. May be proprietary blend, brand-specific formulation, or product name lacks standard strain identifiers.",
+    "recommendation": "Flag for manual review. Check dispensary menu to identify underlying strain."
+  },
+  {
+    "product_id": "airox-mystical-melody-disposable-vape",
+    "product_name": "AIROX Mystical Melody Disposable Vape",
+    "brand": "Airo MD",
+    "product_category": "Vape",
+    "reason": "strain_not_identified",
+    "detail": "Cannabis-derived product but strain name could not be extracted or matched. May be proprietary blend, brand-specific formulation, or product name lacks standard strain identifiers.",
+    "recommendation": "Flag for manual review. Check dispensary menu to identify underlying strain."
+  },
+  {
+    "product_id": "ak-47-live-badder",
+    "product_name": "AK 47 Live Badder",
+    "brand": "Exotic Elevations",
+    "product_category": "Concentrate",
+    "reason": "strain_not_identified",
+    "detail": "Cannabis-derived product but strain name could not be extracted or matched. May be proprietary blend, brand-specific formulation, or product name lacks standard strain identifiers.",
+    "recommendation": "Flag for manual review. Check dispensary menu to identify underlying strain."
+  },
+  {
+    "product_id": "ak-47-2pack",
+    "product_name": "AK-47-2pack",
+    "brand": "Phase 3",
+    "product_category": "Flower",
+    "reason": "strain_not_identified",
+    "detail": "Cannabis-derived product but strain name could not be extracted or matched. May be proprietary blend, brand-specific formulation, or product name lacks standard strain identifiers.",
+    "recommendation": "Flag for manual review. Check dispensary menu to identify underlying strain."
+  },
+  {
+    "product_id": "allcaps-10mg-feco-capsules-10pk",
+    "product_name": "ALLCAPS 10mg FECO Capsules (10pk",
+    "brand": "ALLCAPS",
+    "product_category": "Concentrate",
+    "reason": "strain_not_identified",
+    "detail": "Cannabis-derived product but strain name could not be extracted or matched. May be proprietary blend, brand-specific formulation, or product name lacks standard strain identifiers.",
+    "recommendation": "Flag for manual review. Check dispensary menu to identify underlying strain."
+  },
+  {
+    "product_id": "amber",
+    "product_name": "Amber",
+    "brand": "",
+    "product_category": "Flower",
+    "reason": "scrape_artifact",
+    "detail": "Scraping artifact \u2014 price tag, promotion, merch, or generic category label incorrectly ingested as a product.",
+    "recommendation": "Remove from product list."
+  },
+  {
+    "product_id": "apparel",
+    "product_name": "Apparel",
+    "brand": "",
+    "product_category": "Flower",
+    "reason": "scrape_artifact",
+    "detail": "Scraping artifact \u2014 price tag, promotion, merch, or generic category label incorrectly ingested as a product.",
+    "recommendation": "Remove from product list."
+  },
+  {
+    "product_id": "apple-jack-live-resin-diamond-reload-pod",
+    "product_name": "Apple Jack Live Resin Diamond Reload Pod",
+    "brand": "Rove",
+    "product_category": "Vape",
+    "reason": "strain_not_identified",
+    "detail": "Cannabis-derived product but strain name could not be extracted or matched. May be proprietary blend, brand-specific formulation, or product name lacks standard strain identifiers.",
+    "recommendation": "Flag for manual review. Check dispensary menu to identify underlying strain."
+  },
+  {
+    "product_id": "apple-tarts-whole",
+    "product_name": "Apple Tarts Whole",
+    "brand": "Grassroots",
+    "product_category": "Flower",
+    "reason": "strain_not_identified",
+    "detail": "Cannabis-derived product but strain name could not be extracted or matched. May be proprietary blend, brand-specific formulation, or product name lacks standard strain identifiers.",
+    "recommendation": "Flag for manual review. Check dispensary menu to identify underlying strain."
+  },
+  {
+    "product_id": "apricot-nectar-slyde-disposable",
+    "product_name": "Apricot Nectar Slyde Disposable",
+    "brand": "Slyde",
+    "product_category": "Vape",
+    "reason": "strain_not_identified",
+    "detail": "Cannabis-derived product but strain name could not be extracted or matched. May be proprietary blend, brand-specific formulation, or product name lacks standard strain identifiers.",
+    "recommendation": "Flag for manual review. Check dispensary menu to identify underlying strain."
+  },
+  {
+    "product_id": "aromatherapy-soy-wax-candle",
+    "product_name": "Aromatherapy Soy Wax Candle",
+    "brand": "KOAN",
+    "product_category": "Concentrate",
+    "reason": "strain_not_identified",
+    "detail": "Cannabis-derived product but strain name could not be extracted or matched. May be proprietary blend, brand-specific formulation, or product name lacks standard strain identifiers.",
+    "recommendation": "Flag for manual review. Check dispensary menu to identify underlying strain."
+  },
+  {
+    "product_id": "au",
+    "product_name": "AU",
+    "brand": "",
+    "product_category": "Flower",
+    "reason": "scrape_artifact",
+    "detail": "Scraping artifact \u2014 price tag, promotion, merch, or generic category label incorrectly ingested as a product.",
+    "recommendation": "Remove from product list."
+  },
+  {
+    "product_id": "au-menu",
+    "product_name": "AU Menu",
+    "brand": "",
+    "product_category": "Flower",
+    "reason": "scrape_artifact",
+    "detail": "Scraping artifact \u2014 price tag, promotion, merch, or generic category label incorrectly ingested as a product.",
+    "recommendation": "Remove from product list."
+  },
+  {
+    "product_id": "auto-draw-510-battery",
+    "product_name": "Auto Draw 510 Battery",
+    "brand": "Ozone",
+    "product_category": "Vape",
+    "reason": "strain_not_identified",
+    "detail": "Cannabis-derived product but strain name could not be extracted or matched. May be proprietary blend, brand-specific formulation, or product name lacks standard strain identifiers.",
+    "recommendation": "Flag for manual review. Check dispensary menu to identify underlying strain."
+  },
+  {
+    "product_id": "avexia-epsom-salt-thc-soak",
+    "product_name": "Avexia Epsom Salt THC Soak",
+    "brand": "Avexia",
+    "product_category": "Flower",
+    "reason": "strain_not_identified",
+    "detail": "Cannabis-derived product but strain name could not be extracted or matched. May be proprietary blend, brand-specific formulation, or product name lacks standard strain identifiers.",
+    "recommendation": "Flag for manual review. Check dispensary menu to identify underlying strain."
+  },
+  {
+    "product_id": "avexia-harmony-balm-1-1-cbd-thc",
+    "product_name": "Avexia Harmony Balm 1:1 CBD:THC",
+    "brand": "Avexia",
+    "product_category": "Edible",
+    "reason": "strain_agnostic",
+    "detail": "Product defined by dosage/formulation (edible/topical), not by a specific cannabis strain.",
+    "recommendation": "Keep in product list with strain_id=null. Categorize by product type and brand only."
+  },
+  {
+    "product_id": "baby",
+    "product_name": "Baby",
+    "brand": "Curio Wellness",
+    "product_category": "Flower",
+    "reason": "strain_not_identified",
+    "detail": "Cannabis-derived product but strain name could not be extracted or matched. May be proprietary blend, brand-specific formulation, or product name lacks standard strain identifiers.",
+    "recommendation": "Flag for manual review. Check dispensary menu to identify underlying strain."
+  },
+  {
+    "product_id": "baller-jar",
+    "product_name": "Baller Jar",
+    "brand": "Sunnies",
+    "product_category": "Flower",
+    "reason": "strain_not_identified",
+    "detail": "Cannabis-derived product but strain name could not be extracted or matched. May be proprietary blend, brand-specific formulation, or product name lacks standard strain identifiers.",
+    "recommendation": "Flag for manual review. Check dispensary menu to identify underlying strain."
+  },
+  {
+    "product_id": "banana-og-live-diamonds",
+    "product_name": "Banana OG Live Diamonds",
+    "brand": "Exotic Elevations",
+    "product_category": "Concentrate",
+    "reason": "strain_not_identified",
+    "detail": "Cannabis-derived product but strain name could not be extracted or matched. May be proprietary blend, brand-specific formulation, or product name lacks standard strain identifiers.",
+    "recommendation": "Flag for manual review. Check dispensary menu to identify underlying strain."
+  },
+  {
+    "product_id": "banana-runtz-cartridge",
+    "product_name": "Banana Runtz Cartridge",
+    "brand": "Strane",
+    "product_category": "Vape",
+    "reason": "strain_not_identified",
+    "detail": "Cannabis-derived product but strain name could not be extracted or matched. May be proprietary blend, brand-specific formulation, or product name lacks standard strain identifiers.",
+    "recommendation": "Flag for manual review. Check dispensary menu to identify underlying strain."
+  },
+  {
+    "product_id": "beezle-lr-cake-badder-pungent-smile",
+    "product_name": "Beezle LR Cake Badder Pungent Smile",
+    "brand": "Beezle",
+    "product_category": "Concentrate",
+    "reason": "strain_not_identified",
+    "detail": "Cannabis-derived product but strain name could not be extracted or matched. May be proprietary blend, brand-specific formulation, or product name lacks standard strain identifiers.",
+    "recommendation": "Flag for manual review. Check dispensary menu to identify underlying strain."
+  },
+  {
+    "product_id": "beezle-lr-sugar-soft-shell",
+    "product_name": "Beezle LR Sugar Soft Shell",
+    "brand": "Beezle",
+    "product_category": "Concentrate",
+    "reason": "strain_not_identified",
+    "detail": "Cannabis-derived product but strain name could not be extracted or matched. May be proprietary blend, brand-specific formulation, or product name lacks standard strain identifiers.",
+    "recommendation": "Flag for manual review. Check dispensary menu to identify underlying strain."
+  },
+  {
+    "product_id": "beezle-pineapple-pop-cart",
+    "product_name": "Beezle Pineapple Pop Cart",
+    "brand": "Beezle",
+    "product_category": "Vape",
+    "reason": "strain_not_identified",
+    "detail": "Cannabis-derived product but strain name could not be extracted or matched. May be proprietary blend, brand-specific formulation, or product name lacks standard strain identifiers.",
+    "recommendation": "Flag for manual review. Check dispensary menu to identify underlying strain."
+  },
+  {
+    "product_id": "belushi-s-farm-dreadbread-live-resin-batter",
+    "product_name": "Belushi's Farm Dreadbread Live Resin Batter",
+    "brand": "Belushi's Farm",
+    "product_category": "Concentrate",
+    "reason": "strain_not_identified",
+    "detail": "Cannabis-derived product but strain name could not be extracted or matched. May be proprietary blend, brand-specific formulation, or product name lacks standard strain identifiers.",
+    "recommendation": "Flag for manual review. Check dispensary menu to identify underlying strain."
+  },
+  {
+    "product_id": "berniehana-butter-tequila-sunrise-3-in-1-disposable",
+    "product_name": "Berniehana Butter & Tequila Sunrise 3-in-1 Disposable",
+    "brand": "Cookies",
+    "product_category": "Vape",
+    "reason": "strain_not_identified",
+    "detail": "Cannabis-derived product but strain name could not be extracted or matched. May be proprietary blend, brand-specific formulation, or product name lacks standard strain identifiers.",
+    "recommendation": "Flag for manual review. Check dispensary menu to identify underlying strain."
+  },
+  {
+    "product_id": "berry-blissful",
+    "product_name": "Berry Blissful",
+    "brand": "LivWell",
+    "product_category": "Flower",
+    "reason": "strain_not_identified",
+    "detail": "Cannabis-derived product but strain name could not be extracted or matched. May be proprietary blend, brand-specific formulation, or product name lacks standard strain identifiers.",
+    "recommendation": "Flag for manual review. Check dispensary menu to identify underlying strain."
+  },
+  {
+    "product_id": "berry-scary-distillate-vape",
+    "product_name": "Berry Scary Distillate Vape",
+    "brand": "Sunnies",
+    "product_category": "Vape",
+    "reason": "strain_not_identified",
+    "detail": "Cannabis-derived product but strain name could not be extracted or matched. May be proprietary blend, brand-specific formulation, or product name lacks standard strain identifiers.",
+    "recommendation": "Flag for manual review. Check dispensary menu to identify underlying strain."
+  },
+  {
+    "product_id": "betty-s-eddies-10mg-lemon-agave-bedtime-chews",
+    "product_name": "Betty's Eddies 10mg Lemon Agave Bedtime Chews",
+    "brand": "Betty's Eddies",
+    "product_category": "Edible",
+    "reason": "strain_agnostic",
+    "detail": "Product defined by dosage/formulation (edible/topical), not by a specific cannabis strain.",
+    "recommendation": "Keep in product list with strain_id=null. Categorize by product type and brand only."
+  },
+  {
+    "product_id": "betty-s-eddies-10mg-passion-fruit-smashin-passion-chews",
+    "product_name": "Betty's Eddies 10mg Passion Fruit Smashin' Passion Chews",
+    "brand": "Betty's Eddies",
+    "product_category": "Edible",
+    "reason": "strain_agnostic",
+    "detail": "Product defined by dosage/formulation (edible/topical), not by a specific cannabis strain.",
+    "recommendation": "Keep in product list with strain_id=null. Categorize by product type and brand only."
+  },
+  {
+    "product_id": "betty-s-eddies-10mg-strawberry-anytime-chews",
+    "product_name": "Betty's Eddies 10mg Strawberry Anytime Chews",
+    "brand": "Betty's Eddies",
+    "product_category": "Edible",
+    "reason": "strain_agnostic",
+    "detail": "Product defined by dosage/formulation (edible/topical), not by a specific cannabis strain.",
+    "recommendation": "Keep in product list with strain_id=null. Categorize by product type and brand only."
+  },
+  {
+    "product_id": "betty-s-eddies-chews-100mg-passion-fruit-10ct",
+    "product_name": "Betty's Eddies Chews (100mg) Passion Fruit 10ct",
+    "brand": "Betty's Eddies",
+    "product_category": "Edible",
+    "reason": "strain_agnostic",
+    "detail": "Product defined by dosage/formulation (edible/topical), not by a specific cannabis strain.",
+    "recommendation": "Keep in product list with strain_id=null. Categorize by product type and brand only."
+  },
+  {
+    "product_id": "betty-s-eddies-chews-100mg-pineapple-orange-10ct",
+    "product_name": "Betty's Eddies Chews (100mg) Pineapple Orange 10ct",
+    "brand": "Betty's Eddies",
+    "product_category": "Edible",
+    "reason": "strain_agnostic",
+    "detail": "Product defined by dosage/formulation (edible/topical), not by a specific cannabis strain.",
+    "recommendation": "Keep in product list with strain_id=null. Categorize by product type and brand only."
+  },
+  {
+    "product_id": "betty-s-eddies-chews-100mg-strawberry-10ct",
+    "product_name": "Betty's Eddies Chews (100mg) Strawberry 10ct",
+    "brand": "Betty's Eddies",
+    "product_category": "Edible",
+    "reason": "strain_agnostic",
+    "detail": "Product defined by dosage/formulation (edible/topical), not by a specific cannabis strain.",
+    "recommendation": "Keep in product list with strain_id=null. Categorize by product type and brand only."
+  },
+  {
+    "product_id": "betty-s-strawberry-chocolate-swirl-10pk",
+    "product_name": "Betty's Strawberry Chocolate Swirl - 10pk",
+    "brand": "Betty's Eddies",
+    "product_category": "Edible",
+    "reason": "strain_agnostic",
+    "detail": "Product defined by dosage/formulation (edible/topical), not by a specific cannabis strain.",
+    "recommendation": "Keep in product list with strain_id=null. Categorize by product type and brand only."
+  },
+  {
+    "product_id": "beverages",
+    "product_name": "Beverages",
+    "brand": "",
+    "product_category": "Other",
+    "reason": "scrape_artifact",
+    "detail": "Scraping artifact \u2014 price tag, promotion, merch, or generic category label incorrectly ingested as a product.",
+    "recommendation": "Remove from product list."
+  },
+  {
+    "product_id": "bg-skunk-live-sugar",
+    "product_name": "BG Skunk Live Sugar",
+    "brand": "Nature's Heritage",
+    "product_category": "Concentrate",
+    "reason": "strain_not_identified",
+    "detail": "Cannabis-derived product but strain name could not be extracted or matched. May be proprietary blend, brand-specific formulation, or product name lacks standard strain identifiers.",
+    "recommendation": "Flag for manual review. Check dispensary menu to identify underlying strain."
+  },
+  {
+    "product_id": "big",
+    "product_name": "Big",
+    "brand": "BL^CK MRKT",
+    "product_category": "Flower",
+    "reason": "strain_not_identified",
+    "detail": "Cannabis-derived product but strain name could not be extracted or matched. May be proprietary blend, brand-specific formulation, or product name lacks standard strain identifiers.",
+    "recommendation": "Flag for manual review. Check dispensary menu to identify underlying strain."
+  },
+  {
+    "product_id": "big-thai-live-resin-badder",
+    "product_name": "Big Thai Live Resin Badder",
+    "brand": "CULTA",
+    "product_category": "Concentrate",
+    "reason": "strain_not_identified",
+    "detail": "Cannabis-derived product but strain name could not be extracted or matched. May be proprietary blend, brand-specific formulation, or product name lacks standard strain identifiers.",
+    "recommendation": "Flag for manual review. Check dispensary menu to identify underlying strain."
+  },
+  {
+    "product_id": "black-cherry-vanilla-chews",
+    "product_name": "Black Cherry Vanilla Chews",
+    "brand": "Curio Wellness",
+    "product_category": "Edible",
+    "reason": "strain_not_identified",
+    "detail": "Cannabis-derived product but strain name could not be extracted or matched. May be proprietary blend, brand-specific formulation, or product name lacks standard strain identifiers.",
+    "recommendation": "Flag for manual review. Check dispensary menu to identify underlying strain."
+  },
+  {
+    "product_id": "blink-aio-disposable-lambsbread",
+    "product_name": "BLINK AIO Disposable Lambsbread",
+    "brand": "BLINK",
+    "product_category": "Vape",
+    "reason": "strain_not_identified",
+    "detail": "Cannabis-derived product but strain name could not be extracted or matched. May be proprietary blend, brand-specific formulation, or product name lacks standard strain identifiers.",
+    "recommendation": "Flag for manual review. Check dispensary menu to identify underlying strain."
+  },
+  {
+    "product_id": "blood-orange-1-1-cbc-sativa-enhanced-gummies",
+    "product_name": "Blood Orange 1:1 CBC Sativa Enhanced Gummies",
+    "brand": "Wyld",
+    "product_category": "Edible",
+    "reason": "strain_agnostic",
+    "detail": "Product defined by dosage/formulation (edible/topical), not by a specific cannabis strain.",
+    "recommendation": "Keep in product list with strain_id=null. Categorize by product type and brand only."
+  },
+  {
+    "product_id": "blue-s-brothers-calicouture-live-resin-cart",
+    "product_name": "Blue's Brothers CaliCouture Live Resin Cart",
+    "brand": "Blues Brothers",
+    "product_category": "Vape",
+    "reason": "strain_not_identified",
+    "detail": "Cannabis-derived product but strain name could not be extracted or matched. May be proprietary blend, brand-specific formulation, or product name lacks standard strain identifiers.",
+    "recommendation": "Flag for manual review. Check dispensary menu to identify underlying strain."
+  },
+  {
+    "product_id": "bomb-popz-cloud-bar",
+    "product_name": "Bomb Popz Cloud Bar",
+    "brand": "Hellavated",
+    "product_category": "Vape",
+    "reason": "strain_not_identified",
+    "detail": "Cannabis-derived product but strain name could not be extracted or matched. May be proprietary blend, brand-specific formulation, or product name lacks standard strain identifiers.",
+    "recommendation": "Flag for manual review. Check dispensary menu to identify underlying strain."
+  },
+  {
+    "product_id": "bomb-popz-cloud-bar-rechargeable-disposable",
+    "product_name": "Bomb Popz Cloud Bar Rechargeable Disposable",
+    "brand": "Hellavated",
+    "product_category": "Vape",
+    "reason": "strain_not_identified",
+    "detail": "Cannabis-derived product but strain name could not be extracted or matched. May be proprietary blend, brand-specific formulation, or product name lacks standard strain identifiers.",
+    "recommendation": "Flag for manual review. Check dispensary menu to identify underlying strain."
+  },
+  {
+    "product_id": "brazilian-butt-lift-flower-3-5g",
+    "product_name": "Brazilian Butt Lift | Flower [3.5g]",
+    "brand": "Curio Wellness\u2122",
+    "product_category": "Flower",
+    "reason": "strain_not_identified",
+    "detail": "Cannabis-derived product but strain name could not be extracted or matched. May be proprietary blend, brand-specific formulation, or product name lacks standard strain identifiers.",
+    "recommendation": "Flag for manual review. Check dispensary menu to identify underlying strain."
+  },
+  {
+    "product_id": "bubby-s-baked-bites-50mg-snickerdoodle-5ct",
+    "product_name": "Bubby's Baked Bites (50mg) Snickerdoodle 5ct",
+    "brand": "Bubby's Baked",
+    "product_category": "Edible",
+    "reason": "strain_agnostic",
+    "detail": "Product defined by dosage/formulation (edible/topical), not by a specific cannabis strain.",
+    "recommendation": "Keep in product list with strain_id=null. Categorize by product type and brand only."
+  },
+  {
+    "product_id": "caroline-pharma-rec",
+    "product_name": "Caroline Pharma (REC)",
+    "brand": "",
+    "product_category": "Flower",
+    "reason": "strain_not_identified",
+    "detail": "Cannabis-derived product but strain name could not be extracted or matched. May be proprietary blend, brand-specific formulation, or product name lacks standard strain identifiers.",
+    "recommendation": "Flag for manual review. Check dispensary menu to identify underlying strain."
+  },
+  {
+    "product_id": "cartridge",
+    "product_name": "Cartridge",
+    "brand": "Curio Wellness",
+    "product_category": "Vape",
+    "reason": "strain_not_identified",
+    "detail": "Cannabis-derived product but strain name could not be extracted or matched. May be proprietary blend, brand-specific formulation, or product name lacks standard strain identifiers.",
+    "recommendation": "Flag for manual review. Check dispensary menu to identify underlying strain."
+  },
+  {
+    "product_id": "cartridge-peach-rings-7",
+    "product_name": "Cartridge Peach Rings #7",
+    "brand": "Evermore",
+    "product_category": "Vape",
+    "reason": "strain_not_identified",
+    "detail": "Cannabis-derived product but strain name could not be extracted or matched. May be proprietary blend, brand-specific formulation, or product name lacks standard strain identifiers.",
+    "recommendation": "Flag for manual review. Check dispensary menu to identify underlying strain."
+  },
+  {
+    "product_id": "cartridge-secret-paris",
+    "product_name": "Cartridge Secret Paris",
+    "brand": "&Shine",
+    "product_category": "Vape",
+    "reason": "strain_not_identified",
+    "detail": "Cannabis-derived product but strain name could not be extracted or matched. May be proprietary blend, brand-specific formulation, or product name lacks standard strain identifiers.",
+    "recommendation": "Flag for manual review. Check dispensary menu to identify underlying strain."
+  },
+  {
+    "product_id": "cartridges-and-disposables",
+    "product_name": "Cartridges and Disposables",
+    "brand": "",
+    "product_category": "Vape",
+    "reason": "strain_not_identified",
+    "detail": "Cannabis-derived product but strain name could not be extracted or matched. May be proprietary blend, brand-specific formulation, or product name lacks standard strain identifiers.",
+    "recommendation": "Flag for manual review. Check dispensary menu to identify underlying strain."
+  },
+  {
+    "product_id": "cbd-rich",
+    "product_name": "CBD Rich",
+    "brand": "",
+    "product_category": "Flower",
+    "reason": "strain_not_identified",
+    "detail": "Cannabis-derived product but strain name could not be extracted or matched. May be proprietary blend, brand-specific formulation, or product name lacks standard strain identifiers.",
+    "recommendation": "Flag for manual review. Check dispensary menu to identify underlying strain."
+  },
+  {
+    "product_id": "cbn-cbd-100mg-thc",
+    "product_name": "CBN : CBD : 100mg THC",
+    "brand": "Sunnies",
+    "product_category": "Edible",
+    "reason": "strain_agnostic",
+    "detail": "Product defined by dosage/formulation (edible/topical), not by a specific cannabis strain.",
+    "recommendation": "Keep in product list with strain_id=null. Categorize by product type and brand only."
+  },
+  {
+    "product_id": "champagne-supernova-distillate-cartridge",
+    "product_name": "Champagne Supernova Distillate Cartridge",
+    "brand": "Strane",
+    "product_category": "Vape",
+    "reason": "strain_not_identified",
+    "detail": "Cannabis-derived product but strain name could not be extracted or matched. May be proprietary blend, brand-specific formulation, or product name lacks standard strain identifiers.",
+    "recommendation": "Flag for manual review. Check dispensary menu to identify underlying strain."
+  },
+  {
+    "product_id": "chesacanna-baseball-t-shirt-3-4-sleeve",
+    "product_name": "Chesacanna Baseball T-Shirt 3/4 Sleeve",
+    "brand": "Chesacanna Wellness",
+    "product_category": "Other",
+    "reason": "scrape_artifact",
+    "detail": "Scraping artifact \u2014 price tag, promotion, merch, or generic category label incorrectly ingested as a product.",
+    "recommendation": "Remove from product list."
+  },
+  {
+    "product_id": "chesacanna-maryland-flag-t-shirt",
+    "product_name": "Chesacanna Maryland Flag T-Shirt",
+    "brand": "Chesacanna Wellness",
+    "product_category": "Other",
+    "reason": "scrape_artifact",
+    "detail": "Scraping artifact \u2014 price tag, promotion, merch, or generic category label incorrectly ingested as a product.",
+    "recommendation": "Remove from product list."
+  },
+  {
+    "product_id": "chesacanna-patriot-4th-of-july-t-shirt",
+    "product_name": "Chesacanna Patriot 4th of July T-Shirt",
+    "brand": "Chesacanna Wellness",
+    "product_category": "Other",
+    "reason": "scrape_artifact",
+    "detail": "Scraping artifact \u2014 price tag, promotion, merch, or generic category label incorrectly ingested as a product.",
+    "recommendation": "Remove from product list."
+  },
+  {
+    "product_id": "chesacanna-pride-t-shirt",
+    "product_name": "Chesacanna Pride T-Shirt",
+    "brand": "Chesacanna Wellness",
+    "product_category": "Other",
+    "reason": "scrape_artifact",
+    "detail": "Scraping artifact \u2014 price tag, promotion, merch, or generic category label incorrectly ingested as a product.",
+    "recommendation": "Remove from product list."
+  },
+  {
+    "product_id": "chill-10-1-citrus-honey-chews-formerly-good-day-20-2-chews",
+    "product_name": "Chill 10:1 Citrus Honey Chews (Formerly Good Day 20:2 Chews)",
+    "brand": "Curio Wellness",
+    "product_category": "Edible",
+    "reason": "strain_not_identified",
+    "detail": "Cannabis-derived product but strain name could not be extracted or matched. May be proprietary blend, brand-specific formulation, or product name lacks standard strain identifiers.",
+    "recommendation": "Flag for manual review. Check dispensary menu to identify underlying strain."
+  },
+  {
+    "product_id": "citrus",
+    "product_name": "Citrus",
+    "brand": "Curio Wellness",
+    "product_category": "Flower",
+    "reason": "strain_not_identified",
+    "detail": "Cannabis-derived product but strain name could not be extracted or matched. May be proprietary blend, brand-specific formulation, or product name lacks standard strain identifiers.",
+    "recommendation": "Flag for manual review. Check dispensary menu to identify underlying strain."
+  },
+  {
+    "product_id": "citrus-slushy-slyde-disposable",
+    "product_name": "Citrus Slushy Slyde Disposable",
+    "brand": "Slyde",
+    "product_category": "Vape",
+    "reason": "strain_not_identified",
+    "detail": "Cannabis-derived product but strain name could not be extracted or matched. May be proprietary blend, brand-specific formulation, or product name lacks standard strain identifiers.",
+    "recommendation": "Flag for manual review. Check dispensary menu to identify underlying strain."
+  },
+  {
+    "product_id": "clementine-cloud-bar-rechargeable-disposable",
+    "product_name": "Clementine Cloud Bar Rechargeable Disposable",
+    "brand": "Hellavated",
+    "product_category": "Vape",
+    "reason": "strain_not_identified",
+    "detail": "Cannabis-derived product but strain name could not be extracted or matched. May be proprietary blend, brand-specific formulation, or product name lacks standard strain identifiers.",
+    "recommendation": "Flag for manual review. Check dispensary menu to identify underlying strain."
+  },
+  {
+    "product_id": "clemonadez-distillate-cartridge",
+    "product_name": "Clemonadez Distillate Cartridge",
+    "brand": "Strane",
+    "product_category": "Vape",
+    "reason": "strain_not_identified",
+    "detail": "Cannabis-derived product but strain name could not be extracted or matched. May be proprietary blend, brand-specific formulation, or product name lacks standard strain identifiers.",
+    "recommendation": "Flag for manual review. Check dispensary menu to identify underlying strain."
+  },
+  {
+    "product_id": "closet-freezer",
+    "product_name": "Closet Freezer",
+    "brand": "Curio Wellness",
+    "product_category": "Flower",
+    "reason": "strain_not_identified",
+    "detail": "Cannabis-derived product but strain name could not be extracted or matched. May be proprietary blend, brand-specific formulation, or product name lacks standard strain identifiers.",
+    "recommendation": "Flag for manual review. Check dispensary menu to identify underlying strain."
+  },
+  {
+    "product_id": "co2lors-infused-pre-rolls-2-x-sour-peach-x-ripped-off-runtz",
+    "product_name": "Co2lors Infused Pre-rolls (2 x Sour Peach x Ripped Off Runtz",
+    "brand": "Co2lors",
+    "product_category": "Pre-Roll",
+    "reason": "strain_not_identified",
+    "detail": "Cannabis-derived product but strain name could not be extracted or matched. May be proprietary blend, brand-specific formulation, or product name lacks standard strain identifiers.",
+    "recommendation": "Flag for manual review. Check dispensary menu to identify underlying strain."
+  },
+  {
+    "product_id": "coast-cranberry-pomegranate-1-1-1-cbn-cbd-thc-chews-5mg-20ct",
+    "product_name": "Coast Cranberry Pomegranate 1:1:1 CBN:CBD:THC Chews 5mg (20ct)",
+    "brand": "COAST Cannabis Co.",
+    "product_category": "Edible",
+    "reason": "strain_agnostic",
+    "detail": "Product defined by dosage/formulation (edible/topical), not by a specific cannabis strain.",
+    "recommendation": "Keep in product list with strain_id=null. Categorize by product type and brand only."
+  },
+  {
+    "product_id": "coast-goodnight-grape-5-1-cbn-thc-chews-5mg-20ct",
+    "product_name": "Coast Goodnight Grape 5:1 CBN:THC Chews 5mg (20ct)",
+    "brand": "COAST Cannabis Co.",
+    "product_category": "Edible",
+    "reason": "strain_agnostic",
+    "detail": "Product defined by dosage/formulation (edible/topical), not by a specific cannabis strain.",
+    "recommendation": "Keep in product list with strain_id=null. Categorize by product type and brand only."
+  },
+  {
+    "product_id": "colors-sour-peach-x-ripped-off-runtz-infused-joints-2pk",
+    "product_name": "Colors Sour Peach x Ripped Off Runtz Infused Joints 2pk",
+    "brand": "",
+    "product_category": "Pre-Roll",
+    "reason": "strain_not_identified",
+    "detail": "Cannabis-derived product but strain name could not be extracted or matched. May be proprietary blend, brand-specific formulation, or product name lacks standard strain identifiers.",
+    "recommendation": "Flag for manual review. Check dispensary menu to identify underlying strain."
+  },
+  {
+    "product_id": "concentrations-kitchen-sink-live-resin-cake-badder",
+    "product_name": "Concentrations Kitchen Sink Live Resin Cake Badder",
+    "brand": "Concentrations",
+    "product_category": "Concentrate",
+    "reason": "strain_not_identified",
+    "detail": "Cannabis-derived product but strain name could not be extracted or matched. May be proprietary blend, brand-specific formulation, or product name lacks standard strain identifiers.",
+    "recommendation": "Flag for manual review. Check dispensary menu to identify underlying strain."
+  },
+  {
+    "product_id": "cookies",
+    "product_name": "Cookies",
+    "brand": "Cookies",
+    "product_category": "Flower",
+    "reason": "strain_not_identified",
+    "detail": "Cannabis-derived product but strain name could not be extracted or matched. May be proprietary blend, brand-specific formulation, or product name lacks standard strain identifiers.",
+    "recommendation": "Flag for manual review. Check dispensary menu to identify underlying strain."
+  },
+  {
+    "product_id": "coolwater-live-badder",
+    "product_name": "Coolwater Live Badder",
+    "brand": "CULTA",
+    "product_category": "Concentrate",
+    "reason": "strain_not_identified",
+    "detail": "Cannabis-derived product but strain name could not be extracted or matched. May be proprietary blend, brand-specific formulation, or product name lacks standard strain identifiers.",
+    "recommendation": "Flag for manual review. Check dispensary menu to identify underlying strain."
+  },
+  {
+    "product_id": "cosmic-crisp-distillate-cart",
+    "product_name": "Cosmic Crisp Distillate Cart",
+    "brand": "Evermore Cannabis Company",
+    "product_category": "Vape",
+    "reason": "strain_not_identified",
+    "detail": "Cannabis-derived product but strain name could not be extracted or matched. May be proprietary blend, brand-specific formulation, or product name lacks standard strain identifiers.",
+    "recommendation": "Flag for manual review. Check dispensary menu to identify underlying strain."
+  },
+  {
+    "product_id": "curio-40mg-snowberry-chews",
+    "product_name": "Curio 40mg Snowberry Chews",
+    "brand": "Curio Wellness",
+    "product_category": "Edible",
+    "reason": "strain_agnostic",
+    "detail": "Product defined by dosage/formulation (edible/topical), not by a specific cannabis strain.",
+    "recommendation": "Keep in product list with strain_id=null. Categorize by product type and brand only."
+  },
+  {
+    "product_id": "cush-4-2g-budget-bud",
+    "product_name": "Cush 4.2g* [Budget Bud",
+    "brand": "Evermore",
+    "product_category": "Flower",
+    "reason": "strain_not_identified",
+    "detail": "Cannabis-derived product but strain name could not be extracted or matched. May be proprietary blend, brand-specific formulation, or product name lacks standard strain identifiers.",
+    "recommendation": "Flag for manual review. Check dispensary menu to identify underlying strain."
+  },
+  {
+    "product_id": "dark-berry-5mg-thc-1-serving",
+    "product_name": "Dark Berry 5mg THC (1 Serving)",
+    "brand": "Tall",
+    "product_category": "Edible",
+    "reason": "strain_agnostic",
+    "detail": "Product defined by dosage/formulation (edible/topical), not by a specific cannabis strain.",
+    "recommendation": "Keep in product list with strain_id=null. Categorize by product type and brand only."
+  },
+  {
+    "product_id": "dark-chocolate-espresso-truffles",
+    "product_name": "Dark Chocolate Espresso Truffles",
+    "brand": "Sunnies",
+    "product_category": "Edible",
+    "reason": "strain_agnostic",
+    "detail": "Product defined by dosage/formulation (edible/topical), not by a specific cannabis strain.",
+    "recommendation": "Keep in product list with strain_id=null. Categorize by product type and brand only."
+  },
+  {
+    "product_id": "dark-chocolate-sea-salt-sativa-chocolates-10pk",
+    "product_name": "Dark Chocolate Sea Salt Sativa Chocolates [10pk",
+    "brand": "Encore Edibles",
+    "product_category": "Edible",
+    "reason": "strain_agnostic",
+    "detail": "Product defined by dosage/formulation (edible/topical), not by a specific cannabis strain.",
+    "recommendation": "Keep in product list with strain_id=null. Categorize by product type and brand only."
+  },
+  {
+    "product_id": "deadband-live-resin-oil",
+    "product_name": "Deadband Live Resin Oil",
+    "brand": "Discos",
+    "product_category": "Concentrate",
+    "reason": "strain_not_identified",
+    "detail": "Cannabis-derived product but strain name could not be extracted or matched. May be proprietary blend, brand-specific formulation, or product name lacks standard strain identifiers.",
+    "recommendation": "Flag for manual review. Check dispensary menu to identify underlying strain."
+  },
+  {
+    "product_id": "distillate-cartridge",
+    "product_name": "Distillate Cartridge",
+    "brand": "Grow West Cannabis Company",
+    "product_category": "Vape",
+    "reason": "strain_not_identified",
+    "detail": "Cannabis-derived product but strain name could not be extracted or matched. May be proprietary blend, brand-specific formulation, or product name lacks standard strain identifiers.",
+    "recommendation": "Flag for manual review. Check dispensary menu to identify underlying strain."
+  },
+  {
+    "product_id": "dixie-10mg-berry-blaze-sativa-gummies",
+    "product_name": "Dixie 10mg Berry Blaze Sativa Gummies",
+    "brand": "Dixie",
+    "product_category": "Edible",
+    "reason": "strain_agnostic",
+    "detail": "Product defined by dosage/formulation (edible/topical), not by a specific cannabis strain.",
+    "recommendation": "Keep in product list with strain_id=null. Categorize by product type and brand only."
+  },
+  {
+    "product_id": "dixie-10mg-tropic-twist-indica-gummies",
+    "product_name": "Dixie 10mg Tropic Twist Indica Gummies",
+    "brand": "Dixie",
+    "product_category": "Edible",
+    "reason": "strain_agnostic",
+    "detail": "Product defined by dosage/formulation (edible/topical), not by a specific cannabis strain.",
+    "recommendation": "Keep in product list with strain_id=null. Categorize by product type and brand only."
+  },
+  {
+    "product_id": "do-drops-100mg-1-1-cbn-thc-slumberberry-10ct",
+    "product_name": "Do Drops (100mg) 1:1 CBN:THC Slumberberry 10ct",
+    "brand": "Do Drop",
+    "product_category": "Edible",
+    "reason": "strain_agnostic",
+    "detail": "Product defined by dosage/formulation (edible/topical), not by a specific cannabis strain.",
+    "recommendation": "Keep in product list with strain_id=null. Categorize by product type and brand only."
+  },
+  {
+    "product_id": "dragon-fruit-10mg-thc-1-serving",
+    "product_name": "Dragon Fruit 10mg THC (1 Serving)",
+    "brand": "Tall",
+    "product_category": "Edible",
+    "reason": "strain_agnostic",
+    "detail": "Product defined by dosage/formulation (edible/topical), not by a specific cannabis strain.",
+    "recommendation": "Keep in product list with strain_id=null. Categorize by product type and brand only."
+  },
+  {
+    "product_id": "dragon-fruit-live-gummies",
+    "product_name": "Dragon Fruit Live Gummies",
+    "brand": "Strane",
+    "product_category": "Edible",
+    "reason": "strain_agnostic",
+    "detail": "Product defined by dosage/formulation (edible/topical), not by a specific cannabis strain.",
+    "recommendation": "Keep in product list with strain_id=null. Categorize by product type and brand only."
+  },
+  {
+    "product_id": "edibles",
+    "product_name": "Edibles",
+    "brand": "",
+    "product_category": "Other",
+    "reason": "scrape_artifact",
+    "detail": "Scraping artifact \u2014 price tag, promotion, merch, or generic category label incorrectly ingested as a product.",
+    "recommendation": "Remove from product list."
+  },
+  {
+    "product_id": "elderberry-hibiscus-chews",
+    "product_name": "Elderberry Hibiscus Chews",
+    "brand": "Curio Wellness",
+    "product_category": "Edible",
+    "reason": "strain_not_identified",
+    "detail": "Cannabis-derived product but strain name could not be extracted or matched. May be proprietary blend, brand-specific formulation, or product name lacks standard strain identifiers.",
+    "recommendation": "Flag for manual review. Check dispensary menu to identify underlying strain."
+  },
+  {
+    "product_id": "encore-10mg-concord-grape-rso-gummies",
+    "product_name": "Encore 10mg Concord Grape RSO Gummies",
+    "brand": "Encore Edibles",
+    "product_category": "Edible",
+    "reason": "strain_agnostic",
+    "detail": "Product defined by dosage/formulation (edible/topical), not by a specific cannabis strain.",
+    "recommendation": "Keep in product list with strain_id=null. Categorize by product type and brand only."
+  },
+  {
+    "product_id": "encore-10mg-sour-black-cherry-rso-gummies",
+    "product_name": "Encore 10mg Sour Black Cherry RSO Gummies",
+    "brand": "Encore Edibles",
+    "product_category": "Edible",
+    "reason": "strain_agnostic",
+    "detail": "Product defined by dosage/formulation (edible/topical), not by a specific cannabis strain.",
+    "recommendation": "Keep in product list with strain_id=null. Categorize by product type and brand only."
+  },
+  {
+    "product_id": "encore-10mg-watermelon-sour-sativa-gummies",
+    "product_name": "Encore 10mg Watermelon Sour Sativa Gummies",
+    "brand": "Encore Edibles",
+    "product_category": "Edible",
+    "reason": "strain_agnostic",
+    "detail": "Product defined by dosage/formulation (edible/topical), not by a specific cannabis strain.",
+    "recommendation": "Keep in product list with strain_id=null. Categorize by product type and brand only."
+  },
+  {
+    "product_id": "encore-rso-gummies-100mg-mandarin-1-1",
+    "product_name": "Encore RSO Gummies (100mg) Mandarin 1:1",
+    "brand": "Verano",
+    "product_category": "Edible",
+    "reason": "strain_agnostic",
+    "detail": "Product defined by dosage/formulation (edible/topical), not by a specific cannabis strain.",
+    "recommendation": "Keep in product list with strain_id=null. Categorize by product type and brand only."
+  },
+  {
+    "product_id": "exotic-elevations-hawaiian-gold-live-diamonds",
+    "product_name": "Exotic Elevations Hawaiian Gold Live Diamonds",
+    "brand": "Exotic Elevations",
+    "product_category": "Concentrate",
+    "reason": "strain_not_identified",
+    "detail": "Cannabis-derived product but strain name could not be extracted or matched. May be proprietary blend, brand-specific formulation, or product name lacks standard strain identifiers.",
+    "recommendation": "Flag for manual review. Check dispensary menu to identify underlying strain."
+  },
+  {
+    "product_id": "fiber-wire-live-budder",
+    "product_name": "Fiber Wire Live Budder",
+    "brand": "Kind Tree",
+    "product_category": "Concentrate",
+    "reason": "strain_not_identified",
+    "detail": "Cannabis-derived product but strain name could not be extracted or matched. May be proprietary blend, brand-specific formulation, or product name lacks standard strain identifiers.",
+    "recommendation": "Flag for manual review. Check dispensary menu to identify underlying strain."
+  },
+  {
+    "product_id": "flower",
+    "product_name": "Flower",
+    "brand": "",
+    "product_category": "Flower",
+    "reason": "scrape_artifact",
+    "detail": "Scraping artifact \u2014 price tag, promotion, merch, or generic category label incorrectly ingested as a product.",
+    "recommendation": "Remove from product list."
+  },
+  {
+    "product_id": "froot-loot-5-live-resin-cake-badder",
+    "product_name": "Froot Loot #5 Live Resin Cake Badder",
+    "brand": "Evermore",
+    "product_category": "Concentrate",
+    "reason": "strain_not_identified",
+    "detail": "Cannabis-derived product but strain name could not be extracted or matched. May be proprietary blend, brand-specific formulation, or product name lacks standard strain identifiers.",
+    "recommendation": "Flag for manual review. Check dispensary menu to identify underlying strain."
+  },
+  {
+    "product_id": "frosted-passionfruit-distillate-vape",
+    "product_name": "Frosted Passionfruit Distillate Vape",
+    "brand": "Sunnies",
+    "product_category": "Vape",
+    "reason": "strain_not_identified",
+    "detail": "Cannabis-derived product but strain name could not be extracted or matched. May be proprietary blend, brand-specific formulation, or product name lacks standard strain identifiers.",
+    "recommendation": "Flag for manual review. Check dispensary menu to identify underlying strain."
+  },
+  {
+    "product_id": "fruit-punch-live-resin-diamond-reload-pod",
+    "product_name": "Fruit Punch Live Resin Diamond Reload Pod",
+    "brand": "Rove",
+    "product_category": "Vape",
+    "reason": "strain_not_identified",
+    "detail": "Cannabis-derived product but strain name could not be extracted or matched. May be proprietary blend, brand-specific formulation, or product name lacks standard strain identifiers.",
+    "recommendation": "Flag for manual review. Check dispensary menu to identify underlying strain."
+  },
+  {
+    "product_id": "fuji-apple-pear-1-1-thc-cbd",
+    "product_name": "Fuji Apple Pear 1:1 (THC:CBD)",
+    "brand": "Tall",
+    "product_category": "Edible",
+    "reason": "strain_agnostic",
+    "detail": "Product defined by dosage/formulation (edible/topical), not by a specific cannabis strain.",
+    "recommendation": "Keep in product list with strain_id=null. Categorize by product type and brand only."
+  },
+  {
+    "product_id": "garlic-jr-live-resin-cartridge",
+    "product_name": "Garlic Jr. Live Resin cartridge",
+    "brand": "Kind Tree",
+    "product_category": "Vape",
+    "reason": "strain_not_identified",
+    "detail": "Cannabis-derived product but strain name could not be extracted or matched. May be proprietary blend, brand-specific formulation, or product name lacks standard strain identifiers.",
+    "recommendation": "Flag for manual review. Check dispensary menu to identify underlying strain."
+  },
+  {
+    "product_id": "glacial-guava-distillate-vape",
+    "product_name": "Glacial Guava Distillate Vape",
+    "brand": "Sunnies",
+    "product_category": "Vape",
+    "reason": "strain_not_identified",
+    "detail": "Cannabis-derived product but strain name could not be extracted or matched. May be proprietary blend, brand-specific formulation, or product name lacks standard strain identifiers.",
+    "recommendation": "Flag for manual review. Check dispensary menu to identify underlying strain."
+  },
+  {
+    "product_id": "glow-chews-100mg-feeling-punchy-10ct",
+    "product_name": "Glow Chews (100mg) Feeling Punchy 10ct",
+    "brand": "Glow",
+    "product_category": "Edible",
+    "reason": "strain_agnostic",
+    "detail": "Product defined by dosage/formulation (edible/topical), not by a specific cannabis strain.",
+    "recommendation": "Keep in product list with strain_id=null. Categorize by product type and brand only."
+  },
+  {
+    "product_id": "got-caught-3-4-2g-budget-bud",
+    "product_name": "Got Caught #3 (4.2g)* [Budget Bud",
+    "brand": "Evermore",
+    "product_category": "Flower",
+    "reason": "strain_not_identified",
+    "detail": "Cannabis-derived product but strain name could not be extracted or matched. May be proprietary blend, brand-specific formulation, or product name lacks standard strain identifiers.",
+    "recommendation": "Flag for manual review. Check dispensary menu to identify underlying strain."
+  },
+  {
+    "product_id": "gpog-slyde-disposable",
+    "product_name": "GPOG Slyde Disposable",
+    "brand": "Slyde",
+    "product_category": "Vape",
+    "reason": "strain_not_identified",
+    "detail": "Cannabis-derived product but strain name could not be extracted or matched. May be proprietary blend, brand-specific formulation, or product name lacks standard strain identifiers.",
+    "recommendation": "Flag for manual review. Check dispensary menu to identify underlying strain."
+  },
+  {
+    "product_id": "grape-stomper-cloud-bar",
+    "product_name": "Grape Stomper Cloud Bar",
+    "brand": "Hellavated",
+    "product_category": "Vape",
+    "reason": "strain_not_identified",
+    "detail": "Cannabis-derived product but strain name could not be extracted or matched. May be proprietary blend, brand-specific formulation, or product name lacks standard strain identifiers.",
+    "recommendation": "Flag for manual review. Check dispensary menu to identify underlying strain."
+  },
+  {
+    "product_id": "guerilla-grape-bho-live-badder",
+    "product_name": "Guerilla Grape BHO Live Badder",
+    "brand": "Verano",
+    "product_category": "Concentrate",
+    "reason": "strain_not_identified",
+    "detail": "Cannabis-derived product but strain name could not be extracted or matched. May be proprietary blend, brand-specific formulation, or product name lacks standard strain identifiers.",
+    "recommendation": "Flag for manual review. Check dispensary menu to identify underlying strain."
+  },
+  {
+    "product_id": "gumi-6-live-resin-cake-badder",
+    "product_name": "Gumi #6 Live  Resin Cake Badder",
+    "brand": "Evermore",
+    "product_category": "Concentrate",
+    "reason": "strain_not_identified",
+    "detail": "Cannabis-derived product but strain name could not be extracted or matched. May be proprietary blend, brand-specific formulation, or product name lacks standard strain identifiers.",
+    "recommendation": "Flag for manual review. Check dispensary menu to identify underlying strain."
+  },
+  {
+    "product_id": "gumi-6-live-badder",
+    "product_name": "Gumi #6 Live Badder",
+    "brand": "Evermore",
+    "product_category": "Concentrate",
+    "reason": "strain_not_identified",
+    "detail": "Cannabis-derived product but strain name could not be extracted or matched. May be proprietary blend, brand-specific formulation, or product name lacks standard strain identifiers.",
+    "recommendation": "Flag for manual review. Check dispensary menu to identify underlying strain."
+  },
+  {
+    "product_id": "gumi-6-untrimmed",
+    "product_name": "Gumi #6 Untrimmed",
+    "brand": "Evermore",
+    "product_category": "Flower",
+    "reason": "strain_not_identified",
+    "detail": "Cannabis-derived product but strain name could not be extracted or matched. May be proprietary blend, brand-specific formulation, or product name lacks standard strain identifiers.",
+    "recommendation": "Flag for manual review. Check dispensary menu to identify underlying strain."
+  },
+  {
+    "product_id": "gumi-6",
+    "product_name": "Gumi 6",
+    "brand": "Evermore Cannabis Company",
+    "product_category": "Flower",
+    "reason": "strain_not_identified",
+    "detail": "Cannabis-derived product but strain name could not be extracted or matched. May be proprietary blend, brand-specific formulation, or product name lacks standard strain identifiers.",
+    "recommendation": "Flag for manual review. Check dispensary menu to identify underlying strain."
+  },
+  {
+    "product_id": "happy-j-s-gumi-6",
+    "product_name": "Happy J's Gumi #6",
+    "brand": "Happy J's",
+    "product_category": "Pre-Roll",
+    "reason": "strain_not_identified",
+    "detail": "Cannabis-derived product but strain name could not be extracted or matched. May be proprietary blend, brand-specific formulation, or product name lacks standard strain identifiers.",
+    "recommendation": "Flag for manual review. Check dispensary menu to identify underlying strain."
+  },
+  {
+    "product_id": "happy-j-s-gumi-6-prj-2x",
+    "product_name": "Happy J's Gumi #6 PRJ 2x",
+    "brand": "Happy J's",
+    "product_category": "Pre-Roll",
+    "reason": "strain_not_identified",
+    "detail": "Cannabis-derived product but strain name could not be extracted or matched. May be proprietary blend, brand-specific formulation, or product name lacks standard strain identifiers.",
+    "recommendation": "Flag for manual review. Check dispensary menu to identify underlying strain."
+  },
+  {
+    "product_id": "happy-j-s-lucky-orchard-prj-2x",
+    "product_name": "Happy J's Lucky Orchard PRJ 2x",
+    "brand": "Happy J's",
+    "product_category": "Pre-Roll",
+    "reason": "strain_not_identified",
+    "detail": "Cannabis-derived product but strain name could not be extracted or matched. May be proprietary blend, brand-specific formulation, or product name lacks standard strain identifiers.",
+    "recommendation": "Flag for manual review. Check dispensary menu to identify underlying strain."
+  },
+  {
+    "product_id": "happy-er-j-s-hbs5-x-house-blend-infused-prj-7ct",
+    "product_name": "Happy-er J's HBS5 x House Blend Infused PRJ (7ct)",
+    "brand": "Happy-er J's",
+    "product_category": "Pre-Roll",
+    "reason": "strain_not_identified",
+    "detail": "Cannabis-derived product but strain name could not be extracted or matched. May be proprietary blend, brand-specific formulation, or product name lacks standard strain identifiers.",
+    "recommendation": "Flag for manual review. Check dispensary menu to identify underlying strain."
+  },
+  {
+    "product_id": "happy-er-j-s-red-zushi-x-house-blends-infused-prj-2x",
+    "product_name": "Happy-er J's Red Zushi x House Blends Infused PRJ 2x",
+    "brand": "Happy-er J's",
+    "product_category": "Pre-Roll",
+    "reason": "strain_not_identified",
+    "detail": "Cannabis-derived product but strain name could not be extracted or matched. May be proprietary blend, brand-specific formulation, or product name lacks standard strain identifiers.",
+    "recommendation": "Flag for manual review. Check dispensary menu to identify underlying strain."
+  },
+  {
+    "product_id": "hellavated",
+    "product_name": "Hellavated",
+    "brand": "",
+    "product_category": "Flower",
+    "reason": "strain_not_identified",
+    "detail": "Cannabis-derived product but strain name could not be extracted or matched. May be proprietary blend, brand-specific formulation, or product name lacks standard strain identifiers.",
+    "recommendation": "Flag for manual review. Check dispensary menu to identify underlying strain."
+  },
+  {
+    "product_id": "hellavated-1g-mango-dragon-cloud-bar-disposable",
+    "product_name": "Hellavated 1g Mango Dragon Cloud Bar Disposable",
+    "brand": "Hellavated",
+    "product_category": "Vape",
+    "reason": "strain_not_identified",
+    "detail": "Cannabis-derived product but strain name could not be extracted or matched. May be proprietary blend, brand-specific formulation, or product name lacks standard strain identifiers.",
+    "recommendation": "Flag for manual review. Check dispensary menu to identify underlying strain."
+  },
+  {
+    "product_id": "hellavated-1g-melon-sherbert-cloud-bar-disposable",
+    "product_name": "Hellavated 1g Melon Sherbert Cloud Bar Disposable",
+    "brand": "Hellavated",
+    "product_category": "Vape",
+    "reason": "strain_not_identified",
+    "detail": "Cannabis-derived product but strain name could not be extracted or matched. May be proprietary blend, brand-specific formulation, or product name lacks standard strain identifiers.",
+    "recommendation": "Flag for manual review. Check dispensary menu to identify underlying strain."
+  },
+  {
+    "product_id": "hellavated-aio-disposable-strawberry-haze",
+    "product_name": "Hellavated AIO Disposable Strawberry Haze",
+    "brand": "Hellavated",
+    "product_category": "Vape",
+    "reason": "strain_not_identified",
+    "detail": "Cannabis-derived product but strain name could not be extracted or matched. May be proprietary blend, brand-specific formulation, or product name lacks standard strain identifiers.",
+    "recommendation": "Flag for manual review. Check dispensary menu to identify underlying strain."
+  },
+  {
+    "product_id": "hellavated-grape-stomper-infused-prj-1ct",
+    "product_name": "Hellavated Grape Stomper Infused PRJ (1ct)",
+    "brand": "Hellavated",
+    "product_category": "Pre-Roll",
+    "reason": "strain_not_identified",
+    "detail": "Cannabis-derived product but strain name could not be extracted or matched. May be proprietary blend, brand-specific formulation, or product name lacks standard strain identifiers.",
+    "recommendation": "Flag for manual review. Check dispensary menu to identify underlying strain."
+  },
+  {
+    "product_id": "hellavated-mango-dragon-disposable-pen",
+    "product_name": "Hellavated Mango Dragon Disposable Pen",
+    "brand": "Hellavated",
+    "product_category": "Vape",
+    "reason": "strain_not_identified",
+    "detail": "Cannabis-derived product but strain name could not be extracted or matched. May be proprietary blend, brand-specific formulation, or product name lacks standard strain identifiers.",
+    "recommendation": "Flag for manual review. Check dispensary menu to identify underlying strain."
+  },
+  {
+    "product_id": "hellavated-og-mint-disposable-pen",
+    "product_name": "Hellavated OG Mint Disposable Pen",
+    "brand": "Hellavated",
+    "product_category": "Vape",
+    "reason": "strain_not_identified",
+    "detail": "Cannabis-derived product but strain name could not be extracted or matched. May be proprietary blend, brand-specific formulation, or product name lacks standard strain identifiers.",
+    "recommendation": "Flag for manual review. Check dispensary menu to identify underlying strain."
+  },
+  {
+    "product_id": "hellavated-peach-cobbler-infused-prj-1ct",
+    "product_name": "Hellavated Peach Cobbler Infused PRJ (1ct)",
+    "brand": "Hellavated",
+    "product_category": "Pre-Roll",
+    "reason": "strain_not_identified",
+    "detail": "Cannabis-derived product but strain name could not be extracted or matched. May be proprietary blend, brand-specific formulation, or product name lacks standard strain identifiers.",
+    "recommendation": "Flag for manual review. Check dispensary menu to identify underlying strain."
+  },
+  {
+    "product_id": "hellavated-strawberry-haze-cloud-bar-disposable",
+    "product_name": "Hellavated Strawberry Haze Cloud Bar Disposable",
+    "brand": "Hellavated",
+    "product_category": "Vape",
+    "reason": "strain_not_identified",
+    "detail": "Cannabis-derived product but strain name could not be extracted or matched. May be proprietary blend, brand-specific formulation, or product name lacks standard strain identifiers.",
+    "recommendation": "Flag for manual review. Check dispensary menu to identify underlying strain."
+  },
+  {
+    "product_id": "hellavated-strawberry-haze-disposable-pen",
+    "product_name": "Hellavated Strawberry Haze Disposable Pen",
+    "brand": "Hellavated",
+    "product_category": "Vape",
+    "reason": "strain_not_identified",
+    "detail": "Cannabis-derived product but strain name could not be extracted or matched. May be proprietary blend, brand-specific formulation, or product name lacks standard strain identifiers.",
+    "recommendation": "Flag for manual review. Check dispensary menu to identify underlying strain."
+  },
+  {
+    "product_id": "hellavated-water-yer-melon-disposable-pen",
+    "product_name": "Hellavated Water Yer Melon Disposable Pen",
+    "brand": "Hellavated",
+    "product_category": "Vape",
+    "reason": "strain_not_identified",
+    "detail": "Cannabis-derived product but strain name could not be extracted or matched. May be proprietary blend, brand-specific formulation, or product name lacks standard strain identifiers.",
+    "recommendation": "Flag for manual review. Check dispensary menu to identify underlying strain."
+  },
+  {
+    "product_id": "hiaf-peach-rings-disposable-pen",
+    "product_name": "HiAF Peach Rings Disposable Pen",
+    "brand": "HiAF",
+    "product_category": "Vape",
+    "reason": "strain_not_identified",
+    "detail": "Cannabis-derived product but strain name could not be extracted or matched. May be proprietary blend, brand-specific formulation, or product name lacks standard strain identifiers.",
+    "recommendation": "Flag for manual review. Check dispensary menu to identify underlying strain."
+  },
+  {
+    "product_id": "hibiscus-cherry-lime-10mg-thc-1-serving",
+    "product_name": "Hibiscus Cherry Lime 10mg THC (1 Serving)",
+    "brand": "Tall",
+    "product_category": "Edible",
+    "reason": "strain_agnostic",
+    "detail": "Product defined by dosage/formulation (edible/topical), not by a specific cannabis strain.",
+    "recommendation": "Keep in product list with strain_id=null. Categorize by product type and brand only."
+  },
+  {
+    "product_id": "hibiscus-cooler-slyde-disposable",
+    "product_name": "Hibiscus Cooler Slyde Disposable",
+    "brand": "Slyde",
+    "product_category": "Vape",
+    "reason": "strain_not_identified",
+    "detail": "Cannabis-derived product but strain name could not be extracted or matched. May be proprietary blend, brand-specific formulation, or product name lacks standard strain identifiers.",
+    "recommendation": "Flag for manual review. Check dispensary menu to identify underlying strain."
+  },
+  {
+    "product_id": "huckleberry-hybrid-enhanced-gummies",
+    "product_name": "Huckleberry Hybrid Enhanced Gummies",
+    "brand": "Wyld",
+    "product_category": "Edible",
+    "reason": "strain_agnostic",
+    "detail": "Product defined by dosage/formulation (edible/topical), not by a specific cannabis strain.",
+    "recommendation": "Keep in product list with strain_id=null. Categorize by product type and brand only."
+  },
+  {
+    "product_id": "hybrid",
+    "product_name": "Hybrid",
+    "brand": "",
+    "product_category": "Flower",
+    "reason": "strain_not_identified",
+    "detail": "Cannabis-derived product but strain name could not be extracted or matched. May be proprietary blend, brand-specific formulation, or product name lacks standard strain identifiers.",
+    "recommendation": "Flag for manual review. Check dispensary menu to identify underlying strain."
+  },
+  {
+    "product_id": "incredibles-10mg-fast-acting-sour-cherry-tart-chews",
+    "product_name": "Incredibles 10mg Fast Acting Sour Cherry Tart Chews",
+    "brand": "Incredibles",
+    "product_category": "Edible",
+    "reason": "strain_agnostic",
+    "detail": "Product defined by dosage/formulation (edible/topical), not by a specific cannabis strain.",
+    "recommendation": "Keep in product list with strain_id=null. Categorize by product type and brand only."
+  },
+  {
+    "product_id": "incredibles-10mg-mon-cherry-chews",
+    "product_name": "Incredibles 10mg Mon Cherry Chews",
+    "brand": "Incredibles",
+    "product_category": "Edible",
+    "reason": "strain_agnostic",
+    "detail": "Product defined by dosage/formulation (edible/topical), not by a specific cannabis strain.",
+    "recommendation": "Keep in product list with strain_id=null. Categorize by product type and brand only."
+  },
+  {
+    "product_id": "incredibles-10mg-super-sour-apple-pucker-chews",
+    "product_name": "Incredibles 10mg Super Sour Apple Pucker Chews",
+    "brand": "Incredibles",
+    "product_category": "Edible",
+    "reason": "strain_agnostic",
+    "detail": "Product defined by dosage/formulation (edible/topical), not by a specific cannabis strain.",
+    "recommendation": "Keep in product list with strain_id=null. Categorize by product type and brand only."
+  },
+  {
+    "product_id": "indica",
+    "product_name": "Indica",
+    "brand": "",
+    "product_category": "Flower",
+    "reason": "strain_not_identified",
+    "detail": "Cannabis-derived product but strain name could not be extracted or matched. May be proprietary blend, brand-specific formulation, or product name lacks standard strain identifiers.",
+    "recommendation": "Flag for manual review. Check dispensary menu to identify underlying strain."
+  },
+  {
+    "product_id": "infused-2-pack",
+    "product_name": "Infused 2 Pack",
+    "brand": "Mfused",
+    "product_category": "Pre-Roll",
+    "reason": "strain_not_identified",
+    "detail": "Cannabis-derived product but strain name could not be extracted or matched. May be proprietary blend, brand-specific formulation, or product name lacks standard strain identifiers.",
+    "recommendation": "Flag for manual review. Check dispensary menu to identify underlying strain."
+  },
+  {
+    "product_id": "infused-pre-ground-kit",
+    "product_name": "INFUSED Pre-Ground Kit",
+    "brand": "HiRoller",
+    "product_category": "Flower",
+    "reason": "strain_not_identified",
+    "detail": "Cannabis-derived product but strain name could not be extracted or matched. May be proprietary blend, brand-specific formulation, or product name lacks standard strain identifiers.",
+    "recommendation": "Flag for manual review. Check dispensary menu to identify underlying strain."
+  },
+  {
+    "product_id": "infused-pre-rolls",
+    "product_name": "Infused Pre-Rolls",
+    "brand": "",
+    "product_category": "Pre-Roll",
+    "reason": "strain_not_identified",
+    "detail": "Cannabis-derived product but strain name could not be extracted or matched. May be proprietary blend, brand-specific formulation, or product name lacks standard strain identifiers.",
+    "recommendation": "Flag for manual review. Check dispensary menu to identify underlying strain."
+  },
+  {
+    "product_id": "infused-pre-rolls-5-pack",
+    "product_name": "INFUSED Pre-Rolls 5-pack",
+    "brand": "RYTHM",
+    "product_category": "Pre-Roll",
+    "reason": "strain_not_identified",
+    "detail": "Cannabis-derived product but strain name could not be extracted or matched. May be proprietary blend, brand-specific formulation, or product name lacks standard strain identifiers.",
+    "recommendation": "Flag for manual review. Check dispensary menu to identify underlying strain."
+  },
+  {
+    "product_id": "inspired-blood-orange-20-pack-100mg-thc",
+    "product_name": "Inspired Blood Orange [20-pack] (100mg THC)",
+    "brand": "Beboe",
+    "product_category": "Edible",
+    "reason": "strain_agnostic",
+    "detail": "Product defined by dosage/formulation (edible/topical), not by a specific cannabis strain.",
+    "recommendation": "Keep in product list with strain_id=null. Categorize by product type and brand only."
+  },
+  {
+    "product_id": "j-walkers-gumi-6-prj-35g-x",
+    "product_name": "J Walkers- Gumi #6 PRJ .35g x",
+    "brand": "Happy J's",
+    "product_category": "Pre-Roll",
+    "reason": "strain_not_identified",
+    "detail": "Cannabis-derived product but strain name could not be extracted or matched. May be proprietary blend, brand-specific formulation, or product name lacks standard strain identifiers.",
+    "recommendation": "Flag for manual review. Check dispensary menu to identify underlying strain."
+  },
+  {
+    "product_id": "jacks-heir-live-budder",
+    "product_name": "Jacks Heir Live Budder",
+    "brand": "Kind Tree",
+    "product_category": "Concentrate",
+    "reason": "strain_not_identified",
+    "detail": "Cannabis-derived product but strain name could not be extracted or matched. May be proprietary blend, brand-specific formulation, or product name lacks standard strain identifiers.",
+    "recommendation": "Flag for manual review. Check dispensary menu to identify underlying strain."
+  },
+  {
+    "product_id": "juicy-peach-10mg-thc-1-serving",
+    "product_name": "Juicy Peach 10mg THC (1 Serving)",
+    "brand": "Tall",
+    "product_category": "Edible",
+    "reason": "strain_agnostic",
+    "detail": "Product defined by dosage/formulation (edible/topical), not by a specific cannabis strain.",
+    "recommendation": "Keep in product list with strain_id=null. Categorize by product type and brand only."
+  },
+  {
+    "product_id": "juicy-watermelon-chews",
+    "product_name": "Juicy Watermelon Chews",
+    "brand": "Curio Wellness",
+    "product_category": "Edible",
+    "reason": "strain_not_identified",
+    "detail": "Cannabis-derived product but strain name could not be extracted or matched. May be proprietary blend, brand-specific formulation, or product name lacks standard strain identifiers.",
+    "recommendation": "Flag for manual review. Check dispensary menu to identify underlying strain."
+  },
+  {
+    "product_id": "karma-kush-distillate-cart",
+    "product_name": "Karma Kush Distillate Cart",
+    "brand": "Evermore Cannabis Company",
+    "product_category": "Vape",
+    "reason": "strain_not_identified",
+    "detail": "Cannabis-derived product but strain name could not be extracted or matched. May be proprietary blend, brand-specific formulation, or product name lacks standard strain identifiers.",
+    "recommendation": "Flag for manual review. Check dispensary menu to identify underlying strain."
+  },
+  {
+    "product_id": "kiwi-berry-cartridge",
+    "product_name": "Kiwi Berry Cartridge",
+    "brand": "grass",
+    "product_category": "Vape",
+    "reason": "strain_not_identified",
+    "detail": "Cannabis-derived product but strain name could not be extracted or matched. May be proprietary blend, brand-specific formulation, or product name lacks standard strain identifiers.",
+    "recommendation": "Flag for manual review. Check dispensary menu to identify underlying strain."
+  },
+  {
+    "product_id": "koa-live-resin-infused-pre-rolls-10-x-35g-hybrid",
+    "product_name": "KOA Live Resin Infused Pre-rolls (10 x .35g) Hybrid",
+    "brand": "KOA",
+    "product_category": "Pre-Roll",
+    "reason": "strain_not_identified",
+    "detail": "Cannabis-derived product but strain name could not be extracted or matched. May be proprietary blend, brand-specific formulation, or product name lacks standard strain identifiers.",
+    "recommendation": "Flag for manual review. Check dispensary menu to identify underlying strain."
+  },
+  {
+    "product_id": "koa-live-resin-infused-pre-rolls-10-x-35g-indica",
+    "product_name": "KOA Live Resin Infused Pre-rolls (10 x .35g) Indica",
+    "brand": "KOA",
+    "product_category": "Pre-Roll",
+    "reason": "strain_not_identified",
+    "detail": "Cannabis-derived product but strain name could not be extracted or matched. May be proprietary blend, brand-specific formulation, or product name lacks standard strain identifiers.",
+    "recommendation": "Flag for manual review. Check dispensary menu to identify underlying strain."
+  },
+  {
+    "product_id": "koa-live-resin-infused-pre-rolls-10-x-35g-sativa",
+    "product_name": "KOA Live Resin Infused Pre-rolls (10 x .35g) Sativa",
+    "brand": "KOA",
+    "product_category": "Pre-Roll",
+    "reason": "strain_not_identified",
+    "detail": "Cannabis-derived product but strain name could not be extracted or matched. May be proprietary blend, brand-specific formulation, or product name lacks standard strain identifiers.",
+    "recommendation": "Flag for manual review. Check dispensary menu to identify underlying strain."
+  },
+  {
+    "product_id": "la-chocolate",
+    "product_name": "LA Chocolate",
+    "brand": "Old Pal",
+    "product_category": "Edible",
+    "reason": "strain_agnostic",
+    "detail": "Product defined by dosage/formulation (edible/topical), not by a specific cannabis strain.",
+    "recommendation": "Keep in product list with strain_id=null. Categorize by product type and brand only."
+  },
+  {
+    "product_id": "live-resin",
+    "product_name": "Live Resin",
+    "brand": "Modern Flower",
+    "product_category": "Concentrate",
+    "reason": "strain_not_identified",
+    "detail": "Cannabis-derived product but strain name could not be extracted or matched. May be proprietary blend, brand-specific formulation, or product name lacks standard strain identifiers.",
+    "recommendation": "Flag for manual review. Check dispensary menu to identify underlying strain."
+  },
+  {
+    "product_id": "live-resin-badder",
+    "product_name": "Live Resin Badder",
+    "brand": "Kind Tree",
+    "product_category": "Concentrate",
+    "reason": "strain_not_identified",
+    "detail": "Cannabis-derived product but strain name could not be extracted or matched. May be proprietary blend, brand-specific formulation, or product name lacks standard strain identifiers.",
+    "recommendation": "Flag for manual review. Check dispensary menu to identify underlying strain."
+  },
+  {
+    "product_id": "live-resin-batter",
+    "product_name": "Live Resin Batter",
+    "brand": "Sunnies",
+    "product_category": "Concentrate",
+    "reason": "strain_not_identified",
+    "detail": "Cannabis-derived product but strain name could not be extracted or matched. May be proprietary blend, brand-specific formulation, or product name lacks standard strain identifiers.",
+    "recommendation": "Flag for manual review. Check dispensary menu to identify underlying strain."
+  },
+  {
+    "product_id": "live-resin-budder",
+    "product_name": "Live Resin Budder",
+    "brand": "Kings & Queens",
+    "product_category": "Concentrate",
+    "reason": "strain_not_identified",
+    "detail": "Cannabis-derived product but strain name could not be extracted or matched. May be proprietary blend, brand-specific formulation, or product name lacks standard strain identifiers.",
+    "recommendation": "Flag for manual review. Check dispensary menu to identify underlying strain."
+  },
+  {
+    "product_id": "live-resin-cake-badder",
+    "product_name": "Live Resin Cake Badder",
+    "brand": "Concentrations",
+    "product_category": "Concentrate",
+    "reason": "strain_not_identified",
+    "detail": "Cannabis-derived product but strain name could not be extracted or matched. May be proprietary blend, brand-specific formulation, or product name lacks standard strain identifiers.",
+    "recommendation": "Flag for manual review. Check dispensary menu to identify underlying strain."
+  },
+  {
+    "product_id": "live-sugar",
+    "product_name": "Live Sugar",
+    "brand": "Nature's Heritage",
+    "product_category": "Concentrate",
+    "reason": "strain_not_identified",
+    "detail": "Cannabis-derived product but strain name could not be extracted or matched. May be proprietary blend, brand-specific formulation, or product name lacks standard strain identifiers.",
+    "recommendation": "Flag for manual review. Check dispensary menu to identify underlying strain."
+  },
+  {
+    "product_id": "lucky-orchard",
+    "product_name": "Lucky Orchard",
+    "brand": "Evermore Cannabis Company",
+    "product_category": "Flower",
+    "reason": "strain_not_identified",
+    "detail": "Cannabis-derived product but strain name could not be extracted or matched. May be proprietary blend, brand-specific formulation, or product name lacks standard strain identifiers.",
+    "recommendation": "Flag for manual review. Check dispensary menu to identify underlying strain."
+  },
+  {
+    "product_id": "lucky-orchard-live-resin-cake-badder",
+    "product_name": "Lucky Orchard Live Resin Cake Badder",
+    "brand": "Evermore",
+    "product_category": "Concentrate",
+    "reason": "strain_not_identified",
+    "detail": "Cannabis-derived product but strain name could not be extracted or matched. May be proprietary blend, brand-specific formulation, or product name lacks standard strain identifiers.",
+    "recommendation": "Flag for manual review. Check dispensary menu to identify underlying strain."
+  },
+  {
+    "product_id": "mango-dragon-cloud-bar",
+    "product_name": "Mango Dragon Cloud Bar",
+    "brand": "Hellavated",
+    "product_category": "Vape",
+    "reason": "strain_not_identified",
+    "detail": "Cannabis-derived product but strain name could not be extracted or matched. May be proprietary blend, brand-specific formulation, or product name lacks standard strain identifiers.",
+    "recommendation": "Flag for manual review. Check dispensary menu to identify underlying strain."
+  },
+  {
+    "product_id": "mango-dragon-cloud-bar-rechargeable-disposable",
+    "product_name": "Mango Dragon Cloud Bar Rechargeable Disposable",
+    "brand": "Hellavated",
+    "product_category": "Vape",
+    "reason": "strain_not_identified",
+    "detail": "Cannabis-derived product but strain name could not be extracted or matched. May be proprietary blend, brand-specific formulation, or product name lacks standard strain identifiers.",
+    "recommendation": "Flag for manual review. Check dispensary menu to identify underlying strain."
+  },
+  {
+    "product_id": "mango-mama-disposable",
+    "product_name": "Mango Mama Disposable",
+    "brand": "Fuzed",
+    "product_category": "Vape",
+    "reason": "strain_not_identified",
+    "detail": "Cannabis-derived product but strain name could not be extracted or matched. May be proprietary blend, brand-specific formulation, or product name lacks standard strain identifiers.",
+    "recommendation": "Flag for manual review. Check dispensary menu to identify underlying strain."
+  },
+  {
+    "product_id": "mango-sunrise-cartridge",
+    "product_name": "Mango Sunrise Cartridge",
+    "brand": "grass",
+    "product_category": "Vape",
+    "reason": "strain_not_identified",
+    "detail": "Cannabis-derived product but strain name could not be extracted or matched. May be proprietary blend, brand-specific formulation, or product name lacks standard strain identifiers.",
+    "recommendation": "Flag for manual review. Check dispensary menu to identify underlying strain."
+  },
+  {
+    "product_id": "mango-tango-cartridge",
+    "product_name": "Mango Tango Cartridge",
+    "brand": "grass",
+    "product_category": "Vape",
+    "reason": "strain_not_identified",
+    "detail": "Cannabis-derived product but strain name could not be extracted or matched. May be proprietary blend, brand-specific formulation, or product name lacks standard strain identifiers.",
+    "recommendation": "Flag for manual review. Check dispensary menu to identify underlying strain."
+  },
+  {
+    "product_id": "marshmallow-magic-slyde-disposable",
+    "product_name": "Marshmallow Magic Slyde Disposable",
+    "brand": "Slyde",
+    "product_category": "Vape",
+    "reason": "strain_not_identified",
+    "detail": "Cannabis-derived product but strain name could not be extracted or matched. May be proprietary blend, brand-specific formulation, or product name lacks standard strain identifiers.",
+    "recommendation": "Flag for manual review. Check dispensary menu to identify underlying strain."
+  },
+  {
+    "product_id": "maui-sunrise-distillate-cartridge",
+    "product_name": "Maui Sunrise Distillate Cartridge",
+    "brand": "Hellavated",
+    "product_category": "Vape",
+    "reason": "strain_not_identified",
+    "detail": "Cannabis-derived product but strain name could not be extracted or matched. May be proprietary blend, brand-specific formulation, or product name lacks standard strain identifiers.",
+    "recommendation": "Flag for manual review. Check dispensary menu to identify underlying strain."
+  },
+  {
+    "product_id": "maui-waui-live-resin-diamond-reload-pod",
+    "product_name": "Maui Waui Live Resin Diamond Reload Pod",
+    "brand": "Rove",
+    "product_category": "Vape",
+    "reason": "strain_not_identified",
+    "detail": "Cannabis-derived product but strain name could not be extracted or matched. May be proprietary blend, brand-specific formulation, or product name lacks standard strain identifiers.",
+    "recommendation": "Flag for manual review. Check dispensary menu to identify underlying strain."
+  },
+  {
+    "product_id": "mellow-fellow-ak-47-disposable",
+    "product_name": "Mellow Fellow AK-47 Disposable",
+    "brand": "Mellow Fellow",
+    "product_category": "Vape",
+    "reason": "strain_not_identified",
+    "detail": "Cannabis-derived product but strain name could not be extracted or matched. May be proprietary blend, brand-specific formulation, or product name lacks standard strain identifiers.",
+    "recommendation": "Flag for manual review. Check dispensary menu to identify underlying strain."
+  },
+  {
+    "product_id": "melon-sherbert-cloud-bar-rechargeable-disposable",
+    "product_name": "Melon Sherbert Cloud Bar Rechargeable Disposable",
+    "brand": "Hellavated",
+    "product_category": "Vape",
+    "reason": "strain_not_identified",
+    "detail": "Cannabis-derived product but strain name could not be extracted or matched. May be proprietary blend, brand-specific formulation, or product name lacks standard strain identifiers.",
+    "recommendation": "Flag for manual review. Check dispensary menu to identify underlying strain."
+  },
+  {
+    "product_id": "mexican-flan",
+    "product_name": "Mexican Flan",
+    "brand": "Cookies",
+    "product_category": "Flower",
+    "reason": "strain_not_identified",
+    "detail": "Cannabis-derived product but strain name could not be extracted or matched. May be proprietary blend, brand-specific formulation, or product name lacks standard strain identifiers.",
+    "recommendation": "Flag for manual review. Check dispensary menu to identify underlying strain."
+  },
+  {
+    "product_id": "mfused-super-fog-twisted-wild-watermelon-disposable",
+    "product_name": "mfused Super Fog TWISTED Wild Watermelon Disposable",
+    "brand": "Mfused",
+    "product_category": "Vape",
+    "reason": "strain_not_identified",
+    "detail": "Cannabis-derived product but strain name could not be extracted or matched. May be proprietary blend, brand-specific formulation, or product name lacks standard strain identifiers.",
+    "recommendation": "Flag for manual review. Check dispensary menu to identify underlying strain."
+  },
+  {
+    "product_id": "mile-high-mint-chocolate-bites",
+    "product_name": "Mile High Mint Chocolate Bites",
+    "brand": "Incredibles",
+    "product_category": "Edible",
+    "reason": "strain_agnostic",
+    "detail": "Product defined by dosage/formulation (edible/topical), not by a specific cannabis strain.",
+    "recommendation": "Keep in product list with strain_id=null. Categorize by product type and brand only."
+  },
+  {
+    "product_id": "milk-chocolate-indica-chocolates-10pk",
+    "product_name": "Milk Chocolate Indica Chocolates [10pk",
+    "brand": "Encore Edibles",
+    "product_category": "Edible",
+    "reason": "strain_agnostic",
+    "detail": "Product defined by dosage/formulation (edible/topical), not by a specific cannabis strain.",
+    "recommendation": "Keep in product list with strain_id=null. Categorize by product type and brand only."
+  },
+  {
+    "product_id": "mixed-berry",
+    "product_name": "Mixed Berry",
+    "brand": "Curio Wellness",
+    "product_category": "Flower",
+    "reason": "strain_not_identified",
+    "detail": "Cannabis-derived product but strain name could not be extracted or matched. May be proprietary blend, brand-specific formulation, or product name lacks standard strain identifiers.",
+    "recommendation": "Flag for manual review. Check dispensary menu to identify underlying strain."
+  },
+  {
+    "product_id": "momenta-ripped-off-runtz-rso",
+    "product_name": "Momenta Ripped Off Runtz RSO",
+    "brand": "Momenta",
+    "product_category": "Concentrate",
+    "reason": "strain_not_identified",
+    "detail": "Cannabis-derived product but strain name could not be extracted or matched. May be proprietary blend, brand-specific formulation, or product name lacks standard strain identifiers.",
+    "recommendation": "Flag for manual review. Check dispensary menu to identify underlying strain."
+  },
+  {
+    "product_id": "nature-s-heritage",
+    "product_name": "Nature's Heritage",
+    "brand": "Nature's Heritage",
+    "product_category": "Flower",
+    "reason": "strain_not_identified",
+    "detail": "Cannabis-derived product but strain name could not be extracted or matched. May be proprietary blend, brand-specific formulation, or product name lacks standard strain identifiers.",
+    "recommendation": "Flag for manual review. Check dispensary menu to identify underlying strain."
+  },
+  {
+    "product_id": "nightcaps-5mg-2-1-1-cbd-thc-cbn-feco-capsules-20pk",
+    "product_name": "NIGHTCAPS 5mg 2:1:1 (CBD:THC:CBN) FECO Capsules (20pk",
+    "brand": "NIGHTCAPS",
+    "product_category": "Concentrate",
+    "reason": "strain_not_identified",
+    "detail": "Cannabis-derived product but strain name could not be extracted or matched. May be proprietary blend, brand-specific formulation, or product name lacks standard strain identifiers.",
+    "recommendation": "Flag for manual review. Check dispensary menu to identify underlying strain."
+  },
+  {
+    "product_id": "orange-crush-live-resin-diamond-reload-pod",
+    "product_name": "Orange Crush Live Resin Diamond Reload Pod",
+    "brand": "Rove",
+    "product_category": "Vape",
+    "reason": "strain_not_identified",
+    "detail": "Cannabis-derived product but strain name could not be extracted or matched. May be proprietary blend, brand-specific formulation, or product name lacks standard strain identifiers.",
+    "recommendation": "Flag for manual review. Check dispensary menu to identify underlying strain."
+  },
+  {
+    "product_id": "orange-oasis-distillate-cart",
+    "product_name": "Orange Oasis Distillate Cart",
+    "brand": "Evermore Cannabis Company",
+    "product_category": "Vape",
+    "reason": "strain_not_identified",
+    "detail": "Cannabis-derived product but strain name could not be extracted or matched. May be proprietary blend, brand-specific formulation, or product name lacks standard strain identifiers.",
+    "recommendation": "Flag for manual review. Check dispensary menu to identify underlying strain."
+  },
+  {
+    "product_id": "orange-spark-chews-formerly-orange-terpene-infused-chews",
+    "product_name": "Orange Spark Chews  (Formerly Orange Terpene Infused Chews)",
+    "brand": "Curio Wellness",
+    "product_category": "Edible",
+    "reason": "strain_not_identified",
+    "detail": "Cannabis-derived product but strain name could not be extracted or matched. May be proprietary blend, brand-specific formulation, or product name lacks standard strain identifiers.",
+    "recommendation": "Flag for manual review. Check dispensary menu to identify underlying strain."
+  },
+  {
+    "product_id": "oria-10mg-berry-bliss-indica-gummies",
+    "product_name": "Oria 10mg Berry Bliss Indica Gummies",
+    "brand": "Oria",
+    "product_category": "Edible",
+    "reason": "strain_agnostic",
+    "detail": "Product defined by dosage/formulation (edible/topical), not by a specific cannabis strain.",
+    "recommendation": "Keep in product list with strain_id=null. Categorize by product type and brand only."
+  },
+  {
+    "product_id": "oria-10mg-peach-mango-live-resin-gummies-2pk",
+    "product_name": "Oria 10mg Peach Mango Live Resin Gummies (2pk)",
+    "brand": "Oria",
+    "product_category": "Edible",
+    "reason": "strain_agnostic",
+    "detail": "Product defined by dosage/formulation (edible/topical), not by a specific cannabis strain.",
+    "recommendation": "Keep in product list with strain_id=null. Categorize by product type and brand only."
+  },
+  {
+    "product_id": "oria-10mg-peach-mango-live-resin-sativa-gummies",
+    "product_name": "Oria 10mg Peach Mango Live Resin Sativa Gummies",
+    "brand": "Oria",
+    "product_category": "Edible",
+    "reason": "strain_agnostic",
+    "detail": "Product defined by dosage/formulation (edible/topical), not by a specific cannabis strain.",
+    "recommendation": "Keep in product list with strain_id=null. Categorize by product type and brand only."
+  },
+  {
+    "product_id": "oria-10mg-pink-pineapple-yuzu-indica-gummies",
+    "product_name": "Oria 10mg Pink Pineapple Yuzu Indica Gummies",
+    "brand": "Oria",
+    "product_category": "Edible",
+    "reason": "strain_agnostic",
+    "detail": "Product defined by dosage/formulation (edible/topical), not by a specific cannabis strain.",
+    "recommendation": "Keep in product list with strain_id=null. Categorize by product type and brand only."
+  },
+  {
+    "product_id": "oria-10mg-raspberry-tangerine-live-resin-gummies",
+    "product_name": "Oria 10mg Raspberry Tangerine Live Resin Gummies",
+    "brand": "Oria",
+    "product_category": "Edible",
+    "reason": "strain_agnostic",
+    "detail": "Product defined by dosage/formulation (edible/topical), not by a specific cannabis strain.",
+    "recommendation": "Keep in product list with strain_id=null. Categorize by product type and brand only."
+  },
+  {
+    "product_id": "oria-40mg-peach-mango-live-resin-sativa-gummies",
+    "product_name": "Oria 40mg Peach Mango Live Resin Sativa Gummies",
+    "brand": "ORIA",
+    "product_category": "Edible",
+    "reason": "strain_agnostic",
+    "detail": "Product defined by dosage/formulation (edible/topical), not by a specific cannabis strain.",
+    "recommendation": "Keep in product list with strain_id=null. Categorize by product type and brand only."
+  },
+  {
+    "product_id": "oria-watermelon-lime-live-resin-gummies-2pk",
+    "product_name": "Oria Watermelon Lime Live Resin Gummies (2pk)",
+    "brand": "Oria",
+    "product_category": "Edible",
+    "reason": "strain_agnostic",
+    "detail": "Product defined by dosage/formulation (edible/topical), not by a specific cannabis strain.",
+    "recommendation": "Keep in product list with strain_id=null. Categorize by product type and brand only."
+  },
+  {
+    "product_id": "passion-fruit-live-gummies",
+    "product_name": "Passion Fruit Live Gummies",
+    "brand": "Strane",
+    "product_category": "Edible",
+    "reason": "strain_agnostic",
+    "detail": "Product defined by dosage/formulation (edible/topical), not by a specific cannabis strain.",
+    "recommendation": "Keep in product list with strain_id=null. Categorize by product type and brand only."
+  },
+  {
+    "product_id": "peach-rings-7-distillate-cart",
+    "product_name": "Peach Rings #7 Distillate Cart",
+    "brand": "Evermore Cannabis Company",
+    "product_category": "Vape",
+    "reason": "strain_not_identified",
+    "detail": "Cannabis-derived product but strain name could not be extracted or matched. May be proprietary blend, brand-specific formulation, or product name lacks standard strain identifiers.",
+    "recommendation": "Flag for manual review. Check dispensary menu to identify underlying strain."
+  },
+  {
+    "product_id": "peach-runtz",
+    "product_name": "Peach RuntZ",
+    "brand": "Evermore",
+    "product_category": "Flower",
+    "reason": "strain_not_identified",
+    "detail": "Cannabis-derived product but strain name could not be extracted or matched. May be proprietary blend, brand-specific formulation, or product name lacks standard strain identifiers.",
+    "recommendation": "Flag for manual review. Check dispensary menu to identify underlying strain."
+  },
+  {
+    "product_id": "pear-1-1-cbg-hybrid-enhanced-gummies",
+    "product_name": "Pear 1:1 CBG + Hybrid Enhanced Gummies",
+    "brand": "Wyld",
+    "product_category": "Edible",
+    "reason": "strain_agnostic",
+    "detail": "Product defined by dosage/formulation (edible/topical), not by a specific cannabis strain.",
+    "recommendation": "Keep in product list with strain_id=null. Categorize by product type and brand only."
+  },
+  {
+    "product_id": "pear-pleasure-slyde-disposable",
+    "product_name": "Pear Pleasure Slyde Disposable",
+    "brand": "Slyde",
+    "product_category": "Vape",
+    "reason": "strain_not_identified",
+    "detail": "Cannabis-derived product but strain name could not be extracted or matched. May be proprietary blend, brand-specific formulation, or product name lacks standard strain identifiers.",
+    "recommendation": "Flag for manual review. Check dispensary menu to identify underlying strain."
+  },
+  {
+    "product_id": "pineapple-bang-11-live-resin-cake-badder",
+    "product_name": "Pineapple Bang #11 Live Resin Cake Badder",
+    "brand": "Evermore",
+    "product_category": "Concentrate",
+    "reason": "strain_not_identified",
+    "detail": "Cannabis-derived product but strain name could not be extracted or matched. May be proprietary blend, brand-specific formulation, or product name lacks standard strain identifiers.",
+    "recommendation": "Flag for manual review. Check dispensary menu to identify underlying strain."
+  },
+  {
+    "product_id": "pineapple-krush-cloud-bar",
+    "product_name": "Pineapple Krush Cloud Bar",
+    "brand": "Hellavated",
+    "product_category": "Vape",
+    "reason": "strain_not_identified",
+    "detail": "Cannabis-derived product but strain name could not be extracted or matched. May be proprietary blend, brand-specific formulation, or product name lacks standard strain identifiers.",
+    "recommendation": "Flag for manual review. Check dispensary menu to identify underlying strain."
+  },
+  {
+    "product_id": "pomme-jelly-small",
+    "product_name": "Pomme Jelly Small",
+    "brand": "Grassroots",
+    "product_category": "Flower",
+    "reason": "strain_not_identified",
+    "detail": "Cannabis-derived product but strain name could not be extracted or matched. May be proprietary blend, brand-specific formulation, or product name lacks standard strain identifiers.",
+    "recommendation": "Flag for manual review. Check dispensary menu to identify underlying strain."
+  },
+  {
+    "product_id": "pre-rolls",
+    "product_name": "Pre-Rolls",
+    "brand": "",
+    "product_category": "Pre-Roll",
+    "reason": "strain_not_identified",
+    "detail": "Cannabis-derived product but strain name could not be extracted or matched. May be proprietary blend, brand-specific formulation, or product name lacks standard strain identifiers.",
+    "recommendation": "Flag for manual review. Check dispensary menu to identify underlying strain."
+  },
+  {
+    "product_id": "premium",
+    "product_name": "Premium",
+    "brand": "RYTHM",
+    "product_category": "Flower",
+    "reason": "strain_not_identified",
+    "detail": "Cannabis-derived product but strain name could not be extracted or matched. May be proprietary blend, brand-specific formulation, or product name lacks standard strain identifiers.",
+    "recommendation": "Flag for manual review. Check dispensary menu to identify underlying strain."
+  },
+  {
+    "product_id": "prepack-mexican-flan",
+    "product_name": "Prepack Mexican Flan",
+    "brand": "SunMed",
+    "product_category": "Flower",
+    "reason": "strain_not_identified",
+    "detail": "Cannabis-derived product but strain name could not be extracted or matched. May be proprietary blend, brand-specific formulation, or product name lacks standard strain identifiers.",
+    "recommendation": "Flag for manual review. Check dispensary menu to identify underlying strain."
+  },
+  {
+    "product_id": "purple-obeah-live-resin-oil",
+    "product_name": "Purple Obeah Live Resin Oil",
+    "brand": "Discos",
+    "product_category": "Concentrate",
+    "reason": "strain_not_identified",
+    "detail": "Cannabis-derived product but strain name could not be extracted or matched. May be proprietary blend, brand-specific formulation, or product name lacks standard strain identifiers.",
+    "recommendation": "Flag for manual review. Check dispensary menu to identify underlying strain."
+  },
+  {
+    "product_id": "raspberry-blitz-distillate-cartridge",
+    "product_name": "Raspberry Blitz Distillate Cartridge",
+    "brand": "Hellavated",
+    "product_category": "Vape",
+    "reason": "strain_not_identified",
+    "detail": "Cannabis-derived product but strain name could not be extracted or matched. May be proprietary blend, brand-specific formulation, or product name lacks standard strain identifiers.",
+    "recommendation": "Flag for manual review. Check dispensary menu to identify underlying strain."
+  },
+  {
+    "product_id": "raspberry-razzle-slyde-disposable",
+    "product_name": "Raspberry Razzle Slyde Disposable",
+    "brand": "Slyde",
+    "product_category": "Vape",
+    "reason": "strain_not_identified",
+    "detail": "Cannabis-derived product but strain name could not be extracted or matched. May be proprietary blend, brand-specific formulation, or product name lacks standard strain identifiers.",
+    "recommendation": "Flag for manual review. Check dispensary menu to identify underlying strain."
+  },
+  {
+    "product_id": "red-berry-rootbeer-pre",
+    "product_name": "Red Berry Rootbeer Pre",
+    "brand": "Old Pal",
+    "product_category": "Flower",
+    "reason": "strain_not_identified",
+    "detail": "Cannabis-derived product but strain name could not be extracted or matched. May be proprietary blend, brand-specific formulation, or product name lacks standard strain identifiers.",
+    "recommendation": "Flag for manual review. Check dispensary menu to identify underlying strain."
+  },
+  {
+    "product_id": "red-gush-slyde-disposable",
+    "product_name": "Red Gush Slyde Disposable",
+    "brand": "Slyde",
+    "product_category": "Vape",
+    "reason": "strain_not_identified",
+    "detail": "Cannabis-derived product but strain name could not be extracted or matched. May be proprietary blend, brand-specific formulation, or product name lacks standard strain identifiers.",
+    "recommendation": "Flag for manual review. Check dispensary menu to identify underlying strain."
+  },
+  {
+    "product_id": "red-zushi-live-resin-cake-badder",
+    "product_name": "Red Zushi Live Resin Cake Badder",
+    "brand": "Evermore",
+    "product_category": "Concentrate",
+    "reason": "strain_not_identified",
+    "detail": "Cannabis-derived product but strain name could not be extracted or matched. May be proprietary blend, brand-specific formulation, or product name lacks standard strain identifiers.",
+    "recommendation": "Flag for manual review. Check dispensary menu to identify underlying strain."
+  },
+  {
+    "product_id": "red-zushi-madness-live-resin-cake-badder",
+    "product_name": "Red Zushi Madness Live Resin Cake Badder",
+    "brand": "Evermore",
+    "product_category": "Concentrate",
+    "reason": "strain_not_identified",
+    "detail": "Cannabis-derived product but strain name could not be extracted or matched. May be proprietary blend, brand-specific formulation, or product name lacks standard strain identifiers.",
+    "recommendation": "Flag for manual review. Check dispensary menu to identify underlying strain."
+  },
+  {
+    "product_id": "reserve-guerilla-grape-live-badder",
+    "product_name": "Reserve Guerilla Grape Live Badder",
+    "brand": "Verano",
+    "product_category": "Concentrate",
+    "reason": "strain_not_identified",
+    "detail": "Cannabis-derived product but strain name could not be extracted or matched. May be proprietary blend, brand-specific formulation, or product name lacks standard strain identifiers.",
+    "recommendation": "Flag for manual review. Check dispensary menu to identify underlying strain."
+  },
+  {
+    "product_id": "rip-sticks-banana-runtz-live-terpene-cart",
+    "product_name": "Rip Sticks Banana Runtz Live Terpene Cart",
+    "brand": "Strane",
+    "product_category": "Vape",
+    "reason": "strain_not_identified",
+    "detail": "Cannabis-derived product but strain name could not be extracted or matched. May be proprietary blend, brand-specific formulation, or product name lacks standard strain identifiers.",
+    "recommendation": "Flag for manual review. Check dispensary menu to identify underlying strain."
+  },
+  {
+    "product_id": "rove-lr-diamond-vape-reload-orange-crush",
+    "product_name": "ROVE LR Diamond Vape Reload Orange Crush",
+    "brand": "Rove",
+    "product_category": "Vape",
+    "reason": "strain_not_identified",
+    "detail": "Cannabis-derived product but strain name could not be extracted or matched. May be proprietary blend, brand-specific formulation, or product name lacks standard strain identifiers.",
+    "recommendation": "Flag for manual review. Check dispensary menu to identify underlying strain."
+  },
+  {
+    "product_id": "sativa",
+    "product_name": "Sativa",
+    "brand": "",
+    "product_category": "Flower",
+    "reason": "strain_not_identified",
+    "detail": "Cannabis-derived product but strain name could not be extracted or matched. May be proprietary blend, brand-specific formulation, or product name lacks standard strain identifiers.",
+    "recommendation": "Flag for manual review. Check dispensary menu to identify underlying strain."
+  },
+  {
+    "product_id": "savvy",
+    "product_name": "Savvy",
+    "brand": "",
+    "product_category": "Flower",
+    "reason": "strain_not_identified",
+    "detail": "Cannabis-derived product but strain name could not be extracted or matched. May be proprietary blend, brand-specific formulation, or product name lacks standard strain identifiers.",
+    "recommendation": "Flag for manual review. Check dispensary menu to identify underlying strain."
+  },
+  {
+    "product_id": "select-briq-essentials-aio-disposable-strawberry-shortcake",
+    "product_name": "Select BRIQ Essentials AIO Disposable Strawberry Shortcake",
+    "brand": "Select BRIQ",
+    "product_category": "Vape",
+    "reason": "strain_not_identified",
+    "detail": "Cannabis-derived product but strain name could not be extracted or matched. May be proprietary blend, brand-specific formulation, or product name lacks standard strain identifiers.",
+    "recommendation": "Flag for manual review. Check dispensary menu to identify underlying strain."
+  },
+  {
+    "product_id": "select-briq-juicy-red-apple-disposable-pen",
+    "product_name": "Select Briq Juicy Red Apple Disposable Pen",
+    "brand": "Select",
+    "product_category": "Vape",
+    "reason": "strain_not_identified",
+    "detail": "Cannabis-derived product but strain name could not be extracted or matched. May be proprietary blend, brand-specific formulation, or product name lacks standard strain identifiers.",
+    "recommendation": "Flag for manual review. Check dispensary menu to identify underlying strain."
+  },
+  {
+    "product_id": "select-briq-strawberry-shortcake-disposable-pen",
+    "product_name": "Select Briq Strawberry Shortcake Disposable Pen",
+    "brand": "Select",
+    "product_category": "Vape",
+    "reason": "strain_not_identified",
+    "detail": "Cannabis-derived product but strain name could not be extracted or matched. May be proprietary blend, brand-specific formulation, or product name lacks standard strain identifiers.",
+    "recommendation": "Flag for manual review. Check dispensary menu to identify underlying strain."
+  },
+  {
+    "product_id": "select-briq-toad-venom-disposable-pen",
+    "product_name": "Select Briq Toad Venom Disposable Pen",
+    "brand": "Select",
+    "product_category": "Vape",
+    "reason": "strain_not_identified",
+    "detail": "Cannabis-derived product but strain name could not be extracted or matched. May be proprietary blend, brand-specific formulation, or product name lacks standard strain identifiers.",
+    "recommendation": "Flag for manual review. Check dispensary menu to identify underlying strain."
+  },
+  {
+    "product_id": "shop-best-cannabis-products-for-beginners",
+    "product_name": "Shop Best Cannabis Products for Beginners",
+    "brand": "",
+    "product_category": "Other",
+    "reason": "scrape_artifact",
+    "detail": "Scraping artifact \u2014 price tag, promotion, merch, or generic category label incorrectly ingested as a product.",
+    "recommendation": "Remove from product list."
+  },
+  {
+    "product_id": "shop-best-cannabis-products-for-socializing",
+    "product_name": "Shop Best Cannabis Products for Socializing",
+    "brand": "",
+    "product_category": "Other",
+    "reason": "scrape_artifact",
+    "detail": "Scraping artifact \u2014 price tag, promotion, merch, or generic category label incorrectly ingested as a product.",
+    "recommendation": "Remove from product list."
+  },
+  {
+    "product_id": "shop-best-cannabis-strains",
+    "product_name": "Shop Best Cannabis Strains",
+    "brand": "",
+    "product_category": "Other",
+    "reason": "scrape_artifact",
+    "detail": "Scraping artifact \u2014 price tag, promotion, merch, or generic category label incorrectly ingested as a product.",
+    "recommendation": "Remove from product list."
+  },
+  {
+    "product_id": "shop-budget-friendly-cannabis-products",
+    "product_name": "Shop Budget Friendly Cannabis Products",
+    "brand": "",
+    "product_category": "Other",
+    "reason": "scrape_artifact",
+    "detail": "Scraping artifact \u2014 price tag, promotion, merch, or generic category label incorrectly ingested as a product.",
+    "recommendation": "Remove from product list."
+  },
+  {
+    "product_id": "shop-cannabis-by-effects-appetite",
+    "product_name": "Shop Cannabis by Effects: Appetite",
+    "brand": "",
+    "product_category": "Other",
+    "reason": "scrape_artifact",
+    "detail": "Scraping artifact \u2014 price tag, promotion, merch, or generic category label incorrectly ingested as a product.",
+    "recommendation": "Remove from product list."
+  },
+  {
+    "product_id": "shop-cannabis-by-effects-comfort",
+    "product_name": "Shop Cannabis by Effects: Comfort",
+    "brand": "",
+    "product_category": "Other",
+    "reason": "scrape_artifact",
+    "detail": "Scraping artifact \u2014 price tag, promotion, merch, or generic category label incorrectly ingested as a product.",
+    "recommendation": "Remove from product list."
+  },
+  {
+    "product_id": "shop-cannabis-by-effects-creativity",
+    "product_name": "Shop Cannabis by Effects: Creativity",
+    "brand": "",
+    "product_category": "Other",
+    "reason": "scrape_artifact",
+    "detail": "Scraping artifact \u2014 price tag, promotion, merch, or generic category label incorrectly ingested as a product.",
+    "recommendation": "Remove from product list."
+  },
+  {
+    "product_id": "shop-cannabis-by-effects-energy",
+    "product_name": "Shop Cannabis by Effects: Energy",
+    "brand": "",
+    "product_category": "Other",
+    "reason": "scrape_artifact",
+    "detail": "Scraping artifact \u2014 price tag, promotion, merch, or generic category label incorrectly ingested as a product.",
+    "recommendation": "Remove from product list."
+  },
+  {
+    "product_id": "shop-cannabis-by-effects-focus",
+    "product_name": "Shop Cannabis by Effects: Focus",
+    "brand": "",
+    "product_category": "Other",
+    "reason": "scrape_artifact",
+    "detail": "Scraping artifact \u2014 price tag, promotion, merch, or generic category label incorrectly ingested as a product.",
+    "recommendation": "Remove from product list."
+  },
+  {
+    "product_id": "shop-cannabis-by-effects-relaxation",
+    "product_name": "Shop Cannabis by Effects: Relaxation",
+    "brand": "",
+    "product_category": "Other",
+    "reason": "scrape_artifact",
+    "detail": "Scraping artifact \u2014 price tag, promotion, merch, or generic category label incorrectly ingested as a product.",
+    "recommendation": "Remove from product list."
+  },
+  {
+    "product_id": "shop-cannabis-by-effects-sleep",
+    "product_name": "Shop Cannabis by Effects: Sleep",
+    "brand": "",
+    "product_category": "Other",
+    "reason": "scrape_artifact",
+    "detail": "Scraping artifact \u2014 price tag, promotion, merch, or generic category label incorrectly ingested as a product.",
+    "recommendation": "Remove from product list."
+  },
+  {
+    "product_id": "shop-cannabis-products-with-high-thc",
+    "product_name": "Shop Cannabis Products With High THC",
+    "brand": "",
+    "product_category": "Other",
+    "reason": "scrape_artifact",
+    "detail": "Scraping artifact \u2014 price tag, promotion, merch, or generic category label incorrectly ingested as a product.",
+    "recommendation": "Remove from product list."
+  },
+  {
+    "product_id": "shop-premium-cannabis-picks",
+    "product_name": "Shop Premium Cannabis Picks",
+    "brand": "",
+    "product_category": "Other",
+    "reason": "scrape_artifact",
+    "detail": "Scraping artifact \u2014 price tag, promotion, merch, or generic category label incorrectly ingested as a product.",
+    "recommendation": "Remove from product list."
+  },
+  {
+    "product_id": "sleep-1-2-pulse-release-tablets-formerly-good-night-pulse-release-tablets",
+    "product_name": "Sleep 1:2 Pulse-Release Tablets (Formerly Good Night Pulse Release Tablets)",
+    "brand": "Curio Wellness",
+    "product_category": "Edible",
+    "reason": "strain_agnostic",
+    "detail": "Product defined by dosage/formulation (edible/topical), not by a specific cannabis strain.",
+    "recommendation": "Keep in product list with strain_id=null. Categorize by product type and brand only."
+  },
+  {
+    "product_id": "slyde-king-louie-xiii-og-disposable-pen",
+    "product_name": "Slyde King Louie XIII OG Disposable Pen",
+    "brand": "Evermore",
+    "product_category": "Vape",
+    "reason": "strain_not_identified",
+    "detail": "Cannabis-derived product but strain name could not be extracted or matched. May be proprietary blend, brand-specific formulation, or product name lacks standard strain identifiers.",
+    "recommendation": "Flag for manual review. Check dispensary menu to identify underlying strain."
+  },
+  {
+    "product_id": "smokiez-10mg-watermelon-fruit-chews",
+    "product_name": "Smokiez 10mg Watermelon Fruit Chews",
+    "brand": "Smokiez Edibles",
+    "product_category": "Edible",
+    "reason": "strain_agnostic",
+    "detail": "Product defined by dosage/formulation (edible/topical), not by a specific cannabis strain.",
+    "recommendation": "Keep in product list with strain_id=null. Categorize by product type and brand only."
+  },
+  {
+    "product_id": "snake-eyes-distillate-cart",
+    "product_name": "Snake Eyes Distillate Cart",
+    "brand": "Evermore Cannabis Company",
+    "product_category": "Vape",
+    "reason": "strain_not_identified",
+    "detail": "Cannabis-derived product but strain name could not be extracted or matched. May be proprietary blend, brand-specific formulation, or product name lacks standard strain identifiers.",
+    "recommendation": "Flag for manual review. Check dispensary menu to identify underlying strain."
+  },
+  {
+    "product_id": "socials-i-mango-sparkling-water",
+    "product_name": "Socials I Mango Sparkling Water",
+    "brand": "Sunnies",
+    "product_category": "Edible",
+    "reason": "strain_not_identified",
+    "detail": "Cannabis-derived product but strain name could not be extracted or matched. May be proprietary blend, brand-specific formulation, or product name lacks standard strain identifiers.",
+    "recommendation": "Flag for manual review. Check dispensary menu to identify underlying strain."
+  },
+  {
+    "product_id": "sour-apple-sativa-enhanced-gummies",
+    "product_name": "Sour Apple Sativa Enhanced Gummies",
+    "brand": "Wyld",
+    "product_category": "Edible",
+    "reason": "strain_agnostic",
+    "detail": "Product defined by dosage/formulation (edible/topical), not by a specific cannabis strain.",
+    "recommendation": "Keep in product list with strain_id=null. Categorize by product type and brand only."
+  },
+  {
+    "product_id": "space-age-cake-live-resin",
+    "product_name": "Space Age Cake Live Resin",
+    "brand": "Modern Flower",
+    "product_category": "Concentrate",
+    "reason": "strain_not_identified",
+    "detail": "Cannabis-derived product but strain name could not be extracted or matched. May be proprietary blend, brand-specific formulation, or product name lacks standard strain identifiers.",
+    "recommendation": "Flag for manual review. Check dispensary menu to identify underlying strain."
+  },
+  {
+    "product_id": "straight-chem-live-diamonds",
+    "product_name": "Straight Chem Live Diamonds",
+    "brand": "Exotic Elevations",
+    "product_category": "Concentrate",
+    "reason": "strain_not_identified",
+    "detail": "Cannabis-derived product but strain name could not be extracted or matched. May be proprietary blend, brand-specific formulation, or product name lacks standard strain identifiers.",
+    "recommendation": "Flag for manual review. Check dispensary menu to identify underlying strain."
+  },
+  {
+    "product_id": "strane",
+    "product_name": "Strane",
+    "brand": "",
+    "product_category": "Flower",
+    "reason": "strain_not_identified",
+    "detail": "Cannabis-derived product but strain name could not be extracted or matched. May be proprietary blend, brand-specific formulation, or product name lacks standard strain identifiers.",
+    "recommendation": "Flag for manual review. Check dispensary menu to identify underlying strain."
+  },
+  {
+    "product_id": "strawberry-banana-sugar-free-gummies",
+    "product_name": "Strawberry Banana Sugar Free Gummies",
+    "brand": "Sunnies",
+    "product_category": "Edible",
+    "reason": "strain_agnostic",
+    "detail": "Product defined by dosage/formulation (edible/topical), not by a specific cannabis strain.",
+    "recommendation": "Keep in product list with strain_id=null. Categorize by product type and brand only."
+  },
+  {
+    "product_id": "strawberry-haze-cloud-bar",
+    "product_name": "Strawberry Haze Cloud Bar",
+    "brand": "Hellavated",
+    "product_category": "Vape",
+    "reason": "strain_not_identified",
+    "detail": "Cannabis-derived product but strain name could not be extracted or matched. May be proprietary blend, brand-specific formulation, or product name lacks standard strain identifiers.",
+    "recommendation": "Flag for manual review. Check dispensary menu to identify underlying strain."
+  },
+  {
+    "product_id": "strawberry-haze-cloud-bar-rechargeable-disposable",
+    "product_name": "Strawberry Haze Cloud Bar Rechargeable Disposable",
+    "brand": "Hellavated",
+    "product_category": "Vape",
+    "reason": "strain_not_identified",
+    "detail": "Cannabis-derived product but strain name could not be extracted or matched. May be proprietary blend, brand-specific formulation, or product name lacks standard strain identifiers.",
+    "recommendation": "Flag for manual review. Check dispensary menu to identify underlying strain."
+  },
+  {
+    "product_id": "strawberry-haze-distillate-cartridge",
+    "product_name": "Strawberry Haze Distillate Cartridge",
+    "brand": "Hellavated",
+    "product_category": "Vape",
+    "reason": "strain_not_identified",
+    "detail": "Cannabis-derived product but strain name could not be extracted or matched. May be proprietary blend, brand-specific formulation, or product name lacks standard strain identifiers.",
+    "recommendation": "Flag for manual review. Check dispensary menu to identify underlying strain."
+  },
+  {
+    "product_id": "suckers-10mg-sour-apple-zing-hard-lozenges",
+    "product_name": "Suckers 10mg Sour Apple Zing Hard Lozenges",
+    "brand": "Suckers",
+    "product_category": "Edible",
+    "reason": "strain_agnostic",
+    "detail": "Product defined by dosage/formulation (edible/topical), not by a specific cannabis strain.",
+    "recommendation": "Keep in product list with strain_id=null. Categorize by product type and brand only."
+  },
+  {
+    "product_id": "sunmed",
+    "product_name": "Sunmed",
+    "brand": "SunMed",
+    "product_category": "Flower",
+    "reason": "strain_not_identified",
+    "detail": "Cannabis-derived product but strain name could not be extracted or matched. May be proprietary blend, brand-specific formulation, or product name lacks standard strain identifiers.",
+    "recommendation": "Flag for manual review. Check dispensary menu to identify underlying strain."
+  },
+  {
+    "product_id": "sunnies",
+    "product_name": "Sunnies",
+    "brand": "",
+    "product_category": "Flower",
+    "reason": "strain_not_identified",
+    "detail": "Cannabis-derived product but strain name could not be extracted or matched. May be proprietary blend, brand-specific formulation, or product name lacks standard strain identifiers.",
+    "recommendation": "Flag for manual review. Check dispensary menu to identify underlying strain."
+  },
+  {
+    "product_id": "sunnies-10mg-fruit-burst-quick-kicks",
+    "product_name": "Sunnies 10mg Fruit Burst Quick Kicks",
+    "brand": "Sunnies",
+    "product_category": "Edible",
+    "reason": "strain_agnostic",
+    "detail": "Product defined by dosage/formulation (edible/topical), not by a specific cannabis strain.",
+    "recommendation": "Keep in product list with strain_id=null. Categorize by product type and brand only."
+  },
+  {
+    "product_id": "sunnies-10mg-peppermint-white-chocolate-bark",
+    "product_name": "Sunnies 10mg Peppermint White Chocolate Bark",
+    "brand": "Sunnies",
+    "product_category": "Edible",
+    "reason": "strain_agnostic",
+    "detail": "Product defined by dosage/formulation (edible/topical), not by a specific cannabis strain.",
+    "recommendation": "Keep in product list with strain_id=null. Categorize by product type and brand only."
+  },
+  {
+    "product_id": "sunnies-10mg-strawberry-banana-quick-kicks",
+    "product_name": "Sunnies 10mg Strawberry Banana Quick Kicks",
+    "brand": "Sunnies",
+    "product_category": "Edible",
+    "reason": "strain_agnostic",
+    "detail": "Product defined by dosage/formulation (edible/topical), not by a specific cannabis strain.",
+    "recommendation": "Keep in product list with strain_id=null. Categorize by product type and brand only."
+  },
+  {
+    "product_id": "sunnies-1g-thca-isolate",
+    "product_name": "Sunnies 1g THCA Isolate",
+    "brand": "Sunnies",
+    "product_category": "Concentrate",
+    "reason": "strain_not_identified",
+    "detail": "Cannabis-derived product but strain name could not be extracted or matched. May be proprietary blend, brand-specific formulation, or product name lacks standard strain identifiers.",
+    "recommendation": "Flag for manual review. Check dispensary menu to identify underlying strain."
+  },
+  {
+    "product_id": "sunnies-puro-mints-live-resin-batter",
+    "product_name": "Sunnies Puro Mints Live Resin Batter",
+    "brand": "Sunnies",
+    "product_category": "Concentrate",
+    "reason": "strain_not_identified",
+    "detail": "Cannabis-derived product but strain name could not be extracted or matched. May be proprietary blend, brand-specific formulation, or product name lacks standard strain identifiers.",
+    "recommendation": "Flag for manual review. Check dispensary menu to identify underlying strain."
+  },
+  {
+    "product_id": "sunnies-socials-10mg-black-cherry-sparkling-water",
+    "product_name": "Sunnies Socials 10mg Black Cherry Sparkling Water",
+    "brand": "Sunnies",
+    "product_category": "Edible",
+    "reason": "strain_agnostic",
+    "detail": "Product defined by dosage/formulation (edible/topical), not by a specific cannabis strain.",
+    "recommendation": "Keep in product list with strain_id=null. Categorize by product type and brand only."
+  },
+  {
+    "product_id": "sunnies-socials-10mg-lemon-lime-sparkling-water",
+    "product_name": "Sunnies Socials 10mg Lemon Lime Sparkling Water",
+    "brand": "Sunnies",
+    "product_category": "Edible",
+    "reason": "strain_agnostic",
+    "detail": "Product defined by dosage/formulation (edible/topical), not by a specific cannabis strain.",
+    "recommendation": "Keep in product list with strain_id=null. Categorize by product type and brand only."
+  },
+  {
+    "product_id": "sunnies-socials-10mg-mango-sparkling-water",
+    "product_name": "Sunnies Socials 10mg Mango Sparkling Water",
+    "brand": "Sunnies",
+    "product_category": "Edible",
+    "reason": "strain_agnostic",
+    "detail": "Product defined by dosage/formulation (edible/topical), not by a specific cannabis strain.",
+    "recommendation": "Keep in product list with strain_id=null. Categorize by product type and brand only."
+  },
+  {
+    "product_id": "sunnies-socials-10mg-pineapple-sparkling-water",
+    "product_name": "Sunnies Socials 10mg Pineapple Sparkling Water",
+    "brand": "Sunnies",
+    "product_category": "Edible",
+    "reason": "strain_agnostic",
+    "detail": "Product defined by dosage/formulation (edible/topical), not by a specific cannabis strain.",
+    "recommendation": "Keep in product list with strain_id=null. Categorize by product type and brand only."
+  },
+  {
+    "product_id": "sunnies-thca-isolate",
+    "product_name": "Sunnies THCA Isolate",
+    "brand": "Sunnies",
+    "product_category": "Concentrate",
+    "reason": "strain_not_identified",
+    "detail": "Cannabis-derived product but strain name could not be extracted or matched. May be proprietary blend, brand-specific formulation, or product name lacks standard strain identifiers.",
+    "recommendation": "Flag for manual review. Check dispensary menu to identify underlying strain."
+  },
+  {
+    "product_id": "sunrise-gummies-5-5-1-cbc-cbd-thc",
+    "product_name": "Sunrise Gummies 5:5:1 CBC:CBD:THC",
+    "brand": "Sunnies",
+    "product_category": "Edible",
+    "reason": "strain_agnostic",
+    "detail": "Product defined by dosage/formulation (edible/topical), not by a specific cannabis strain.",
+    "recommendation": "Keep in product list with strain_id=null. Categorize by product type and brand only."
+  },
+  {
+    "product_id": "sunset-sherbet-live-resin-oil",
+    "product_name": "Sunset Sherbet Live Resin Oil",
+    "brand": "Discos",
+    "product_category": "Concentrate",
+    "reason": "strain_not_identified",
+    "detail": "Cannabis-derived product but strain name could not be extracted or matched. May be proprietary blend, brand-specific formulation, or product name lacks standard strain identifiers.",
+    "recommendation": "Flag for manual review. Check dispensary menu to identify underlying strain."
+  },
+  {
+    "product_id": "tall-hibiscus-cherry-lime-thc-seltzer",
+    "product_name": "TALL Hibiscus Cherry Lime THC Seltzer",
+    "brand": "TALL",
+    "product_category": "Edible",
+    "reason": "strain_agnostic",
+    "detail": "Product defined by dosage/formulation (edible/topical), not by a specific cannabis strain.",
+    "recommendation": "Keep in product list with strain_id=null. Categorize by product type and brand only."
+  },
+  {
+    "product_id": "tangie-distillate-cartridge",
+    "product_name": "Tangie Distillate Cartridge",
+    "brand": "Strane",
+    "product_category": "Vape",
+    "reason": "strain_not_identified",
+    "detail": "Cannabis-derived product but strain name could not be extracted or matched. May be proprietary blend, brand-specific formulation, or product name lacks standard strain identifiers.",
+    "recommendation": "Flag for manual review. Check dispensary menu to identify underlying strain."
+  },
+  {
+    "product_id": "tarts-live-live-budder",
+    "product_name": "Tarts Live Live Budder",
+    "brand": "Grassroots",
+    "product_category": "Concentrate",
+    "reason": "strain_not_identified",
+    "detail": "Cannabis-derived product but strain name could not be extracted or matched. May be proprietary blend, brand-specific formulation, or product name lacks standard strain identifiers.",
+    "recommendation": "Flag for manual review. Check dispensary menu to identify underlying strain."
+  },
+  {
+    "product_id": "tarts-rso",
+    "product_name": "Tarts RSO",
+    "brand": "Grassroots",
+    "product_category": "Concentrate",
+    "reason": "strain_not_identified",
+    "detail": "Cannabis-derived product but strain name could not be extracted or matched. May be proprietary blend, brand-specific formulation, or product name lacks standard strain identifiers.",
+    "recommendation": "Flag for manual review. Check dispensary menu to identify underlying strain."
+  },
+  {
+    "product_id": "thai-5-3-5g",
+    "product_name": "Thai #5 [3.5g",
+    "brand": "Savvy",
+    "product_category": "Flower",
+    "reason": "strain_not_identified",
+    "detail": "Cannabis-derived product but strain name could not be extracted or matched. May be proprietary blend, brand-specific formulation, or product name lacks standard strain identifiers.",
+    "recommendation": "Flag for manual review. Check dispensary menu to identify underlying strain."
+  },
+  {
+    "product_id": "thc-bomb",
+    "product_name": "THC Bomb",
+    "brand": "Grassroots",
+    "product_category": "Flower",
+    "reason": "strain_not_identified",
+    "detail": "Cannabis-derived product but strain name could not be extracted or matched. May be proprietary blend, brand-specific formulation, or product name lacks standard strain identifiers.",
+    "recommendation": "Flag for manual review. Check dispensary menu to identify underlying strain."
+  },
+  {
+    "product_id": "thc-bomb-rso",
+    "product_name": "THC Bomb RSO",
+    "brand": "Grassroots",
+    "product_category": "Concentrate",
+    "reason": "strain_not_identified",
+    "detail": "Cannabis-derived product but strain name could not be extracted or matched. May be proprietary blend, brand-specific formulation, or product name lacks standard strain identifiers.",
+    "recommendation": "Flag for manual review. Check dispensary menu to identify underlying strain."
+  },
+  {
+    "product_id": "thc-bomb-whole",
+    "product_name": "THC Bomb Whole",
+    "brand": "Grassroots",
+    "product_category": "Flower",
+    "reason": "strain_not_identified",
+    "detail": "Cannabis-derived product but strain name could not be extracted or matched. May be proprietary blend, brand-specific formulation, or product name lacks standard strain identifiers.",
+    "recommendation": "Flag for manual review. Check dispensary menu to identify underlying strain."
+  },
+  {
+    "product_id": "thc-rich-indica-rso",
+    "product_name": "THC Rich Indica RSO",
+    "brand": "Doctor Solomon's",
+    "product_category": "Concentrate",
+    "reason": "strain_not_identified",
+    "detail": "Cannabis-derived product but strain name could not be extracted or matched. May be proprietary blend, brand-specific formulation, or product name lacks standard strain identifiers.",
+    "recommendation": "Flag for manual review. Check dispensary menu to identify underlying strain."
+  },
+  {
+    "product_id": "thc-rich-sativa-rso",
+    "product_name": "THC RICH Sativa RSO",
+    "brand": "Doctor Solomon's",
+    "product_category": "Concentrate",
+    "reason": "strain_not_identified",
+    "detail": "Cannabis-derived product but strain name could not be extracted or matched. May be proprietary blend, brand-specific formulation, or product name lacks standard strain identifiers.",
+    "recommendation": "Flag for manual review. Check dispensary menu to identify underlying strain."
+  },
+  {
+    "product_id": "thc-rso",
+    "product_name": "THC RSO",
+    "brand": "Nature's Heritage",
+    "product_category": "Concentrate",
+    "reason": "strain_not_identified",
+    "detail": "Cannabis-derived product but strain name could not be extracted or matched. May be proprietary blend, brand-specific formulation, or product name lacks standard strain identifiers.",
+    "recommendation": "Flag for manual review. Check dispensary menu to identify underlying strain."
+  },
+  {
+    "product_id": "thc-rso-syringe",
+    "product_name": "THC RSO Syringe",
+    "brand": "Nature's Heritage",
+    "product_category": "Concentrate",
+    "reason": "strain_not_identified",
+    "detail": "Cannabis-derived product but strain name could not be extracted or matched. May be proprietary blend, brand-specific formulation, or product name lacks standard strain identifiers.",
+    "recommendation": "Flag for manual review. Check dispensary menu to identify underlying strain."
+  },
+  {
+    "product_id": "thca-isolate",
+    "product_name": "THCa Isolate",
+    "brand": "SunMed",
+    "product_category": "Concentrate",
+    "reason": "strain_not_identified",
+    "detail": "Cannabis-derived product but strain name could not be extracted or matched. May be proprietary blend, brand-specific formulation, or product name lacks standard strain identifiers.",
+    "recommendation": "Flag for manual review. Check dispensary menu to identify underlying strain."
+  },
+  {
+    "product_id": "thrive-4-1-1-lemon-lift-chews-formerly-good-day-thcv-focus-formula-chews",
+    "product_name": "Thrive 4:1:1 Lemon Lift Chews (Formerly Good Day THCV Focus Formula Chews)",
+    "brand": "Curio Wellness",
+    "product_category": "Edible",
+    "reason": "strain_not_identified",
+    "detail": "Cannabis-derived product but strain name could not be extracted or matched. May be proprietary blend, brand-specific formulation, or product name lacks standard strain identifiers.",
+    "recommendation": "Flag for manual review. Check dispensary menu to identify underlying strain."
+  },
+  {
+    "product_id": "thunder-punch-cold-cure-live-rosin",
+    "product_name": "Thunder Punch Cold Cure Live Rosin",
+    "brand": "Eden",
+    "product_category": "Concentrate",
+    "reason": "strain_not_identified",
+    "detail": "Cannabis-derived product but strain name could not be extracted or matched. May be proprietary blend, brand-specific formulation, or product name lacks standard strain identifiers.",
+    "recommendation": "Flag for manual review. Check dispensary menu to identify underlying strain."
+  },
+  {
+    "product_id": "topicals",
+    "product_name": "Topicals",
+    "brand": "",
+    "product_category": "Topical",
+    "reason": "scrape_artifact",
+    "detail": "Scraping artifact \u2014 price tag, promotion, merch, or generic category label incorrectly ingested as a product.",
+    "recommendation": "Remove from product list."
+  },
+  {
+    "product_id": "triple-7-dos-si-dos-prj-1ct",
+    "product_name": "Triple 7 Dos Si Dos PRJ (1ct)",
+    "brand": "Triple 7",
+    "product_category": "Pre-Roll",
+    "reason": "strain_not_identified",
+    "detail": "Cannabis-derived product but strain name could not be extracted or matched. May be proprietary blend, brand-specific formulation, or product name lacks standard strain identifiers.",
+    "recommendation": "Flag for manual review. Check dispensary menu to identify underlying strain."
+  },
+  {
+    "product_id": "trippy-gorilla-distillate-cart",
+    "product_name": "Trippy Gorilla Distillate Cart",
+    "brand": "Evermore Cannabis Company",
+    "product_category": "Vape",
+    "reason": "strain_not_identified",
+    "detail": "Cannabis-derived product but strain name could not be extracted or matched. May be proprietary blend, brand-specific formulation, or product name lacks standard strain identifiers.",
+    "recommendation": "Flag for manual review. Check dispensary menu to identify underlying strain."
+  },
+  {
+    "product_id": "tropicalez-punch-distillate-cartridge",
+    "product_name": "Tropicalez Punch Distillate Cartridge",
+    "brand": "Hellavated",
+    "product_category": "Vape",
+    "reason": "strain_not_identified",
+    "detail": "Cannabis-derived product but strain name could not be extracted or matched. May be proprietary blend, brand-specific formulation, or product name lacks standard strain identifiers.",
+    "recommendation": "Flag for manual review. Check dispensary menu to identify underlying strain."
+  },
+  {
+    "product_id": "umami-rising-live-resin-cake-badder",
+    "product_name": "Umami Rising Live Resin Cake Badder",
+    "brand": "Evermore",
+    "product_category": "Concentrate",
+    "reason": "strain_not_identified",
+    "detail": "Cannabis-derived product but strain name could not be extracted or matched. May be proprietary blend, brand-specific formulation, or product name lacks standard strain identifiers.",
+    "recommendation": "Flag for manual review. Check dispensary menu to identify underlying strain."
+  },
+  {
+    "product_id": "underboss-live-resin-sugar-sauce",
+    "product_name": "Underboss Live Resin Sugar & Sauce",
+    "brand": "Alchemist",
+    "product_category": "Concentrate",
+    "reason": "strain_not_identified",
+    "detail": "Cannabis-derived product but strain name could not be extracted or matched. May be proprietary blend, brand-specific formulation, or product name lacks standard strain identifiers.",
+    "recommendation": "Flag for manual review. Check dispensary menu to identify underlying strain."
+  },
+  {
+    "product_id": "vapes",
+    "product_name": "Vapes",
+    "brand": "",
+    "product_category": "Other",
+    "reason": "scrape_artifact",
+    "detail": "Scraping artifact \u2014 price tag, promotion, merch, or generic category label incorrectly ingested as a product.",
+    "recommendation": "Remove from product list."
+  },
+  {
+    "product_id": "verano",
+    "product_name": "Verano",
+    "brand": "Reserve",
+    "product_category": "Flower",
+    "reason": "strain_not_identified",
+    "detail": "Cannabis-derived product but strain name could not be extracted or matched. May be proprietary blend, brand-specific formulation, or product name lacks standard strain identifiers.",
+    "recommendation": "Flag for manual review. Check dispensary menu to identify underlying strain."
+  },
+  {
+    "product_id": "wana-10mg-quick-island-punch-indica-chews",
+    "product_name": "Wana 10mg Quick Island Punch Indica Chews",
+    "brand": "Wana",
+    "product_category": "Edible",
+    "reason": "strain_agnostic",
+    "detail": "Product defined by dosage/formulation (edible/topical), not by a specific cannabis strain.",
+    "recommendation": "Keep in product list with strain_id=null. Categorize by product type and brand only."
+  },
+  {
+    "product_id": "wana-10mg-quick-orchard-peach-sativa-chews",
+    "product_name": "Wana 10mg Quick Orchard Peach Sativa Chews",
+    "brand": "Wana",
+    "product_category": "Edible",
+    "reason": "strain_agnostic",
+    "detail": "Product defined by dosage/formulation (edible/topical), not by a specific cannabis strain.",
+    "recommendation": "Keep in product list with strain_id=null. Categorize by product type and brand only."
+  },
+  {
+    "product_id": "water-yer-melon-cloud-bar-rechargeable-disposable",
+    "product_name": "Water'Yer Melon Cloud Bar Rechargeable Disposable",
+    "brand": "Hellavated",
+    "product_category": "Vape",
+    "reason": "strain_not_identified",
+    "detail": "Cannabis-derived product but strain name could not be extracted or matched. May be proprietary blend, brand-specific formulation, or product name lacks standard strain identifiers.",
+    "recommendation": "Flag for manual review. Check dispensary menu to identify underlying strain."
+  },
+  {
+    "product_id": "watermelon-bliss-flavored-vape",
+    "product_name": "Watermelon Bliss Flavored Vape",
+    "brand": "Curio Wellness",
+    "product_category": "Vape",
+    "reason": "strain_not_identified",
+    "detail": "Cannabis-derived product but strain name could not be extracted or matched. May be proprietary blend, brand-specific formulation, or product name lacks standard strain identifiers.",
+    "recommendation": "Flag for manual review. Check dispensary menu to identify underlying strain."
+  },
+  {
+    "product_id": "watermelon-burst-live-resin-diamond-reload-pod",
+    "product_name": "Watermelon Burst Live Resin Diamond Reload Pod",
+    "brand": "Rove",
+    "product_category": "Vape",
+    "reason": "strain_not_identified",
+    "detail": "Cannabis-derived product but strain name could not be extracted or matched. May be proprietary blend, brand-specific formulation, or product name lacks standard strain identifiers.",
+    "recommendation": "Flag for manual review. Check dispensary menu to identify underlying strain."
+  },
+  {
+    "product_id": "watermelon-jolly-slyde-disposable",
+    "product_name": "Watermelon Jolly Slyde Disposable",
+    "brand": "Slyde",
+    "product_category": "Vape",
+    "reason": "strain_not_identified",
+    "detail": "Cannabis-derived product but strain name could not be extracted or matched. May be proprietary blend, brand-specific formulation, or product name lacks standard strain identifiers.",
+    "recommendation": "Flag for manual review. Check dispensary menu to identify underlying strain."
+  },
+  {
+    "product_id": "watermelon-sugar-free-gummies",
+    "product_name": "Watermelon Sugar Free Gummies",
+    "brand": "Sunnies",
+    "product_category": "Edible",
+    "reason": "strain_agnostic",
+    "detail": "Product defined by dosage/formulation (edible/topical), not by a specific cannabis strain.",
+    "recommendation": "Keep in product list with strain_id=null. Categorize by product type and brand only."
+  },
+  {
+    "product_id": "white-gummy-distillate-vape",
+    "product_name": "White Gummy Distillate Vape",
+    "brand": "Sunnies",
+    "product_category": "Vape",
+    "reason": "strain_not_identified",
+    "detail": "Cannabis-derived product but strain name could not be extracted or matched. May be proprietary blend, brand-specific formulation, or product name lacks standard strain identifiers.",
+    "recommendation": "Flag for manual review. Check dispensary menu to identify underlying strain."
+  },
+  {
+    "product_id": "white-walker-live-resin",
+    "product_name": "White Walker Live Resin",
+    "brand": "RYTHM",
+    "product_category": "Concentrate",
+    "reason": "strain_not_identified",
+    "detail": "Cannabis-derived product but strain name could not be extracted or matched. May be proprietary blend, brand-specific formulation, or product name lacks standard strain identifiers.",
+    "recommendation": "Flag for manual review. Check dispensary menu to identify underlying strain."
+  },
+  {
+    "product_id": "wyld-10mg-raspberry-sativa-gummies",
+    "product_name": "Wyld 10mg Raspberry Sativa Gummies",
+    "brand": "Wyld",
+    "product_category": "Edible",
+    "reason": "strain_agnostic",
+    "detail": "Product defined by dosage/formulation (edible/topical), not by a specific cannabis strain.",
+    "recommendation": "Keep in product list with strain_id=null. Categorize by product type and brand only."
+  },
+  {
+    "product_id": "wyld-10mg-sour-cherry-indica-gummies",
+    "product_name": "Wyld 10mg Sour Cherry Indica Gummies",
+    "brand": "Wyld",
+    "product_category": "Edible",
+    "reason": "strain_agnostic",
+    "detail": "Product defined by dosage/formulation (edible/topical), not by a specific cannabis strain.",
+    "recommendation": "Keep in product list with strain_id=null. Categorize by product type and brand only."
+  },
+  {
+    "product_id": "wyld-huckleberry-hybrid-enhanced-gummies",
+    "product_name": "Wyld Huckleberry Hybrid Enhanced Gummies",
+    "brand": "Wyld",
+    "product_category": "Edible",
+    "reason": "strain_agnostic",
+    "detail": "Product defined by dosage/formulation (edible/topical), not by a specific cannabis strain.",
+    "recommendation": "Keep in product list with strain_id=null. Categorize by product type and brand only."
+  },
+  {
+    "product_id": "this-just-in",
+    "product_name": "\u26a1\ufe0f This Just In",
+    "brand": "",
+    "product_category": "Flower",
+    "reason": "strain_not_identified",
+    "detail": "Cannabis-derived product but strain name could not be extracted or matched. May be proprietary blend, brand-specific formulation, or product name lacks standard strain identifiers.",
+    "recommendation": "Flag for manual review. Check dispensary menu to identify underlying strain."
+  },
+  {
+    "product_id": "28-off-3-5g-and-7g",
+    "product_name": "\u2b50\ufe0f 28% off 3.5g and 7g",
+    "brand": "",
+    "product_category": "Other",
+    "reason": "non_cannabis_or_bundle",
+    "detail": "Bundle, accessory, pack-count reference, or non-cannabis item.",
+    "recommendation": "Remove or reclassify as accessory/bundle."
+  },
+  {
+    "product_id": "28-off-betty-s-inhouse-strane-more-edibles",
+    "product_name": "\u2b50\ufe0f 28% off Betty's, InHouse, Strane & More Edibles",
+    "brand": "",
+    "product_category": "Other",
+    "reason": "non_cannabis_or_bundle",
+    "detail": "Bundle, accessory, pack-count reference, or non-cannabis item.",
+    "recommendation": "Remove or reclassify as accessory/bundle."
+  },
+  {
+    "product_id": "31-off-10g-14g-15g-and-28g",
+    "product_name": "\u2b50\ufe0f 31% off 10g, 14g, 15g and 28g",
+    "brand": "",
+    "product_category": "Other",
+    "reason": "non_cannabis_or_bundle",
+    "detail": "Bundle, accessory, pack-count reference, or non-cannabis item.",
+    "recommendation": "Remove or reclassify as accessory/bundle."
+  }
+]
