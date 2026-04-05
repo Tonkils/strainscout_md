@@ -6,6 +6,7 @@ import PostHogProvider, { PostHogPageView } from "@/components/PostHogProvider";
 import ErrorBoundary from "@/components/ErrorBoundary";
 import GoogleAnalytics from "@/components/GoogleAnalytics";
 import CookieConsent from "@/components/CookieConsent";
+import ExitIntentPopup from "@/components/ExitIntentPopup";
 import { Suspense } from "react";
 
 export const metadata: Metadata = {
@@ -92,6 +93,7 @@ export default function RootLayout({
           <main className="flex-1">{children}</main>
         </ErrorBoundary>
         <Footer />
+        <ExitIntentPopup />
         <CookieConsent />
         </PostHogProvider>
       </body>

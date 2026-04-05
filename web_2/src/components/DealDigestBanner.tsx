@@ -1,7 +1,9 @@
 "use client";
 
+import { useState, useEffect } from "react";
 import { Mail, CheckCircle, Loader2, TrendingDown, Zap, Shield } from "lucide-react";
 import { useEmailCapture } from "@/hooks/useEmailCapture";
+import { getGeoData } from "@/lib/cookies";
 
 interface DealDigestBannerProps {
   totalStrains: number;
@@ -12,11 +14,43 @@ export default function DealDigestBanner({ totalStrains, totalDispensaries }: De
   const { email, setEmail, status, errorMsg, alreadySignedUp, isDismissed, submit, dismiss } =
     useEmailCapture("deal_digest");
 
+  const [showBanner, setShowBanner] = useState(false);
+  const [cityName, setCityName] = useState<string | null>(null);
+
+  useEffect(() => {
+    // Show immediately if already signed up
+    if (alreadySignedUp) {
+      setShowBanner(true);
+      return;
+    }
+
+    // Track page views in sessionStorage
+    const key = "strainscout_pageviews";
+    const views = parseInt(sessionStorage.getItem(key) || "0", 10) + 1;
+    sessionStorage.setItem(key, String(views));
+
+    // Show immediately if user has visited 2+ pages
+    if (views >= 2) {
+      setShowBanner(true);
+      return;
+    }
+
+    // Otherwise show after 30 seconds
+    const timer = setTimeout(() => setShowBanner(true), 30_000);
+    return () => clearTimeout(timer);
+  }, [alreadySignedUp]);
+
+  useEffect(() => {
+    const geo = getGeoData();
+    if (geo?.city && geo?.region === "Maryland") setCityName(geo.city);
+  }, []);
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     await submit();
   };
 
+  if (!showBanner && !alreadySignedUp && status !== "success") return null;
   if (isDismissed && !alreadySignedUp && status !== "success") return null;
 
   return (
@@ -56,6 +90,11 @@ export default function DealDigestBanner({ totalStrains, totalDispensaries }: De
                   across <span className="font-price text-primary font-medium">{totalDispensaries}</span> dispensaries
                   so you don&apos;t have to. Get the biggest price drops delivered free every Tuesday.
                 </p>
+                {cityName && (
+                  <p className="text-xs text-cta/80 mt-1 ml-[48px]">
+                    Showing deals near {cityName}, MD
+                  </p>
+                )}
                 <div className="flex flex-wrap gap-x-5 gap-y-2 ml-[48px]">
                   <span className="inline-flex items-center gap-1.5 text-xs text-muted-foreground">
                     <Zap className="w-3.5 h-3.5 text-cta" />Weekly price drops
