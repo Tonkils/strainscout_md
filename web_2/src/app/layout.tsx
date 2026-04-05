@@ -4,6 +4,8 @@ import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import PostHogProvider, { PostHogPageView } from "@/components/PostHogProvider";
 import ErrorBoundary from "@/components/ErrorBoundary";
+import GoogleAnalytics from "@/components/GoogleAnalytics";
+import CookieConsent from "@/components/CookieConsent";
 import { Suspense } from "react";
 
 export const metadata: Metadata = {
@@ -66,6 +68,7 @@ export default function RootLayout({
       </head>
       <body className="min-h-screen bg-background text-foreground flex flex-col">
         <PostHogProvider>
+        <GoogleAnalytics />
         <Suspense fallback={null}><PostHogPageView /></Suspense>
         <script
           type="application/ld+json"
@@ -89,6 +92,7 @@ export default function RootLayout({
           <main className="flex-1">{children}</main>
         </ErrorBoundary>
         <Footer />
+        <CookieConsent />
         </PostHogProvider>
       </body>
     </html>

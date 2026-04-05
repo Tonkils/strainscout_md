@@ -5,11 +5,13 @@
  * This module only fires capture() calls — no init here to prevent double-initialization.
  */
 import posthog from "posthog-js";
+import { hasConsent } from "@/lib/cookies";
 
 // ─── Helpers ──────────────────────────────────────────────
 function track(event: string, properties?: Record<string, unknown>) {
   if (typeof window === "undefined") return;
   if (!process.env.NEXT_PUBLIC_POSTHOG_KEY) return;
+  if (!hasConsent("analytics")) return;
   posthog.capture(event, properties);
 }
 

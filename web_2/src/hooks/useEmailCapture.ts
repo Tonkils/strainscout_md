@@ -2,6 +2,7 @@
 
 import { useState, useCallback, useEffect } from "react";
 import { supabase } from "@/lib/supabase";
+import { getAttribution, getGeoData } from "@/lib/cookies";
 
 const STORAGE_KEY = "strainscout_email_signups";
 const DISMISSED_KEY = "strainscout_email_dismissed";
@@ -12,6 +13,8 @@ export interface EmailSignup {
   strainId?: string;
   strainName?: string;
   timestamp: string;
+  channel?: string;
+  city?: string;
 }
 
 function getStoredSignups(): EmailSignup[] {
@@ -91,12 +94,21 @@ export function useEmailCapture(source: EmailSource) {
       }
       setStatus("submitting");
       const normalized = email.trim().toLowerCase();
+      const attribution = getAttribution();
+      const geo = getGeoData();
       try {
         await supabase.from("email_signups").insert({
           email: normalized,
           source,
           strain_id: opts?.strainId ?? null,
           strain_name: opts?.strainName ?? null,
+          utm_source: attribution?.utm_source ?? null,
+          utm_medium: attribution?.utm_medium ?? null,
+          utm_campaign: attribution?.utm_campaign ?? null,
+          channel: attribution?.channel ?? null,
+          referrer: attribution?.referrer ?? null,
+          city: geo?.city ?? null,
+          region: geo?.region ?? null,
         });
       } catch { /* network failure — still save locally */ }
       storeSignupLocally({
@@ -105,6 +117,8 @@ export function useEmailCapture(source: EmailSource) {
         strainId: opts?.strainId,
         strainName: opts?.strainName,
         timestamp: new Date().toISOString(),
+        channel: attribution?.channel,
+        city: geo?.city,
       });
       setStatus("success");
       setAlreadySignedUp(true);
