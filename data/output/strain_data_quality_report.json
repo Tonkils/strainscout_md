@@ -1,0 +1,137 @@
+{
+  "report_title": "StrainScout MD — Strain Data Quality Investigation",
+  "generated": "2026-04-05",
+  "catalog_version": "v10",
+  "summary": {
+    "total_catalog_entries": 1297,
+    "entries_that_are_real_strains": 897,
+    "entries_with_bad_data": 400,
+    "bad_data_breakdown": {
+      "strain_not_identified": 217,
+      "strain_agnostic_products": 124,
+      "scrape_artifacts": 51,
+      "non_cannabis_or_bundles": 8
+    }
+  },
+  "root_cause_analysis": [
+    {
+      "issue_id": "RC-1",
+      "title": "Scraper treats ALL menu items as strains",
+      "severity": "critical",
+      "description": "parse_raw.py has no strain-vs-non-strain validation. Every scraped menu item that passes basic length/empty checks is treated as a strain. Price tags, promo banners, category labels, merch, and accessories all flow through as 'strains'.",
+      "pipeline_location": "pipeline/parse_raw.py lines 276-303",
+      "affected_entries": 51,
+      "examples": [
+        {"name": "$110", "dispensary": "Gold Leaf", "why": "Gold Leaf's Weedmaps menu lists price tiers as separate items. The scraper ingested '$110' as a product name. parse_raw.py:294 checks for price-as-name but only catches pure '$' prefix or all-digit names — this was caught but some got through due to cleaning order."},
+        {"name": "Shop Cannabis by Effects: Relaxation", "dispensary": "Zen Leaf - Elkridge", "why": "Zen Leaf's Weedmaps menu includes promotional/filter navigation links ('Shop by...' sections). The scraper can't distinguish menu navigation from product listings. classify_and_report.py catches '^shop' pattern but only post-pipeline — too late."},
+        {"name": "Chesacanna Pride T-Shirt", "dispensary": "Chesacanna", "why": "Chesacanna sells branded merch on their Weedmaps menu. category_map.py correctly maps apparel to 'Other' but no pipeline step filters out 'Other' category items."},
+        {"name": "Accessories", "dispensary": "Zen Leaf - Elkridge", "why": "Category header text scraped as a product name. No validation that a product name should be more descriptive than a single generic word."}
+      ],
+      "fix": "Add a reject list and pattern filter in parse_raw.py BEFORE deduplication. Reject items matching: promo text (^shop, % off), merch (t-shirt, apparel), category labels (single generic words), and hardware (battery, grinder). Also filter out product_category='Other' before build_catalog.py."
+    },
+    {
+      "issue_id": "RC-2",
+      "title": "Default category is 'Flower' when scraper provides no category",
+      "severity": "high",
+      "description": "parse_raw.py line 288 defaults product_category to 'Flower' when the scraper doesn't provide one. This means vape cartridges, concentrates, edibles, and accessories that lack category metadata all get labeled as flower. This inflated the 'Flower' count from ~450 real flower items to 555.",
+      "pipeline_location": "pipeline/parse_raw.py line 288",
+      "affected_entries": "~100 (estimated flower items that are actually other categories)",
+      "examples": [
+        {"name": "3.5g Premium", "dispensary": "Trulieve Rockville", "why": "Generic weight label with no category from scraper. Defaulted to Flower."},
+        {"name": "1.0g (Ready-To-Use)", "dispensary": "multiple (5)", "why": "Rove vape cartridge. No category provided by scraper, defaulted to Flower despite 87.88% THC (clearly a concentrate/vape)."},
+        {"name": "200mgCBD : 100MGTHC : 100MGCBN", "dispensary": "Green Point Wellness", "why": "Edible dosage label. No category from scraper, defaulted to Flower."}
+      ],
+      "fix": "Implement category inference from product name when scraper provides none. Patterns: 'cart/cartridge/pod/disposable' → Vape, 'mg' dosage patterns → Edible, 'sugar/shatter/budder/resin' → Concentrate, 'pre-roll/joint' → Pre-Roll."
+    },
+    {
+      "issue_id": "RC-3",
+      "title": "Dispensary-specific product naming prevents strain identification",
+      "severity": "medium",
+      "description": "147 products appear at only 1 dispensary with names that embed brand, form factor, and strain in non-standard ways. These names don't match any known strain because the strain name is buried in a product-specific format the parser doesn't understand.",
+      "pipeline_location": "pipeline/deduplicate.py — canonical name extraction is too simple",
+      "affected_entries": 147,
+      "top_offending_dispensaries": [
+        {"name": "Chesacanna", "unmapped": 53, "why": "Uses brand-first naming with weight codes like '35g (5ct)' and '45g (5ct)'. Strain name is omitted entirely from many listings."},
+        {"name": "Green Point Wellness (all locations)", "unmapped": 123, "why": "Edible-heavy menu with dosage-as-name convention. Also uses non-standard concentrate naming like 'FECO Capsules'."},
+        {"name": "Kent Reserve", "unmapped": 44, "why": "Uses format 'Brand Form-Factor Strain' (e.g., '#Hash Wax Yeti OG Budder') which the parser doesn't deconstruct."},
+        {"name": "Ascend Cannabis (all locations)", "unmapped": 100, "why": "Pack-count naming ('10 Pack', '5 Pack') without strain names. Also uses format like 'Apple Jack Live Resin Diamond Reload Pod' mixing multiple descriptors."},
+        {"name": "Zen Leaf (all locations)", "unmapped": 96, "why": "Menu includes 22 promo/navigation items per location ('Shop by...' entries), plus category labels."}
+      ],
+      "fix": "Build dispensary-specific parsing rules for top offenders. For Chesacanna: cross-reference brand+weight with their actual menu. For Green Point Wellness: separate edibles pipeline. For Kent Reserve: strip 'Brand Form-Factor' prefix to isolate strain. For Zen Leaf: add promo-text blocklist."
+    },
+    {
+      "issue_id": "RC-4",
+      "title": "Proprietary vape/edible brand names obscure strain identity",
+      "severity": "medium",
+      "description": "Brands like Hellavated, Airo, Slyde, BLINK, and Bomb Popz create proprietary product names that either don't reference a strain (e.g., 'Mystical Melody', 'Bahama Breeze') or embed the strain in a brand-specific format the parser doesn't decode.",
+      "pipeline_location": "N/A — no brand-specific name parsing exists",
+      "affected_entries": 33,
+      "examples": [
+        {"name": "AIROX Mystical Melody Disposable Vape", "brand": "Airo MD", "why": "'Mystical Melody' is Airo's proprietary blend name, not a recognized strain. Would need Airo's product database to decode."},
+        {"name": "Bomb Popz Cloud Bar", "brand": "Hellavated", "why": "'Bomb Popz' is a flavor profile, not a strain. Hellavated markets by flavor rather than strain."},
+        {"name": "Apricot Nectar Slyde Disposable", "brand": "Slyde", "why": "'Apricot Nectar' is a flavor descriptor. The underlying strain is not disclosed on the menu."}
+      ],
+      "fix": "For brands that use proprietary names: either (a) build a brand→strain mapping table from manufacturer data, or (b) accept these as 'strain-agnostic products' and categorize by brand+flavor only."
+    },
+    {
+      "issue_id": "RC-5",
+      "title": "Edibles inherently don't map to strains",
+      "severity": "low",
+      "description": "124 edible/topical products are defined by cannabinoid dosage (100mg THC, 1:1 CBD:THC) rather than strain. This is industry-standard — most edibles use distillate which strips strain-specific properties. These aren't 'bad data', they're a different product type.",
+      "pipeline_location": "build_catalog.py — treats all entries as strain-based",
+      "affected_entries": 124,
+      "examples": [
+        {"name": "100mg THC : 50mg CBN : 50mg CBC", "brand": "Oria", "why": "Ratio-based edible. The cannabinoids come from distillate, not a specific strain."},
+        {"name": "10mg Juicy Watermelon Chews", "brand": "Curio Wellness", "why": "Flavored edible. Product identity is brand+flavor+dosage, not strain."},
+        {"name": "Cosmec Healing Recovery Salve", "brand": "Cosmec", "why": "Topical product. THC content is 0.38% — no strain relevance."}
+      ],
+      "fix": "No fix needed in scraper. Instead, the data model should explicitly support 'strain_id: null' for products that are legitimately strain-agnostic. The new products_v1.json already handles this."
+    },
+    {
+      "issue_id": "RC-6",
+      "title": "No 'Other' category filtering anywhere in pipeline",
+      "severity": "high",
+      "description": "category_map.py correctly identifies merch, accessories, bundles, and seeds as 'Other'. But no downstream step (deduplicate.py, build_catalog.py) filters these out. They pass through the entire pipeline into the production catalog.",
+      "pipeline_location": "pipeline/build_catalog.py — missing filter",
+      "affected_entries": 40,
+      "fix": "Add `if product_category == 'Other': continue` in build_catalog.py before assembling the final catalog. This is a one-line fix."
+    }
+  ],
+  "recommended_next_steps": [
+    {
+      "priority": 1,
+      "action": "Add scrape-time reject filters in parse_raw.py",
+      "effort": "small",
+      "impact": "Eliminates ~50 junk entries per scrape cycle",
+      "details": "Add pattern-based rejection for: promo text, merch, category labels, hardware, pure-numeric names, and items with product_category='Other'."
+    },
+    {
+      "priority": 2,
+      "action": "Implement category inference from product name",
+      "effort": "medium",
+      "impact": "Correctly categorizes ~100 items currently defaulting to Flower",
+      "details": "When scraper provides no category, infer from keywords in product name: cart/pod/disposable→Vape, mg dosage→Edible, sugar/shatter/budder→Concentrate, pre-roll/joint→Pre-Roll."
+    },
+    {
+      "priority": 3,
+      "action": "Build dispensary-specific parsing rules for top 5 offenders",
+      "effort": "medium",
+      "impact": "Resolves ~100 of the 147 dispensary-specific naming issues",
+      "details": "Custom parsers for Chesacanna (weight-code format), Green Point Wellness (edible-heavy), Kent Reserve (Brand+FormFactor+Strain), Ascend (pack-count), Zen Leaf (promo blocklist)."
+    },
+    {
+      "priority": 4,
+      "action": "Create brand→strain mapping for proprietary vape brands",
+      "effort": "large",
+      "impact": "Maps ~33 proprietary products to underlying strains",
+      "details": "Contact or scrape manufacturer data for Airo, Hellavated, Slyde, BLINK to build flavor→strain lookup. Some brands may not disclose strain info."
+    },
+    {
+      "priority": 5,
+      "action": "Enrich Tier C strains (599 with name+type only)",
+      "effort": "large",
+      "impact": "Fills in genetics, terpenes, effects for ~375 strains still missing data",
+      "details": "Re-run Leafly enrichment for untyped lookups that previously failed. Consider adding Weedmaps strain database as secondary source. Some may be Maryland-only cultivar names not in national databases."
+    }
+  ]
+}
