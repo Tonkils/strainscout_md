@@ -1654,12 +1654,26 @@
     "strain_id": "bermuda-triangle",
     "name": "Bermuda Triangle",
     "type": "Hybrid",
-    "genetics": "",
-    "terpenes": [],
-    "effects": [],
-    "flavors": [],
-    "description": "",
-    "thc_range": "",
+    "genetics": "Ghost OG x Triangle Kush",
+    "terpenes": [
+      "Myrcene",
+      "Limonene",
+      "Caryophyllene",
+      "Humulene"
+    ],
+    "effects": [
+      "Relaxed",
+      "Euphoric",
+      "Sleepy",
+      "Happy"
+    ],
+    "flavors": [
+      "Earthy",
+      "Citrus",
+      "Pine"
+    ],
+    "description": "Bermuda Triangle is an indica-dominant hybrid crossing Ghost OG with Triangle Kush. Delivers a euphoric cerebral lift that transitions into deep physical relaxation and sedation.",
+    "thc_range": "18-26%",
     "cbd_range": "",
     "sources": [
       "catalog_extracted"
@@ -2866,6 +2880,34 @@
     "cbd_range": "",
     "sources": [
       "leafly_untyped"
+    ]
+  },
+  {
+    "strain_id": "blueberry-dream",
+    "name": "Blueberry Dream",
+    "type": "Hybrid",
+    "genetics": "Blueberry x Haze",
+    "terpenes": [
+      "Myrcene",
+      "Pinene",
+      "Caryophyllene"
+    ],
+    "effects": [
+      "Relaxed",
+      "Euphoric",
+      "Happy",
+      "Creative"
+    ],
+    "flavors": [
+      "Blueberry",
+      "Berry",
+      "Sweet"
+    ],
+    "description": "Blueberry Dream is a hybrid strain crossing Blueberry with Haze genetics. Offers a balanced high with cerebral uplift and gentle physical relaxation, featuring sweet blueberry flavor.",
+    "thc_range": "18-24%",
+    "cbd_range": "",
+    "sources": [
+      "web_research"
     ]
   },
   {
@@ -4972,6 +5014,34 @@
     "sources": [
       "catalog_enriched",
       "leafly_comprehensive"
+    ]
+  },
+  {
+    "strain_id": "clementine",
+    "name": "Clementine",
+    "type": "Sativa",
+    "genetics": "Tangie x Lemon Skunk",
+    "terpenes": [
+      "Limonene",
+      "Myrcene",
+      "Caryophyllene"
+    ],
+    "effects": [
+      "Uplifted",
+      "Happy",
+      "Energetic",
+      "Focused"
+    ],
+    "flavors": [
+      "Citrus",
+      "Orange",
+      "Sweet"
+    ],
+    "description": "Clementine is a sativa-dominant strain by Crockett Family Farms, crossing Tangie with Lemon Skunk. Loved for its intense citrus orange aroma and euphoric, motivating effects.",
+    "thc_range": "13-19%",
+    "cbd_range": "",
+    "sources": [
+      "web_research"
     ]
   },
   {
@@ -9145,6 +9215,35 @@
     ]
   },
   {
+    "strain_id": "gpog",
+    "name": "GPOG",
+    "type": "Indica",
+    "genetics": "Granddaddy Purple x OG Kush",
+    "terpenes": [
+      "Myrcene",
+      "Pinene",
+      "Caryophyllene"
+    ],
+    "effects": [
+      "Relaxed",
+      "Sleepy",
+      "Euphoric",
+      "Happy"
+    ],
+    "flavors": [
+      "Grape",
+      "Berry",
+      "Earthy",
+      "Pine"
+    ],
+    "description": "GPOG (Granddaddy Purple OG) is an indica-dominant hybrid crossing Granddaddy Purple with OG Kush. Combines GDP's grape-forward flavor with OG's potent relaxation for a deeply sedating experience.",
+    "thc_range": "17-23%",
+    "cbd_range": "",
+    "sources": [
+      "web_research"
+    ]
+  },
+  {
     "strain_id": "grand-prix",
     "name": "Grand Prix",
     "type": "Hybrid",
@@ -9485,6 +9584,34 @@
     "cbd_range": "",
     "sources": [
       "leafly_comprehensive"
+    ]
+  },
+  {
+    "strain_id": "grape-stomper",
+    "name": "Grape Stomper",
+    "type": "Hybrid",
+    "genetics": "Purple Elephant x Chemdawg Sour Diesel",
+    "terpenes": [
+      "Myrcene",
+      "Limonene",
+      "Caryophyllene"
+    ],
+    "effects": [
+      "Euphoric",
+      "Energetic",
+      "Creative",
+      "Focused"
+    ],
+    "flavors": [
+      "Grape",
+      "Berry",
+      "Sweet"
+    ],
+    "description": "Grape Stomper is a sativa-dominant hybrid bred by Gage Green Genetics, crossing Purple Elephant with Chemdawg Sour Diesel. Known for its grape aroma and uplifting cerebral effects.",
+    "thc_range": "18-24%",
+    "cbd_range": "",
+    "sources": [
+      "web_research"
     ]
   },
   {
@@ -12143,6 +12270,34 @@
     ]
   },
   {
+    "strain_id": "king-louis-xiii",
+    "name": "King Louis XIII",
+    "type": "Indica",
+    "genetics": "OG Kush x LA Confidential",
+    "terpenes": [
+      "Myrcene",
+      "Limonene",
+      "Caryophyllene"
+    ],
+    "effects": [
+      "Relaxed",
+      "Sleepy",
+      "Happy",
+      "Euphoric"
+    ],
+    "flavors": [
+      "Earthy",
+      "Pine",
+      "Woody"
+    ],
+    "description": "King Louis XIII is a potent indica hybrid crossing OG Kush with LA Confidential. Known for its heavy-hitting body effects and piney, earthy aroma, ideal for nighttime relaxation.",
+    "thc_range": "20-28%",
+    "cbd_range": "",
+    "sources": [
+      "web_research"
+    ]
+  },
+  {
     "strain_id": "kmac",
     "name": "Kmac",
     "type": "Hybrid",
@@ -12521,6 +12676,34 @@
     "cbd_range": "",
     "sources": [
       "leafly_untyped"
+    ]
+  },
+  {
+    "strain_id": "lamb-s-bread",
+    "name": "Lamb's Bread",
+    "type": "Sativa",
+    "genetics": "Jamaican landrace",
+    "terpenes": [
+      "Caryophyllene",
+      "Myrcene",
+      "Pinene"
+    ],
+    "effects": [
+      "Energetic",
+      "Creative",
+      "Uplifted",
+      "Euphoric"
+    ],
+    "flavors": [
+      "Earthy",
+      "Spicy",
+      "Herbal"
+    ],
+    "description": "Lamb's Bread is a legendary Jamaican sativa landrace strain, believed to have been one of Bob Marley's favorites. It delivers a clear-headed, cerebral high that sparks creativity and motivation.",
+    "thc_range": "15-22%",
+    "cbd_range": "",
+    "sources": [
+      "web_research"
     ]
   },
   {
@@ -12936,12 +13119,25 @@
     "strain_id": "lemon-jack",
     "name": "Lemon Jack",
     "type": "Hybrid",
-    "genetics": "",
-    "terpenes": [],
-    "effects": [],
-    "flavors": [],
-    "description": "",
-    "thc_range": "",
+    "genetics": "Jack Herer x Lemon Kush",
+    "terpenes": [
+      "Limonene",
+      "Pinene",
+      "Caryophyllene"
+    ],
+    "effects": [
+      "Euphoric",
+      "Energetic",
+      "Creative",
+      "Focused"
+    ],
+    "flavors": [
+      "Lemon",
+      "Citrus",
+      "Peppery"
+    ],
+    "description": "Lemon Jack is a sativa-dominant hybrid crossing Jack Herer with Lemon Kush. Features a sharp lemon flavor and provides an energizing, creative high ideal for daytime use.",
+    "thc_range": "16-25%",
     "cbd_range": "",
     "sources": [
       "catalog_extracted"
@@ -14064,12 +14260,26 @@
     "strain_id": "maui-wowie",
     "name": "Maui Wowie",
     "type": "Sativa",
-    "genetics": "",
-    "terpenes": [],
-    "effects": [],
-    "flavors": [],
-    "description": "",
-    "thc_range": "",
+    "genetics": "Hawaiian landrace",
+    "terpenes": [
+      "Myrcene",
+      "Pinene",
+      "Limonene",
+      "Caryophyllene"
+    ],
+    "effects": [
+      "Euphoric",
+      "Creative",
+      "Energetic",
+      "Happy"
+    ],
+    "flavors": [
+      "Pineapple",
+      "Tropical",
+      "Citrus"
+    ],
+    "description": "Maui Wowie is a classic sativa originating from the volcanic soil of Maui, Hawaii. Known for its tropical pineapple flavors and clear-headed, energizing high perfect for daytime use.",
+    "thc_range": "19-24%",
     "cbd_range": "",
     "sources": [
       "catalog_extracted"
@@ -15250,12 +15460,25 @@
     "strain_id": "northern-lights",
     "name": "Northern Lights",
     "type": "Indica",
-    "genetics": "",
-    "terpenes": [],
-    "effects": [],
-    "flavors": [],
-    "description": "",
-    "thc_range": "",
+    "genetics": "Afghani x Thai",
+    "terpenes": [
+      "Myrcene",
+      "Caryophyllene",
+      "Limonene"
+    ],
+    "effects": [
+      "Relaxed",
+      "Sleepy",
+      "Happy",
+      "Euphoric"
+    ],
+    "flavors": [
+      "Earthy",
+      "Pine",
+      "Sweet"
+    ],
+    "description": "Northern Lights is a legendary indica strain descended from Afghani and Thai landrace strains. Known for its resinous buds and fast flowering, it delivers a deeply relaxing body high with euphoric mental effects.",
+    "thc_range": "16-21%",
     "cbd_range": "",
     "sources": [
       "catalog_extracted"
@@ -15488,6 +15711,34 @@
     "cbd_range": "",
     "sources": [
       "leafly_untyped"
+    ]
+  },
+  {
+    "strain_id": "og-mint",
+    "name": "OG Mint",
+    "type": "Hybrid",
+    "genetics": "OG Kush x Animal Mints",
+    "terpenes": [
+      "Caryophyllene",
+      "Limonene",
+      "Myrcene"
+    ],
+    "effects": [
+      "Relaxed",
+      "Euphoric",
+      "Happy",
+      "Tingly"
+    ],
+    "flavors": [
+      "Mint",
+      "Earthy",
+      "Spicy"
+    ],
+    "description": "OG Mint is a hybrid crossing OG Kush with Animal Mints genetics. Features a cool minty flavor with earthy OG undertones, delivering a balanced high with mental clarity and body calm.",
+    "thc_range": "20-28%",
+    "cbd_range": "",
+    "sources": [
+      "web_research"
     ]
   },
   {
@@ -16291,6 +16542,34 @@
     "cbd_range": "",
     "sources": [
       "leafly_comprehensive"
+    ]
+  },
+  {
+    "strain_id": "peach-cobbler",
+    "name": "Peach Cobbler",
+    "type": "Hybrid",
+    "genetics": "Apricot Papaya x Strawberry Banana x Dream Queen",
+    "terpenes": [
+      "Limonene",
+      "Myrcene",
+      "Caryophyllene"
+    ],
+    "effects": [
+      "Relaxed",
+      "Euphoric",
+      "Creative",
+      "Happy"
+    ],
+    "flavors": [
+      "Peach",
+      "Sweet",
+      "Citrus"
+    ],
+    "description": "Peach Cobbler is a balanced hybrid by Humboldt Seed Company, crossing Apricot Papaya, Strawberry Banana, and Dream Queen. It delivers an uplifting cerebral high that eases into soothing body relaxation.",
+    "thc_range": "15-23%",
+    "cbd_range": "",
+    "sources": [
+      "web_research"
     ]
   },
   {
@@ -17539,6 +17818,35 @@
     ]
   },
   {
+    "strain_id": "purple-afghani",
+    "name": "Purple Afghani",
+    "type": "Indica",
+    "genetics": "Afghani landrace (purple phenotype)",
+    "terpenes": [
+      "Myrcene",
+      "Limonene",
+      "Caryophyllene"
+    ],
+    "effects": [
+      "Relaxed",
+      "Sleepy",
+      "Happy",
+      "Hungry"
+    ],
+    "flavors": [
+      "Grape",
+      "Earthy",
+      "Pine",
+      "Spicy"
+    ],
+    "description": "Purple Afghani is an indica-dominant strain rooted in Hindu Kush mountain genetics. Known for its dark purple buds and deeply sedating body high, ideal for evening use and insomnia relief.",
+    "thc_range": "18-24%",
+    "cbd_range": "",
+    "sources": [
+      "web_research"
+    ]
+  },
+  {
     "strain_id": "purple-cookies",
     "name": "Purple Cookies",
     "type": "Hybrid",
@@ -18777,13 +19085,25 @@
   {
     "strain_id": "sdg-og",
     "name": "SDG OG",
-    "type": "",
-    "genetics": "",
-    "terpenes": [],
-    "effects": [],
-    "flavors": [],
-    "description": "",
-    "thc_range": "",
+    "type": "Hybrid",
+    "genetics": "San Diego OG phenotype",
+    "terpenes": [
+      "Myrcene",
+      "Limonene",
+      "Caryophyllene"
+    ],
+    "effects": [
+      "Relaxed",
+      "Happy",
+      "Euphoric"
+    ],
+    "flavors": [
+      "Earthy",
+      "Pine",
+      "Citrus"
+    ],
+    "description": "SDG OG is a potent OG Kush phenotype originating from San Diego, California. Known for its classic OG flavor profile and strong relaxing effects.",
+    "thc_range": "20-26%",
     "cbd_range": "",
     "sources": [
       "leafly_untyped"
@@ -20471,6 +20791,35 @@
     ]
   },
   {
+    "strain_id": "strawberry-haze",
+    "name": "Strawberry Haze",
+    "type": "Sativa",
+    "genetics": "Northern Lights #5 x Swiss Sativa x Kali Mist",
+    "terpenes": [
+      "Myrcene",
+      "Caryophyllene",
+      "Limonene",
+      "Linalool"
+    ],
+    "effects": [
+      "Energetic",
+      "Uplifted",
+      "Creative",
+      "Focused"
+    ],
+    "flavors": [
+      "Strawberry",
+      "Sweet",
+      "Citrus"
+    ],
+    "description": "Strawberry Haze is a sativa-dominant strain created by Arjan at Green House Seeds, crossing Northern Lights #5, Swiss Sativa, and Kali Mist. Known for its sweet strawberry flavor and energizing cerebral effects.",
+    "thc_range": "17-20%",
+    "cbd_range": "",
+    "sources": [
+      "web_research"
+    ]
+  },
+  {
     "strain_id": "strawberry-jam-4-1-thc-cbn",
     "name": "Strawberry Jam 4:1 THC:CBN",
     "type": "Sativa",
@@ -20612,6 +20961,35 @@
     "cbd_range": "",
     "sources": [
       "catalog_extracted"
+    ]
+  },
+  {
+    "strain_id": "strawberry-shortcake",
+    "name": "Strawberry Shortcake",
+    "type": "Indica",
+    "genetics": "The White x White Wookie",
+    "terpenes": [
+      "Myrcene",
+      "Caryophyllene",
+      "Limonene",
+      "Linalool"
+    ],
+    "effects": [
+      "Relaxed",
+      "Euphoric",
+      "Happy",
+      "Creative"
+    ],
+    "flavors": [
+      "Strawberry",
+      "Vanilla",
+      "Earthy"
+    ],
+    "description": "Strawberry Shortcake is an indica-dominant hybrid bred by The Jungle Boys and Cannarado Genetics, crossing The White with White Wookie. Features a sweet strawberry flavor with balanced cerebral and body effects.",
+    "thc_range": "18-23%",
+    "cbd_range": "",
+    "sources": [
+      "web_research"
     ]
   },
   {
