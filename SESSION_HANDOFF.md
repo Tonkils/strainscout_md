@@ -159,7 +159,7 @@ This will upload only the changed files (catalog JSON + updated HTML pages) via 
 2. **Verify live site** — check strainscoutmd.com to confirm categories display correctly
 
 ### Short-term
-3. **Run a multi-category scrape** — the scraper code now captures non-flower products, but no new scrape has been run. Running the scrapers will populate real platform-authoritative categories (Weedmaps `edge_category.slug`, Dutchie `type`, Jane `kind`) instead of relying on name-based classification.
+3. **Run a multi-category scrape** — the scraper code now captures non-flower products, but no new scrape has been run. Running the scrapers will populate real platform-provided categories (Dutchie `type`, Jane `kind`) instead of relying on name-based classification. Note: Weedmaps is a scraping target for menu/price data only — Leafly is the authoritative source for strain properties (type, genetics, terpenes, effects).
 4. **Re-run the full pipeline** after multi-category scrape — `parse_raw.py` → `enrich.py` → `deduplicate.py` → `build_catalog.py` will produce a catalog with "verified" confidence (URL cross-verification) instead of "inferred" (name regex).
 5. **Update manual_overrides.json** — as new products are scraped, review any MEDIUM confidence items and add overrides.
 

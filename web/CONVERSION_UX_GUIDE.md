@@ -270,7 +270,7 @@ cp data/output/strainscout_catalog_v10.min.json web/public/data/
 - The `web/` folder is a Vite SPA. The `web_2/` folder is a parallel Next.js rebuild — don't confuse them.
 - All tRPC calls fail silently (no backend). Pages that rely on tRPC show empty states.
 - The `useAuth` hook returns null always. Auth-gated features are non-functional.
-- The catalog JSON is the single source of truth for all strain/price data.
+- Sources of truth: Strain List (`strainscout_strains_v1.json`) for strain data, Product List (`strainscout_products_v1.json`) for prices/availability, Dispensary List (`dispensary_benchmark_geocoded.json`) for locations, and Leafly for strain enrichment. Weedmaps is a scraping target for menu data only, not authoritative for strain properties.
 - Ordering links are string URLs (not the `{ dutchie, weedmaps }` object format from the original interface). The `getBuyLink()` utility in `utils.ts` handles both formats.
 - Browser caching can cause confusion during development. The `.htaccess` now sets `no-cache` on JSON and HTML files.
 - SFTP credentials for deployment are in `.env` (IONOS_SFTP_*).
