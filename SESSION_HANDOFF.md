@@ -1,7 +1,7 @@
 # StrainScout MD — Session Handoff
 
-**Date:** March 26–28, 2026
-**Session scope:** Category system overhaul, pipeline updates, frontend category pages, and the 6-phase manual verification plan
+**Date:** March 26–28, 2026 (categories); April 5, 2026 (data collection)
+**Session scope:** Category system overhaul, pipeline updates, frontend category pages, 6-phase manual verification plan, strain/product list separation, data collection optimization
 
 ---
 
@@ -134,6 +134,77 @@ Agent research saved to memory:
 | DialogTrigger typing | `web_2/src/components/ui/dialog.tsx` — changed to `React.ComponentProps<typeof DialogPrimitive.Trigger>` |
 | Dev server port conflict | `web_2/start-dev.bat` — removed hardcoded `--port 3000`, added `autoPort: true` to launch.json |
 
+### 8. Strain / Product List Separation (Complete — April 5, 2026)
+
+Separated the v10 catalog (which mixed strains and products) into distinct data files:
+
+| File | Records | Purpose |
+|------|---------|---------|
+| `data/output/strainscout_strains_v1.json` | 1,161 strains | Strain identity: name, type, genetics, terpenes, effects, flavors, description, THC range |
+| `data/output/strainscout_products_v1.json` | 1,297 products | Product data: prices, dispensaries, brand, `strain_id` FK to strain list, `strain_agnostic` flag |
+| `data/output/unmapped_products_report.json` | 398 unmatched | Reasoning per item: strain_not_identified (173), strain_agnostic (126), scrape_artifact (51), proprietary_flavor (40), non_cannabis_or_bundle (8) |
+| `data/output/strain_data_quality_report.json` | 6 root causes | Pipeline blame analysis with per-dispensary breakdown |
+
+- 899 products (69%) matched to strains via exact name, cleaned name, or substring match
+- 11 strains added via web research (Grape Stomper, Lamb's Bread, Peach Cobbler, etc.)
+- 5 strains enriched with missing data (Northern Lights, Maui Wowie, etc.)
+- Pipeline filters added to `parse_raw.py`: scrape artifact rejection, category inference, dispensary-specific reject patterns
+- Defense filter added to `build_catalog.py`: rejects "Other" category entries
+
+**Sources of truth updated:** Strain List, Product List, Dispensary List (`dispensary_benchmark_geocoded.json`), and Leafly. Weedmaps is a scraping target for menu/price data only, not authoritative for strain properties.
+
+### 9. Data Collection Optimization (Complete — April 5, 2026)
+
+Built a complete data collection system to track user behavior, attribution, and optimize email conversion.
+
+**Phase 1 — Cookie Consent + GA4 + Attribution:**
+
+| File | Type | What |
+|------|------|------|
+| `web_2/src/lib/cookies.ts` | NEW | Consent management, UTM attribution (30-day cookie), IP-based geo via ipapi.co |
+| `web_2/src/components/CookieConsent.tsx` | NEW | GDPR/CCPA banner: 3 tiers (Essential/Analytics/Marketing), customizable toggles |
+| `web_2/src/components/GoogleAnalytics.tsx` | NEW | GA4 (`G-GM6V8H260M`) loaded only after analytics consent |
+| `web_2/src/components/PostHogProvider.tsx` | EDIT | PostHog init gated behind consent, listens for `consent-updated` event |
+| `web_2/src/lib/analytics.ts` | EDIT | All 17 PostHog events gated behind `hasConsent("analytics")` |
+| `web_2/src/hooks/useEmailCapture.ts` | EDIT | Email signups enriched with utm_source, utm_medium, utm_campaign, channel, referrer, city, region |
+| `publish/upload_ionos.py` | EDIT | CSP updated: allows `googletagmanager.com`, `google-analytics.com`, `ipapi.co` |
+
+**Phase 2 — Email Collection Optimization:**
+
+| File | Type | What |
+|------|------|------|
+| `web_2/src/components/ExitIntentPopup.tsx` | NEW | Desktop-only exit-intent email capture (once/session, 10s delay gate, skips signed-up users) |
+| `web_2/src/components/DealDigestBanner.tsx` | EDIT | Smart timing: shows after 2nd pageview or 30s instead of immediately; city personalization from geo cookie |
+
+**Phase 3 — Privacy & Compliance:**
+
+| File | Type | What |
+|------|------|------|
+| `web_2/src/app/privacy/page.tsx` | NEW | Full privacy policy: cookies, data collection, third parties, retention, user rights, COPPA |
+| `web_2/src/components/Footer.tsx` | EDIT | Privacy Policy link now routes to `/privacy` |
+
+**Phase 4 — Schema & Admin Dashboard:**
+
+| File | Type | What |
+|------|------|------|
+| `web_2/src/db/schema.ts` | EDIT | 7 new columns on `emailSignups`: utmSource, utmMedium, utmCampaign, channel, referrer, city, region |
+| `database/migrations/001_add_attribution_columns.sql` | NEW | SQL migration with 3 indexes (channel, city, source+channel) |
+| `database/README.md` | EDIT | Migration instructions added |
+| `web_2/src/app/admin/analytics/page.tsx` | REWRITE | Real dashboard: signups by source/channel/city, recent signups table with masked emails |
+
+**User journey after these changes:**
+```
+1. LAND → Cookie consent banner slides up
+   Accept All → GA4 + PostHog + geo lookup activate
+2. BROWSE (page 1) → Attribution cookie stores UTM/referrer/channel
+3. ENGAGE (page 2 or 30s) → Deal Digest banner appears with city personalization
+4. LEAVE (exit intent) → "Don't miss this week's deals" popup (desktop only)
+5. CONVERT (email signup) → Attribution + city/region attached to Supabase record
+6. RETURN → Consent remembered, personalization persists
+```
+
+**Requires activation** — see "Immediate — Data Collection Activation" in next steps below.
+
 ---
 
 ## Where We Stopped
@@ -154,21 +225,54 @@ This will upload only the changed files (catalog JSON + updated HTML pages) via 
 
 ## What Still Needs to Happen (Future Work)
 
-### Immediate (next session)
-1. **Run the IONOS deploy** — the build output in `web_2/out/` is ready
-2. **Verify live site** — check strainscoutmd.com to confirm categories display correctly
+### Immediate — Data Collection Activation (next session)
 
-### Short-term
-3. **Run a multi-category scrape** — the scraper code now captures non-flower products, but no new scrape has been run. Running the scrapers will populate real platform-provided categories (Dutchie `type`, Jane `kind`) instead of relying on name-based classification. Note: Weedmaps is a scraping target for menu/price data only — Leafly is the authoritative source for strain properties (type, genetics, terpenes, effects).
-4. **Re-run the full pipeline** after multi-category scrape — `parse_raw.py` → `enrich.py` → `deduplicate.py` → `build_catalog.py` will produce a catalog with "verified" confidence (URL cross-verification) instead of "inferred" (name regex).
-5. **Update manual_overrides.json** — as new products are scraped, review any MEDIUM confidence items and add overrides.
+These steps are required to activate the data collection system built in the April 5, 2026 session:
 
-### Medium-term (from improvement plan)
-6. **Phase 1 (Security)** — CSP headers, credential audit, input validation
-7. **Phase 2 (Quick Wins)** — SEO metadata, performance optimization
-8. **Phase 3 (Code Quality)** — Consolidate duplicate code, proper error boundaries
-9. **Phase 4 (UX)** — Skeleton screens, improved DealCard, trust signals
-10. **Phase 5 (Pipeline Reliability)** — Retry logic, monitoring, alerting
+1. **Run Supabase migration** — Execute `database/migrations/001_add_attribution_columns.sql` in the Supabase SQL Editor. This adds `utm_source`, `utm_medium`, `utm_campaign`, `channel`, `referrer`, `city`, `region` columns to `email_signups` plus reporting indexes.
+
+2. **Set PostHog environment variable** — Add `NEXT_PUBLIC_POSTHOG_KEY=phc_your_key_here` to your build environment:
+   - **Local dev**: Create `web_2/.env.local` with the key
+   - **GitHub Actions**: Add as a repository secret in Settings > Secrets > Actions
+   - **Manual build**: Export the var before running `npm run build`
+   - Get the key from your PostHog project at https://us.posthog.com → Project Settings → API Key
+
+3. **Rebuild and deploy** — After setting the env var:
+   ```bash
+   cd web_2 && npm run build
+   cd .. && python3 -m publish.upload_ionos --next-incremental
+   ```
+
+4. **Verify live site** — After deploy, confirm:
+   - Cookie consent banner appears on first visit
+   - Accepting cookies activates GA4 (check GA4 Real-time report)
+   - Privacy Policy page loads at `/privacy`
+   - Email signup sends attribution data (check Supabase `email_signups` table for new columns)
+   - Exit-intent popup triggers on desktop (move cursor toward browser tabs)
+   - Admin dashboard at `/admin/analytics` shows signup data
+
+5. **Configure GA4 Enhanced Measurement** — In Google Analytics (property `G-GM6V8H260M`):
+   - Go to Admin > Data Streams > Web > Enhanced Measurement
+   - Enable: Scrolls, Outbound clicks, Site search, File downloads
+   - This gives you scroll depth, external link tracking, and search queries for free
+
+### Short-term — Data & Pipeline
+6. **Run a multi-category scrape** — the scraper code now captures non-flower products, but no new scrape has been run. Running the scrapers will populate real platform-provided categories (Dutchie `type`, Jane `kind`) instead of relying on name-based classification. Note: Weedmaps is a scraping target for menu/price data only — Leafly is the authoritative source for strain properties (type, genetics, terpenes, effects).
+7. **Re-run the full pipeline** after multi-category scrape — `parse_raw.py` → `enrich.py` → `deduplicate.py` → `build_catalog.py` will produce a catalog with "verified" confidence (URL cross-verification) instead of "inferred" (name regex).
+8. **Update manual_overrides.json** — as new products are scraped, review any MEDIUM confidence items and add overrides.
+
+### Medium-term — Data Collection Optimization
+9. **Connect email service** — Email signups currently go to Supabase + localStorage but no actual emails are sent. Integrate with a transactional email service (Resend, SendGrid, or Mailchimp) to send the weekly Tuesday deal digest.
+10. **A/B test email CTAs** — Use PostHog feature flags to test different Deal Digest banner headlines, exit-intent copy, and CTA button text to optimize conversion rates.
+11. **Add Facebook/Meta Pixel** — When ready for paid acquisition, add the Meta pixel behind the "marketing" cookie consent tier (already built, just needs the pixel script).
+12. **Terms of Service page** — Footer link is still a placeholder. Create `/terms` page with service terms.
+
+### Medium-term — Infrastructure (from improvement plan)
+13. **Phase 1 (Security)** — Credential audit, input validation (CSP headers already updated)
+14. **Phase 2 (Quick Wins)** — SEO metadata, performance optimization
+15. **Phase 3 (Code Quality)** — Consolidate duplicate code, proper error boundaries
+16. **Phase 4 (UX)** — Skeleton screens, improved DealCard, trust signals
+17. **Phase 5 (Pipeline Reliability)** — Retry logic, monitoring, alerting
 
 ---
 
@@ -184,6 +288,18 @@ This will upload only the changed files (catalog JSON + updated HTML pages) via 
 | Classification script | `pipeline/classify_and_report.py` |
 | Apply overrides script | `pipeline/apply_manual_categories.py` |
 | Category normalization | `scraper/category_map.py` |
+| Cookie consent + utilities | `web_2/src/lib/cookies.ts` — consent, attribution, geo helpers |
+| Cookie consent banner | `web_2/src/components/CookieConsent.tsx` |
+| Google Analytics (GA4) | `web_2/src/components/GoogleAnalytics.tsx` — gated behind consent |
+| Exit-intent popup | `web_2/src/components/ExitIntentPopup.tsx` |
+| PostHog provider | `web_2/src/components/PostHogProvider.tsx` — gated behind consent |
+| Analytics events (17) | `web_2/src/lib/analytics.ts` — all gated behind consent |
+| Email capture hook | `web_2/src/hooks/useEmailCapture.ts` — enriched with attribution + geo |
+| Privacy policy | `web_2/src/app/privacy/page.tsx` |
+| Admin analytics dashboard | `web_2/src/app/admin/analytics/page.tsx` |
+| DB migration (attribution) | `database/migrations/001_add_attribution_columns.sql` |
+| Drizzle schema | `web_2/src/db/schema.ts` |
+| CSP / .htaccess generator | `publish/upload_ionos.py` — CSP allows GA4 + PostHog + ipapi.co |
 | Agent skills | `.claude/commands/orchestrator.md`, `engineer.md`, `qa-agent.md`, `security-agent.md`, `ux-agent.md` |
 | Agent research | Memory files in `C:\Users\jaretwyatt\.claude\projects\C--Users-jaretwyatt--local-bin-strainscoutmd\memory\` |
 | Build output | `web_2/out/` (1,409+ static pages) |
