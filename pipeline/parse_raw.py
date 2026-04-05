@@ -170,6 +170,76 @@ def clean_product_name(raw_name: str) -> str:
     return n if len(n) >= 2 else raw_name.strip()
 
 
+# ── Dispensary-specific reject patterns ──────────────────────────────
+# These dispensaries have known scraping issues where non-product items
+# leak into the menu data. Keyed by lowercase substring in dispensary name.
+_DISPENSARY_REJECT_PATTERNS: dict[str, list[re.Pattern]] = {
+    "zen leaf": [
+        # Zen Leaf menus include promotional navigation links
+        re.compile(r"^shop\s", re.I),
+        re.compile(r"^browse\s", re.I),
+        re.compile(r"% off", re.I),
+        re.compile(r"^25% off", re.I),
+    ],
+    "gold leaf": [
+        # Gold Leaf lists price tiers as separate items
+        re.compile(r"^\$\d+$"),
+    ],
+    "chesacanna": [
+        # Chesacanna uses weight-only pack codes without strain names
+        re.compile(r"^\d+g?\s*\(\d+ct\)$", re.I),
+        # Chesacanna merch
+        re.compile(r"t-shirt|flag|patriot|pride", re.I),
+    ],
+    "ascend": [
+        # Ascend lists generic pack counts without strain names
+        re.compile(r"^\d+\s*pack$", re.I),
+    ],
+    "enlightened": [
+        # Enlightened uses emoji-prefixed promo banners
+        re.compile(r"^[^\w\s].*%\s*off", re.I),
+    ],
+}
+
+
+def _is_dispensary_reject(clean_name: str, dispensary: str) -> bool:
+    """Check if a product name should be rejected based on dispensary-specific rules."""
+    disp_lower = dispensary.lower()
+    for disp_key, patterns in _DISPENSARY_REJECT_PATTERNS.items():
+        if disp_key in disp_lower:
+            for pat in patterns:
+                if pat.search(clean_name):
+                    return True
+    return False
+
+
+def _infer_category_from_name(name_lower: str) -> str | None:
+    """Infer product category from name keywords when scraper provides none.
+
+    Returns a standard category string or None if no confident match.
+    """
+    # Vape indicators (high confidence — these are never flower)
+    if re.search(r"\bcart(ridge)?\b|\bdisposable\b|\bpod\b|\baio\b|\b510\b|\bvape\b", name_lower):
+        return "Vape"
+    # Concentrate indicators
+    if re.search(r"\bshatter\b|\bbudder\b|\bbadder\b|\bsauce\b|\bdiamonds?\b|\brso\b|\bfeco\b", name_lower):
+        return "Concentrate"
+    if re.search(r"\blive\s+(resin|rosin|sugar)\b|\bcured\s+(resin|sugar)\b", name_lower):
+        return "Concentrate"
+    # Pre-Roll indicators
+    if re.search(r"\bpre.?roll\b|\bjoint\b|\bblunt\b|\bdogwalkers?\b", name_lower):
+        return "Pre-Roll"
+    # Edible indicators (dosage patterns)
+    if re.search(r"\b\d+\s*mg\b", name_lower) and re.search(r"\b(thc|cbd|cbn|cbg)\b", name_lower):
+        return "Edible"
+    if re.search(r"\bgumm(y|ies)\b|\bchocolate\b|\bbrownie\b|\bseltzer\b|\blozenge\b|\bcapsule\b", name_lower):
+        return "Edible"
+    # Topical indicators
+    if re.search(r"\bsalve\b|\bbalm\b|\blotion\b|\btopical\b|\bpatch\b|\btransdermal\b", name_lower):
+        return "Topical"
+    return None
+
+
 def parse_thc(thc_raw) -> float | None:
     """Parse THC percentage string to float."""
     if not thc_raw:
@@ -293,6 +363,31 @@ def main():
             # ── Filter out price-as-name entries ──
             if clean_name.startswith("$") or clean_name.replace(".", "").replace(",", "").isdigit():
                 continue
+
+            # ── Filter out scrape artifacts: promos, merch, category labels, hardware ──
+            _nl = clean_name.lower()
+            if re.match(r"^(shop|browse)\s", _nl):
+                continue  # promo navigation ("Shop Cannabis by Effects: Relaxation")
+            if re.search(r"% off|% back|off \d", _nl):
+                continue  # discount text ("25% OFF Diamond Infused Swift Lifts")
+            if re.search(r"t-shirt|shirt\b|tee\b|jersey|hat\b|hoodie", _nl):
+                continue  # merch / apparel
+            if re.match(r"^(flower|edibles?|vapes?|topicals?|beverages?|accessories|apparel|adult use|au menu)$", _nl):
+                continue  # generic category labels scraped as product names
+            if re.search(r"\bbattery\b|\bcharger\b|\bgrinder\b|\blighter\b|\btray\b|\brolling paper", _nl):
+                continue  # hardware / accessories
+            if product_category == "Other":
+                continue  # anything classified as Other (bundles, seeds, accessories)
+
+            # ── Dispensary-specific reject rules ──
+            if _is_dispensary_reject(clean_name, disp_display):
+                continue
+
+            # ── Infer category from product name when scraper provides none ──
+            if not raw_cat:
+                inferred = _infer_category_from_name(_nl)
+                if inferred:
+                    product_category = inferred
 
             # ── Strip remaining weight prefixes/suffixes ──
             clean_name = re.sub(r'^\d+(\.\d+)?\s*[gG]\s+', '', clean_name)  # "3.5g Melonade" → "Melonade"

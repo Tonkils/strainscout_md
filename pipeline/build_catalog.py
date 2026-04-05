@@ -115,8 +115,15 @@ def main():
 
     with open(INPUT, encoding="utf-8") as f:
         data = json.load(f)
-    strains = data["strains"]
-    print(f"Input: {len(strains)} deduped strains")
+    strains_raw = data["strains"]
+    print(f"Input: {len(strains_raw)} deduped strains")
+
+    # ── Filter out non-product entries (merch, accessories, bundles) ──
+    strains = [s for s in strains_raw if s.get("product_category") != "Other"]
+    filtered = len(strains_raw) - len(strains)
+    if filtered:
+        print(f"Filtered out {filtered} 'Other' category entries (merch, bundles, accessories)")
+    print(f"Building catalog from {len(strains)} entries")
 
     disp_lookup = load_dispensary_benchmark()
     ordering_lookup = load_ordering_links()
