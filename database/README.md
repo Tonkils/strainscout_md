@@ -261,6 +261,16 @@ USING (
 );
 ```
 
+### 2.5 Attribution Columns Migration
+
+After the initial schema is set up, run the attribution migration to support data collection tracking:
+
+```sql
+-- See: migrations/001_add_attribution_columns.sql
+```
+
+Execute the entire `migrations/001_add_attribution_columns.sql` file in your Supabase SQL Editor. This adds UTM tracking, channel attribution, referrer, and city/region columns to the `email_signups` table.
+
 ### 3. First Admin Account
 
 After setting up the trigger and RLS, create your first admin account:
