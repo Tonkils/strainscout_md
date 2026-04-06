@@ -172,7 +172,13 @@ async function fetchCatalog(): Promise<Catalog> {
       const catalog: Catalog = {
         metadata: {
           version: "10.0",
-          generated: new Date().toISOString().split("T")[0],
+          generated: (() => {
+            let latest = "";
+            for (const s of strains) {
+              if (s.last_verified && s.last_verified > latest) latest = s.last_verified;
+            }
+            return latest ? latest.split("T")[0] : new Date().toISOString().split("T")[0];
+          })(),
           total_strains: strains.length,
           total_dispensaries: dispensaries.length,
           total_brands: brands.length,
