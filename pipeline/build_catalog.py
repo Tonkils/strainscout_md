@@ -172,7 +172,7 @@ def main():
             slug = re.sub(r"[^a-zA-Z0-9\s]", "", s["name"]).strip()
             slug = re.sub(r"\s+", "+", slug)
             if slug:
-                weedmaps_url = f"https://weedmaps.com/search?q={slug}&type=strain"
+                weedmaps_url = f"https://weedmaps.com/strains?q={slug}"
 
         # Normalize type casing
         raw_type = (s.get("type") or "Hybrid").strip().capitalize()

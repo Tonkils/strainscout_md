@@ -522,6 +522,7 @@ async def scrape_dispensary(
     except Exception as exc:
         result["error"] = str(exc)
         log.warning("  ERROR scraping %s: %s", slug, exc)
+        raise  # re-raise so @async_retry can trigger retries
 
     finally:
         page.remove_listener("response", capture_response)
@@ -582,7 +583,20 @@ async def run(targets: list[dict], *, headless: bool = True) -> dict:
             slug = target["weedmaps"]
             name = target.get("name", slug)
 
-            result = await scrape_dispensary(page, slug, name)
+            try:
+                result = await scrape_dispensary(page, slug, name)
+            except Exception as exc:
+                log.error("  All retries failed for %s: %s", slug, exc)
+                result = {
+                    "slug": slug,
+                    "name": name,
+                    "url": f"{WEEDMAPS_BASE}/{slug}",
+                    "scraped_at": datetime.now(timezone.utc).isoformat(),
+                    "products": [],
+                    "product_count": 0,
+                    "method": "error",
+                    "error": str(exc),
+                }
             all_results.append(result)
 
             # Save individual result immediately

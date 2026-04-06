@@ -2,6 +2,7 @@ import { COOKIE_NAME } from "@shared/const";
 import { getSessionCookieOptions } from "./_core/cookies";
 import { systemRouter } from "./_core/systemRouter";
 import { publicProcedure, protectedProcedure, adminProcedure, router } from "./_core/trpc";
+import { TRPCError } from "@trpc/server";
 import { insertEmailSignup, getSignupStats, insertPriceSnapshots, getLatestSnapshotDate, detectPriceDrops, getRecentPriceDrops, getStrainPriceDrops, getStrainPriceHistory, getPriceDropStats, createPriceAlert, getUserAlerts, getAlertById, updatePriceAlert, deletePriceAlert, getUserAlertCount, hasActiveAlert, submitStrainVote, getUserStrainVote, getStrainVoteAggregates, getStrainComments, deleteStrainVote, getUserVoteCount, submitStrainComment, getApprovedStrainComments, getPendingComments, getAllComments, moderateComment, deleteStrainComment, getCommentById, getStrainCommentCount, getPendingCommentCount, claimDispensary, getPartnerByUserId, getPartnerBySlug, getAllPartners, getPendingPartnerCount, updatePartnerStatus, isDispensaryVerified, getVerifiedDispensarySlugs, submitPartnerPrice, getPartnerPriceUpdates, getAllPriceUpdates, getPendingPriceUpdateCount, reviewPriceUpdate, getPartnerVerifiedPrices, getPartnerPriceStats } from "./db";
 import { checkProfanity } from "./profanityFilter";
 import type { InsertPriceSnapshot } from "../drizzle/schema";
@@ -519,14 +520,22 @@ export const appRouter = router({
         })
       )
       .mutation(async ({ ctx, input }) => {
-        const partner = await claimDispensary({
-          userId: ctx.user.id,
-          dispensarySlug: input.dispensarySlug,
-          dispensaryName: input.dispensaryName,
-          businessName: input.businessName,
-          contactEmail: input.contactEmail,
-          contactPhone: input.contactPhone ?? null,
-        });
+        let partner;
+        try {
+          partner = await claimDispensary({
+            userId: ctx.user.id,
+            dispensarySlug: input.dispensarySlug,
+            dispensaryName: input.dispensaryName,
+            businessName: input.businessName,
+            contactEmail: input.contactEmail,
+            contactPhone: input.contactPhone ?? null,
+          });
+        } catch (err: any) {
+          if (err.message.includes("already been claimed")) {
+            throw new TRPCError({ code: "CONFLICT", message: err.message });
+          }
+          throw err;
+        }
 
         // Notify owner of new partnership claim
         await notifyOwner({

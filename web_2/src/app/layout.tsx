@@ -1,27 +1,10 @@
 import type { Metadata } from "next";
-import { DM_Serif_Display, Space_Grotesk, JetBrains_Mono } from "next/font/google";
 import "./globals.css";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import PostHogProvider, { PostHogPageView } from "@/components/PostHogProvider";
 import ErrorBoundary from "@/components/ErrorBoundary";
 import { Suspense } from "react";
-
-const dmSerif = DM_Serif_Display({
-  weight: "400",
-  variable: "--font-dm-serif",
-  subsets: ["latin"],
-});
-
-const spaceGrotesk = Space_Grotesk({
-  variable: "--font-space-grotesk",
-  subsets: ["latin"],
-});
-
-const jetbrainsMono = JetBrains_Mono({
-  variable: "--font-jetbrains-mono",
-  subsets: ["latin"],
-});
 
 export const metadata: Metadata = {
   title: {
@@ -71,8 +54,16 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${dmSerif.variable} ${spaceGrotesk.variable} ${jetbrainsMono.variable} dark`}
+      className="dark"
     >
+      <head>
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
+        <link
+          href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=JetBrains+Mono:wght@100..800&family=Space+Grotesk:wght@300..700&display=swap"
+          rel="stylesheet"
+        />
+      </head>
       <body className="min-h-screen bg-background text-foreground flex flex-col">
         <PostHogProvider>
         <Suspense fallback={null}><PostHogPageView /></Suspense>
