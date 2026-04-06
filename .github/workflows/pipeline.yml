@@ -101,18 +101,21 @@ jobs:
       # ── Phase 4: Deploy ──────────────────────────────────────────
       - name: Deploy to IONOS via SFTP
         if: ${{ !inputs.skip_deploy }}
+        continue-on-error: true
+        id: deploy
         uses: wlixcc/SFTP-Deploy-Action@v1.2.4
         with:
           server: ${{ secrets.IONOS_SFTP_HOST }}
-          port: ${{ secrets.IONOS_SFTP_PORT }}
+          port: ${{ secrets.IONOS_SFTP_PORT || '22' }}
           username: ${{ secrets.IONOS_SFTP_USER }}
           password: ${{ secrets.IONOS_SFTP_PASS }}
           local_path: web_2/out/*
           remote_path: /
           sftp_only: true
 
-      # ── Phase 5: Log and commit ─────────────────────────────────
+      # ── Phase 5: Log and commit (always runs, even if deploy fails) ──
       - name: Log deployment
+        if: always()
         run: |
           CATALOG_MD5=$(md5sum data/output/strainscout_catalog_v10.min.json | cut -d' ' -f1)
           FILE_COUNT=$(find web_2/out -type f | wc -l)
@@ -121,6 +124,7 @@ jobs:
           echo "{\"ts\":\"$TS\",\"mode\":$MODE,\"uploaded\":$FILE_COUNT,\"skipped\":0,\"catalog_md5\":\"$CATALOG_MD5\"}" >> publish/deploy_log.jsonl
 
       - name: Commit updated catalog and logs
+        if: always()
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"

@@ -32,7 +32,7 @@ jobs:
         uses: wlixcc/SFTP-Deploy-Action@v1.2.4
         with:
           server: ${{ secrets.IONOS_SFTP_HOST }}
-          port: ${{ secrets.IONOS_SFTP_PORT }}
+          port: ${{ secrets.IONOS_SFTP_PORT || '22' }}
           username: ${{ secrets.IONOS_SFTP_USER }}
           password: ${{ secrets.IONOS_SFTP_PASS }}
           local_path: web_2/out/*
