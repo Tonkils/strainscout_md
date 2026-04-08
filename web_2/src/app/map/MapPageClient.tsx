@@ -11,7 +11,8 @@ import { GoogleMapView } from "@/components/GoogleMap";
 import { useCatalog, type CatalogStrain } from "@/hooks/useCatalog";
 import { useDispensaryDirectory, haversineDistance, type DirectoryDispensary } from "@/hooks/useDispensaryDirectory";
 import { useDriveTime } from "@/hooks/useDriveTime";
-import { trackPageViewed, trackMapInteracted } from "@/lib/analytics";
+import { trackPageViewed, trackMapInteracted, trackDispensaryClicked, trackOutboundLinkClicked } from "@/lib/analytics";
+import { slugify } from "@/lib/utils";
 
 const MD_CENTER = { lat: 39.05, lng: -76.85 };
 const MD_ZOOM = 8;
@@ -359,7 +360,7 @@ export default function MapPageClient() {
             </button>
             <select
               value={sortMode}
-              onChange={e => { setSortMode(e.target.value as SortMode); if (e.target.value === "distance" && !userLocation) requestLocation(); }}
+              onChange={e => { const mode = e.target.value as SortMode; setSortMode(mode); if (mode === "distance") { trackMapInteracted("sort_distance"); if (!userLocation) requestLocation(); } }}
               className="flex-1 text-xs bg-muted/50 border border-border rounded-lg px-2 py-1.5 focus:outline-none focus-visible:ring-1 focus-visible:ring-emerald-500"
             >
               <option value="strains">Most strains</option>
@@ -419,8 +420,8 @@ export default function MapPageClient() {
                   <div className="flex-1 min-w-0">
                     <div className="flex items-start justify-between gap-1">
                       <Link
-                        href={`/dispensary/${d.name.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "")}`}
-                        onClick={e => e.stopPropagation()}
+                        href={`/dispensary/${slugify(d.name)}`}
+                        onClick={e => { e.stopPropagation(); trackDispensaryClicked(d.name, "map_sidebar"); }}
                         className="font-semibold text-sm text-foreground hover:text-emerald-400 transition-colors truncate"
                       >
                         {d.name}
@@ -465,7 +466,7 @@ export default function MapPageClient() {
                         href={`https://www.google.com/maps/dir/?api=1&destination=${encodeURIComponent(d.full_address)}`}
                         target="_blank"
                         rel="noopener noreferrer"
-                        onClick={e => e.stopPropagation()}
+                        onClick={e => { e.stopPropagation(); trackOutboundLinkClicked(`https://www.google.com/maps/dir/?api=1&destination=${encodeURIComponent(d.full_address)}`, "google_maps", undefined, d.name); }}
                         className="text-xs text-emerald-400 hover:text-emerald-300 flex items-center gap-1"
                       >
                         <Navigation className="w-3 h-3" /> Directions
@@ -475,7 +476,7 @@ export default function MapPageClient() {
                           href={d.website}
                           target="_blank"
                           rel="noopener noreferrer"
-                          onClick={e => e.stopPropagation()}
+                          onClick={e => { e.stopPropagation(); trackOutboundLinkClicked(d.website, "dispensary_website", undefined, d.name); }}
                           className="text-xs text-blue-400 hover:text-blue-300 flex items-center gap-1"
                         >
                           <Globe className="w-3 h-3" /> Website
@@ -525,7 +526,7 @@ export default function MapPageClient() {
             <div className="flex items-start justify-between">
               <div>
                 <Link
-                  href={`/dispensary/${selectedDispensary.name.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "")}`}
+                  href={`/dispensary/${slugify(selectedDispensary.name)}`}
                   className="font-semibold text-foreground hover:text-emerald-400 transition-colors"
                 >
                   {selectedDispensary.name}
@@ -549,7 +550,7 @@ export default function MapPageClient() {
                 Get Directions
               </a>
               <Link
-                href={`/dispensary/${selectedDispensary.name.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "")}`}
+                href={`/dispensary/${slugify(selectedDispensary.name)}`}
                 className="flex-1 text-center py-2 text-xs font-medium border border-border rounded-lg hover:bg-muted transition-colors"
               >
                 View Strains

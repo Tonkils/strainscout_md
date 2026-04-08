@@ -2,13 +2,14 @@
 
 import { useMemo, useState, useEffect } from "react";
 import Link from "next/link";
-import { trackStrainViewed } from "@/lib/analytics";
+import { trackStrainViewed, trackOutboundLinkClicked, trackDispensaryClicked } from "@/lib/analytics";
 import {
   ArrowLeft, MapPin, Beaker, Store, Loader2, ShieldCheck,
   Tag, ExternalLink, Dna, Sparkles, Cherry, ChevronDown, Bell,
 } from "lucide-react";
 import { useCatalog, type CatalogStrain } from "@/hooks/useCatalog";
 import { VerificationBadge, StrainVerificationSummary } from "@/components/VerificationBadge";
+import { slugify } from "@/lib/utils";
 
 function getDispensaryLink(
   strain: CatalogStrain,
@@ -19,10 +20,6 @@ function getDispensaryLink(
   if (strain.leafly_url) return { url: strain.leafly_url, label: "View on Leafly", classes: "bg-emerald-500/10 border-emerald-500/25 text-emerald-400 hover:bg-emerald-500/20" };
   if (strain.weedmaps_url) return { url: strain.weedmaps_url, label: "Find on Weedmaps", classes: "bg-orange-500/10 border-orange-500/25 text-orange-400 hover:bg-orange-500/20" };
   return null;
-}
-
-function toSlug(name: string) {
-  return name.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/(^-|-$)/g, "");
 }
 
 export default function StrainDetailClient({ id }: { id: string }) {
@@ -121,6 +118,7 @@ export default function StrainDetailClient({ id }: { id: string }) {
               <div className="flex items-center gap-2 sm:gap-3 flex-wrap">
                 {strain.leafly_url && (
                   <a href={strain.leafly_url} target="_blank" rel="noopener noreferrer"
+                    onClick={() => trackOutboundLinkClicked(strain.leafly_url!, "leafly", strain.id)}
                     className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-emerald-500/10 border border-emerald-500/20 text-emerald-400 text-xs font-medium hover:bg-emerald-500/20 transition-colors">
                     <ExternalLink className="w-3 h-3" />
                     View on Leafly
@@ -129,6 +127,7 @@ export default function StrainDetailClient({ id }: { id: string }) {
                 )}
                 {strain.weedmaps_url && (
                   <a href={strain.weedmaps_url} target="_blank" rel="noopener noreferrer"
+                    onClick={() => trackOutboundLinkClicked(strain.weedmaps_url!, "weedmaps", strain.id)}
                     className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-orange-500/10 border border-orange-500/20 text-orange-400 text-xs font-medium hover:bg-orange-500/20 transition-colors">
                     <ExternalLink className="w-3 h-3" />
                     Find on Weedmaps
@@ -266,6 +265,7 @@ export default function StrainDetailClient({ id }: { id: string }) {
                           <VerificationBadge timestamp={p.last_verified} dispensaryName={p.dispensary} compact />
                           {link && (
                             <a href={link.url} target="_blank" rel="noopener noreferrer"
+                              onClick={() => trackOutboundLinkClicked(link.url, p.dispensary, strain.id, p.dispensary)}
                               className={`inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-medium shrink-0 transition-colors border ${link.classes}`}>
                               <ExternalLink className="w-3 h-3" />
                               {link.label}
@@ -291,6 +291,7 @@ export default function StrainDetailClient({ id }: { id: string }) {
                           {link && (
                             <div className="flex items-center gap-2 ml-7">
                               <a href={link.url} target="_blank" rel="noopener noreferrer"
+                                onClick={() => trackOutboundLinkClicked(link.url, p.dispensary, strain.id, p.dispensary)}
                                 className={`inline-flex items-center gap-1 px-2.5 py-1.5 rounded-lg text-[11px] font-medium transition-colors border ${link.classes}`}>
                                 <ExternalLink className="w-3 h-3" />
                                 {link.label}
@@ -333,7 +334,7 @@ export default function StrainDetailClient({ id }: { id: string }) {
                       <div className="hidden sm:flex items-center gap-3">
                         <MapPin className="w-4 h-4 text-muted-foreground shrink-0" />
                         <div className="min-w-0 flex-1">
-                          <Link href={`/dispensary/${toSlug(dName)}`} className="text-sm text-foreground hover:text-primary transition-colors truncate block">{dName}</Link>
+                          <Link href={`/dispensary/${slugify(dName)}`} onClick={() => trackDispensaryClicked(dName, "strain_detail", strain.id)} className="text-sm text-foreground hover:text-primary transition-colors truncate block">{dName}</Link>
                           {dInfo && (dInfo as { city?: string }).city && (
                             <p className="text-[10px] text-muted-foreground">{(dInfo as { city: string }).city}</p>
                           )}
@@ -344,6 +345,7 @@ export default function StrainDetailClient({ id }: { id: string }) {
                         <div className="flex items-center gap-1.5 shrink-0">
                           {dUrl && (
                             <a href={dUrl} target="_blank" rel="noopener noreferrer"
+                              onClick={() => trackOutboundLinkClicked(dUrl, dName, strain.id, dName)}
                               className="inline-flex items-center gap-1 px-2.5 py-1 rounded-md text-[11px] font-medium bg-blue-500/10 border border-blue-500/25 text-blue-400 hover:bg-blue-500/20 transition-colors">
                               <ExternalLink className="w-3 h-3" />
                               Website
@@ -351,6 +353,7 @@ export default function StrainDetailClient({ id }: { id: string }) {
                           )}
                           {strain.leafly_url && (
                             <a href={strain.leafly_url} target="_blank" rel="noopener noreferrer"
+                              onClick={() => trackOutboundLinkClicked(strain.leafly_url!, "leafly", strain.id, dName)}
                               className="inline-flex items-center gap-1 px-2.5 py-1 rounded-md text-[11px] font-medium bg-emerald-500/10 border border-emerald-500/25 text-emerald-400 hover:bg-emerald-500/20 transition-colors">
                               Leafly
                             </a>
@@ -362,7 +365,7 @@ export default function StrainDetailClient({ id }: { id: string }) {
                         <div className="flex items-center justify-between mb-1">
                           <div className="flex items-center gap-2 min-w-0 flex-1">
                             <MapPin className="w-3.5 h-3.5 text-muted-foreground shrink-0" />
-                            <Link href={`/dispensary/${toSlug(dName)}`} className="text-sm text-foreground hover:text-primary transition-colors truncate">{dName}</Link>
+                            <Link href={`/dispensary/${slugify(dName)}`} onClick={() => trackDispensaryClicked(dName, "strain_detail", strain.id)} className="text-sm text-foreground hover:text-primary transition-colors truncate">{dName}</Link>
                           </div>
                           {lowestPrice != null && (
                             <span className="font-price text-sm font-bold text-foreground shrink-0">${lowestPrice}</span>
@@ -371,6 +374,7 @@ export default function StrainDetailClient({ id }: { id: string }) {
                         <div className="flex items-center gap-1.5 ml-5 flex-wrap">
                           {dUrl && (
                             <a href={dUrl} target="_blank" rel="noopener noreferrer"
+                              onClick={() => trackOutboundLinkClicked(dUrl, dName, strain.id, dName)}
                               className="inline-flex items-center gap-1 px-2 py-1 rounded-md text-[11px] font-medium bg-blue-500/10 border border-blue-500/25 text-blue-400 transition-colors">
                               <ExternalLink className="w-3 h-3" />
                               Website

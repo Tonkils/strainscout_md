@@ -7,10 +7,7 @@ import {
   ChevronRight, Loader2, Building2, Phone,
 } from "lucide-react";
 import { useDispensaryDirectory, type DirectoryDispensary } from "@/hooks/useDispensaryDirectory";
-
-function slugify(name: string): string {
-  return name.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/(^-|-$)/g, "");
-}
+import { slugify } from "@/lib/utils";
 
 type SortKey = "name" | "strain_count" | "price_min" | "google_rating";
 

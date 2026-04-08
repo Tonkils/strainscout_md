@@ -1,13 +1,10 @@
 import { readFile } from "fs/promises";
 import { join } from "path";
 import DispensaryDetailClient from "./DispensaryDetailClient";
+import { slugify } from "@/lib/utils";
 
 const DIRECTORY_URL =
   "https://d2xsxph8kpxj0f.cloudfront.net/310519663317311392/oGX3NFZ9WLXhuXs89evvau/dispensary_directory.min_1575d3ca.json";
-
-function slugify(name: string): string {
-  return name.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/(^-|-$)/g, "");
-}
 
 async function dispensariesFromLocalCatalog(): Promise<{ slug: string }[]> {
   try {

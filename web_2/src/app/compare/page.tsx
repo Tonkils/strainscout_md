@@ -8,7 +8,7 @@ import { useCatalog, type CatalogStrain } from "@/hooks/useCatalog";
 import StrainCardSkeleton from "@/components/StrainCardSkeleton";
 import { getCategoryFromStrain, getProductCategory, TYPE_COLORS, CATEGORY_COLORS, CATEGORY_LABELS, filterStrains, type ProductCategory } from "@/lib/utils";
 import CompareInlineCTA from "@/components/CompareInlineCTA";
-import { trackPageViewed, trackFilterApplied } from "@/lib/analytics";
+import { trackPageViewed, trackFilterApplied, trackPriceCompared } from "@/lib/analytics";
 
 type SortKey = "name" | "thc" | "price" | "dispensaries" | "brand";
 
@@ -388,7 +388,7 @@ function ComparePageInner() {
                 )}
               </div>
               <button
-                onClick={() => setShowComparePanel(true)}
+                onClick={() => { setShowComparePanel(true); trackPriceCompared(compareList.map(s => s.id), compareList.length); }}
                 className="flex items-center gap-2 px-4 py-2 bg-cta text-cta-foreground rounded-lg text-sm font-semibold hover:bg-cta-hover transition-colors shadow-cta shrink-0"
               >
                 <GitCompareArrows className="w-4 h-4" />

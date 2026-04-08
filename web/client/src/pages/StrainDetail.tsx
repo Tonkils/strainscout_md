@@ -60,7 +60,9 @@ export default function StrainDetail() {
   }, [catalog, params.id]);
 
   // Partner data: verified dispensary slugs + partner-verified prices for this strain
-  const { data: verifiedSlugs } = trpc.partners.verifiedSlugs.useQuery();
+  const { data: verifiedSlugs } = trpc.partners.verifiedSlugs.useQuery(undefined, {
+    staleTime: 5 * 60 * 1000, // 5 minutes — verified partners change rarely
+  });
   const { data: partnerPrices } = trpc.partners.verifiedPrices.useQuery(
     { strainId: params.id },
     { enabled: !!params.id }

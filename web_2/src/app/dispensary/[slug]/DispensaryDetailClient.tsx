@@ -9,7 +9,8 @@ import {
 } from "lucide-react";
 import { useDispensaryDirectory, type DirectoryDispensary, haversineDistance } from "@/hooks/useDispensaryDirectory";
 import { useCatalog, type CatalogStrain } from "@/hooks/useCatalog";
-import { TYPE_COLORS } from "@/lib/utils";
+import { TYPE_COLORS, slugify } from "@/lib/utils";
+import { trackDispensaryClicked, trackOutboundLinkClicked } from "@/lib/analytics";
 
 function getBuyLink(strain: CatalogStrain, dispensaryName: string): { url: string; isOrder: boolean } | null {
   const orderLink = (strain.ordering_links as Record<string, string> | undefined)?.[dispensaryName];
@@ -102,6 +103,7 @@ function DispensaryStrainList({ strains, dispensaryName }: { strains: CatalogStr
                   {price && <div className="text-[10px] text-muted-foreground">${(price / 3.5).toFixed(2)}/g</div>}
                   {link && (
                     <a href={link.url} target="_blank" rel="noopener noreferrer"
+                      onClick={() => trackOutboundLinkClicked(link.url, link.isOrder ? "order" : "dispensary_website", strain.id, dispensaryName)}
                       className="inline-flex items-center gap-1 mt-1 px-2 py-1 rounded-md text-[10px] font-semibold bg-amber-500/15 text-amber-400 border border-amber-500/25 hover:bg-amber-500/25 transition-colors">
                       <ShoppingBag className="w-3 h-3" />
                       {link.isOrder ? "Order" : "View"}
@@ -134,6 +136,7 @@ function DispensaryStrainList({ strains, dispensaryName }: { strains: CatalogStr
               <div className="hidden md:flex col-span-2 items-center self-center">
                 {link ? (
                   <a href={link.url} target="_blank" rel="noopener noreferrer"
+                    onClick={() => trackOutboundLinkClicked(link.url, link.isOrder ? "order" : "dispensary_website", strain.id, dispensaryName)}
                     className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-semibold bg-amber-500/15 text-amber-400 border border-amber-500/25 hover:bg-amber-500/25 transition-colors">
                     <ShoppingBag className="w-3.5 h-3.5" />
                     {link.isOrder ? "Order" : "View"}
@@ -163,10 +166,6 @@ function DispensaryStrainList({ strains, dispensaryName }: { strains: CatalogStr
       )}
     </div>
   );
-}
-
-function slugify(name: string): string {
-  return name.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/(^-|-$)/g, "");
 }
 
 function NearbyDispensaries({ current, all }: { current: DirectoryDispensary; all: DirectoryDispensary[] }) {
@@ -305,6 +304,7 @@ export default function DispensaryDetailClient({ slug }: { slug: string }) {
               <div className="flex flex-wrap gap-3">
                 {dispensary.website && (
                   <a href={dispensary.website} target="_blank" rel="noopener noreferrer"
+                    onClick={() => { trackDispensaryClicked(dispensary.name, "dispensary_detail"); trackOutboundLinkClicked(dispensary.website, "dispensary_website", undefined, dispensary.name); }}
                     className="inline-flex items-center gap-2 px-4 py-2.5 rounded-lg bg-cta text-cta-foreground font-semibold text-sm hover:bg-cta-hover transition-colors shadow-cta">
                     <Globe className="w-4 h-4" />
                     Visit Website
@@ -321,6 +321,7 @@ export default function DispensaryDetailClient({ slug }: { slug: string }) {
                 {dispensary.lat && (
                   <a href={`https://www.google.com/maps/dir/?api=1&destination=${dispensary.lat},${dispensary.lng}`}
                     target="_blank" rel="noopener noreferrer"
+                    onClick={() => trackOutboundLinkClicked(`https://www.google.com/maps/dir/?api=1&destination=${dispensary.lat},${dispensary.lng}`, "google_maps", undefined, dispensary.name)}
                     className="inline-flex items-center gap-2 px-4 py-2.5 rounded-lg bg-card border border-border/50 text-foreground text-sm hover:border-primary/40 transition-colors">
                     <Navigation className="w-4 h-4" />
                     Get Directions

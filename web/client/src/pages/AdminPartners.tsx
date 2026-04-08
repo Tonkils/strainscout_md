@@ -28,7 +28,7 @@ export default function AdminPartners() {
   const [priceFilter, setPriceFilter] = useState<PriceFilter>("pending");
   const [adminNote, setAdminNote] = useState<Record<number, string>>({});
   const [reviewNote, setReviewNote] = useState<Record<number, string>>({});
-  const [expandedItem, setExpandedItem] = useState<number | null>(null);
+  const [expandedItem, setExpandedItem] = useState<{ type: "claim" | "price"; id: number } | null>(null);
 
   const utils = trpc.useUtils();
 
@@ -237,7 +237,7 @@ export default function AdminPartners() {
                     <div
                       className="px-5 py-4 flex items-center gap-4 cursor-pointer hover:bg-accent/5 transition-colors"
                       onClick={() =>
-                        setExpandedItem(expandedItem === p.id ? null : p.id)
+                        setExpandedItem(prev => prev?.type === "claim" && prev.id === p.id ? null : { type: "claim", id: p.id })
                       }
                     >
                       <div className="w-9 h-9 rounded-full bg-primary/15 flex items-center justify-center shrink-0">
@@ -259,12 +259,12 @@ export default function AdminPartners() {
                       </div>
                       <ChevronDown
                         className={`w-4 h-4 text-muted-foreground transition-transform ${
-                          expandedItem === p.id ? "rotate-180" : ""
+                          expandedItem?.type === "claim" && expandedItem.id === p.id ? "rotate-180" : ""
                         }`}
                       />
                     </div>
 
-                    {expandedItem === p.id && (
+                    {expandedItem?.type === "claim" && expandedItem.id === p.id && (
                       <div className="px-5 pb-4 border-t border-border/20 pt-3">
                         <div className="grid grid-cols-2 gap-3 text-sm mb-4">
                           <div>
@@ -381,9 +381,7 @@ export default function AdminPartners() {
                     <div
                       className="px-5 py-4 flex items-center gap-4 cursor-pointer hover:bg-accent/5 transition-colors"
                       onClick={() =>
-                        setExpandedItem(
-                          expandedItem === pu.id + 10000 ? null : pu.id + 10000
-                        )
+                        setExpandedItem(prev => prev?.type === "price" && prev.id === pu.id ? null : { type: "price", id: pu.id })
                       }
                     >
                       <div className="w-9 h-9 rounded-full bg-cta/15 flex items-center justify-center shrink-0">
@@ -411,12 +409,12 @@ export default function AdminPartners() {
                       </div>
                       <ChevronDown
                         className={`w-4 h-4 text-muted-foreground transition-transform ${
-                          expandedItem === pu.id + 10000 ? "rotate-180" : ""
+                          expandedItem?.type === "price" && expandedItem.id === pu.id ? "rotate-180" : ""
                         }`}
                       />
                     </div>
 
-                    {expandedItem === pu.id + 10000 && (
+                    {expandedItem?.type === "price" && expandedItem.id === pu.id && (
                       <div className="px-5 pb-4 border-t border-border/20 pt-3">
                         <div className="grid grid-cols-2 gap-3 text-sm mb-4">
                           <div>
