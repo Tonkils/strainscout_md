@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { Search, Menu, X, Leaf, TrendingDown, GitCompareArrows, Home, Building2, TrendingUp } from "lucide-react";
+import { Search, Menu, X, Leaf, TrendingDown, GitCompareArrows, Home, Building2, TrendingUp, Handshake } from "lucide-react";
 import { useState, useEffect, useRef } from "react";
 
 const navLinks = [
@@ -11,6 +11,7 @@ const navLinks = [
   { href: "/cheapest", label: "Cheapest", icon: TrendingDown },
   { href: "/top-value", label: "Top Value", icon: TrendingUp },
   { href: "/dispensaries", label: "Dispensaries", icon: Building2 },
+  { href: "/partner", label: "Partner", icon: Handshake },
 ];
 
 export default function Navbar() {

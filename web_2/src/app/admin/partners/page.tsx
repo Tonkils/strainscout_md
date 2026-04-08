@@ -8,7 +8,8 @@ import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Textarea } from "@/components/ui/textarea";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { CheckCircle, XCircle, Store, DollarSign } from "lucide-react";
+import { CheckCircle, XCircle, Store, DollarSign, ArrowLeft } from "lucide-react";
+import Link from "next/link";
 import type { DispensaryPartner, PartnerPriceUpdate } from "@/db/schema";
 
 export default function PartnersPage() {
@@ -96,7 +97,12 @@ export default function PartnersPage() {
   if (loading) {
     return (
       <div className="space-y-6">
-        <h1 className="text-3xl font-bold">Partner Portal</h1>
+        <div className="flex items-center gap-3">
+          <Link href="/partner" className="text-muted-foreground hover:text-foreground transition-colors">
+            <ArrowLeft className="h-5 w-5" />
+          </Link>
+          <h1 className="text-3xl font-bold">Partner Portal</h1>
+        </div>
         <div className="animate-pulse space-y-4">
           <div className="h-24 bg-muted rounded"></div>
           <div className="h-96 bg-muted rounded"></div>
@@ -108,8 +114,13 @@ export default function PartnersPage() {
   return (
     <div className="space-y-6">
       <div>
-        <h1 className="text-3xl font-bold">Partner Portal</h1>
-        <p className="text-muted-foreground mt-1">Dispensary applications and price updates</p>
+        <div className="flex items-center gap-3">
+          <Link href="/partner" className="text-muted-foreground hover:text-foreground transition-colors">
+            <ArrowLeft className="h-5 w-5" />
+          </Link>
+          <h1 className="text-3xl font-bold">Partner Portal</h1>
+        </div>
+        <p className="text-muted-foreground mt-1 ml-8">Dispensary applications and price updates</p>
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-4 gap-4">

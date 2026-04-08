@@ -121,7 +121,13 @@ export default function MapPageClient() {
     if (userMarkerRef.current) userMarkerRef.current.map = null;
     if (mapRef.current && window.google) {
       const pin = document.createElement("div");
-      pin.innerHTML = `<div style="width:16px;height:16px;background:#3b82f6;border:3px solid white;border-radius:50%;box-shadow:0 0 8px rgba(59,130,246,0.6);"></div>`;
+      const dot = document.createElement("div");
+      Object.assign(dot.style, {
+        width: "16px", height: "16px", background: "#3b82f6",
+        border: "3px solid white", borderRadius: "50%",
+        boxShadow: "0 0 8px rgba(59,130,246,0.6)",
+      });
+      pin.appendChild(dot);
       userMarkerRef.current = new google.maps.marker.AdvancedMarkerElement({
         map: mapRef.current, position: loc, content: pin, title: "Your Location", zIndex: 1000,
       });
@@ -206,28 +212,114 @@ export default function MapPageClient() {
     const bgColor = !hasStrain ? "#4b5563" : isGoodDeal ? "#22c55e" : isSelected ? "#3b82f6" : "#10b981";
     const size = isSelected ? 36 : 28;
     const el = document.createElement("div");
-    el.innerHTML = `<div style="width:${size}px;height:${size}px;background:${bgColor};border:2px solid white;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:${isSelected ? 14 : 11}px;font-weight:700;color:white;box-shadow:0 2px 8px rgba(0,0,0,0.3);cursor:pointer;">${index + 1}</div>`;
+    const circle = document.createElement("div");
+    Object.assign(circle.style, {
+      width: `${size}px`, height: `${size}px`, background: bgColor,
+      border: "2px solid white", borderRadius: "50%",
+      display: "flex", alignItems: "center", justifyContent: "center",
+      fontSize: `${isSelected ? 14 : 11}px`, fontWeight: "700", color: "white",
+      boxShadow: "0 2px 8px rgba(0,0,0,0.3)", cursor: "pointer",
+    });
+    circle.textContent = String(index + 1);
+    el.appendChild(circle);
     return el;
   }, [selectedStrain, getStrainPrice]);
 
-  const buildInfoContent = useCallback((d: DirectoryDispensary) => {
+  const buildInfoContent = useCallback((d: DirectoryDispensary): HTMLElement => {
     const price = getStrainPrice(d.name);
     const ratingNum = parseFloat(d.google_rating) || 0;
-    const stars = "★".repeat(Math.round(ratingNum)) + "☆".repeat(5 - Math.round(ratingNum));
+    const stars = "\u2605".repeat(Math.round(ratingNum)) + "\u2606".repeat(5 - Math.round(ratingNum));
     const dt = driveTimesMap.get(d.name);
-    return `<div style="font-family:'Space Grotesk',system-ui,sans-serif;max-width:280px;padding:4px;">
-      <h3 style="margin:0 0 6px;font-size:15px;font-weight:700;color:#111;">${d.name}</h3>
-      <p style="margin:0 0 4px;font-size:12px;color:#555;">${d.full_address}</p>
-      ${d.phone ? `<p style="margin:0 0 4px;font-size:12px;color:#555;">📞 ${d.phone}</p>` : ""}
-      ${ratingNum > 0 ? `<p style="margin:0 0 6px;font-size:12px;color:#f59e0b;">${stars} <span style="color:#555;">${d.google_rating}</span></p>` : ""}
-      <p style="margin:0 0 6px;font-size:12px;color:#555;">${d.strain_count} strains available</p>
-      ${dt ? `<p style="margin:0 0 6px;font-size:12px;color:#f59e0b;font-weight:600;">🚗 ${dt.driveTime} (${dt.driveDistance})</p>` : ""}
-      ${price !== null ? `<p style="margin:0 0 8px;font-size:16px;font-weight:700;color:#10b981;font-family:'JetBrains Mono',monospace;">$${price} <span style="font-size:11px;font-weight:400;color:#555;">for ${selectedStrain?.name}</span></p>` : ""}
-      <div style="display:flex;gap:6px;flex-wrap:wrap;">
-        <a href="https://www.google.com/maps/dir/?api=1&destination=${encodeURIComponent(d.full_address)}" target="_blank" rel="noopener noreferrer" style="padding:6px 12px;background:#10b981;color:white;border-radius:6px;font-size:12px;font-weight:600;text-decoration:none;">🧭 Directions</a>
-        ${d.website ? `<a href="${d.website}" target="_blank" rel="noopener noreferrer" style="padding:6px 12px;background:#3b82f6;color:white;border-radius:6px;font-size:12px;font-weight:600;text-decoration:none;">🌐 Website</a>` : ""}
-      </div>
-    </div>`;
+
+    const wrapper = document.createElement("div");
+    Object.assign(wrapper.style, {
+      fontFamily: "'Space Grotesk',system-ui,sans-serif",
+      maxWidth: "280px", padding: "4px",
+    });
+
+    const heading = document.createElement("h3");
+    Object.assign(heading.style, { margin: "0 0 6px", fontSize: "15px", fontWeight: "700", color: "#111" });
+    heading.textContent = d.name;
+    wrapper.appendChild(heading);
+
+    const addr = document.createElement("p");
+    Object.assign(addr.style, { margin: "0 0 4px", fontSize: "12px", color: "#555" });
+    addr.textContent = d.full_address;
+    wrapper.appendChild(addr);
+
+    if (d.phone) {
+      const phone = document.createElement("p");
+      Object.assign(phone.style, { margin: "0 0 4px", fontSize: "12px", color: "#555" });
+      phone.textContent = "\u{1F4DE} " + d.phone;
+      wrapper.appendChild(phone);
+    }
+
+    if (ratingNum > 0) {
+      const rating = document.createElement("p");
+      Object.assign(rating.style, { margin: "0 0 6px", fontSize: "12px", color: "#f59e0b" });
+      rating.textContent = stars + " ";
+      const ratingVal = document.createElement("span");
+      ratingVal.style.color = "#555";
+      ratingVal.textContent = d.google_rating;
+      rating.appendChild(ratingVal);
+      wrapper.appendChild(rating);
+    }
+
+    const strainCount = document.createElement("p");
+    Object.assign(strainCount.style, { margin: "0 0 6px", fontSize: "12px", color: "#555" });
+    strainCount.textContent = d.strain_count + " strains available";
+    wrapper.appendChild(strainCount);
+
+    if (dt) {
+      const drive = document.createElement("p");
+      Object.assign(drive.style, { margin: "0 0 6px", fontSize: "12px", color: "#f59e0b", fontWeight: "600" });
+      drive.textContent = "\u{1F697} " + dt.driveTime + " (" + dt.driveDistance + ")";
+      wrapper.appendChild(drive);
+    }
+
+    if (price !== null) {
+      const priceEl = document.createElement("p");
+      Object.assign(priceEl.style, {
+        margin: "0 0 8px", fontSize: "16px", fontWeight: "700",
+        color: "#10b981", fontFamily: "'JetBrains Mono',monospace",
+      });
+      priceEl.textContent = "$" + price + " ";
+      const forStrain = document.createElement("span");
+      Object.assign(forStrain.style, { fontSize: "11px", fontWeight: "400", color: "#555" });
+      forStrain.textContent = "for " + (selectedStrain?.name ?? "");
+      priceEl.appendChild(forStrain);
+      wrapper.appendChild(priceEl);
+    }
+
+    const actions = document.createElement("div");
+    Object.assign(actions.style, { display: "flex", gap: "6px", flexWrap: "wrap" });
+
+    const dirLink = document.createElement("a");
+    dirLink.href = "https://www.google.com/maps/dir/?api=1&destination=" + encodeURIComponent(d.full_address);
+    dirLink.target = "_blank";
+    dirLink.rel = "noopener noreferrer";
+    Object.assign(dirLink.style, {
+      padding: "6px 12px", background: "#10b981", color: "white",
+      borderRadius: "6px", fontSize: "12px", fontWeight: "600", textDecoration: "none",
+    });
+    dirLink.textContent = "\u{1F9ED} Directions";
+    actions.appendChild(dirLink);
+
+    if (d.website) {
+      const webLink = document.createElement("a");
+      webLink.href = d.website;
+      webLink.target = "_blank";
+      webLink.rel = "noopener noreferrer";
+      Object.assign(webLink.style, {
+        padding: "6px 12px", background: "#3b82f6", color: "white",
+        borderRadius: "6px", fontSize: "12px", fontWeight: "600", textDecoration: "none",
+      });
+      webLink.textContent = "\u{1F310} Website";
+      actions.appendChild(webLink);
+    }
+
+    wrapper.appendChild(actions);
+    return wrapper;
   }, [selectedStrain, getStrainPrice, driveTimesMap]);
 
   const updateMarkers = useCallback(() => {
@@ -299,6 +391,7 @@ export default function MapPageClient() {
             <input
               type="text"
               placeholder="Search dispensaries…"
+              aria-label="Search dispensaries"
               value={searchQuery}
               onChange={e => setSearchQuery(e.target.value)}
               className="w-full pl-9 pr-4 py-2 text-sm bg-muted/50 border border-border rounded-lg focus:outline-none focus:ring-1 focus:ring-emerald-500"
@@ -309,6 +402,8 @@ export default function MapPageClient() {
           <div className="relative">
             <button
               onClick={() => setStrainSearchOpen(o => !o)}
+              aria-label={selectedStrain ? `Strain filter: ${selectedStrain.name}` : "Filter by strain"}
+              aria-expanded={strainSearchOpen}
               className="w-full flex items-center justify-between px-3 py-2 text-sm bg-muted/50 border border-border rounded-lg hover:bg-muted transition-colors"
             >
               <span className="flex items-center gap-2 text-muted-foreground">
@@ -316,8 +411,8 @@ export default function MapPageClient() {
                 {selectedStrain ? selectedStrain.name : "Filter by strain…"}
               </span>
               {selectedStrain
-                ? <X className="w-4 h-4" onClick={e => { e.stopPropagation(); setSelectedStrain(null); setStrainSearchOpen(false); }} />
-                : <ChevronDown className="w-4 h-4" />
+                ? <button type="button" aria-label="Clear strain filter" onClick={e => { e.stopPropagation(); setSelectedStrain(null); setStrainSearchOpen(false); }}><X className="w-4 h-4" /></button>
+                : <ChevronDown aria-hidden="true" className="w-4 h-4" />
               }
             </button>
             {strainSearchOpen && (
@@ -327,6 +422,7 @@ export default function MapPageClient() {
                     autoFocus
                     type="text"
                     placeholder="Search strains…"
+                    aria-label="Search strains"
                     value={strainSearchQuery}
                     onChange={e => setStrainSearchQuery(e.target.value)}
                     className="w-full px-3 py-1.5 text-sm bg-muted/50 border border-border rounded focus:outline-none focus-visible:ring-1 focus-visible:ring-emerald-500"
@@ -360,6 +456,7 @@ export default function MapPageClient() {
             </button>
             <select
               value={sortMode}
+              aria-label="Sort dispensaries"
               onChange={e => { const mode = e.target.value as SortMode; setSortMode(mode); if (mode === "distance") { trackMapInteracted("sort_distance"); if (!userLocation) requestLocation(); } }}
               className="flex-1 text-xs bg-muted/50 border border-border rounded-lg px-2 py-1.5 focus:outline-none focus-visible:ring-1 focus-visible:ring-emerald-500"
             >
@@ -377,6 +474,7 @@ export default function MapPageClient() {
               <input
                 type="text"
                 placeholder="Enter zip code"
+                aria-label="Zip code"
                 value={zipCode}
                 onChange={e => setZipCode(e.target.value)}
                 onKeyDown={e => e.key === "Enter" && geocodeZip(zipCode)}
@@ -535,6 +633,7 @@ export default function MapPageClient() {
               </div>
               <button
                 onClick={() => setSelectedDispensary(null)}
+                aria-label="Close dispensary details"
                 className="p-1 rounded-full hover:bg-muted transition-colors ml-2"
               >
                 <X className="w-4 h-4" />
