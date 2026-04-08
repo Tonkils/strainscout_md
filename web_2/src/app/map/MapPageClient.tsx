@@ -484,6 +484,7 @@ export default function MapPageClient() {
               <button
                 onClick={() => geocodeZip(zipCode)}
                 disabled={zipLocating}
+                aria-label="Search by zip code"
                 className="px-3 py-1.5 text-sm bg-emerald-500 text-white rounded-lg hover:bg-emerald-600 disabled:opacity-50"
               >
                 {zipLocating ? <Loader2 aria-hidden="true" className="w-4 h-4 animate-spin" /> : "Go"}
@@ -505,7 +506,11 @@ export default function MapPageClient() {
               <div
                 key={d.id}
                 id={`disp-card-${d.id}`}
+                role="button"
+                tabIndex={0}
+                aria-label={`Select ${d.name}`}
                 onClick={() => handleCardClick(d)}
+                onKeyDown={e => { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); handleCardClick(d); } }}
                 className={`p-3 border-b border-border cursor-pointer transition-colors ${
                   isSelected ? "bg-emerald-500/10 border-l-2 border-l-emerald-500" : "hover:bg-muted/50"
                 }`}
