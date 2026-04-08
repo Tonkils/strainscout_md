@@ -1,0 +1,136 @@
+name: Weekly Data Pipeline
+
+on:
+  schedule:
+    # Every Tuesday at 6:00 AM UTC
+    - cron: "0 6 * * 2"
+  workflow_dispatch:
+    inputs:
+      skip_scrape:
+        description: "Skip scraping (reprocess existing raw data)"
+        type: boolean
+        default: false
+      skip_deploy:
+        description: "Skip deployment (build catalog only)"
+        type: boolean
+        default: false
+
+# Cancel any in-progress pipeline runs
+concurrency:
+  group: data-pipeline
+  cancel-in-progress: true
+
+jobs:
+  pipeline:
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+          cache: pip
+
+      - name: Install Python dependencies
+        run: pip install -r requirements.txt
+
+      - name: Install Playwright browsers
+        run: playwright install chromium --with-deps
+
+      - name: Cache Playwright browsers
+        uses: actions/cache@v4
+        with:
+          path: ~/.cache/ms-playwright
+          key: playwright-${{ runner.os }}-${{ hashFiles('requirements.txt') }}
+
+      # ── Phase 1: Scrape ──────────────────────────────────────────
+      - name: Run scrapers
+        if: ${{ !inputs.skip_scrape }}
+        run: python run_all.py --scrape-only
+        timeout-minutes: 35
+
+      - name: Upload raw data (artifact)
+        if: ${{ !inputs.skip_scrape }}
+        uses: actions/upload-artifact@v4
+        with:
+          name: raw-data
+          path: data/raw/
+          retention-days: 7
+
+      # ── Phase 2: Process ─────────────────────────────────────────
+      - name: Run processing pipeline
+        run: python run_all.py
+
+      - name: Upload catalog (artifact)
+        uses: actions/upload-artifact@v4
+        with:
+          name: catalog
+          path: data/output/strainscout_catalog_v10*.json
+          retention-days: 30
+
+      # ── Phase 3: Sync catalog to web_2 and build ─────────────────
+      - name: Copy catalog to web_2/public/data
+        run: |
+          mkdir -p web_2/public/data
+          cp data/output/strainscout_catalog_v10.min.json web_2/public/data/
+          cp data/output/strainscout_catalog_v10.json web_2/public/data/
+          echo "Catalog synced: $(md5sum data/output/strainscout_catalog_v10.min.json | cut -d' ' -f1)"
+
+      - name: Generate sitemap
+        run: python -m publish.generate_sitemap
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+          cache-dependency-path: web_2/package-lock.json
+
+      - name: Install Node dependencies
+        working-directory: web_2
+        run: npm ci
+
+      - name: Build Next.js static export
+        working-directory: web_2
+        run: npm run build
+
+      # ── Phase 4: Deploy ──────────────────────────────────────────
+      - name: Deploy to IONOS via SFTP
+        if: ${{ !inputs.skip_deploy }}
+        continue-on-error: true
+        id: deploy
+        uses: wlixcc/SFTP-Deploy-Action@v1.2.4
+        with:
+          server: ${{ secrets.IONOS_SFTP_HOST }}
+          port: ${{ secrets.IONOS_SFTP_PORT || '22' }}
+          username: ${{ secrets.IONOS_SFTP_USER }}
+          password: ${{ secrets.IONOS_SFTP_PASS }}
+          local_path: web_2/out/*
+          remote_path: /
+          sftp_only: true
+
+      # ── Phase 5: Log and commit (always runs, even if deploy fails) ──
+      - name: Log deployment
+        if: always()
+        run: |
+          CATALOG_MD5=$(md5sum data/output/strainscout_catalog_v10.min.json | cut -d' ' -f1)
+          FILE_COUNT=$(find web_2/out -type f | wc -l)
+          TS=$(date -u +"%Y-%m-%dT%H:%M:%SZ")
+          MODE=${{ inputs.skip_deploy && '"pipeline_build_only"' || '"pipeline_full"' }}
+          echo "{\"ts\":\"$TS\",\"mode\":$MODE,\"uploaded\":$FILE_COUNT,\"skipped\":0,\"catalog_md5\":\"$CATALOG_MD5\"}" >> publish/deploy_log.jsonl
+
+      - name: Commit updated catalog and logs
+        if: always()
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add data/output/strainscout_catalog_v10.json data/output/strainscout_catalog_v10.min.json
+          git add web_2/public/data/strainscout_catalog_v10.min.json web_2/public/data/strainscout_catalog_v10.json
+          git add web_2/public/sitemap.xml web_2/public/robots.txt
+          git add publish/deploy_log.jsonl
+          git diff --cached --quiet || git commit -m "chore: update catalog data $(date -u +%Y-%m-%d)"
+          git push

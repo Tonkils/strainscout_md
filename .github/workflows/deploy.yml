@@ -32,9 +32,29 @@ jobs:
         uses: wlixcc/SFTP-Deploy-Action@v1.2.4
         with:
           server: ${{ secrets.IONOS_SFTP_HOST }}
-          port: ${{ secrets.IONOS_SFTP_PORT }}
+          port: ${{ secrets.IONOS_SFTP_PORT || '22' }}
           username: ${{ secrets.IONOS_SFTP_USER }}
           password: ${{ secrets.IONOS_SFTP_PASS }}
           local_path: web_2/out/*
           remote_path: /
           sftp_only: true
+
+      - name: Log deployment
+        run: |
+          CATALOG_FILE="web_2/public/data/strainscout_catalog_v10.min.json"
+          if [ -f "$CATALOG_FILE" ]; then
+            CATALOG_MD5=$(md5sum "$CATALOG_FILE" | cut -d' ' -f1)
+          else
+            CATALOG_MD5=""
+          fi
+          FILE_COUNT=$(find web_2/out -type f | wc -l)
+          TS=$(date -u +"%Y-%m-%dT%H:%M:%SZ")
+          echo "{\"ts\":\"$TS\",\"mode\":\"github_actions\",\"uploaded\":$FILE_COUNT,\"skipped\":0,\"catalog_md5\":\"$CATALOG_MD5\"}" >> publish/deploy_log.jsonl
+
+      - name: Commit deploy log
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add publish/deploy_log.jsonl
+          git diff --cached --quiet || git commit -m "chore: log GitHub Actions deployment"
+          git push
