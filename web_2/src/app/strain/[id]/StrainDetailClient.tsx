@@ -9,7 +9,182 @@ import {
 } from "lucide-react";
 import { useCatalog, type CatalogStrain } from "@/hooks/useCatalog";
 import { VerificationBadge, StrainVerificationSummary } from "@/components/VerificationBadge";
+import { Skeleton } from "@/components/ui/skeleton";
 import { slugify } from "@/lib/utils";
+
+function StrainDetailSkeleton() {
+  return (
+    <div role="status" aria-label="Loading strain details" className="min-h-screen bg-background animate-pulse">
+      {/* Hero */}
+      <section className="border-b border-border/30 bg-card/30">
+        <div className="container py-5 sm:py-8">
+          {/* Back link */}
+          <Skeleton className="h-4 w-36 mb-3 sm:mb-4" />
+
+          <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-4">
+            <div>
+              {/* Type badge + brand tag + grade badge */}
+              <div className="flex items-center gap-2 mb-2">
+                <Skeleton className="h-5 w-16 rounded" />
+                <Skeleton className="h-4 w-20" />
+                <Skeleton className="h-5 w-16 rounded" />
+              </div>
+              {/* Strain name */}
+              <Skeleton className="h-8 sm:h-12 md:h-14 w-64 sm:w-80 md:w-96 mb-2 sm:mb-3" />
+              {/* Platform links + dispensary count */}
+              <div className="flex items-center gap-2 sm:gap-3">
+                <Skeleton className="h-8 w-32 rounded-full" />
+                <Skeleton className="h-8 w-36 rounded-full" />
+                <Skeleton className="h-8 w-28 rounded-full" />
+              </div>
+            </div>
+
+            {/* Right side: THC, price, verification, see-prices */}
+            <div className="flex items-center gap-4 sm:gap-6 shrink-0">
+              <div className="text-center">
+                <Skeleton className="h-8 sm:h-9 w-16 mx-auto mb-1" />
+                <Skeleton className="h-3 w-8 mx-auto" />
+              </div>
+              <div className="text-center">
+                <Skeleton className="h-8 sm:h-9 w-16 mx-auto mb-1" />
+                <Skeleton className="h-3 w-10 mx-auto" />
+              </div>
+              <div className="text-center">
+                <Skeleton className="h-6 w-20 mx-auto mb-1" />
+                <Skeleton className="h-3 w-16 mx-auto" />
+              </div>
+              <Skeleton className="h-12 w-16 rounded-lg" />
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Main content */}
+      <div className="container py-4 sm:py-8">
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+
+          {/* Left column */}
+          <div className="lg:col-span-2 space-y-6">
+
+            {/* Description card */}
+            <div className="bg-card border border-border/30 rounded-lg p-5 space-y-2">
+              <Skeleton className="h-4 w-full" />
+              <Skeleton className="h-4 w-full" />
+              <Skeleton className="h-4 w-3/4" />
+            </div>
+
+            {/* Genetics card */}
+            <div className="bg-card border border-border/30 rounded-lg overflow-hidden">
+              <div className="px-5 py-4 border-b border-border/30 flex items-center gap-2">
+                <Skeleton className="h-4 w-4 rounded" />
+                <Skeleton className="h-6 w-40" />
+              </div>
+              <div className="px-5 py-4">
+                <Skeleton className="h-4 w-48" />
+              </div>
+            </div>
+
+            {/* Effects & Flavors grid */}
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+              {/* Effects */}
+              <div className="bg-card border border-border/30 rounded-lg overflow-hidden">
+                <div className="px-5 py-4 border-b border-border/30 flex items-center gap-2">
+                  <Skeleton className="h-4 w-4 rounded" />
+                  <Skeleton className="h-5 w-16" />
+                </div>
+                <div className="p-5 flex flex-wrap gap-2">
+                  <Skeleton className="h-8 w-20 rounded-full" />
+                  <Skeleton className="h-8 w-24 rounded-full" />
+                  <Skeleton className="h-8 w-16 rounded-full" />
+                </div>
+              </div>
+              {/* Flavors */}
+              <div className="bg-card border border-border/30 rounded-lg overflow-hidden">
+                <div className="px-5 py-4 border-b border-border/30 flex items-center gap-2">
+                  <Skeleton className="h-4 w-4 rounded" />
+                  <Skeleton className="h-5 w-16" />
+                </div>
+                <div className="p-5 flex flex-wrap gap-2">
+                  <Skeleton className="h-8 w-16 rounded-full" />
+                  <Skeleton className="h-8 w-20 rounded-full" />
+                  <Skeleton className="h-8 w-24 rounded-full" />
+                </div>
+              </div>
+            </div>
+
+            {/* Prices by Dispensary table */}
+            <div className="bg-card border border-border/30 rounded-lg overflow-hidden">
+              <div className="px-5 py-4 border-b border-border/30 flex items-center justify-between">
+                <div>
+                  <Skeleton className="h-6 w-44 mb-1" />
+                  <Skeleton className="h-3 w-36" />
+                </div>
+                <Skeleton className="h-4 w-24" />
+              </div>
+              <div className="divide-y divide-border/20">
+                {Array.from({ length: 4 }).map((_, i) => (
+                  <div key={i} className="px-4 sm:px-5 py-3 flex items-center gap-3">
+                    <Skeleton className="w-6 h-6 rounded-full shrink-0" />
+                    <div className="min-w-0 flex-1">
+                      <Skeleton className="h-4 w-32 mb-1" />
+                      <Skeleton className="h-3 w-16" />
+                    </div>
+                    <div className="text-right shrink-0">
+                      <Skeleton className="h-5 w-12 mb-1 ml-auto" />
+                      <Skeleton className="h-3 w-14 ml-auto" />
+                    </div>
+                    <Skeleton className="h-6 w-16 rounded shrink-0" />
+                    <Skeleton className="h-8 w-24 rounded-lg shrink-0" />
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
+
+          {/* Right sidebar */}
+          <div className="space-y-6">
+
+            {/* Quick stats card */}
+            <div className="bg-card border border-border/30 rounded-lg p-5 space-y-3">
+              {Array.from({ length: 5 }).map((_, i) => (
+                <div key={i} className="flex justify-between">
+                  <Skeleton className="h-4 w-24" />
+                  <Skeleton className="h-4 w-16" />
+                </div>
+              ))}
+              <Skeleton className="h-1.5 w-full rounded-full mt-2" />
+            </div>
+
+            {/* Cross-reference card */}
+            <div className="bg-card border border-border/30 rounded-lg overflow-hidden">
+              <div className="px-5 py-4 border-b border-border/30 flex items-center gap-2">
+                <Skeleton className="h-4 w-4 rounded" />
+                <Skeleton className="h-5 w-32" />
+              </div>
+              <div className="p-5 space-y-3">
+                <Skeleton className="h-3 w-52 mb-3" />
+                <Skeleton className="h-14 w-full rounded-lg" />
+                <Skeleton className="h-14 w-full rounded-lg" />
+              </div>
+            </div>
+
+            {/* Data quality card */}
+            <div className="bg-card border border-border/30 rounded-lg p-5">
+              <div className="flex items-start gap-3">
+                <Skeleton className="w-5 h-5 rounded shrink-0" />
+                <div className="flex-1">
+                  <Skeleton className="h-4 w-40 mb-1" />
+                  <Skeleton className="h-3 w-full" />
+                  <Skeleton className="h-3 w-3/4 mt-1" />
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+}
 
 function getDispensaryLink(
   strain: CatalogStrain,
@@ -53,12 +228,7 @@ export default function StrainDetailClient({ id }: { id: string }) {
   }, [catalog, strain]);
 
   if (loading) {
-    return (
-      <div role="status" className="flex items-center justify-center py-32">
-        <Loader2 aria-hidden="true" className="w-8 h-8 text-primary animate-spin" />
-        <span className="ml-3 text-muted-foreground">Loading strain data...</span>
-      </div>
-    );
+    return <StrainDetailSkeleton />;
   }
 
   if (!strain) {

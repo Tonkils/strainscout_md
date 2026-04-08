@@ -5,6 +5,7 @@ import Link from "next/link";
 import {
   TrendingDown, Loader2, ArrowDown, Filter, Leaf, Search, X,
 } from "lucide-react";
+import { Skeleton } from "@/components/ui/skeleton";
 import { useCatalog } from "@/hooks/useCatalog";
 
 type DealItem = {
@@ -30,6 +31,41 @@ const TYPE_COLOR: Record<string, string> = {
   sativa: "bg-amber-500/20 text-amber-300",
   hybrid: "bg-emerald-500/20 text-emerald-300",
 };
+
+function DealDropCardSkeleton() {
+  return (
+    <div className="bg-card border border-border/30 rounded-lg overflow-hidden animate-pulse h-full flex flex-col">
+      {/* Top banner */}
+      <Skeleton className="h-8 w-full rounded-none" />
+      <div className="p-4 flex-1 flex flex-col">
+        {/* Type badge + brand text */}
+        <div className="flex items-center gap-2 mb-2">
+          <Skeleton className="h-4 w-14 rounded" />
+          <Skeleton className="h-3 w-20 rounded" />
+        </div>
+        {/* Strain name */}
+        <Skeleton className="h-5 w-3/4 rounded mb-1" />
+        {/* THC line */}
+        <Skeleton className="h-3 w-1/3 rounded mb-3" />
+        {/* Bottom section */}
+        <div className="mt-auto pt-3 border-t border-border/20">
+          <div className="flex items-end justify-between">
+            <div>
+              <Skeleton className="h-2.5 w-14 rounded mb-1" />
+              <Skeleton className="h-6 w-16 rounded" />
+            </div>
+            <div className="text-right">
+              <Skeleton className="h-2.5 w-14 rounded mb-1 ml-auto" />
+              <Skeleton className="h-4 w-12 rounded ml-auto" />
+            </div>
+          </div>
+          {/* Dispensary name */}
+          <Skeleton className="h-3 w-2/3 rounded mt-1.5" />
+        </div>
+      </div>
+    </div>
+  );
+}
 
 function DealDropCard({ deal }: { deal: DealItem }) {
   return (
@@ -235,9 +271,10 @@ export default function DealsPage() {
       {/* Grid */}
       <section className="container py-8 sm:py-12">
         {loading ? (
-          <div role="status" className="flex items-center justify-center py-20">
-            <Loader2 aria-hidden="true" className="w-8 h-8 text-primary animate-spin" />
-            <span className="ml-3 text-muted-foreground">Loading deals...</span>
+          <div role="status" aria-label="Loading deals" className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
+            {Array.from({ length: 12 }).map((_, i) => (
+              <DealDropCardSkeleton key={i} />
+            ))}
           </div>
         ) : displayDeals.length > 0 ? (
           <>

@@ -10,6 +10,7 @@ import {
 import { useDispensaryDirectory, type DirectoryDispensary, haversineDistance } from "@/hooks/useDispensaryDirectory";
 import { useCatalog, type CatalogStrain } from "@/hooks/useCatalog";
 import { TYPE_COLORS, slugify } from "@/lib/utils";
+import { Skeleton } from "@/components/ui/skeleton";
 import { trackDispensaryClicked, trackOutboundLinkClicked } from "@/lib/analytics";
 
 function getBuyLink(strain: CatalogStrain, dispensaryName: string): { url: string; isOrder: boolean } | null {
@@ -203,6 +204,95 @@ function NearbyDispensaries({ current, all }: { current: DirectoryDispensary; al
   );
 }
 
+function DispensaryDetailSkeleton() {
+  return (
+    <div role="status" aria-label="Loading dispensary details" className="min-h-screen bg-background">
+      {/* Breadcrumb */}
+      <div className="border-b border-border/20">
+        <div className="container py-3">
+          <div className="flex items-center gap-2">
+            <Skeleton className="h-4 w-28" />
+            <span className="text-muted-foreground">/</span>
+            <Skeleton className="h-4 w-40" />
+          </div>
+        </div>
+      </div>
+
+      {/* Hero */}
+      <section className="border-b border-border/30 bg-card/30">
+        <div className="container py-8 sm:py-12">
+          <div className="flex flex-col lg:flex-row gap-8">
+            {/* Left side */}
+            <div className="flex-1">
+              {/* Name */}
+              <Skeleton className="h-9 sm:h-10 md:h-12 w-72 mb-2" />
+              {/* Brand line */}
+              <Skeleton className="h-4 w-36 mb-3" />
+              {/* Address + rating row */}
+              <div className="flex flex-wrap items-center gap-4 mb-6">
+                <Skeleton className="h-4 w-56" />
+                <Skeleton className="h-4 w-24" />
+              </div>
+              {/* CTA buttons row */}
+              <div className="flex flex-wrap gap-3">
+                <Skeleton className="h-10 w-36 rounded-lg" />
+                <Skeleton className="h-10 w-36 rounded-lg" />
+                <Skeleton className="h-10 w-36 rounded-lg" />
+              </div>
+            </div>
+
+            {/* Right: stat cards 2x2 */}
+            <div className="grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-2 gap-3 lg:w-64">
+              {Array.from({ length: 4 }).map((_, i) => (
+                <div key={i} className="bg-card border border-border/30 rounded-lg p-4">
+                  <Skeleton className="h-3 w-16 mb-2" />
+                  <Skeleton className="h-7 w-14" />
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Strain table section */}
+      <section className="container py-8 sm:py-12">
+        {/* Section heading */}
+        <Skeleton className="h-7 w-52 mb-6" />
+
+        {/* Filter bar */}
+        <div className="flex flex-col sm:flex-row gap-3 mb-5">
+          <Skeleton className="h-9 w-56 rounded-lg" />
+          <Skeleton className="h-9 w-full sm:max-w-xs rounded-lg" />
+        </div>
+
+        {/* Table header */}
+        <div className="hidden md:grid grid-cols-12 gap-2 px-4 py-2 border-b border-border/30">
+          <Skeleton className="col-span-4 h-3 w-16" />
+          <Skeleton className="col-span-2 h-3 w-12" />
+          <Skeleton className="col-span-1 h-3 w-10" />
+          <Skeleton className="col-span-1 h-3 w-8" />
+          <Skeleton className="col-span-2 h-3 w-16" />
+          <Skeleton className="col-span-2 h-3 w-12" />
+        </div>
+
+        {/* Table rows */}
+        <div className="divide-y divide-border/20">
+          {Array.from({ length: 8 }).map((_, i) => (
+            <div key={i} className="grid grid-cols-12 gap-2 px-4 py-3">
+              <Skeleton className="col-span-4 h-4 w-full" />
+              <Skeleton className="col-span-2 h-4 w-3/4" />
+              <Skeleton className="col-span-1 h-5 w-12 rounded" />
+              <Skeleton className="col-span-1 h-4 w-10" />
+              <Skeleton className="col-span-2 h-4 w-14" />
+              <Skeleton className="col-span-2 h-7 w-16 rounded-lg" />
+            </div>
+          ))}
+        </div>
+      </section>
+    </div>
+  );
+}
+
 export default function DispensaryDetailClient({ slug }: { slug: string }) {
   const { dispensaries, loading: dirLoading } = useDispensaryDirectory();
   const { catalog, loading: catLoading } = useCatalog();
@@ -245,12 +335,7 @@ export default function DispensaryDetailClient({ slug }: { slug: string }) {
   const rating = parseFloat(dispensary?.google_rating || "0");
 
   if (loading) {
-    return (
-      <div role="status" className="flex items-center justify-center py-32">
-        <Loader2 aria-hidden="true" className="w-8 h-8 text-primary animate-spin" />
-        <span className="ml-3 text-muted-foreground">Loading dispensary...</span>
-      </div>
-    );
+    return <DispensaryDetailSkeleton />;
   }
 
   if (!dispensary) {

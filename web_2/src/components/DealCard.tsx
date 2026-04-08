@@ -1,6 +1,6 @@
 import Link from "next/link";
 import type { CatalogStrain } from "@/hooks/useCatalog";
-import { MapPin, Beaker, ExternalLink } from "lucide-react";
+import { MapPin, Beaker, ExternalLink, ShieldCheck } from "lucide-react";
 import { getCategoryFromStrain, CATEGORY_COLORS, TYPE_COLORS } from "@/lib/utils";
 
 interface DealCardProps {
@@ -23,6 +23,15 @@ function getBuyLink(strain: CatalogStrain, dispensaryName: string): string | nul
   return null;
 }
 
+function getFreshnessLabel(lastVerified?: string): { text: string; className: string } | null {
+  if (!lastVerified) return null;
+  const days = Math.floor((Date.now() - new Date(lastVerified).getTime()) / 86_400_000);
+  if (days <= 0) return { text: "Checked today", className: "text-emerald-400" };
+  if (days <= 2) return { text: `Checked ${days}d ago`, className: "text-emerald-400" };
+  if (days <= 7) return { text: `Checked ${days}d ago`, className: "text-amber-400" };
+  return { text: "Checked >7d ago", className: "text-muted-foreground/60" };
+}
+
 export default function DealCard({ strain, hideCategory }: DealCardProps) {
   const typeLabel = strain.type.charAt(0).toUpperCase() + strain.type.slice(1);
   const typeKey = strain.type.toLowerCase();
@@ -33,6 +42,7 @@ export default function DealCard({ strain, hideCategory }: DealCardProps) {
       : 0;
   const terpenes = (strain.terpenes || []).filter((t) => t && t !== "Not_Found");
   const buyLink = bestPrice ? getBuyLink(strain, bestPrice.dispensary) : null;
+  const freshness = bestPrice ? getFreshnessLabel(bestPrice.last_verified) : null;
   const category = getCategoryFromStrain(strain);
   const categoryColor = CATEGORY_COLORS[category];
 
@@ -51,8 +61,14 @@ export default function DealCard({ strain, hideCategory }: DealCardProps) {
               </span>
             )}
             {strain.grade && (
-              <span className={`px-1.5 py-0.5 rounded text-[9px] font-bold ${GRADE_COLORS[strain.grade] || GRADE_COLORS.C}`}>
+              <span className={`px-1.5 py-0.5 rounded text-[9px] font-bold ${GRADE_COLORS[strain.grade] || GRADE_COLORS.C}${strain.grade === "A" ? " ring-1 ring-primary/20" : ""}`}>
                 Grade {strain.grade}
+              </span>
+            )}
+            {(strain.leafly_verified || strain.weedmaps_verified) && (
+              <span className="inline-flex items-center gap-0.5 px-1.5 py-0.5 rounded text-[9px] font-semibold bg-emerald-500/15 text-emerald-400">
+                <ShieldCheck className="w-3 h-3" />
+                Verified
               </span>
             )}
             {savings >= 15 && (
@@ -116,6 +132,9 @@ export default function DealCard({ strain, hideCategory }: DealCardProps) {
                   </button>
                 )}
               </div>
+            )}
+            {freshness && (
+              <p className={`text-[9px] mt-1 ${freshness.className}`}>{freshness.text}</p>
             )}
           </div>
         </div>

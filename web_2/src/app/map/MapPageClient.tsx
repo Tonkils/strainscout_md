@@ -7,6 +7,7 @@ import {
   Search, MapPin, Phone, Globe, Star, Navigation,
   ChevronDown, X, Loader2, Leaf, Crosshair, Car,
 } from "lucide-react";
+import { Skeleton } from "@/components/ui/skeleton";
 import { GoogleMapView } from "@/components/GoogleMap";
 import { useCatalog, type CatalogStrain } from "@/hooks/useCatalog";
 import { useDispensaryDirectory, haversineDistance, type DirectoryDispensary } from "@/hooks/useDispensaryDirectory";
@@ -364,9 +365,26 @@ export default function MapPageClient() {
   // ─── Render ────────────────────────────────────────────────
   if (loading) {
     return (
-      <div role="status" className="flex items-center justify-center min-h-[60vh]">
-        <Loader2 aria-hidden="true" className="w-8 h-8 animate-spin text-emerald-500" />
-        <span className="ml-3 text-muted-foreground">Loading dispensary map…</span>
+      <div role="status" aria-label="Loading dispensary map" className="flex flex-col lg:flex-row h-[calc(100vh-64px)] overflow-hidden">
+        {/* Sidebar skeleton */}
+        <div className="w-full lg:w-[350px] flex flex-col border-r border-border p-4 space-y-3">
+          {/* Search bar skeleton */}
+          <Skeleton className="h-10 w-full rounded-lg" />
+          {/* Sort bar skeleton */}
+          <Skeleton className="h-8 w-full rounded-lg" />
+          {/* Dispensary card skeletons */}
+          {Array.from({ length: 6 }).map((_, i) => (
+            <div key={i} className="animate-pulse space-y-2 py-3 border-b border-border/30">
+              <Skeleton className="h-4 w-3/4 rounded" />
+              <Skeleton className="h-3 w-1/2 rounded" />
+              <Skeleton className="h-3 w-1/4 rounded" />
+            </div>
+          ))}
+        </div>
+        {/* Map area skeleton */}
+        <div className="flex-1">
+          <Skeleton className="w-full h-full min-h-[300px] rounded-none" />
+        </div>
       </div>
     );
   }
