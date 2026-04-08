@@ -108,7 +108,7 @@ export default function Footer() {
             <h4 className="text-xs uppercase tracking-wider text-muted-foreground mb-3">Legal</h4>
             <div className="space-y-2.5">
               <span className="block text-sm text-foreground/40 py-0.5">Privacy Policy</span>
-              <span className="block text-sm text-foreground/40 py-0.5">Terms of Service</span>
+              <Link href="/terms" className="block text-sm text-foreground/80 hover:text-primary transition-colors py-0.5">Terms of Service</Link>
               <span className="block text-sm text-foreground/40 py-0.5">Disclaimer</span>
             </div>
           </div>

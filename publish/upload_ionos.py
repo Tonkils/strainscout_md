@@ -7,10 +7,10 @@ Uploads:
   2. Optionally rebuilds and uploads the full SPA
 
 Credentials from .env:
-  IONOS_SFTP_HOST=access-5019966776.webspace-host.com
+  IONOS_SFTP_HOST=your-host.webspace-host.com
   IONOS_SFTP_PORT=22
-  IONOS_SFTP_USER=a3051710
-  IONOS_SFTP_PASS=...
+  IONOS_SFTP_USER=your-username
+  IONOS_SFTP_PASS=your-password
 
 Usage:
     python -m publish.upload_ionos                # Upload catalog only
@@ -48,8 +48,8 @@ MANIFEST_FILE = Path(__file__).resolve().parent / "deploy_manifest_next.json"
 DEPLOY_LOG = Path(__file__).resolve().parent / "deploy_log.jsonl"
 
 # ── Security-hardened .htaccess content ──────────────────────────────────────
-# CSP allows: self, PostHog analytics, Google Maps, CloudFront catalog CDN.
-# Next.js static export requires 'unsafe-inline' for hydration script tags.
+# CSP allows: self, PostHog analytics, Google Maps, CloudFront catalog CDN, Supabase.
+# style-src 'unsafe-inline' is required for Tailwind/shadcn inline styles.
 _SECURITY_HEADERS = """\
 # Security headers (OWASP recommended)
 <IfModule mod_headers.c>
@@ -57,7 +57,7 @@ _SECURITY_HEADERS = """\
   Header always set X-Content-Type-Options "nosniff"
   Header always set Referrer-Policy "strict-origin-when-cross-origin"
   Header always set Permissions-Policy "camera=(), microphone=(), geolocation=(self)"
-  Header always set Content-Security-Policy "default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; connect-src 'self' https://us.i.posthog.com https://us-assets.i.posthog.com https://d2xsxph8kpxj0f.cloudfront.net https://*.supabase.co; img-src 'self' data: https: blob:; font-src 'self' data:; frame-src https://www.google.com https://maps.google.com; frame-ancestors 'none'; form-action 'self'; base-uri 'self'"
+  Header always set Content-Security-Policy "default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; connect-src 'self' https://us.i.posthog.com https://us-assets.i.posthog.com https://d2xsxph8kpxj0f.cloudfront.net https://*.supabase.co; img-src 'self' data: https: blob:; font-src 'self' data:; frame-src https://www.google.com https://maps.google.com; frame-ancestors 'none'; form-action 'self'; base-uri 'self'"
 </IfModule>
 
 """

@@ -359,9 +359,9 @@ If the catalog JSON is malformed or a component throws during rendering, the ent
 **File:** `publish/upload_ionos.py` (lines 124–126)
 
 ```python
-DEFAULT_HOST = "access-5019966776.webspace-host.com"
+DEFAULT_HOST = "REDACTED"
 DEFAULT_PORT = 22
-DEFAULT_USER = "a3051710"
+DEFAULT_USER = "REDACTED"
 ```
 
 The IONOS SFTP hostname, port, and username are hardcoded as defaults in the source code, which is committed to the repository. While the password is loaded from `.env`, the hostname and username are sufficient for an attacker to attempt brute-force attacks against the hosting account.

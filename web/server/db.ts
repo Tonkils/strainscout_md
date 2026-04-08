@@ -18,6 +18,30 @@ export async function getDb() {
   return _db;
 }
 
+/**
+ * Wraps a database operation with standardized error handling.
+ * Prevents raw MySQL error details (table names, column info, query fragments)
+ * from leaking to clients while preserving meaningful user-facing messages.
+ */
+async function withDbErrorHandling<T>(operation: string, fn: () => Promise<T>): Promise<T> {
+  try {
+    return await fn();
+  } catch (error: any) {
+    console.error(`[Database] ${operation} failed:`, error);
+    // Sanitize MySQL-specific error details before propagating
+    if (error?.code === "ER_DUP_ENTRY" || error?.message?.includes("Duplicate entry")) {
+      throw new Error("A duplicate record already exists.");
+    }
+    if (error?.code === "ER_NO_SUCH_TABLE") {
+      throw new Error("Database is being updated. Please try again shortly.");
+    }
+    if (error?.code?.startsWith?.("ER_") || error?.errno) {
+      throw new Error("A database error occurred. Please try again.");
+    }
+    throw error; // Non-MySQL errors pass through
+  }
+}
+
 export async function upsertUser(user: InsertUser): Promise<void> {
   if (!user.openId) {
     throw new Error("User openId is required for upsert");
@@ -93,27 +117,29 @@ export async function getUserByOpenId(openId: string) {
  * Insert an email signup, silently upsert if duplicate email+source exists.
  */
 export async function insertEmailSignup(signup: InsertEmailSignup): Promise<{ id: number; isNew: boolean }> {
-  const db = await getDb();
-  if (!db) throw new Error("Database not available");
+  return withDbErrorHandling("insertEmailSignup", async () => {
+    const db = await getDb();
+    if (!db) throw new Error("Database not available");
 
-  // Check for existing signup with same email + source
-  const existing = await db
-    .select({ id: emailSignups.id })
-    .from(emailSignups)
-    .where(
-      and(
-        eq(emailSignups.email, signup.email),
-        eq(emailSignups.source, signup.source)
+    // Check for existing signup with same email + source
+    const existing = await db
+      .select({ id: emailSignups.id })
+      .from(emailSignups)
+      .where(
+        and(
+          eq(emailSignups.email, signup.email),
+          eq(emailSignups.source, signup.source)
+        )
       )
-    )
-    .limit(1);
+      .limit(1);
 
-  if (existing.length > 0) {
-    return { id: existing[0].id, isNew: false };
-  }
+    if (existing.length > 0) {
+      return { id: existing[0].id, isNew: false };
+    }
 
-  const result = await db.insert(emailSignups).values(signup);
-  return { id: Number(result[0].insertId), isNew: true };
+    const result = await db.insert(emailSignups).values(signup);
+    return { id: Number(result[0].insertId), isNew: true };
+  });
 }
 
 /**
@@ -377,66 +403,68 @@ export async function createPriceAlert(alert: {
   targetPrice: string;
   currentPrice?: string | null;
 }): Promise<PriceAlert> {
-  const db = await getDb();
-  if (!db) throw new Error("Database not available");
+  return withDbErrorHandling("createPriceAlert", async () => {
+    const db = await getDb();
+    if (!db) throw new Error("Database not available");
 
-  // Check active alert count
-  const countResult = await db
-    .select({ count: sql<number>`count(*)` })
-    .from(priceAlerts)
-    .where(
-      and(
-        eq(priceAlerts.userId, alert.userId),
-        inArray(priceAlerts.status, ["active", "paused"])
+    // Check active alert count
+    const countResult = await db
+      .select({ count: sql<number>`count(*)` })
+      .from(priceAlerts)
+      .where(
+        and(
+          eq(priceAlerts.userId, alert.userId),
+          inArray(priceAlerts.status, ["active", "paused"])
+        )
+      );
+
+    if ((countResult[0]?.count ?? 0) >= MAX_ALERTS_PER_USER) {
+      throw new Error(`Maximum ${MAX_ALERTS_PER_USER} active alerts allowed. Delete or let some expire first.`);
+    }
+
+    // Check for duplicate: same user + strain + dispensary with active/paused status
+    const existing = await db
+      .select({ id: priceAlerts.id })
+      .from(priceAlerts)
+      .where(
+        and(
+          eq(priceAlerts.userId, alert.userId),
+          eq(priceAlerts.strainId, alert.strainId),
+          alert.dispensary
+            ? eq(priceAlerts.dispensary, alert.dispensary)
+            : sql`dispensary IS NULL`,
+          inArray(priceAlerts.status, ["active", "paused"])
+        )
       )
-    );
+      .limit(1);
 
-  if ((countResult[0]?.count ?? 0) >= MAX_ALERTS_PER_USER) {
-    throw new Error(`Maximum ${MAX_ALERTS_PER_USER} active alerts allowed. Delete or let some expire first.`);
-  }
+    if (existing.length > 0) {
+      throw new Error("You already have an active alert for this strain" + (alert.dispensary ? ` at ${alert.dispensary}` : "") + ".");
+    }
 
-  // Check for duplicate: same user + strain + dispensary with active/paused status
-  const existing = await db
-    .select({ id: priceAlerts.id })
-    .from(priceAlerts)
-    .where(
-      and(
-        eq(priceAlerts.userId, alert.userId),
-        eq(priceAlerts.strainId, alert.strainId),
-        alert.dispensary
-          ? eq(priceAlerts.dispensary, alert.dispensary)
-          : sql`dispensary IS NULL`,
-        inArray(priceAlerts.status, ["active", "paused"])
-      )
-    )
-    .limit(1);
+    // Set expiration to 90 days from now
+    const expiresAt = new Date();
+    expiresAt.setDate(expiresAt.getDate() + 90);
 
-  if (existing.length > 0) {
-    throw new Error("You already have an active alert for this strain" + (alert.dispensary ? ` at ${alert.dispensary}` : "") + ".");
-  }
+    const result = await db.insert(priceAlerts).values({
+      userId: alert.userId,
+      strainId: alert.strainId,
+      strainName: alert.strainName,
+      dispensary: alert.dispensary ?? null,
+      targetPrice: alert.targetPrice,
+      currentPrice: alert.currentPrice ?? null,
+      status: "active",
+      expiresAt,
+    });
 
-  // Set expiration to 90 days from now
-  const expiresAt = new Date();
-  expiresAt.setDate(expiresAt.getDate() + 90);
+    const inserted = await db
+      .select()
+      .from(priceAlerts)
+      .where(eq(priceAlerts.id, Number(result[0].insertId)))
+      .limit(1);
 
-  const result = await db.insert(priceAlerts).values({
-    userId: alert.userId,
-    strainId: alert.strainId,
-    strainName: alert.strainName,
-    dispensary: alert.dispensary ?? null,
-    targetPrice: alert.targetPrice,
-    currentPrice: alert.currentPrice ?? null,
-    status: "active",
-    expiresAt,
+    return inserted[0];
   });
-
-  const inserted = await db
-    .select()
-    .from(priceAlerts)
-    .where(eq(priceAlerts.id, Number(result[0].insertId)))
-    .limit(1);
-
-  return inserted[0];
 }
 
 /**
@@ -480,40 +508,44 @@ export async function updatePriceAlert(
     dispensary?: string | null;
   }
 ): Promise<PriceAlert> {
-  const db = await getDb();
-  if (!db) throw new Error("Database not available");
+  return withDbErrorHandling("updatePriceAlert", async () => {
+    const db = await getDb();
+    if (!db) throw new Error("Database not available");
 
-  const set: Record<string, unknown> = {};
-  if (updates.targetPrice !== undefined) set.targetPrice = updates.targetPrice;
-  if (updates.status !== undefined) set.status = updates.status;
-  if (updates.dispensary !== undefined) set.dispensary = updates.dispensary;
+    const set: Record<string, unknown> = {};
+    if (updates.targetPrice !== undefined) set.targetPrice = updates.targetPrice;
+    if (updates.status !== undefined) set.status = updates.status;
+    if (updates.dispensary !== undefined) set.dispensary = updates.dispensary;
 
-  if (Object.keys(set).length === 0) {
-    throw new Error("No updates provided");
-  }
+    if (Object.keys(set).length === 0) {
+      throw new Error("No updates provided");
+    }
 
-  await db
-    .update(priceAlerts)
-    .set(set)
-    .where(eq(priceAlerts.id, alertId));
+    await db
+      .update(priceAlerts)
+      .set(set)
+      .where(eq(priceAlerts.id, alertId));
 
-  const updated = await db
-    .select()
-    .from(priceAlerts)
-    .where(eq(priceAlerts.id, alertId))
-    .limit(1);
+    const updated = await db
+      .select()
+      .from(priceAlerts)
+      .where(eq(priceAlerts.id, alertId))
+      .limit(1);
 
-  return updated[0];
+    return updated[0];
+  });
 }
 
 /**
  * Delete an alert.
  */
 export async function deletePriceAlert(alertId: number): Promise<void> {
-  const db = await getDb();
-  if (!db) throw new Error("Database not available");
+  return withDbErrorHandling("deletePriceAlert", async () => {
+    const db = await getDb();
+    if (!db) throw new Error("Database not available");
 
-  await db.delete(priceAlerts).where(eq(priceAlerts.id, alertId));
+    await db.delete(priceAlerts).where(eq(priceAlerts.id, alertId));
+  });
 }
 
 /**
@@ -587,42 +619,44 @@ export async function submitStrainVote(vote: {
   overallQuality: number;
   comment?: string | null;
 }): Promise<{ id: number; isNew: boolean }> {
-  const db = await getDb();
-  if (!db) throw new Error("Database not available");
+  return withDbErrorHandling("submitStrainVote", async () => {
+    const db = await getDb();
+    if (!db) throw new Error("Database not available");
 
-  // Check if user already voted on this strain
-  const existing = await db
-    .select({ id: strainVotes.id })
-    .from(strainVotes)
-    .where(and(eq(strainVotes.userId, vote.userId), eq(strainVotes.strainId, vote.strainId)))
-    .limit(1);
+    // Check if user already voted on this strain
+    const existing = await db
+      .select({ id: strainVotes.id })
+      .from(strainVotes)
+      .where(and(eq(strainVotes.userId, vote.userId), eq(strainVotes.strainId, vote.strainId)))
+      .limit(1);
 
-  if (existing.length > 0) {
-    // Update existing vote
-    await db
-      .update(strainVotes)
-      .set({
-        effectsAccuracy: vote.effectsAccuracy,
-        valueForMoney: vote.valueForMoney,
-        overallQuality: vote.overallQuality,
-        comment: vote.comment ?? null,
-        strainName: vote.strainName,
-      })
-      .where(eq(strainVotes.id, existing[0].id));
-    return { id: existing[0].id, isNew: false };
-  }
+    if (existing.length > 0) {
+      // Update existing vote
+      await db
+        .update(strainVotes)
+        .set({
+          effectsAccuracy: vote.effectsAccuracy,
+          valueForMoney: vote.valueForMoney,
+          overallQuality: vote.overallQuality,
+          comment: vote.comment ?? null,
+          strainName: vote.strainName,
+        })
+        .where(eq(strainVotes.id, existing[0].id));
+      return { id: existing[0].id, isNew: false };
+    }
 
-  // Insert new vote
-  const result = await db.insert(strainVotes).values({
-    userId: vote.userId,
-    strainId: vote.strainId,
-    strainName: vote.strainName,
-    effectsAccuracy: vote.effectsAccuracy,
-    valueForMoney: vote.valueForMoney,
-    overallQuality: vote.overallQuality,
-    comment: vote.comment ?? null,
+    // Insert new vote
+    const result = await db.insert(strainVotes).values({
+      userId: vote.userId,
+      strainId: vote.strainId,
+      strainName: vote.strainName,
+      effectsAccuracy: vote.effectsAccuracy,
+      valueForMoney: vote.valueForMoney,
+      overallQuality: vote.overallQuality,
+      comment: vote.comment ?? null,
+    });
+    return { id: Number(result[0].insertId), isNew: true };
   });
-  return { id: Number(result[0].insertId), isNew: true };
 }
 
 /**
@@ -732,14 +766,16 @@ export async function getStrainComments(strainId: string, limit = 20): Promise<A
  * Delete a user's vote for a strain.
  */
 export async function deleteStrainVote(userId: number, strainId: string): Promise<boolean> {
-  const db = await getDb();
-  if (!db) return false;
+  return withDbErrorHandling("deleteStrainVote", async () => {
+    const db = await getDb();
+    if (!db) return false;
 
-  const result = await db
-    .delete(strainVotes)
-    .where(and(eq(strainVotes.userId, userId), eq(strainVotes.strainId, strainId)));
+    const result = await db
+      .delete(strainVotes)
+      .where(and(eq(strainVotes.userId, userId), eq(strainVotes.strainId, strainId)));
 
-  return (result[0] as any).affectedRows > 0;
+    return (result[0] as any).affectedRows > 0;
+  });
 }
 
 /**
@@ -775,20 +811,22 @@ export async function submitStrainComment(comment: {
   status: "pending" | "approved";
   flagged: "clean" | "flagged";
 }): Promise<{ id: number }> {
-  const db = await getDb();
-  if (!db) throw new Error("Database not available");
+  return withDbErrorHandling("submitStrainComment", async () => {
+    const db = await getDb();
+    if (!db) throw new Error("Database not available");
 
-  const result = await db.insert(strainComments).values({
-    userId: comment.userId,
-    userName: comment.userName ?? null,
-    strainId: comment.strainId,
-    strainName: comment.strainName,
-    content: comment.content,
-    status: comment.status,
-    flagged: comment.flagged,
+    const result = await db.insert(strainComments).values({
+      userId: comment.userId,
+      userName: comment.userName ?? null,
+      strainId: comment.strainId,
+      strainName: comment.strainName,
+      content: comment.content,
+      status: comment.status,
+      flagged: comment.flagged,
+    });
+
+    return { id: Number(result[0].insertId) };
   });
-
-  return { id: Number(result[0].insertId) };
 }
 
 /**
@@ -876,38 +914,42 @@ export async function moderateComment(
   action: "approved" | "rejected",
   moderationNote?: string
 ): Promise<StrainComment | null> {
-  const db = await getDb();
-  if (!db) throw new Error("Database not available");
+  return withDbErrorHandling("moderateComment", async () => {
+    const db = await getDb();
+    if (!db) throw new Error("Database not available");
 
-  await db
-    .update(strainComments)
-    .set({
-      status: action,
-      moderationNote: moderationNote ?? null,
-    })
-    .where(eq(strainComments.id, commentId));
+    await db
+      .update(strainComments)
+      .set({
+        status: action,
+        moderationNote: moderationNote ?? null,
+      })
+      .where(eq(strainComments.id, commentId));
 
-  const updated = await db
-    .select()
-    .from(strainComments)
-    .where(eq(strainComments.id, commentId))
-    .limit(1);
+    const updated = await db
+      .select()
+      .from(strainComments)
+      .where(eq(strainComments.id, commentId))
+      .limit(1);
 
-  return updated[0] ?? null;
+    return updated[0] ?? null;
+  });
 }
 
 /**
  * Delete a comment (by owner or admin).
  */
 export async function deleteStrainComment(commentId: number): Promise<boolean> {
-  const db = await getDb();
-  if (!db) return false;
+  return withDbErrorHandling("deleteStrainComment", async () => {
+    const db = await getDb();
+    if (!db) return false;
 
-  const result = await db
-    .delete(strainComments)
-    .where(eq(strainComments.id, commentId));
+    const result = await db
+      .delete(strainComments)
+      .where(eq(strainComments.id, commentId));
 
-  return (result[0] as any).affectedRows > 0;
+    return (result[0] as any).affectedRows > 0;
+  });
 }
 
 /**
@@ -1111,30 +1153,32 @@ export async function updatePartnerStatus(
   status: "verified" | "rejected",
   adminNote?: string
 ): Promise<DispensaryPartner | null> {
-  const db = await getDb();
-  if (!db) throw new Error("Database not available");
+  return withDbErrorHandling("updatePartnerStatus", async () => {
+    const db = await getDb();
+    if (!db) throw new Error("Database not available");
 
-  const set: Record<string, unknown> = {
-    verificationStatus: status,
-    adminNote: adminNote ?? null,
-  };
+    const set: Record<string, unknown> = {
+      verificationStatus: status,
+      adminNote: adminNote ?? null,
+    };
 
-  if (status === "verified") {
-    set.verifiedAt = new Date();
-  }
+    if (status === "verified") {
+      set.verifiedAt = new Date();
+    }
 
-  await db
-    .update(dispensaryPartners)
-    .set(set)
-    .where(eq(dispensaryPartners.id, partnerId));
+    await db
+      .update(dispensaryPartners)
+      .set(set)
+      .where(eq(dispensaryPartners.id, partnerId));
 
-  const updated = await db
-    .select()
-    .from(dispensaryPartners)
-    .where(eq(dispensaryPartners.id, partnerId))
-    .limit(1);
+    const updated = await db
+      .select()
+      .from(dispensaryPartners)
+      .where(eq(dispensaryPartners.id, partnerId))
+      .limit(1);
 
-  return updated[0] ?? null;
+    return updated[0] ?? null;
+  });
 }
 
 /**
@@ -1187,32 +1231,34 @@ export async function submitPartnerPrice(priceUpdate: {
   price: string;
   unit?: string;
 }): Promise<PartnerPriceUpdate> {
-  const db = await getDb();
-  if (!db) throw new Error("Database not available");
+  return withDbErrorHandling("submitPartnerPrice", async () => {
+    const db = await getDb();
+    if (!db) throw new Error("Database not available");
 
-  // Set expiration to 7 days from now
-  const expiresAt = new Date();
-  expiresAt.setDate(expiresAt.getDate() + 7);
+    // Set expiration to 7 days from now
+    const expiresAt = new Date();
+    expiresAt.setDate(expiresAt.getDate() + 7);
 
-  const result = await db.insert(partnerPriceUpdates).values({
-    partnerId: priceUpdate.partnerId,
-    dispensarySlug: priceUpdate.dispensarySlug,
-    dispensaryName: priceUpdate.dispensaryName,
-    strainId: priceUpdate.strainId,
-    strainName: priceUpdate.strainName,
-    price: priceUpdate.price,
-    unit: priceUpdate.unit ?? "3.5g",
-    status: "pending",
-    expiresAt,
+    const result = await db.insert(partnerPriceUpdates).values({
+      partnerId: priceUpdate.partnerId,
+      dispensarySlug: priceUpdate.dispensarySlug,
+      dispensaryName: priceUpdate.dispensaryName,
+      strainId: priceUpdate.strainId,
+      strainName: priceUpdate.strainName,
+      price: priceUpdate.price,
+      unit: priceUpdate.unit ?? "3.5g",
+      status: "pending",
+      expiresAt,
+    });
+
+    const inserted = await db
+      .select()
+      .from(partnerPriceUpdates)
+      .where(eq(partnerPriceUpdates.id, Number(result[0].insertId)))
+      .limit(1);
+
+    return inserted[0];
   });
-
-  const inserted = await db
-    .select()
-    .from(partnerPriceUpdates)
-    .where(eq(partnerPriceUpdates.id, Number(result[0].insertId)))
-    .limit(1);
-
-  return inserted[0];
 }
 
 /**
@@ -1296,25 +1342,27 @@ export async function reviewPriceUpdate(
   action: "approved" | "rejected",
   reviewNote?: string
 ): Promise<PartnerPriceUpdate | null> {
-  const db = await getDb();
-  if (!db) throw new Error("Database not available");
+  return withDbErrorHandling("reviewPriceUpdate", async () => {
+    const db = await getDb();
+    if (!db) throw new Error("Database not available");
 
-  await db
-    .update(partnerPriceUpdates)
-    .set({
-      status: action,
-      reviewNote: reviewNote ?? null,
-      reviewedAt: new Date(),
-    })
-    .where(eq(partnerPriceUpdates.id, priceUpdateId));
+    await db
+      .update(partnerPriceUpdates)
+      .set({
+        status: action,
+        reviewNote: reviewNote ?? null,
+        reviewedAt: new Date(),
+      })
+      .where(eq(partnerPriceUpdates.id, priceUpdateId));
 
-  const updated = await db
-    .select()
-    .from(partnerPriceUpdates)
-    .where(eq(partnerPriceUpdates.id, priceUpdateId))
-    .limit(1);
+    const updated = await db
+      .select()
+      .from(partnerPriceUpdates)
+      .where(eq(partnerPriceUpdates.id, priceUpdateId))
+      .limit(1);
 
-  return updated[0] ?? null;
+    return updated[0] ?? null;
+  });
 }
 
 /**
