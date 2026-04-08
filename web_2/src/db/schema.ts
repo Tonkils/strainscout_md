@@ -43,6 +43,14 @@ export const emailSignups = pgTable("email_signups", {
   strainName: varchar("strain_name", { length: 256 }),
   status: emailStatusEnum("status").default("active").notNull(),
   subscribedAt: timestamp("subscribed_at").defaultNow().notNull(),
+  // Attribution columns (added 2026-04-08)
+  utmSource: varchar("utm_source", { length: 128 }),
+  utmMedium: varchar("utm_medium", { length: 128 }),
+  utmCampaign: varchar("utm_campaign", { length: 256 }),
+  geoCity: varchar("geo_city", { length: 128 }),
+  geoRegion: varchar("geo_region", { length: 64 }),
+  referrerUrl: text("referrer_url"),
+  landingPageUrl: text("landing_page_url"),
 });
 
 export type EmailSignup = typeof emailSignups.$inferSelect;

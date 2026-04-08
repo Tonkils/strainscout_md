@@ -5,6 +5,41 @@ import { supabase } from "@/lib/supabase";
 
 const STORAGE_KEY = "strainscout_email_signups";
 const DISMISSED_KEY = "strainscout_email_dismissed";
+const UTM_COOKIE_KEY = "strainscout_utm";
+
+function getUtmParams(): { utm_source?: string; utm_medium?: string; utm_campaign?: string } {
+  // Check URL params first (fresh visit), then fall back to stored cookie
+  if (typeof window === "undefined") return {};
+  const params = new URLSearchParams(window.location.search);
+  const source = params.get("utm_source");
+  if (source) {
+    const utm = {
+      utm_source: source || undefined,
+      utm_medium: params.get("utm_medium") || undefined,
+      utm_campaign: params.get("utm_campaign") || undefined,
+    };
+    // Store for 30 days so it persists across pages
+    try {
+      document.cookie = `${UTM_COOKIE_KEY}=${encodeURIComponent(JSON.stringify(utm))};max-age=${30 * 86400};path=/;SameSite=Lax`;
+    } catch { /* cookie unavailable */ }
+    return utm;
+  }
+  // Fall back to stored UTM cookie
+  try {
+    const match = document.cookie.match(new RegExp(`${UTM_COOKIE_KEY}=([^;]+)`));
+    if (match) return JSON.parse(decodeURIComponent(match[1]));
+  } catch { /* parse error */ }
+  return {};
+}
+
+function getAttributionData() {
+  const utm = getUtmParams();
+  return {
+    ...utm,
+    referrer_url: typeof document !== "undefined" ? document.referrer || undefined : undefined,
+    landing_page_url: typeof window !== "undefined" ? window.location.pathname : undefined,
+  };
+}
 
 export interface EmailSignup {
   email: string;
@@ -91,12 +126,18 @@ export function useEmailCapture(source: EmailSource) {
       }
       setStatus("submitting");
       const normalized = email.trim().toLowerCase();
+      const attribution = getAttributionData();
       try {
         await supabase.from("email_signups").insert({
           email: normalized,
           source,
           strain_id: opts?.strainId ?? null,
           strain_name: opts?.strainName ?? null,
+          utm_source: attribution.utm_source ?? null,
+          utm_medium: attribution.utm_medium ?? null,
+          utm_campaign: attribution.utm_campaign ?? null,
+          referrer_url: attribution.referrer_url ?? null,
+          landing_page_url: attribution.landing_page_url ?? null,
         });
       } catch { /* network failure — still save locally */ }
       storeSignupLocally({
