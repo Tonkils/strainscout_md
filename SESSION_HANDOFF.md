@@ -1,174 +1,113 @@
 # StrainScout MD — Session Handoff
 
-**Date:** March 26–28, 2026
-**Session scope:** Category system overhaul, pipeline updates, frontend category pages, and the 6-phase manual verification plan
+**Last updated:** April 8, 2026
+**Branch:** `claude/read-repo-handoff-W9aBX`
 
 ---
 
-## What Was Accomplished
+## Project Overview
 
-### 1. Category Pipeline Infrastructure (Complete)
+StrainScout MD is a Maryland cannabis price comparison platform. Two codebases exist:
+- **`web_2/`** (Next.js, static export) — **active production app** deployed to IONOS via SFTP
+- **`web/`** (Vite + React + tRPC) — legacy app, still has useful admin features
 
-The entire data pipeline was updated to support `product_category` and `category_confidence` fields end-to-end.
-
-**Files modified:**
-
-| File | Change |
-|------|--------|
-| `scraper/category_map.py` | NEW — Central normalization table mapping 50+ platform-specific labels to 7 standard categories: Flower, Pre-Roll, Vape, Concentrate, Edible, Topical, Other |
-| `scraper/test_categories.py` | NEW — Audit tool that checks raw data for category field coverage, unmapped labels, and per-platform scraper status |
-| `scraper/scrape_weedmaps.py` | Removed flower-only filter. Now captures `edge_category.slug` via `normalize_category()` as `product_category` |
-| `scraper/scrape_dutchie.py` | Removed flower-only gate. Now captures `type` field via `normalize_category()` |
-| `scraper/scrape_jane.py` | Removed flower-only filter. Now captures `kind` field via `normalize_category()` |
-| `pipeline/parse_raw.py` | Added `extract_category_from_url()` for URL-based cross-verification (Dutchie `/products/{cat}`, Trulieve `/category/{cat}`, Curaleaf `/menu/{cat}-{id}`). Added `assign_category_confidence()` producing "verified"/"inferred"/"conflict". Added `category_confidence` to output records. |
-| `pipeline/deduplicate.py` | Threads `product_category` and `category_confidence` through deduplication. Uses majority vote for category across group records. Prefers "verified" > "inferred" > "conflict" for confidence. |
-| `pipeline/build_catalog.py` | Emits `product_category` and `category_confidence` on every catalog entry. Defaults to "Flower"/"inferred" for legacy records. |
-
-**Key finding:** All 192 raw scrape files contain ONLY `product_type: "flower"` because every scraper navigates exclusively to flower pages. The scraper code was updated to capture multi-category data, but no new scrape has been run yet. The existing raw data is all flower-sourced.
-
-### 2. Manual Category Verification System (Complete — 6-Phase Plan)
-
-Because the raw data is all flower-sourced, we implemented a manual verification system on top of name-based classification.
-
-**Phase 1 — Classification Report (Complete)**
-- Created `pipeline/classify_and_report.py`
-- Generates `data/processed/category_review.csv` with all 1,297 products, auto-detected category, and confidence level
-- Results: 571 Flower, 249 Vape, 183 Concentrate, 165 Edible, 94 Pre-Roll, 33 Other, 2 Topical
-- 24 MEDIUM confidence items flagged for manual review
-
-**Phase 2 — Manual Review & Overrides (Complete)**
-- Created `data/manual_overrides.json` with 63 verified overrides
-- Reviewed all 24 MEDIUM confidence items
-- Reviewed all 33 "Other" junk entries (t-shirts, discount strings, category pages)
-- Scanned all 571 Flower entries for edge cases — found 18 corrections
-- Override breakdown: Other: 34, Pre-Roll: 21, Flower: 2, Concentrate: 2, Edible: 2, Vape: 1, + 1 late QA fix
-
-**Phase 3 — Apply Categories to Catalog (Complete)**
-- Created `pipeline/apply_manual_categories.py`
-- Applied overrides + auto-classification to all 1,297 strains
-- Output written to `web_2/public/data/strainscout_catalog_v10.min.json`
-- Final distribution: Flower 554, Vape 249, Concentrate 185, Edible 167, Pre-Roll 100, Other 40, Topical 2
-
-**Phase 4 — Frontend Category Usage (Complete)**
-- `DealCard.tsx`: Changed from `getProductCategory(strain.name)` to `getCategoryFromStrain(strain)` — now reads authoritative `product_category` field. Added `hideCategory` prop.
-- `page.tsx` (home): Already uses `getCategoryFromStrain` — verified correct
-- `compare/page.tsx`: Already uses `getCategoryFromStrain` — verified correct
-- `CategoryPageClient.tsx`: Passes `hideCategory` to DealCard on category pages
-
-**Phase 5 — Category Filter Chips (Complete)**
-- Added horizontal category filter chip strip to Compare page
-- Chips: All | Flower | Pre-Rolls | Vapes | Concentrates | Edibles
-- Each chip shows count, e.g. "Flower (554)"
-- Active chip uses `CATEGORY_COLORS` from utils.ts
-- Wired to existing `categoryFilter` state
-
-**Phase 6 — QA & Deploy (PARTIALLY COMPLETE — stopped here)**
-- QA verification PASSED all checks:
-  - All 1,297 strains have `product_category` and `category_confidence`
-  - Zero edibles in Flower category
-  - Zero vapes in Flower category
-  - Zero pre-rolls in Flower category
-  - All frontend files use `getCategoryFromStrain`
-  - `npm run build` passed clean (1,409+ static pages)
-- One borderline item fixed: `200mgCBD : 100MGTHC : 100MGCBN` moved from Flower → Edible
-- **DEPLOY NOT YET RUN** — the IONOS incremental upload has not been executed for these changes
-
-### 3. Category Pages (Complete)
-
-Created static category browse pages at `/category/[slug]`:
-
-| File | Purpose |
-|------|---------|
-| `web_2/src/app/category/[slug]/page.tsx` | Server component with `generateStaticParams()` for 7 slugs, SEO metadata |
-| `web_2/src/app/category/[slug]/CategoryPageClient.tsx` | Client component with sidebar category nav, search, sort, filtered product grid |
-
-Features:
-- 7 static routes: `/category/flower`, `/category/pre-roll`, `/category/vape`, `/category/concentrate`, `/category/edible`, `/category/topical`, `/category/other`
-- Sidebar navigation with category counts
-- Search within category
-- Sort by price, name, or availability
-- Category badge suppressed on these pages (via `hideCategory` prop)
-
-### 4. Home Page "Browse by Category" Section (Complete)
-
-Added to `web_2/src/app/page.tsx`:
-- Grid of 5 category cards: Flower, Pre-Roll, Vape, Concentrate, Edible
-- Each card shows icon, name, description, and live product count
-- Links to `/category/[slug]`
-- Positioned between "Cheapest Flower Right Now" strip and main strain grid
-
-### 5. Frontend Utility Functions (Complete)
-
-In `web_2/src/lib/utils.ts`:
-- `getCategoryFromStrain(strain)` — reads `product_category` field first, falls back to `classifyProduct(name)` if absent
-- `classifyProduct(name)` — comprehensive regex classifier (kept as fallback)
-- `CATEGORY_COLORS`, `CATEGORY_LABELS` — display constants for all 7 categories
-- `TYPE_COLORS` — exported as shared constant
-
-In `web_2/src/hooks/useCatalog.ts`:
-- `CatalogStrain` interface now includes `product_category?: string` and `category_confidence?: "verified" | "inferred" | "conflict"`
-- `useStrains()` hook accepts `category` filter option
-
-### 6. Agent System (Complete)
-
-Five agent skill files created in `.claude/commands/`:
-
-| Skill | File | Role |
-|-------|------|------|
-| `/orchestrator` | `orchestrator.md` | Directs all agents, enforces quality/security, does NOT modify code |
-| `/engineer` | `engineer.md` | Implements code changes as directed by orchestrator |
-| `/qa-agent` | `qa-agent.md` | Enforces quality standards, checks code after each phase |
-| `/security-agent` | `security-agent.md` | Researches threats, enforces security standards |
-| `/ux-agent` | `ux-agent.md` | Prioritizes user experience, researches UI/UX standards |
-
-Agent research saved to memory:
-- `memory/qa_standards.md` — WCAG 2.1 AA, data integrity, code quality, performance, per-phase checklists
-- `memory/security_standards.md` — OWASP, CSP, credential management, input validation, cannabis compliance
-- `memory/ux_standards.md` — User journey, DealCard hierarchy, navigation rules, trust signals, category browse
-
-### 7. Other Fixes Made During Session
-
-| Fix | File |
-|-----|------|
-| Base UI DialogTrigger `asChild` TypeScript error | `web_2/src/components/admin/CreateUserDialog.tsx` — removed unsupported `asChild` prop |
-| DialogTrigger typing | `web_2/src/components/ui/dialog.tsx` — changed to `React.ComponentProps<typeof DialogPrimitive.Trigger>` |
-| Dev server port conflict | `web_2/start-dev.bat` — removed hardcoded `--port 3000`, added `autoPort: true` to launch.json |
+**Database:** Supabase (PostgreSQL) for `web_2/`, TiDB/MySQL + Drizzle for `web/`
+**Catalog:** 2.5MB JSON (2,220 strains, 97 dispensaries) fetched client-side via `useCatalog()` hook
+**Deploy:** `python3 -m publish.upload_ionos --next-incremental` (SFTP to IONOS)
 
 ---
 
-## Where We Stopped
+## Completed Work (All Sessions)
 
-**Phase 6 is 90% complete.** QA passed, build passed, catalog updated. The only remaining step:
+### March 26-28 — Category System Overhaul
+- Built complete product category pipeline (7 categories: Flower, Pre-Roll, Vape, Concentrate, Edible, Topical, Other)
+- Updated all 6 scrapers to capture multi-category data
+- Created manual verification system with 63 overrides
+- Built frontend category pages at `/category/[slug]` (7 routes)
+- Added "Browse by Category" section on home page
+- Created agent skill system (`.claude/commands/`)
+- QA passed, build passed
 
-### Deploy to IONOS
+### April 5 — Data Pipeline & Infrastructure
+- Weekly data pipeline GitHub Actions workflow
+- SFTP port fallback and deploy logging
+- Catalog data freshness date display
 
-Run:
-```bash
-cd C:/Users/jaretwyatt/.local/bin/strainscoutmd/strainscout_md
-PYTHONIOENCODING=utf-8 python3 -m publish.upload_ionos --next-incremental
-```
+### April 8 — Phases 1-4 Improvements (8 commits)
 
-This will upload only the changed files (catalog JSON + updated HTML pages) via the MD5 incremental manifest.
+**Phase 1 — Analytics & Bug Fixes:**
+- Wired 4 dead analytics events: `trackPriceCompared`, `trackDispensaryClicked`, `trackOutboundLinkClicked`, `trackMapInteracted`
+- Fixed AdminPartners expandedItem collision bug (eliminated `id + 10000` hack)
+- Extracted shared `slugify()` to `@/lib/utils` (consolidated 8 duplicates across 6 files)
+- Added `staleTime: 5min` to verifiedSlugs query (web/ only)
+
+**Phase 2 — Attribution & Security:**
+- Created `database/migrations/001_add_attribution_columns.sql` (7 new columns on email_signups)
+- Updated Drizzle schema + `useEmailCapture` hook with UTM tracking (30-day cookie persistence)
+- Hardened CSP: removed `unsafe-inline` from `script-src`
+- Cleaned SFTP credentials from docstrings
+- Added `withDbErrorHandling` wrapper to 12 mutation functions (web/ only)
+- Created Terms of Service page at `/terms`
+
+**Phase 3 — Bundle Splitting & Nav:**
+- Webpack `splitChunks` config with 6 named vendor chunks (react, supabase, posthog, trpc, lucide, zod)
+- Added Partner link to Navbar
+- Replaced all `innerHTML` with DOM API on map markers (XSS hardening)
+- ARIA labels and keyboard accessibility across map, admin, and partner pages
+
+**Phase 4 — Skeleton Screens & Trust Signals:**
+- Replaced spinner loading states with layout-matching skeletons on 4 pages:
+  - Strain detail (hero, description, effects, price table, sidebar)
+  - Dispensary detail (breadcrumb, hero, stats, strain table)
+  - Deals page (12-card skeleton grid)
+  - Map page (sidebar + map area)
+- DealCard enhancements:
+  - Green "Verified" badge (ShieldCheck) for Leafly/Weedmaps verified strains
+  - Price freshness indicator (emerald/amber/muted based on days since last check)
+  - Grade A glow ring
 
 ---
 
-## What Still Needs to Happen (Future Work)
+## What Needs To Be Done
 
-### Immediate (next session)
-1. **Run the IONOS deploy** — the build output in `web_2/out/` is ready
-2. **Verify live site** — check strainscoutmd.com to confirm categories display correctly
+### Activation Tasks (Jaret — manual, no code needed)
 
-### Short-term
-3. **Run a multi-category scrape** — the scraper code now captures non-flower products, but no new scrape has been run. Running the scrapers will populate real platform-authoritative categories (Weedmaps `edge_category.slug`, Dutchie `type`, Jane `kind`) instead of relying on name-based classification.
-4. **Re-run the full pipeline** after multi-category scrape — `parse_raw.py` → `enrich.py` → `deduplicate.py` → `build_catalog.py` will produce a catalog with "verified" confidence (URL cross-verification) instead of "inferred" (name regex).
-5. **Update manual_overrides.json** — as new products are scraped, review any MEDIUM confidence items and add overrides.
+- [ ] **Deploy to IONOS** — Run: `PYTHONIOENCODING=utf-8 python3 -m publish.upload_ionos --next-incremental`
+  - Requires local `.env` with SFTP creds (IONOS_HOST, IONOS_USER, IONOS_PASS)
+  - The build output in `web_2/out/` needs to be regenerated first: `cd web_2 && npm run build`
+- [ ] **Set PostHog key** — Add `NEXT_PUBLIC_POSTHOG_KEY=phc_xxx` to `web_2/.env.local`
+  - 17 custom events are wired and ready; they no-op until the key is set
+- [ ] **Enable GA4 Enhanced Measurement** — In Google Analytics dashboard, turn on page views, scrolls, outbound clicks, site search
+- [ ] **Run Supabase migration** — Execute `database/migrations/001_add_attribution_columns.sql` in Supabase SQL Editor (if not already done — Jaret confirmed this was completed April 8)
+- [ ] **Merge PR** — Review and merge `claude/read-repo-handoff-W9aBX` into main when ready
 
-### Medium-term (from improvement plan)
-6. **Phase 1 (Security)** — CSP headers, credential audit, input validation
-7. **Phase 2 (Quick Wins)** — SEO metadata, performance optimization
-8. **Phase 3 (Code Quality)** — Consolidate duplicate code, proper error boundaries
-9. **Phase 4 (UX)** — Skeleton screens, improved DealCard, trust signals
-10. **Phase 5 (Pipeline Reliability)** — Retry logic, monitoring, alerting
+### High Priority (Code — next session)
+
+- [ ] **Connect email service for deal digest** — Wire up Resend or SendGrid
+  - `useEmailCapture` hook already collects emails to `email_signups` table
+  - `DealDigestBanner` component already exists on home page
+  - Need: API route to send weekly digest, email template, cron trigger
+  - Jaret provides: Resend or SendGrid API key
+- [ ] **Run multi-category scrape** — Scraper code supports non-flower products but no new scrape has been run since the March update. Running scrapers will populate real platform-authoritative categories instead of name-based classification.
+- [ ] **Re-run full pipeline** after scrape — `parse_raw.py` → `enrich.py` → `deduplicate.py` → `build_catalog.py`
+
+### Medium Priority (Code — future sessions)
+
+- [ ] **Pipeline hardening (Phase 5)**
+  - Retry logic with exponential backoff on scraper HTTP requests
+  - Circuit breaker pattern for failing dispensary endpoints
+  - Monitoring/alerting (Slack webhook or email on pipeline failure)
+  - Health check endpoint for catalog freshness
+- [ ] **Error boundaries** — Add React error boundaries to key pages so a single component crash doesn't white-screen the app
+- [ ] **Improved data freshness UX** — Show "last updated X hours ago" on pages, warn if catalog is stale (>48h)
+
+### Low Priority (Polish — when time allows)
+
+- [ ] **Privacy Policy page** — `/privacy` (Terms of Service at `/terms` is done)
+- [ ] **Update manual_overrides.json** — Review any MEDIUM confidence items after next scrape
+- [ ] **Skeleton for remaining pages** — cheapest, market, top-value, category pages still use spinner
+- [ ] **Mobile nav improvements** — Hamburger menu behavior, active state indicators
+- [ ] **SEO audit** — Structured data (JSON-LD), OpenGraph images, sitemap updates
 
 ---
 
@@ -176,23 +115,39 @@ This will upload only the changed files (catalog JSON + updated HTML pages) via 
 
 | Purpose | Path |
 |---------|------|
-| Project root | `C:\Users\jaretwyatt\.local\bin\strainscoutmd\strainscout_md` |
-| Next.js app | `web_2/` |
-| Live catalog | `web_2/public/data/strainscout_catalog_v10.min.json` |
-| Manual overrides | `data/manual_overrides.json` (63 entries) |
-| Classification report | `data/processed/category_review.csv` |
-| Classification script | `pipeline/classify_and_report.py` |
-| Apply overrides script | `pipeline/apply_manual_categories.py` |
-| Category normalization | `scraper/category_map.py` |
-| Agent skills | `.claude/commands/orchestrator.md`, `engineer.md`, `qa-agent.md`, `security-agent.md`, `ux-agent.md` |
-| Agent research | Memory files in `C:\Users\jaretwyatt\.claude\projects\C--Users-jaretwyatt--local-bin-strainscoutmd\memory\` |
-| Build output | `web_2/out/` (1,409+ static pages) |
+| Next.js app (production) | `web_2/` |
+| Legacy Vite app | `web/` |
+| Live catalog JSON | `web_2/public/data/strainscout_catalog_v10.min.json` |
+| DB schema (Drizzle) | `web_2/src/db/schema.ts` |
+| DB migrations | `database/migrations/` |
+| Supabase RLS docs | `database/README.md` |
+| Analytics events | `web_2/src/lib/analytics.ts` (17 events) |
+| Email capture hook | `web_2/src/hooks/useEmailCapture.ts` |
+| Shared utilities | `web_2/src/lib/utils.ts` (slugify, category helpers) |
+| Deploy script | `publish/upload_ionos.py` |
 | Deploy manifest | `publish/deploy_manifest_next.json` |
-| Deploy script | `python3 -m publish.upload_ionos --next-incremental` |
+| Scraper code | `scraper/` (weedmaps, dutchie, jane, leafly) |
+| Pipeline scripts | `pipeline/` (parse, enrich, deduplicate, build_catalog) |
+| Manual overrides | `data/manual_overrides.json` (63 entries) |
+| Category map | `scraper/category_map.py` |
+| Agent skills | `.claude/commands/` |
+| GitHub Actions | `.github/workflows/` |
+| Next.js config | `web_2/next.config.ts` (splitChunks configured) |
+| CSP / deploy | `publish/upload_ionos.py` (CSP headers in .htaccess) |
 
 ---
 
-## Catalog Stats After Fix
+## Architecture Notes
+
+- **Catalog is client-side**: The 2.5MB JSON is fetched once via `useCatalog()` hook with global cache + request deduplication. All filtering/sorting happens in the browser.
+- **No server-side rendering**: `web_2/` uses `output: "export"` (static HTML). All dynamic behavior is client-side.
+- **Supabase for writes only**: Email signups, price alerts, comments, votes, partner claims go to Supabase. Read-heavy pages use the static catalog JSON.
+- **Two deploy targets**: IONOS (production static site) and Supabase (database). They're independent.
+- **Attribution tracking**: UTM params captured from URL → stored in 30-day cookie → sent with email signups to Supabase.
+
+---
+
+## Catalog Stats
 
 | Category | Count | % |
 |----------|-------|---|
@@ -205,8 +160,10 @@ This will upload only the changed files (catalog JSON + updated HTML pages) via 
 | Topical | 2 | 0.2% |
 | **Total** | **1,297** | |
 
-- 63 manually verified overrides
-- 1,234 auto-classified (inferred)
-- 0 edibles in Flower section (QA verified)
-- 0 vapes in Flower section (QA verified)
-- 0 pre-rolls in Flower section (QA verified)
+---
+
+## Previous Session Handoffs
+
+The March 26-28 session handoff covered category system overhaul in detail. That work is fully complete and deployed. The content has been consolidated into this document above.
+
+For the original Manus MD audit files and detailed component handoffs, see `Manus MD Files/` directory.
