@@ -98,7 +98,7 @@ export default function PartnersPage() {
     return (
       <div className="space-y-6">
         <div className="flex items-center gap-3">
-          <Link href="/partner" className="text-muted-foreground hover:text-foreground transition-colors">
+          <Link href="/partner" aria-label="Back to partner page" className="text-muted-foreground hover:text-foreground transition-colors">
             <ArrowLeft className="h-5 w-5" />
           </Link>
           <h1 className="text-3xl font-bold">Partner Portal</h1>
@@ -115,7 +115,7 @@ export default function PartnersPage() {
     <div className="space-y-6">
       <div>
         <div className="flex items-center gap-3">
-          <Link href="/partner" className="text-muted-foreground hover:text-foreground transition-colors">
+          <Link href="/partner" aria-label="Back to partner page" className="text-muted-foreground hover:text-foreground transition-colors">
             <ArrowLeft className="h-5 w-5" />
           </Link>
           <h1 className="text-3xl font-bold">Partner Portal</h1>
@@ -361,6 +361,7 @@ export default function PartnersPage() {
                               <Button
                                 variant="outline"
                                 size="sm"
+                                aria-label={`Approve price update for ${update.strainName}`}
                                 onClick={() => handleReviewPriceUpdate(update.id, "approved")}
                               >
                                 <CheckCircle className="h-4 w-4" />
@@ -368,6 +369,7 @@ export default function PartnersPage() {
                               <Button
                                 variant="outline"
                                 size="sm"
+                                aria-label={`Reject price update for ${update.strainName}`}
                                 onClick={() => handleReviewPriceUpdate(update.id, "rejected")}
                               >
                                 <XCircle className="h-4 w-4" />
