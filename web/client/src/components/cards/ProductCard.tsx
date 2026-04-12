@@ -1,5 +1,4 @@
 import type { CatalogStrain } from "@/hooks/useCatalog";
-import { getProductCategory } from "@/lib/utils";
 import FlowerCard from "./FlowerCard";
 import EdibleCard from "./EdibleCard";
 import ConcentrateCard from "./ConcentrateCard";
@@ -12,9 +11,7 @@ interface ProductCardProps {
 }
 
 export default function ProductCard({ strain }: ProductCardProps) {
-  const category = getProductCategory(strain.name);
-
-  switch (category) {
+  switch (strain.category) {
     case "Flower":
       return <FlowerCard strain={strain} />;
     case "Edible":

@@ -1,12 +1,7 @@
 import { Link } from "wouter";
 import { MapPin, Beaker, Cookie, Clock } from "lucide-react";
 import type { CatalogStrain } from "@/hooks/useCatalog";
-import {
-  extractQuantity,
-  extractEdibleType,
-  getDaysSinceScraped,
-  formatDaysSinceScraped,
-} from "@/lib/utils";
+import { formatDaysSinceScraped } from "@/lib/utils";
 
 interface EdibleCardProps {
   strain: CatalogStrain;
@@ -14,9 +9,6 @@ interface EdibleCardProps {
 
 export default function EdibleCard({ strain }: EdibleCardProps) {
   const bestPrice = strain.prices.sort((a, b) => a.price - b.price)[0];
-  const quantity = extractQuantity(strain.name);
-  const edibleType = extractEdibleType(strain.name);
-  const daysSince = getDaysSinceScraped(strain.last_verified);
   const terpenes = strain.terpenes.filter((t) => t !== "Not_Found");
 
   return (
@@ -31,9 +23,9 @@ export default function EdibleCard({ strain }: EdibleCardProps) {
         <div className="p-5">
           {/* Edible Type + Brand */}
           <div className="flex items-center gap-2 mb-3">
-            {edibleType && (
+            {strain.subType && (
               <span className="px-2 py-0.5 rounded text-[10px] font-semibold uppercase tracking-wider bg-pink-500/15 text-pink-400">
-                {edibleType}
+                {strain.subType}
               </span>
             )}
             {strain.brand && (
@@ -60,9 +52,9 @@ export default function EdibleCard({ strain }: EdibleCardProps) {
                 CBD {strain.cbd}%
               </span>
             )}
-            {quantity && (
+            {strain.quantity && (
               <span className="px-1.5 py-0.5 rounded bg-accent text-[10px] text-muted-foreground">
-                {quantity}ct
+                {strain.quantity}ct
               </span>
             )}
           </div>
@@ -123,10 +115,10 @@ export default function EdibleCard({ strain }: EdibleCardProps) {
             ) : (
               <div className="flex-1" />
             )}
-            {daysSince !== null && (
+            {strain.days_since_scraped != null && (
               <div className="flex items-center gap-1 text-[10px] text-muted-foreground shrink-0">
                 <Clock className="w-2.5 h-2.5" />
-                {formatDaysSinceScraped(daysSince)}
+                {formatDaysSinceScraped(strain.days_since_scraped)}
               </div>
             )}
           </div>

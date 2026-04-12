@@ -1,7 +1,7 @@
 import { useState, useMemo, useEffect } from "react";
 import { Link, useParams } from "wouter";
 import { ArrowLeft, MapPin, Beaker, Store, Loader2, ShieldCheck, Tag, ExternalLink, Dna, Sparkles, Cherry, BadgeCheck, ShoppingBag, ChevronDown } from "lucide-react";
-import { getBuyLink, getProductCategory, CATEGORY_COLORS } from "@/lib/utils";
+import { getBuyLink, CATEGORY_COLORS } from "@/lib/utils";
 import PriceAlertSignup from "@/components/PriceAlertSignup";
 import { VerificationBadge, StrainVerificationSummary } from "@/components/VerificationBadge";
 import { PartnerVerifiedBadge, PartnerPriceBadge } from "@/components/PartnerVerifiedBadge";
@@ -139,7 +139,7 @@ export default function StrainDetail() {
 
   const dispensaryDetails = catalog?.dispensaries || [];
   const dispLinks = strain.dispensary_links || {};
-  const category = getProductCategory(strain.name);
+  const category = strain.category || "Flower";
 
   // Count dispensaries with direct website links
   const withWebsites = strain.dispensaries.filter(d => strain.dispensary_links?.[d]).length;

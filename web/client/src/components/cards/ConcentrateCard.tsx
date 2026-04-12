@@ -1,12 +1,7 @@
 import { Link } from "wouter";
 import { MapPin, Beaker, Droplets, Clock } from "lucide-react";
 import type { CatalogStrain } from "@/hooks/useCatalog";
-import {
-  extractWeight,
-  extractConcentrateType,
-  getDaysSinceScraped,
-  formatDaysSinceScraped,
-} from "@/lib/utils";
+import { formatDaysSinceScraped } from "@/lib/utils";
 
 interface ConcentrateCardProps {
   strain: CatalogStrain;
@@ -15,9 +10,6 @@ interface ConcentrateCardProps {
 export default function ConcentrateCard({ strain }: ConcentrateCardProps) {
   const typeLabel = strain.type.charAt(0).toUpperCase() + strain.type.slice(1);
   const bestPrice = strain.prices.sort((a, b) => a.price - b.price)[0];
-  const weight = extractWeight(strain.name);
-  const concentrateType = extractConcentrateType(strain.name);
-  const daysSince = getDaysSinceScraped(strain.last_verified);
   const terpenes = strain.terpenes.filter((t) => t !== "Not_Found");
 
   return (
@@ -32,9 +24,9 @@ export default function ConcentrateCard({ strain }: ConcentrateCardProps) {
         <div className="p-5">
           {/* Concentrate Type + Strain Type + Brand */}
           <div className="flex items-center gap-2 mb-3 flex-wrap">
-            {concentrateType && (
+            {strain.subType && (
               <span className="px-2 py-0.5 rounded text-[10px] font-semibold uppercase tracking-wider bg-violet-500/15 text-violet-400">
-                {concentrateType}
+                {strain.subType}
               </span>
             )}
             <span
@@ -82,9 +74,9 @@ export default function ConcentrateCard({ strain }: ConcentrateCardProps) {
                 CBD {strain.cbd}%
               </span>
             )}
-            {weight && (
+            {strain.weight && (
               <span className="px-1.5 py-0.5 rounded bg-accent text-[10px] text-muted-foreground">
-                {weight}
+                {strain.weight}
               </span>
             )}
           </div>
@@ -145,10 +137,10 @@ export default function ConcentrateCard({ strain }: ConcentrateCardProps) {
             ) : (
               <div className="flex-1" />
             )}
-            {daysSince !== null && (
+            {strain.days_since_scraped != null && (
               <div className="flex items-center gap-1 text-[10px] text-muted-foreground shrink-0">
                 <Clock className="w-2.5 h-2.5" />
-                {formatDaysSinceScraped(daysSince)}
+                {formatDaysSinceScraped(strain.days_since_scraped)}
               </div>
             )}
           </div>

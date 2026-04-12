@@ -15,7 +15,7 @@ import { useCatalog, type CatalogStrain } from "@/hooks/useCatalog";
 import CompareInlineCTA from "@/components/CompareInlineCTA";
 import { ComparePageSEO } from "@/components/SEO";
 import { trackPageViewed, trackPriceCompared, trackFilterApplied, trackStrainSearched } from "@/lib/analytics";
-import { getProductCategory, CATEGORY_COLORS, type ProductCategory } from "@/lib/utils";
+import { CATEGORY_COLORS, type ProductCategory } from "@/lib/utils";
 
 const COMPARE_BG = "https://d2xsxph8kpxj0f.cloudfront.net/310519663317311392/oGX3NFZ9WLXhuXs89evvau/compare-bg-jmjdsZ6AB248TzE9oQh8p3.webp";
 
@@ -61,7 +61,7 @@ export default function CompareStrains() {
     if (!catalog) return [];
     let result = catalog.strains;
     if (typeFilter !== "All") result = result.filter((s) => s.type.toLowerCase() === typeFilter.toLowerCase());
-    if (categoryFilter !== "All") result = result.filter((s) => getProductCategory(s.name) === categoryFilter);
+    if (categoryFilter !== "All") result = result.filter((s) => s.category === categoryFilter);
     if (searchQuery) {
       const q = searchQuery.toLowerCase();
       result = result.filter((s) =>
@@ -312,8 +312,8 @@ export default function CompareStrains() {
                         <Link href={`/strain/${strain.id}`} className="font-serif text-foreground hover:text-primary transition-colors">
                           {strain.name}
                         </Link>
-                        <span className={`px-1.5 py-0.5 rounded text-[8px] font-semibold uppercase tracking-wider shrink-0 ${CATEGORY_COLORS[getProductCategory(strain.name)]}`}>
-                          {getProductCategory(strain.name)}
+                        <span className={`px-1.5 py-0.5 rounded text-[8px] font-semibold uppercase tracking-wider shrink-0 ${CATEGORY_COLORS[strain.category || "Flower"]}`}>
+                          {strain.category || "Flower"}
                         </span>
                       </div>
                       <p className="text-[10px] text-muted-foreground mt-0.5">
@@ -390,8 +390,8 @@ export default function CompareStrains() {
                             strain.type === "sativa" ? "bg-amber-500/15 text-amber-400" :
                             "bg-emerald-500/15 text-emerald-400"
                           }`}>{typeLabel(strain.type)}</span>
-                          <span className={`px-1.5 py-0.5 rounded text-[9px] font-semibold uppercase ${CATEGORY_COLORS[getProductCategory(strain.name)]}`}>
-                            {getProductCategory(strain.name)}
+                          <span className={`px-1.5 py-0.5 rounded text-[9px] font-semibold uppercase ${CATEGORY_COLORS[strain.category || "Flower"]}`}>
+                            {strain.category || "Flower"}
                           </span>
                           <span className="font-price text-sm">{strain.thc || "—"} THC</span>
                           {strain.brand && <span className="text-xs text-muted-foreground truncate max-w-[120px]">{strain.brand}</span>}

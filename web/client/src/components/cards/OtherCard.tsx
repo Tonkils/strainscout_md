@@ -1,7 +1,7 @@
 import { Link } from "wouter";
 import { MapPin, Package, Clock } from "lucide-react";
 import type { CatalogStrain } from "@/hooks/useCatalog";
-import { getDaysSinceScraped, formatDaysSinceScraped } from "@/lib/utils";
+import { formatDaysSinceScraped } from "@/lib/utils";
 
 interface OtherCardProps {
   strain: CatalogStrain;
@@ -9,7 +9,6 @@ interface OtherCardProps {
 
 export default function OtherCard({ strain }: OtherCardProps) {
   const bestPrice = strain.prices.sort((a, b) => a.price - b.price)[0];
-  const daysSince = getDaysSinceScraped(strain.last_verified);
 
   return (
     <Link href={`/strain/${strain.id}`}>
@@ -77,10 +76,10 @@ export default function OtherCard({ strain }: OtherCardProps) {
 
           {/* Footer */}
           <div className="mt-4 pt-3 border-t border-border/30 flex items-center justify-end">
-            {daysSince !== null && (
+            {strain.days_since_scraped != null && (
               <div className="flex items-center gap-1 text-[10px] text-muted-foreground">
                 <Clock className="w-2.5 h-2.5" />
-                {formatDaysSinceScraped(daysSince)}
+                {formatDaysSinceScraped(strain.days_since_scraped)}
               </div>
             )}
           </div>

@@ -4,6 +4,16 @@
  * typed access to strains, dispensaries, brands, and external links.
  */
 import { useState, useEffect, useMemo } from "react";
+import {
+  getProductCategory,
+  extractWeight,
+  extractQuantity,
+  extractConcentrateType,
+  extractEdibleType,
+  extractPreRollType,
+  getDaysSinceScraped,
+  type ProductCategory,
+} from "@/lib/utils";
 
 const CATALOG_URL = "/data/strainscout_catalog_v10.min.json";
 
@@ -34,11 +44,17 @@ export interface CatalogStrain {
   leafly_verified?: boolean;
   weedmaps_verified?: boolean;
   weedmaps_name?: string;
-  // Computed fields
+  // Computed fields — prices
   price_min?: number | null;
   price_max?: number | null;
   price_avg?: number | null;
   dispensary_count?: number;
+  // Computed fields — product metadata
+  category?: ProductCategory;
+  weight?: string | null;
+  quantity?: string | null;
+  subType?: string | null;
+  days_since_scraped?: number | null;
 }
 
 export interface CatalogDispensary {
@@ -120,6 +136,31 @@ async function fetchCatalog(): Promise<Catalog> {
         s.dispensary_count =
           (s.dispensaries || []).length ||
           new Set((s.prices || []).map((p) => p.dispensary)).size;
+      }
+
+      // Compute product metadata for each strain
+      for (const s of strains) {
+        const cat = getProductCategory(s.name);
+        s.category = cat;
+        s.weight = extractWeight(s.name);
+        s.quantity = extractQuantity(s.name);
+        s.days_since_scraped = getDaysSinceScraped(s.last_verified);
+
+        // Category-specific sub-type
+        switch (cat) {
+          case "Concentrate":
+            s.subType = extractConcentrateType(s.name);
+            break;
+          case "Edible":
+            s.subType = extractEdibleType(s.name);
+            break;
+          case "Pre-Roll":
+            s.subType = extractPreRollType(s.name);
+            break;
+          default:
+            s.subType = null;
+            break;
+        }
       }
 
       // Build dispensary list from strain data
