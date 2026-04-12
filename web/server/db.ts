@@ -1019,54 +1019,58 @@ export async function claimDispensary(claim: {
   const db = await getDb();
   if (!db) throw new Error("Database not available");
 
-  // Check if dispensary is already claimed
-  const existing = await db
-    .select({ id: dispensaryPartners.id })
-    .from(dispensaryPartners)
-    .where(eq(dispensaryPartners.dispensarySlug, claim.dispensarySlug))
-    .limit(1);
+  return await db.transaction(async (tx) => {
+    // Lock rows for this dispensary slug to prevent concurrent claims
+    const existing = await tx
+      .select({ id: dispensaryPartners.id })
+      .from(dispensaryPartners)
+      .where(eq(dispensaryPartners.dispensarySlug, claim.dispensarySlug))
+      .for("update")
+      .limit(1);
 
-  if (existing.length > 0) {
-    throw new Error("This dispensary has already been claimed.");
-  }
-
-  // Check if user already has a partnership
-  const userPartner = await db
-    .select({ id: dispensaryPartners.id })
-    .from(dispensaryPartners)
-    .where(eq(dispensaryPartners.userId, claim.userId))
-    .limit(1);
-
-  if (userPartner.length > 0) {
-    throw new Error("You already have a dispensary partnership. Each account can claim one dispensary.");
-  }
-
-  let insertResult;
-  try {
-    insertResult = await db.insert(dispensaryPartners).values({
-      userId: claim.userId,
-      dispensarySlug: claim.dispensarySlug,
-      dispensaryName: claim.dispensaryName,
-      businessName: claim.businessName,
-      contactEmail: claim.contactEmail,
-      contactPhone: claim.contactPhone ?? null,
-      verificationStatus: "pending",
-      partnerTier: "basic",
-    });
-  } catch (err: any) {
-    if (err?.code === "ER_DUP_ENTRY" || err?.message?.includes("Duplicate entry")) {
-      throw new Error("This dispensary has already been claimed by another user.");
+    if (existing.length > 0) {
+      throw new Error("This dispensary has already been claimed.");
     }
-    throw err;
-  }
 
-  const inserted = await db
-    .select()
-    .from(dispensaryPartners)
-    .where(eq(dispensaryPartners.id, Number(insertResult[0].insertId)))
-    .limit(1);
+    // Lock rows for this user to prevent concurrent multi-claims
+    const userPartner = await tx
+      .select({ id: dispensaryPartners.id })
+      .from(dispensaryPartners)
+      .where(eq(dispensaryPartners.userId, claim.userId))
+      .for("update")
+      .limit(1);
 
-  return inserted[0];
+    if (userPartner.length > 0) {
+      throw new Error("You already have a dispensary partnership. Each account can claim one dispensary.");
+    }
+
+    let insertResult;
+    try {
+      insertResult = await tx.insert(dispensaryPartners).values({
+        userId: claim.userId,
+        dispensarySlug: claim.dispensarySlug,
+        dispensaryName: claim.dispensaryName,
+        businessName: claim.businessName,
+        contactEmail: claim.contactEmail,
+        contactPhone: claim.contactPhone ?? null,
+        verificationStatus: "pending",
+        partnerTier: "basic",
+      });
+    } catch (err: any) {
+      if (err?.code === "ER_DUP_ENTRY" || err?.message?.includes("Duplicate entry")) {
+        throw new Error("This dispensary has already been claimed by another user.");
+      }
+      throw err;
+    }
+
+    const inserted = await tx
+      .select()
+      .from(dispensaryPartners)
+      .where(eq(dispensaryPartners.id, Number(insertResult[0].insertId)))
+      .limit(1);
+
+    return inserted[0];
+  });
 }
 
 /**
