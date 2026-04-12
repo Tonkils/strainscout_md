@@ -15,6 +15,7 @@ import { useCatalog, type CatalogStrain } from "@/hooks/useCatalog";
 import CompareInlineCTA from "@/components/CompareInlineCTA";
 import { ComparePageSEO } from "@/components/SEO";
 import { trackPageViewed, trackPriceCompared, trackFilterApplied, trackStrainSearched } from "@/lib/analytics";
+import { getProductCategory, CATEGORY_COLORS, type ProductCategory } from "@/lib/utils";
 
 const COMPARE_BG = "https://d2xsxph8kpxj0f.cloudfront.net/310519663317311392/oGX3NFZ9WLXhuXs89evvau/compare-bg-jmjdsZ6AB248TzE9oQh8p3.webp";
 
@@ -24,6 +25,7 @@ export default function CompareStrains() {
   const { catalog, loading } = useCatalog();
   const [searchQuery, setSearchQuery] = useState("");
   const [typeFilter, setTypeFilter] = useState<string>("All");
+  const [categoryFilter, setCategoryFilter] = useState<string>("All");
   const [quickFilter, setQuickFilter] = useState<string>("");
   const [dispensaryFilter, setDispensaryFilter] = useState<string>("");
 
@@ -59,6 +61,7 @@ export default function CompareStrains() {
     if (!catalog) return [];
     let result = catalog.strains;
     if (typeFilter !== "All") result = result.filter((s) => s.type.toLowerCase() === typeFilter.toLowerCase());
+    if (categoryFilter !== "All") result = result.filter((s) => getProductCategory(s.name) === categoryFilter);
     if (searchQuery) {
       const q = searchQuery.toLowerCase();
       result = result.filter((s) =>
@@ -89,7 +92,7 @@ export default function CompareStrains() {
       return sortDir === "desc" ? -cmp : cmp;
     });
     return result;
-  }, [catalog, searchQuery, typeFilter, sortBy, sortDir, quickFilter, dispensaryFilter]);
+  }, [catalog, searchQuery, typeFilter, categoryFilter, sortBy, sortDir, quickFilter, dispensaryFilter]);
 
   const paged = useMemo(() => filtered.slice(0, page * perPage), [filtered, page]);
   const hasMore = paged.length < filtered.length;
@@ -165,6 +168,25 @@ export default function CompareStrains() {
             <span className="text-xs text-muted-foreground shrink-0">{filtered.length.toLocaleString()} results</span>
           </div>
 
+          {/* Category Filter */}
+          <div className="w-full sm:w-auto">
+            <div className="flex items-center gap-0.5 sm:gap-1 bg-card border border-border/50 rounded-lg px-1 py-1 overflow-x-auto">
+              {(["All", "Flower", "Edible", "Concentrate", "Vape", "Pre-Roll", "Other"] as const).map((cat) => (
+                <button
+                  key={cat}
+                  onClick={() => { setCategoryFilter(cat); setPage(1); }}
+                  className={`px-2.5 sm:px-3 py-1.5 rounded-md text-xs font-medium transition-all active:scale-95 whitespace-nowrap ${
+                    categoryFilter === cat
+                      ? "bg-primary text-primary-foreground"
+                      : "text-muted-foreground hover:text-foreground"
+                  }`}
+                >
+                  {cat}
+                </button>
+              ))}
+            </div>
+          </div>
+
           {/* Compare Button */}
           {compareList.length > 0 && (
             <button
@@ -218,9 +240,9 @@ export default function CompareStrains() {
           </div>
 
           {/* Active filter summary */}
-          {(quickFilter || dispensaryFilter) && (
+          {(quickFilter || dispensaryFilter || categoryFilter !== "All") && (
             <button
-              onClick={() => { setQuickFilter(""); setDispensaryFilter(""); setPage(1); }}
+              onClick={() => { setQuickFilter(""); setDispensaryFilter(""); setCategoryFilter("All"); setPage(1); }}
               className="flex items-center gap-1 px-2.5 py-1.5 rounded-full text-xs text-muted-foreground bg-card border border-border/50 hover:text-foreground transition-colors"
             >
               <X className="w-3 h-3" />
@@ -286,9 +308,14 @@ export default function CompareStrains() {
 
                     {/* Name */}
                     <div className="col-span-3">
-                      <Link href={`/strain/${strain.id}`} className="font-serif text-foreground hover:text-primary transition-colors">
-                        {strain.name}
-                      </Link>
+                      <div className="flex items-center gap-1.5 mb-0.5">
+                        <Link href={`/strain/${strain.id}`} className="font-serif text-foreground hover:text-primary transition-colors">
+                          {strain.name}
+                        </Link>
+                        <span className={`px-1.5 py-0.5 rounded text-[8px] font-semibold uppercase tracking-wider shrink-0 ${CATEGORY_COLORS[getProductCategory(strain.name)]}`}>
+                          {getProductCategory(strain.name)}
+                        </span>
+                      </div>
                       <p className="text-[10px] text-muted-foreground mt-0.5">
                         {strain.grade === "A" ? "★ " : ""}{(strain.dispensary_count ?? 0)} dispensar{(strain.dispensary_count ?? 0) === 1 ? "y" : "ies"}
                       </p>
@@ -363,6 +390,9 @@ export default function CompareStrains() {
                             strain.type === "sativa" ? "bg-amber-500/15 text-amber-400" :
                             "bg-emerald-500/15 text-emerald-400"
                           }`}>{typeLabel(strain.type)}</span>
+                          <span className={`px-1.5 py-0.5 rounded text-[9px] font-semibold uppercase ${CATEGORY_COLORS[getProductCategory(strain.name)]}`}>
+                            {getProductCategory(strain.name)}
+                          </span>
                           <span className="font-price text-sm">{strain.thc || "—"} THC</span>
                           {strain.brand && <span className="text-xs text-muted-foreground truncate max-w-[120px]">{strain.brand}</span>}
                         </div>
