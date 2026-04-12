@@ -7,6 +7,7 @@ __pycache__/
 logs/
 .playwright/
 # web_2 is now tracked as part of this repo (removed nested .git 2026-03-23)
+web/node_modules/
 web_2/node_modules/
 web_2/.next/
 web_2/out/

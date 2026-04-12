@@ -9,7 +9,7 @@ import { useState, useMemo, useEffect } from "react";
 import { Link } from "wouter";
 import { Search, TrendingDown, DollarSign, Award, ArrowRight, Clock, Loader2, Leaf } from "lucide-react";
 import Navbar from "@/components/Navbar";
-import DealCard from "@/components/DealCard";
+import ProductCard from "@/components/cards/ProductCard";
 import DealDigestBanner from "@/components/DealDigestBanner";
 import Footer from "@/components/Footer";
 import { HomePageSEO } from "@/components/SEO";
@@ -185,7 +185,7 @@ export default function Home() {
         ) : (
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-3 sm:gap-4">
             {filteredStrains.map((strain) => (
-              <DealCard key={strain.id} strain={strain} />
+              <ProductCard key={strain.id} strain={strain} />
             ))}
           </div>
         )}
