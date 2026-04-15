@@ -97,7 +97,43 @@ def assign_category_confidence(
     return "conflict"
 
 
-def clean_product_name(raw_name: str) -> str:
+def extract_weight(raw_name: str) -> str | None:
+    """Extract weight/size from a product name. Returns normalized string like '3.5g', '1oz', '10pk'.
+
+    Examples:
+        "Alien Mints | Flower 3.5g"  →  "3.5g"
+        "Sour Diesel 1oz"            →  "1oz"
+        "Pre-Roll 5pk"               →  "5pk"
+        "100mg THC Gummy"            →  "100mg"
+        "Blue Dream"                 →  None
+    """
+    n = raw_name.strip()
+
+    # Weight: 3.5g, 1oz, 0.5g, 7g, 14g, 28g
+    m = re.search(r'(\d+(?:\.\d+)?)\s*(g|oz)\b', n, re.I)
+    if m:
+        val = m.group(1)
+        unit = m.group(2).lower()
+        # Ignore mg amounts (those are edible dosages, not weight)
+        if unit == 'g' and not re.search(r'm' + re.escape(m.group(0)), n, re.I):
+            return f"{val}{unit}"
+        if unit == 'oz':
+            return f"{val}{unit}"
+
+    # Pack count: 5pk, 10 pack, 2ct
+    m = re.search(r'(\d+)\s*(pk|pack|ct)\b', n, re.I)
+    if m:
+        return f"{m.group(1)}pk"
+
+    # mg dosage for edibles: 100mg, 10mg
+    m = re.search(r'(\d+(?:\.\d+)?)\s*mg\b', n, re.I)
+    if m:
+        return f"{m.group(1)}mg"
+
+    return None
+
+
+
     """Extract the pure strain name from a Weedmaps product listing name.
 
     Strips brand prefixes, weight/size info, format words, and delimiters.
@@ -304,6 +340,7 @@ def main():
 
             thc = parse_thc(prod.get("thc_pct"))
             price_eighth = parse_price(prod.get("price_eighth"))
+            weight = extract_weight(raw_name)
 
             record = {
                 "strain_name": clean_name,
@@ -312,6 +349,7 @@ def main():
                 "strain_type": (prod.get("strain_type") or "").strip() or None,
                 "thc": thc,
                 "price_eighth": price_eighth,
+                "weight": weight,
                 "dispensary": disp_display,
                 "dispensary_slug": slug,
                 "source_platform": platform,

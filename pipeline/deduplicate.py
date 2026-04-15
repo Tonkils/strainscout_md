@@ -117,10 +117,12 @@ def main():
     records = data["records"]
     print(f"Input: {len(records)} enriched records")
 
-    # Group by canonical name
+    # Group by canonical name + weight so different sizes stay separate
     groups = defaultdict(list)
     for rec in records:
-        key = canonical_key(rec["strain_name"])
+        name_key = canonical_key(rec["strain_name"])
+        weight = rec.get("weight") or ""
+        key = f"{name_key}|{weight}" if weight else name_key
         groups[key].append(rec)
 
     # Merge each group into a single strain entry
@@ -149,10 +151,18 @@ def main():
             category_confidence = "inferred"
 
         # Build the unified strain entry
+        weight = winner.get("weight") or ""
+        # If multiple records have different weights, take the most common
+        if not weight:
+            weight_votes = Counter(r.get("weight", "") for r in group if r.get("weight"))
+            if weight_votes:
+                weight = weight_votes.most_common(1)[0][0]
+
         strain = {
             "id": "",  # will be set below
             "name": winner["strain_name"],
             "brand": winner.get("brand", ""),
+            "weight": weight,
             "type": winner.get("strain_type", "Hybrid"),
             "type_source": winner.get("type_source", ""),
             "type_confidence": winner.get("type_confidence"),
@@ -239,8 +249,10 @@ def main():
 
         strain["dispensary_count"] = len(disp_set)
 
-        # Generate slug-based ID
+        # Generate slug-based ID (include weight to differentiate sizes)
         slug = re.sub(r"[^a-z0-9]+", "-", strain["name"].lower()).strip("-")
+        if strain.get("weight"):
+            slug = f"{slug}-{strain['weight'].lower()}"
         strain["id"] = slug
 
         deduped.append(strain)
