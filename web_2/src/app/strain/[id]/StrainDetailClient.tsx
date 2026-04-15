@@ -154,10 +154,7 @@ export default function StrainDetailClient({ id }: { id: string }) {
               {strain.price_min != null && (
                 <div className="text-center">
                   <p className="font-price text-2xl sm:text-3xl font-bold text-savings">${strain.price_min}</p>
-                  <p className="text-[10px] text-muted-foreground uppercase">From{strain.weight ? ` (${strain.weight})` : ""}</p>
-                  {strain.best_price_per_gram != null && (
-                    <p className="text-[10px] text-muted-foreground">${strain.best_price_per_gram.toFixed(2)}/g</p>
-                  )}
+                  <p className="text-[10px] text-muted-foreground uppercase">From</p>
                 </div>
               )}
               {strain.prices.length > 0 && (
@@ -242,7 +239,7 @@ export default function StrainDetailClient({ id }: { id: string }) {
                 <div className="px-5 py-4 border-b border-border/30 flex items-center justify-between">
                   <div>
                     <h2 className="font-serif text-xl text-foreground">Prices by Dispensary</h2>
-                    <p className="text-[11px] text-muted-foreground mt-0.5">Per-gram price shown where weight is known</p>
+                    <p className="text-[11px] text-muted-foreground mt-0.5">Per 1/8 oz (3.5g) unless noted</p>
                   </div>
                   <span className="text-xs text-muted-foreground">{strain.prices.length} dispensar{strain.prices.length === 1 ? "y" : "ies"}</span>
                 </div>
@@ -264,11 +261,7 @@ export default function StrainDetailClient({ id }: { id: string }) {
                             <span className={`font-price text-lg font-bold block ${i === 0 ? "text-savings" : "text-foreground"}`}>
                               ${p.price}
                             </span>
-                            {p.price_per_gram ? (
-                              <span className="text-[10px] text-muted-foreground">${p.price_per_gram.toFixed(2)}/g{p.inferred_weight ? ` (${p.inferred_weight})` : ""}</span>
-                            ) : (
-                              <span className="text-[10px] text-muted-foreground">${(p.price / 3.5).toFixed(2)}/g</span>
-                            )}
+                            <span className="text-[10px] text-muted-foreground">${(p.price / 3.5).toFixed(2)}/g</span>
                           </div>
                           <VerificationBadge timestamp={p.last_verified} dispensaryName={p.dispensary} compact />
                           {link && (
@@ -292,11 +285,7 @@ export default function StrainDetailClient({ id }: { id: string }) {
                               <span className={`font-price text-lg font-bold block ${i === 0 ? "text-savings" : "text-foreground"}`}>
                                 ${p.price}
                               </span>
-                              {p.price_per_gram ? (
-                                <span className="text-[10px] text-muted-foreground">${p.price_per_gram.toFixed(2)}/g</span>
-                              ) : (
-                                <span className="text-[10px] text-muted-foreground">${(p.price / 3.5).toFixed(2)}/g</span>
-                              )}
+                              <span className="text-[10px] text-muted-foreground">${(p.price / 3.5).toFixed(2)}/g</span>
                             </div>
                           </div>
                           {link && (
