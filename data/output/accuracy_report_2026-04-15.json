@@ -1,0 +1,181 @@
+{
+  "timestamp": "2026-04-15T21:26:45.985041+00:00",
+  "catalog_path": "data/output/strainscout_catalog_v10.min.json",
+  "catalog_version": "v10",
+  "total_products": 1285,
+  "overall_score": 90.4,
+  "overall_grade": "A",
+  "sections": {
+    "category_accuracy": {
+      "grade": "A",
+      "score": 100.0,
+      "miscategorized_count": 0,
+      "by_category": {
+        "Vape": 255,
+        "Pre-Roll": 96,
+        "Edible": 177,
+        "Flower": 573,
+        "Concentrate": 181,
+        "Topical": 3
+      },
+      "details": []
+    },
+    "field_completeness": {
+      "grade": "B",
+      "score": 80.3,
+      "brand_coverage": 94.9,
+      "thc_coverage": 82.5,
+      "price_coverage": 81.0,
+      "terpene_coverage": 16.2,
+      "dispensary_coverage": 100.0,
+      "missing_brand": 65,
+      "missing_thc": 225,
+      "missing_prices": 244,
+      "missing_terpenes": 1077
+    },
+    "data_freshness": {
+      "grade": "B",
+      "score": 81.0,
+      "products_with_dates": 1041,
+      "total_products": 1285,
+      "newest_date": "2026-04-14",
+      "oldest_date": "2026-04-14",
+      "age_days": 1,
+      "stale_count": 0,
+      "within_7_days": 1041
+    },
+    "name_quality": {
+      "grade": "A",
+      "score": 100.0,
+      "junk_names": 0,
+      "empty_names": 0,
+      "html_in_names": 0,
+      "duplicate_ids": 0,
+      "total_issues": 0
+    },
+    "dispensary_links": {
+      "grade": "A",
+      "score": 100.0,
+      "total_links": 1613,
+      "valid_links": 1613,
+      "broken_format": 0,
+      "products_with_links": 1208,
+      "products_with_dispensaries": 1285
+    },
+    "product_cards": {
+      "grade": "B",
+      "score": 83.4,
+      "by_category": {
+        "Flower": {
+          "count": 573,
+          "completeness": 78.3,
+          "field_coverage": {
+            "name": 100.0,
+            "brand": 90.4,
+            "price": 64.9,
+            "dispensaries": 100.0,
+            "thc": 80.6,
+            "cbd": 100.0,
+            "terpenes": 25.3,
+            "date_scraped": 64.9
+          },
+          "desired_coverage": {
+            "strain": 100.0,
+            "weight": 1.0
+          },
+          "missing_fields": [
+            "terpenes"
+          ]
+        },
+        "Edible": {
+          "count": 177,
+          "completeness": 80.6,
+          "field_coverage": {
+            "name": 100.0,
+            "brand": 99.4,
+            "price": 84.2,
+            "dispensaries": 100.0,
+            "thc": 76.3,
+            "cbd": 100.0,
+            "terpenes": 1.1,
+            "date_scraped": 84.2
+          },
+          "desired_coverage": {
+            "quantity": 26.0,
+            "edible_type": 52.5
+          },
+          "missing_fields": [
+            "terpenes"
+          ]
+        },
+        "Concentrate": {
+          "count": 181,
+          "completeness": 87.2,
+          "field_coverage": {
+            "name": 100.0,
+            "brand": 99.4,
+            "price": 97.8,
+            "dispensaries": 100.0,
+            "thc": 90.1,
+            "cbd": 100.0,
+            "terpenes": 12.7,
+            "date_scraped": 97.8
+          },
+          "desired_coverage": {
+            "strain": 100.0,
+            "amount": 7.2,
+            "concentrate_type": 95.6
+          },
+          "missing_fields": [
+            "terpenes"
+          ]
+        },
+        "Vape": {
+          "count": 255,
+          "completeness": 86.6,
+          "field_coverage": {
+            "name": 100.0,
+            "brand": 99.6,
+            "price": 99.2,
+            "dispensaries": 100.0,
+            "thc": 83.1,
+            "cbd": 100.0,
+            "terpenes": 11.8,
+            "date_scraped": 99.2
+          },
+          "desired_coverage": {
+            "weight": 8.2
+          },
+          "missing_fields": [
+            "terpenes"
+          ]
+        },
+        "Pre-Roll": {
+          "count": 96,
+          "completeness": 84.5,
+          "field_coverage": {
+            "name": 100.0,
+            "brand": 93.8,
+            "price": 91.7,
+            "dispensaries": 100.0,
+            "thc": 90.6,
+            "cbd": 100.0,
+            "terpenes": 8.3,
+            "date_scraped": 91.7
+          },
+          "desired_coverage": {
+            "strain": 100.0,
+            "weight_or_quantity": 62.5,
+            "preroll_type": 56.2
+          },
+          "missing_fields": [
+            "terpenes"
+          ]
+        }
+      }
+    }
+  },
+  "action_items": [
+    "IMPROVE: 83.8% of products missing terpene data"
+  ]
+}

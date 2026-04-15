@@ -15,23 +15,27 @@ Runs all pipeline steps in order:
     1i. Verilife/Jane scraper (3 dispensaries)
 
   Phase 2: PROCESS (always runs)
-    2. parse_raw     — Parse raw scrape files from ALL platforms
-    3. enrich_leafly — Enrich with Leafly type/terpenes/effects
-    4. deduplicate   — Merge duplicate strain entries
-    5. build_catalog — Assemble final production JSON
+    2.  parse_raw          — Parse raw scrape files from ALL platforms
+    3.  enrich_leafly      — Enrich with Leafly type/terpenes/effects
+    4.  deduplicate        — Merge duplicate strain entries
+    5.  build_catalog      — Assemble final production JSON
+    5b. apply_categories   — Apply manual category overrides & auto-classification
+    5c. clean_catalog      — Remove junk entries from the catalog
+    5d. verify_data        — Run data-accuracy checks, save JSON report
 
   Phase 3: PUBLISH (optional, use --publish)
     6. upload_ionos  — Upload catalog to IONOS webspace via SFTP
 
 Usage:
-    python run_all.py                     # Process pipeline only (steps 2-5)
-    python run_all.py --scrape            # Scrape + process (steps 1-5)
+    python run_all.py                     # Process pipeline only (steps 2-5d)
+    python run_all.py --scrape            # Scrape + process (steps 1-5d)
     python run_all.py --publish           # Process + publish (steps 2-6)
     python run_all.py --scrape --publish  # Full pipeline (steps 1-6)
     python run_all.py --from=3            # Start from step 3
     python run_all.py --scrape-only       # Run scrapers only, no processing
 """
 
+import json
 import sys
 import os
 import time
@@ -163,7 +167,7 @@ async def run_all_scrapers() -> list[dict]:
 
 # ── Pipeline step runner ─────────────────────────────────────────────────────
 
-def run_pipeline_step(step_num: int, name: str, module_path: str) -> bool:
+def run_pipeline_step(step_num, name: str, module_path: str) -> bool:
     """Run a single pipeline step. Returns True on success."""
     print(f"\n{'#'*70}")
     print(f"# STEP {step_num}: {name}")
@@ -184,6 +188,63 @@ def run_pipeline_step(step_num: int, name: str, module_path: str) -> bool:
         return False
 
 
+def run_verify_data_step(step_num, name: str) -> bool:
+    """Run tests.verify_data with --json, save report, print summary."""
+    import subprocess
+
+    print(f"\n{'#'*70}")
+    print(f"# STEP {step_num}: {name}")
+    print(f"{'#'*70}\n")
+
+    report_path = BASE / "data" / "output" / "accuracy_report_latest.json"
+    start = time.time()
+
+    try:
+        result = subprocess.run(
+            [sys.executable, "-B", "-m", "tests.verify_data", "--json"],
+            cwd=str(BASE),
+            capture_output=True,
+            text=True,
+            timeout=300,
+        )
+
+        elapsed = time.time() - start
+
+        if result.returncode != 0:
+            print(result.stdout)
+            if result.stderr:
+                print(result.stderr)
+            print(f"\n\u2717 Step {step_num} FAILED after {elapsed:.1f}s")
+            return False
+
+        # Save JSON report
+        report_path.parent.mkdir(parents=True, exist_ok=True)
+        report_path.write_text(result.stdout, encoding="utf-8")
+
+        # Parse report and print summary
+        try:
+            report = json.loads(result.stdout)
+            grade = report.get("overall_grade", "?")
+            score = report.get("overall_score", 0)
+            actions = len(report.get("action_items", []))
+            print(f"  Data accuracy: Grade {grade} ({score}%) \u2014 {actions} action items")
+        except (json.JSONDecodeError, KeyError):
+            print(f"  Report saved to {report_path}")
+
+        print(f"\n\u2713 Step {step_num} completed in {elapsed:.1f}s")
+        return True
+
+    except subprocess.TimeoutExpired:
+        elapsed = time.time() - start
+        print(f"\n\u2717 Step {step_num} TIMEOUT after {elapsed:.1f}s")
+        return False
+    except Exception as e:
+        elapsed = time.time() - start
+        print(f"\n\u2717 Step {step_num} FAILED after {elapsed:.1f}s: {e}")
+        traceback.print_exc()
+        return False
+
+
 # ── Main ─────────────────────────────────────────────────────────────────────
 
 def main():
@@ -195,7 +256,7 @@ def main():
     parser.add_argument("--publish", action="store_true",
                         help="Upload catalog to IONOS after processing")
     parser.add_argument("--from", dest="from_step", type=int, default=2,
-                        help="Start from this processing step (2-5)")
+                        help="Start from this processing step (2-5, sub-steps 5b-5d always follow 5)")
     args = parser.parse_args()
 
     print("=" * 70)
@@ -221,19 +282,29 @@ def main():
 
     # ── Phase 2: Process ──
     pipeline_steps = [
-        (2, "Parse Raw Scrape Data",       "pipeline.parse_raw"),
-        (3, "Enrich with Leafly Data",      "pipeline.enrich_leafly"),
-        (4, "Deduplicate Strains",          "pipeline.deduplicate"),
-        (5, "Build Production Catalog",     "pipeline.build_catalog"),
+        (2,   "Parse Raw Scrape Data",           "pipeline.parse_raw"),
+        (3,   "Enrich with Leafly Data",          "pipeline.enrich_leafly"),
+        (4,   "Deduplicate Strains",              "pipeline.deduplicate"),
+        (5,   "Build Production Catalog",         "pipeline.build_catalog"),
+        ("5b", "Apply Manual Categories",          "pipeline.apply_manual_categories"),
+        ("5c", "Clean Catalog",                    "pipeline.clean_catalog"),
+        ("5d", "Verify Data Accuracy",             "tests.verify_data"),
     ]
 
+    # Map step labels to a comparable ordering value for --from filtering
+    step_order = {2: 2, 3: 3, 4: 4, 5: 5, "5b": 5.1, "5c": 5.2, "5d": 5.3}
+
     for step_num, name, module in pipeline_steps:
-        if step_num < args.from_step:
+        if step_order.get(step_num, 0) < args.from_step:
             print(f"\nSkipping step {step_num}: {name}")
             results[step_num] = "skipped"
             continue
 
-        success = run_pipeline_step(step_num, name, module)
+        # The verify_data step needs special handling: run as subprocess with --json
+        if module == "tests.verify_data":
+            success = run_verify_data_step(step_num, name)
+        else:
+            success = run_pipeline_step(step_num, name, module)
         results[step_num] = "success" if success else "failed"
 
         if not success:
@@ -243,7 +314,7 @@ def main():
             break
 
     # ── Phase 3: Publish ──
-    if args.publish and results.get(5) == "success":
+    if args.publish and results.get("5d") == "success":
         success = run_pipeline_step(6, "Upload to IONOS", "publish.upload_ionos")
         results[6] = "success" if success else "failed"
 
@@ -270,8 +341,8 @@ def main():
         icon = "✓" if results[6] == "success" else "✗"
         print(f"  {icon} Step 6: Upload to IONOS [{results[6]}]")
 
-    # Check for failures
-    failed = [n for n, s in results.items() if isinstance(n, int) and s == "failed"]
+    # Check for failures (step keys are ints like 2,3,4,5 or strings like "5b","5c","5d")
+    failed = [n for n, s in results.items() if n != "scrape" and s == "failed"]
     if failed:
         print(f"\n  ✗ Pipeline had failures at step(s): {failed}")
         return 1
