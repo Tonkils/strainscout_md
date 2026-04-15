@@ -25,38 +25,27 @@ OUT_PRETTY = OUT_DIR / "strainscout_catalog_v10.json"
 
 # ── Junk-detection patterns ─────────────────────────────────────────
 
-# Names that are bare pack/count strings like "5 Pack", "10ct", "20 Pack"
-RE_BARE_PACK = re.compile(r"^[\d\s]*(pack|ct)[\d\s]*$", re.IGNORECASE)
-
-# Shop / browse landing pages, promo discounts, apparel
+# Shop / browse landing pages and promo discounts
 RE_JUNK_NAME = re.compile(
-    r"^shop\s|^browse\s|% off|% back|t-shirt|shirt\b|tee\b",
+    r"^shop\s|^browse\s|% off|% back|buy one get one",
     re.IGNORECASE,
 )
 
-# Exact category-label names that snuck in as products
-CATEGORY_LABELS = frozenset({
-    "Edibles",
-    "Beverages",
-    "Vapes",
-    "Flower and Infused",
-    "Encore Edibles",
-})
+# Emoji-led promotional entries (not real products)
+RE_EMOJI_PROMO = re.compile(
+    r"^[\U0001f300-\U0001faff\u2600-\u27bf\u200d\ufe0f].*(?:now available|coming soon|limited time)",
+    re.IGNORECASE,
+)
 
 
 def is_junk(product: dict) -> str | None:
     """Return a human-readable reason if *product* is junk, else None."""
-    cat = product.get("product_category", "")
     name = product.get("name", "")
 
-    if cat == "Other":
-        return 'product_category == "Other"'
     if RE_JUNK_NAME.search(name):
-        return f"name matches junk pattern: {name!r}"
-    if RE_BARE_PACK.match(name):
-        return f"bare pack/count name: {name!r}"
-    if name in CATEGORY_LABELS:
-        return f"category-label name: {name!r}"
+        return f"shop/promo page: {name!r}"
+    if RE_EMOJI_PROMO.search(name):
+        return f"emoji promo: {name!r}"
 
     return None
 

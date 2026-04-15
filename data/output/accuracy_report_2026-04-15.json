@@ -1,9 +1,9 @@
 {
-  "timestamp": "2026-04-15T21:26:45.985041+00:00",
+  "timestamp": "2026-04-15T21:35:45.717411+00:00",
   "catalog_path": "data/output/strainscout_catalog_v10.min.json",
   "catalog_version": "v10",
-  "total_products": 1285,
-  "overall_score": 90.4,
+  "total_products": 1303,
+  "overall_score": 90.3,
   "overall_grade": "A",
   "sections": {
     "category_accuracy": {
@@ -11,10 +11,11 @@
       "score": 100.0,
       "miscategorized_count": 0,
       "by_category": {
-        "Vape": 255,
+        "Vape": 256,
         "Pre-Roll": 96,
-        "Edible": 177,
-        "Flower": 573,
+        "Other": 13,
+        "Edible": 180,
+        "Flower": 574,
         "Concentrate": 181,
         "Topical": 3
       },
@@ -22,62 +23,62 @@
     },
     "field_completeness": {
       "grade": "B",
-      "score": 80.3,
-      "brand_coverage": 94.9,
-      "thc_coverage": 82.5,
-      "price_coverage": 81.0,
-      "terpene_coverage": 16.2,
+      "score": 80.0,
+      "brand_coverage": 94.6,
+      "thc_coverage": 81.9,
+      "price_coverage": 80.9,
+      "terpene_coverage": 16.0,
       "dispensary_coverage": 100.0,
-      "missing_brand": 65,
-      "missing_thc": 225,
-      "missing_prices": 244,
-      "missing_terpenes": 1077
+      "missing_brand": 70,
+      "missing_thc": 236,
+      "missing_prices": 249,
+      "missing_terpenes": 1095
     },
     "data_freshness": {
       "grade": "B",
-      "score": 81.0,
-      "products_with_dates": 1041,
-      "total_products": 1285,
+      "score": 80.9,
+      "products_with_dates": 1054,
+      "total_products": 1303,
       "newest_date": "2026-04-14",
       "oldest_date": "2026-04-14",
       "age_days": 1,
       "stale_count": 0,
-      "within_7_days": 1041
+      "within_7_days": 1054
     },
     "name_quality": {
       "grade": "A",
-      "score": 100.0,
-      "junk_names": 0,
+      "score": 99.7,
+      "junk_names": 4,
       "empty_names": 0,
       "html_in_names": 0,
       "duplicate_ids": 0,
-      "total_issues": 0
+      "total_issues": 4
     },
     "dispensary_links": {
       "grade": "A",
       "score": 100.0,
-      "total_links": 1613,
-      "valid_links": 1613,
+      "total_links": 1647,
+      "valid_links": 1647,
       "broken_format": 0,
-      "products_with_links": 1208,
-      "products_with_dispensaries": 1285
+      "products_with_links": 1224,
+      "products_with_dispensaries": 1303
     },
     "product_cards": {
       "grade": "B",
-      "score": 83.4,
+      "score": 83.2,
       "by_category": {
         "Flower": {
-          "count": 573,
-          "completeness": 78.3,
+          "count": 574,
+          "completeness": 78.2,
           "field_coverage": {
             "name": 100.0,
-            "brand": 90.4,
-            "price": 64.9,
+            "brand": 90.2,
+            "price": 64.8,
             "dispensaries": 100.0,
-            "thc": 80.6,
+            "thc": 80.5,
             "cbd": 100.0,
             "terpenes": 25.3,
-            "date_scraped": 64.9
+            "date_scraped": 64.8
           },
           "desired_coverage": {
             "strain": 100.0,
@@ -88,21 +89,21 @@
           ]
         },
         "Edible": {
-          "count": 177,
-          "completeness": 80.6,
+          "count": 180,
+          "completeness": 79.9,
           "field_coverage": {
             "name": 100.0,
-            "brand": 99.4,
-            "price": 84.2,
+            "brand": 97.8,
+            "price": 82.8,
             "dispensaries": 100.0,
-            "thc": 76.3,
+            "thc": 75.0,
             "cbd": 100.0,
             "terpenes": 1.1,
-            "date_scraped": 84.2
+            "date_scraped": 82.8
           },
           "desired_coverage": {
-            "quantity": 26.0,
-            "edible_type": 52.5
+            "quantity": 25.6,
+            "edible_type": 52.2
           },
           "missing_fields": [
             "terpenes"
@@ -131,17 +132,17 @@
           ]
         },
         "Vape": {
-          "count": 255,
-          "completeness": 86.6,
+          "count": 256,
+          "completeness": 86.4,
           "field_coverage": {
             "name": 100.0,
-            "brand": 99.6,
-            "price": 99.2,
+            "brand": 99.2,
+            "price": 98.8,
             "dispensaries": 100.0,
-            "thc": 83.1,
+            "thc": 82.8,
             "cbd": 100.0,
-            "terpenes": 11.8,
-            "date_scraped": 99.2
+            "terpenes": 11.7,
+            "date_scraped": 98.8
           },
           "desired_coverage": {
             "weight": 8.2
@@ -176,6 +177,7 @@
     }
   },
   "action_items": [
-    "IMPROVE: 83.8% of products missing terpene data"
+    "IMPROVE: 84.0% of products missing terpene data",
+    "FIX: 4 junk product names (t-shirts, shop pages)"
   ]
 }
