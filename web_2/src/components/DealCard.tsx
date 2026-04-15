@@ -1,6 +1,6 @@
 import Link from "next/link";
 import type { CatalogStrain } from "@/hooks/useCatalog";
-import { MapPin, Beaker, ExternalLink } from "lucide-react";
+import { MapPin, Beaker, ExternalLink, Scale } from "lucide-react";
 import { getCategoryFromStrain, CATEGORY_COLORS, TYPE_COLORS } from "@/lib/utils";
 
 interface DealCardProps {
@@ -72,9 +72,15 @@ export default function DealCard({ strain, hideCategory }: DealCardProps) {
             <p className="text-[10px] text-muted-foreground uppercase tracking-wider mb-2 truncate">{strain.brand}</p>
           )}
 
-          {/* THC + Terpenes */}
+          {/* THC + Terpenes + Weight */}
           <div className="flex items-center gap-2 text-xs text-muted-foreground mb-4 flex-wrap">
             {strain.thc > 0 && <span>THC {strain.thc}%</span>}
+            {strain.weight && (
+              <span className="flex items-center gap-1">
+                <Scale className="w-3 h-3" />
+                {strain.weight}
+              </span>
+            )}
             {terpenes.length > 0 && (
               <span className="flex items-center gap-1">
                 <Beaker className="w-3 h-3" />
@@ -91,6 +97,11 @@ export default function DealCard({ strain, hideCategory }: DealCardProps) {
                 <p className="font-price text-2xl font-bold text-foreground">
                   {strain.price_min != null ? `$${strain.price_min}` : "N/A"}
                 </p>
+                {strain.best_price_per_gram != null && (
+                  <p className="text-[10px] text-muted-foreground mt-0.5">
+                    ${strain.best_price_per_gram.toFixed(2)}/g
+                  </p>
+                )}
               </div>
               <p className="text-[10px] text-muted-foreground pb-1">
                 {strain.dispensary_count ?? 0} dispensar{(strain.dispensary_count ?? 0) === 1 ? "y" : "ies"}

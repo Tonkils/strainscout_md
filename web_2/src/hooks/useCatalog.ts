@@ -23,7 +23,7 @@ export interface CatalogStrain {
   flavors: string[];
   description: string;
   genetics: string;
-  prices: { dispensary: string; price: number; source: string; last_verified?: string; verified_source?: string }[];
+  prices: { dispensary: string; price: number; source: string; last_verified?: string; verified_source?: string; inferred_weight?: string; weight_confidence?: string; price_per_gram?: number }[];
   last_verified?: string | null;
   verification_status?: string;
   catalog_version?: string;
@@ -43,6 +43,11 @@ export interface CatalogStrain {
   price_max?: number | null;
   price_avg?: number | null;
   dispensary_count?: number;
+  weight?: string;
+  leafly_type?: string;
+  price_variance_flag?: "high" | "moderate";
+  price_spread_pct?: number;
+  best_price_per_gram?: number | null;
 }
 
 export interface CatalogDispensary {
@@ -118,6 +123,12 @@ async function fetchCatalog(): Promise<Catalog> {
         s.dispensary_count =
           (s.dispensaries || []).length ||
           new Set((s.prices || []).map((p) => p.dispensary)).size;
+
+        // Compute best (lowest) per-gram price across all price entries
+        const perGramPrices = (s.prices || [])
+          .map((p) => p.price_per_gram)
+          .filter((ppg): ppg is number => typeof ppg === "number" && ppg > 0);
+        s.best_price_per_gram = perGramPrices.length > 0 ? Math.min(...perGramPrices) : null;
       }
 
       const dispMap = new Map<string, { count: number; website: string }>();
