@@ -19,6 +19,7 @@ Runs all pipeline steps in order:
     3.  enrich_leafly      — Enrich with Leafly type/terpenes/effects
     4.  deduplicate        — Merge duplicate strain entries
     5.  build_catalog      — Assemble final production JSON
+    5a. enrich_catalog     — Enrich catalog with Leafly terpenes/effects/type
     5b. apply_categories   — Apply manual category overrides & auto-classification
     5c. clean_catalog      — Remove junk entries from the catalog
     5d. verify_data        — Run data-accuracy checks, save JSON report
@@ -286,13 +287,14 @@ def main():
         (3,   "Enrich with Leafly Data",          "pipeline.enrich_leafly"),
         (4,   "Deduplicate Strains",              "pipeline.deduplicate"),
         (5,   "Build Production Catalog",         "pipeline.build_catalog"),
+        ("5a", "Enrich Catalog with Leafly",       "pipeline.enrich_catalog_leafly"),
         ("5b", "Apply Manual Categories",          "pipeline.apply_manual_categories"),
         ("5c", "Clean Catalog",                    "pipeline.clean_catalog"),
         ("5d", "Verify Data Accuracy",             "tests.verify_data"),
     ]
 
     # Map step labels to a comparable ordering value for --from filtering
-    step_order = {2: 2, 3: 3, 4: 4, 5: 5, "5b": 5.1, "5c": 5.2, "5d": 5.3}
+    step_order = {2: 2, 3: 3, 4: 4, 5: 5, "5a": 5.05, "5b": 5.1, "5c": 5.2, "5d": 5.3}
 
     for step_num, name, module in pipeline_steps:
         if step_order.get(step_num, 0) < args.from_step:

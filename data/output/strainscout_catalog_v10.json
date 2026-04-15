@@ -1251,7 +1251,8 @@
     "last_verified": "2026-04-14T08:04:28.232615+00:00",
     "verification_status": "scraped",
     "catalog_version": "v10",
-    "catalog_updated": "2026-04-14T08:04:28.232615+00:00"
+    "catalog_updated": "2026-04-14T08:04:28.232615+00:00",
+    "leafly_type": "Hybrid"
   },
   {
     "id": "10mg-10ct",
@@ -2468,7 +2469,8 @@
     "last_verified": "2026-04-14T08:04:28.232615+00:00",
     "verification_status": "scraped",
     "catalog_version": "v10",
-    "catalog_updated": "2026-04-14T08:04:28.232615+00:00"
+    "catalog_updated": "2026-04-14T08:04:28.232615+00:00",
+    "leafly_type": "Indica"
   },
   {
     "id": "200mg-cbd-100mg-thc",
@@ -3237,11 +3239,23 @@
     "category_confidence": "inferred",
     "thc": 42.07,
     "cbd": 0,
-    "terpenes": [],
-    "effects": [],
-    "flavors": [],
-    "description": "",
-    "genetics": "",
+    "terpenes": [
+      "Myrcene",
+      "Caryophyllene",
+      "Pinene"
+    ],
+    "effects": [
+      "Sleepy",
+      "Relaxed",
+      "Happy"
+    ],
+    "flavors": [
+      "Blueberry",
+      "Berry",
+      "Sweet"
+    ],
+    "description": "Blueberry, also known as “Berry Blue,” is an indica marijuana strain made by crossing Purple Thai with Thai. A true A-List cannabis strain, Blueberry’s legendary status soared to new heights after claiming the High Times’ Cannabis Cup 2000 for Best indica.",
+    "genetics": "Purple Thai x Thai",
     "grade": "B",
     "prices": [
       {
@@ -3270,7 +3284,8 @@
     "last_verified": "2026-04-14T08:04:28.232615+00:00",
     "verification_status": "scraped",
     "catalog_version": "v10",
-    "catalog_updated": "2026-04-14T08:04:28.232615+00:00"
+    "catalog_updated": "2026-04-14T08:04:28.232615+00:00",
+    "leafly_type": "Indica"
   },
   {
     "id": "5-pack-infused-strawberry-shortcake",
@@ -3810,7 +3825,8 @@
     "last_verified": "2026-04-14T08:04:28.232615+00:00",
     "verification_status": "scraped",
     "catalog_version": "v10",
-    "catalog_updated": "2026-04-14T08:04:28.232615+00:00"
+    "catalog_updated": "2026-04-14T08:04:28.232615+00:00",
+    "leafly_type": "Sativa"
   },
   {
     "id": "accessories",
@@ -4032,7 +4048,8 @@
     "last_verified": "2026-04-14T08:04:28.232615+00:00",
     "verification_status": "scraped",
     "catalog_version": "v10",
-    "catalog_updated": "2026-04-14T08:04:28.232615+00:00"
+    "catalog_updated": "2026-04-14T08:04:28.232615+00:00",
+    "leafly_type": "Indica"
   },
   {
     "id": "afternoon-delight-4",
@@ -4093,7 +4110,8 @@
     "last_verified": "2026-04-14T08:04:28.232615+00:00",
     "verification_status": "scraped",
     "catalog_version": "v10",
-    "catalog_updated": "2026-04-14T08:04:28.232615+00:00"
+    "catalog_updated": "2026-04-14T08:04:28.232615+00:00",
+    "leafly_type": "Hybrid"
   },
   {
     "id": "afternoon-delight-4-live-resin-disposable",
@@ -4149,7 +4167,8 @@
     "last_verified": "2026-04-14T08:04:28.232615+00:00",
     "verification_status": "scraped",
     "catalog_version": "v10",
-    "catalog_updated": "2026-04-14T08:04:28.232615+00:00"
+    "catalog_updated": "2026-04-14T08:04:28.232615+00:00",
+    "leafly_type": "Hybrid"
   },
   {
     "id": "afternoon-delight-4-terp-sap",
@@ -4225,7 +4244,8 @@
     "last_verified": "2026-04-14T08:04:28.232615+00:00",
     "verification_status": "scraped",
     "catalog_version": "v10",
-    "catalog_updated": "2026-04-14T08:04:28.232615+00:00"
+    "catalog_updated": "2026-04-14T08:04:28.232615+00:00",
+    "leafly_type": "Hybrid"
   },
   {
     "id": "agent-orange",
@@ -4281,7 +4301,8 @@
     "last_verified": "2026-04-14T08:04:28.232615+00:00",
     "verification_status": "scraped",
     "catalog_version": "v10",
-    "catalog_updated": "2026-04-14T08:04:28.232615+00:00"
+    "catalog_updated": "2026-04-14T08:04:28.232615+00:00",
+    "leafly_type": "Hybrid"
   },
   {
     "id": "airo-mystical-melody-cart",
@@ -4468,11 +4489,23 @@
     "category_confidence": "inferred",
     "thc": 77.23,
     "cbd": 0,
-    "terpenes": [],
-    "effects": [],
-    "flavors": [],
-    "description": "",
-    "genetics": "",
+    "terpenes": [
+      "Myrcene",
+      "Caryophyllene",
+      "Linalool"
+    ],
+    "effects": [
+      "Talkative",
+      "Giggly",
+      "Euphoric"
+    ],
+    "flavors": [
+      "Blueberry",
+      "Berry",
+      "Diesel"
+    ],
+    "description": "Cherry Pie Kush (not to be confused with Cherry Pie) is essentially a Cherry Pie cross of Durban Poison and Granddaddy Purple, infused with California native San Fernando Valley OG.",
+    "genetics": "Durban Poison x Granddaddy Purple x San Fernando Valley OG",
     "grade": "C",
     "prices": [
       {
@@ -4501,7 +4534,8 @@
     "last_verified": "2026-04-14T08:04:28.232615+00:00",
     "verification_status": "scraped",
     "catalog_version": "v10",
-    "catalog_updated": "2026-04-14T08:04:28.232615+00:00"
+    "catalog_updated": "2026-04-14T08:04:28.232615+00:00",
+    "leafly_type": "Hybrid"
   },
   {
     "id": "airo-lr-pod-purple-punch",
@@ -4512,11 +4546,23 @@
     "category_confidence": "inferred",
     "thc": 0,
     "cbd": 0,
-    "terpenes": [],
-    "effects": [],
-    "flavors": [],
-    "description": "",
-    "genetics": "",
+    "terpenes": [
+      "Caryophyllene",
+      "Limonene",
+      "Pinene"
+    ],
+    "effects": [
+      "Sleepy",
+      "Relaxed",
+      "Hungry"
+    ],
+    "flavors": [
+      "Grape",
+      "Plum",
+      "Berry"
+    ],
+    "description": "Purple Punch is the sweet and sedating union of two indica-dominant classics. By breeding Larry OG with Granddaddy Purple, the astonishing trichome laden Purple Punch was born, smelling of grape candy, blueberry muffins, and tart Kool-Aid.",
+    "genetics": "Larry OG x Granddaddy Purple",
     "grade": "B",
     "prices": [
       {
@@ -4545,7 +4591,8 @@
     "last_verified": "2026-04-14T08:04:28.232615+00:00",
     "verification_status": "scraped",
     "catalog_version": "v10",
-    "catalog_updated": "2026-04-14T08:04:28.232615+00:00"
+    "catalog_updated": "2026-04-14T08:04:28.232615+00:00",
+    "leafly_type": "Hybrid"
   },
   {
     "id": "airo-lr-pod-sour-diesel",
@@ -4556,11 +4603,23 @@
     "category_confidence": "inferred",
     "thc": 0.77,
     "cbd": 0,
-    "terpenes": [],
-    "effects": [],
-    "flavors": [],
-    "description": "",
-    "genetics": "",
+    "terpenes": [
+      "Caryophyllene",
+      "Myrcene",
+      "Limonene"
+    ],
+    "effects": [
+      "Energetic",
+      "Talkative",
+      "Uplifted"
+    ],
+    "flavors": [
+      "Diesel",
+      "Chemical",
+      "Skunk"
+    ],
+    "description": "Sour Diesel, also known as \"Sour D\" and \"Sour Deez,\" is a popular hybrid marijuana strain made by crossing Chemdawg and Super Skunk. Sour Diesel effects are dreamy, cerebral, fast-acting and energizing.",
+    "genetics": "Chemdawg x Super Skunk",
     "grade": "B",
     "prices": [
       {
@@ -4589,7 +4648,8 @@
     "last_verified": "2026-04-14T08:04:28.232615+00:00",
     "verification_status": "scraped",
     "catalog_version": "v10",
-    "catalog_updated": "2026-04-14T08:04:28.232615+00:00"
+    "catalog_updated": "2026-04-14T08:04:28.232615+00:00",
+    "leafly_type": "Hybrid"
   },
   {
     "id": "airo-pink-palmer-cart",
@@ -5007,7 +5067,8 @@
     "last_verified": null,
     "verification_status": "no_price_data",
     "catalog_version": "v10",
-    "catalog_updated": "2026-04-14T08:04:28.232615+00:00"
+    "catalog_updated": "2026-04-14T08:04:28.232615+00:00",
+    "leafly_type": "Hybrid"
   },
   {
     "id": "alchemist-jack-herer-live-resin-cart",
@@ -5018,11 +5079,24 @@
     "category_confidence": "inferred",
     "thc": 80.34,
     "cbd": 0,
-    "terpenes": [],
-    "effects": [],
-    "flavors": [],
-    "description": "",
-    "genetics": "",
+    "terpenes": [
+      "Terpinolene",
+      "Caryophyllene",
+      "Pinene"
+    ],
+    "effects": [
+      "Energetic",
+      "Creative",
+      "Uplifted",
+      "Focused"
+    ],
+    "flavors": [
+      "Pine",
+      "Woody",
+      "Earthy"
+    ],
+    "description": "Jack Herer, also known as “JH,” “The Jack,” “Premium Jack,” and “Platinum Jack” is a sativa-dominant marijuana strain that has gained as much renown as its namesake, the marijuana activist and author of The Emperor Wears No Clothes. Combining a Haze hybrid with a Northern Lights #5 and Shiva Skunk cross, Sensi Seeds created Jack Herer hoping to capture both cerebral elevation and heavy resin production.",
+    "genetics": "Haze x Northern Lights #5 x Shiva Skunk",
     "grade": "B",
     "prices": [
       {
@@ -5051,7 +5125,8 @@
     "last_verified": "2026-04-14T08:04:28.232615+00:00",
     "verification_status": "scraped",
     "catalog_version": "v10",
-    "catalog_updated": "2026-04-14T08:04:28.232615+00:00"
+    "catalog_updated": "2026-04-14T08:04:28.232615+00:00",
+    "leafly_type": "Sativa"
   },
   {
     "id": "alchemist-lr-badder-jack-s-juice",
@@ -5194,7 +5269,8 @@
     "last_verified": "2026-04-14T08:04:28.232615+00:00",
     "verification_status": "scraped",
     "catalog_version": "v10",
-    "catalog_updated": "2026-04-14T08:04:28.232615+00:00"
+    "catalog_updated": "2026-04-14T08:04:28.232615+00:00",
+    "leafly_type": "Hybrid"
   },
   {
     "id": "alien-mints-distillate-cartridge",
@@ -5258,7 +5334,8 @@
     "last_verified": "2026-04-14T08:04:28.232615+00:00",
     "verification_status": "scraped",
     "catalog_version": "v10",
-    "catalog_updated": "2026-04-14T08:04:28.232615+00:00"
+    "catalog_updated": "2026-04-14T08:04:28.232615+00:00",
+    "leafly_type": "Hybrid"
   },
   {
     "id": "alien-mints-prj-5ct",
@@ -5312,7 +5389,8 @@
     "last_verified": "2026-04-14T08:04:28.232615+00:00",
     "verification_status": "scraped",
     "catalog_version": "v10",
-    "catalog_updated": "2026-04-14T08:04:28.232615+00:00"
+    "catalog_updated": "2026-04-14T08:04:28.232615+00:00",
+    "leafly_type": "Hybrid"
   },
   {
     "id": "alien-og",
@@ -5366,7 +5444,8 @@
     "last_verified": "2026-04-14T08:04:28.232615+00:00",
     "verification_status": "scraped",
     "catalog_version": "v10",
-    "catalog_updated": "2026-04-14T08:04:28.232615+00:00"
+    "catalog_updated": "2026-04-14T08:04:28.232615+00:00",
+    "leafly_type": "Hybrid"
   },
   {
     "id": "all-in-one",
@@ -5640,7 +5719,8 @@
     "last_verified": null,
     "verification_status": "no_price_data",
     "catalog_version": "v10",
-    "catalog_updated": "2026-04-14T08:04:28.232615+00:00"
+    "catalog_updated": "2026-04-14T08:04:28.232615+00:00",
+    "leafly_type": "Hybrid"
   },
   {
     "id": "animal-face-live-resin",
@@ -5696,7 +5776,8 @@
     "last_verified": "2026-04-14T08:04:28.232615+00:00",
     "verification_status": "scraped",
     "catalog_version": "v10",
-    "catalog_updated": "2026-04-14T08:04:28.232615+00:00"
+    "catalog_updated": "2026-04-14T08:04:28.232615+00:00",
+    "leafly_type": "Hybrid"
   },
   {
     "id": "animal-face-mini-dogs-5-pack",
@@ -5752,7 +5833,8 @@
     "last_verified": "2026-04-14T08:04:28.232615+00:00",
     "verification_status": "scraped",
     "catalog_version": "v10",
-    "catalog_updated": "2026-04-14T08:04:28.232615+00:00"
+    "catalog_updated": "2026-04-14T08:04:28.232615+00:00",
+    "leafly_type": "Hybrid"
   },
   {
     "id": "animal-mint-cake-sugar",
@@ -5864,7 +5946,8 @@
     "last_verified": "2026-04-14T08:04:28.232615+00:00",
     "verification_status": "scraped",
     "catalog_version": "v10",
-    "catalog_updated": "2026-04-14T08:04:28.232615+00:00"
+    "catalog_updated": "2026-04-14T08:04:28.232615+00:00",
+    "leafly_type": "Hybrid"
   },
   {
     "id": "animal-scout",
@@ -6071,7 +6154,8 @@
     "last_verified": "2026-04-14T08:04:28.232615+00:00",
     "verification_status": "scraped",
     "catalog_version": "v10",
-    "catalog_updated": "2026-04-14T08:04:28.232615+00:00"
+    "catalog_updated": "2026-04-14T08:04:28.232615+00:00",
+    "leafly_type": "Hybrid"
   },
   {
     "id": "apple-jack-live-resin-diamond-reload-pod",
@@ -6214,11 +6298,25 @@
     "category_confidence": "inferred",
     "thc": 32.4,
     "cbd": 0,
-    "terpenes": [],
-    "effects": [],
-    "flavors": [],
-    "description": "",
-    "genetics": "",
+    "terpenes": [
+      "Caryophyllene",
+      "Limonene",
+      "Linalool"
+    ],
+    "effects": [
+      "Aroused",
+      "Happy",
+      "Relaxed",
+      "Euphoric",
+      "Uplifted"
+    ],
+    "flavors": [
+      "Apple",
+      "Pear",
+      "Tree fruit"
+    ],
+    "description": "Apples and Bananas is a potent hybrid indica weed strain made from a genetic cross between Now N Later and Jet Fuel Gelato. Apples and Bananas is 20% THC or higher, making this strain an ideal choice for experienced cannabis consumers. Leafly customers tell us Apples and Bananas' effects include happiness, euphoria, and feeling uplifted.",
+    "genetics": "Now N Later x Jet Fuel Gelato",
     "grade": "B",
     "prices": [
       {
@@ -6247,7 +6345,8 @@
     "last_verified": "2026-04-14T08:04:28.232615+00:00",
     "verification_status": "scraped",
     "catalog_version": "v10",
-    "catalog_updated": "2026-04-14T08:04:28.232615+00:00"
+    "catalog_updated": "2026-04-14T08:04:28.232615+00:00",
+    "leafly_type": "Hybrid"
   },
   {
     "id": "apples-bananas-live-resin-badder",
@@ -6349,7 +6448,8 @@
     "last_verified": "2026-04-14T08:04:28.232615+00:00",
     "verification_status": "scraped",
     "catalog_version": "v10",
-    "catalog_updated": "2026-04-14T08:04:28.232615+00:00"
+    "catalog_updated": "2026-04-14T08:04:28.232615+00:00",
+    "leafly_type": "Hybrid"
   },
   {
     "id": "apples-and-bananas-x-medellin-sm",
@@ -6407,7 +6507,8 @@
     "last_verified": "2026-04-14T08:04:28.232615+00:00",
     "verification_status": "scraped",
     "catalog_version": "v10",
-    "catalog_updated": "2026-04-14T08:04:28.232615+00:00"
+    "catalog_updated": "2026-04-14T08:04:28.232615+00:00",
+    "leafly_type": "Hybrid"
   },
   {
     "id": "apricot-nectar-slyde-disposable",
@@ -6779,7 +6880,8 @@
     "last_verified": "2026-04-14T08:04:28.232615+00:00",
     "verification_status": "scraped",
     "catalog_version": "v10",
-    "catalog_updated": "2026-04-14T08:04:28.232615+00:00"
+    "catalog_updated": "2026-04-14T08:04:28.232615+00:00",
+    "leafly_type": "Hybrid"
   },
   {
     "id": "b-a-m-whole",
@@ -6833,7 +6935,8 @@
     "last_verified": "2026-04-14T08:04:28.232615+00:00",
     "verification_status": "scraped",
     "catalog_version": "v10",
-    "catalog_updated": "2026-04-14T08:04:28.232615+00:00"
+    "catalog_updated": "2026-04-14T08:04:28.232615+00:00",
+    "leafly_type": "Hybrid"
   },
   {
     "id": "bacio-gelato",
@@ -6987,7 +7090,8 @@
     "last_verified": null,
     "verification_status": "no_price_data",
     "catalog_version": "v10",
-    "catalog_updated": "2026-04-14T08:04:28.232615+00:00"
+    "catalog_updated": "2026-04-14T08:04:28.232615+00:00",
+    "leafly_type": "Hybrid"
   },
   {
     "id": "baltimore-berries",
@@ -7115,7 +7219,8 @@
     "last_verified": "2026-04-14T08:04:28.232615+00:00",
     "verification_status": "scraped",
     "catalog_version": "v10",
-    "catalog_updated": "2026-04-14T08:04:28.232615+00:00"
+    "catalog_updated": "2026-04-14T08:04:28.232615+00:00",
+    "leafly_type": "Hybrid"
   },
   {
     "id": "banana-brulee-single",
@@ -7550,7 +7655,8 @@
     "last_verified": "2026-04-14T08:04:28.232615+00:00",
     "verification_status": "scraped",
     "catalog_version": "v10",
-    "catalog_updated": "2026-04-14T08:04:28.232615+00:00"
+    "catalog_updated": "2026-04-14T08:04:28.232615+00:00",
+    "leafly_type": "Hybrid"
   },
   {
     "id": "banana-punch",
@@ -7606,7 +7712,8 @@
     "last_verified": "2026-04-14T08:04:28.232615+00:00",
     "verification_status": "scraped",
     "catalog_version": "v10",
-    "catalog_updated": "2026-04-14T08:04:28.232615+00:00"
+    "catalog_updated": "2026-04-14T08:04:28.232615+00:00",
+    "leafly_type": "Hybrid"
   },
   {
     "id": "banana-runtz-cartridge",
@@ -7750,7 +7857,8 @@
     "last_verified": null,
     "verification_status": "no_price_data",
     "catalog_version": "v10",
-    "catalog_updated": "2026-04-14T08:04:28.232615+00:00"
+    "catalog_updated": "2026-04-14T08:04:28.232615+00:00",
+    "leafly_type": "Hybrid"
   },
   {
     "id": "bananaconda",
@@ -7803,7 +7911,8 @@
     "last_verified": "2026-04-14T08:04:28.232615+00:00",
     "verification_status": "scraped",
     "catalog_version": "v10",
-    "catalog_updated": "2026-04-14T08:04:28.232615+00:00"
+    "catalog_updated": "2026-04-14T08:04:28.232615+00:00",
+    "leafly_type": "Hybrid"
   },
   {
     "id": "bapple-fritz-rso",
@@ -8009,7 +8118,8 @@
     "last_verified": "2026-04-14T08:04:28.232615+00:00",
     "verification_status": "scraped",
     "catalog_version": "v10",
-    "catalog_updated": "2026-04-14T08:04:28.232615+00:00"
+    "catalog_updated": "2026-04-14T08:04:28.232615+00:00",
+    "leafly_type": "Hybrid"
   },
   {
     "id": "beach-cake-live-sugar",
@@ -8083,7 +8193,8 @@
     "last_verified": "2026-04-14T08:04:28.232615+00:00",
     "verification_status": "scraped",
     "catalog_version": "v10",
-    "catalog_updated": "2026-04-14T08:04:28.232615+00:00"
+    "catalog_updated": "2026-04-14T08:04:28.232615+00:00",
+    "leafly_type": "Hybrid"
   },
   {
     "id": "bedtime-betty-s-lemon-agave-10pk-100mg-thc-sleep-fruit-chews",
@@ -8470,11 +8581,23 @@
     "category_confidence": "inferred",
     "thc": 74.29,
     "cbd": 0,
-    "terpenes": [],
-    "effects": [],
-    "flavors": [],
-    "description": "",
-    "genetics": "",
+    "terpenes": [
+      "Caryophyllene",
+      "Limonene",
+      "Myrcene"
+    ],
+    "effects": [
+      "Relaxed",
+      "Hungry",
+      "Tingly"
+    ],
+    "flavors": [
+      "Tobacco",
+      "Vanilla",
+      "Coffee"
+    ],
+    "description": "Oreoz, also known a \"Oreo Cookies\" and \"Oreos,\" is a potent hybrid marijuana strain made by crossing Cookies and Cream with Secret Weapon. This strain produces a long-lasting and relaxing high.",
+    "genetics": "Cookies and Cream x Secret Weapon",
     "grade": "C",
     "prices": [
       {
@@ -8503,7 +8626,8 @@
     "last_verified": "2026-04-14T08:04:28.232615+00:00",
     "verification_status": "scraped",
     "catalog_version": "v10",
-    "catalog_updated": "2026-04-14T08:04:28.232615+00:00"
+    "catalog_updated": "2026-04-14T08:04:28.232615+00:00",
+    "leafly_type": "Hybrid"
   },
   {
     "id": "bermuda-triangle-cartridge",
@@ -9443,7 +9567,8 @@
     "last_verified": null,
     "verification_status": "no_price_data",
     "catalog_version": "v10",
-    "catalog_updated": "2026-04-14T08:04:28.232615+00:00"
+    "catalog_updated": "2026-04-14T08:04:28.232615+00:00",
+    "leafly_type": "Hybrid"
   },
   {
     "id": "biscotti-cake",
@@ -9495,7 +9620,8 @@
     "last_verified": "2026-04-14T08:04:28.232615+00:00",
     "verification_status": "scraped",
     "catalog_version": "v10",
-    "catalog_updated": "2026-04-14T08:04:28.232615+00:00"
+    "catalog_updated": "2026-04-14T08:04:28.232615+00:00",
+    "leafly_type": "Hybrid"
   },
   {
     "id": "black-blue-berry",
@@ -9590,7 +9716,8 @@
     "last_verified": "2026-04-14T08:04:28.232615+00:00",
     "verification_status": "scraped",
     "catalog_version": "v10",
-    "catalog_updated": "2026-04-14T08:04:28.232615+00:00"
+    "catalog_updated": "2026-04-14T08:04:28.232615+00:00",
+    "leafly_type": "Hybrid"
   },
   {
     "id": "black-cherry-maduro",
@@ -9637,7 +9764,8 @@
     "last_verified": null,
     "verification_status": "no_price_data",
     "catalog_version": "v10",
-    "catalog_updated": "2026-04-14T08:04:28.232615+00:00"
+    "catalog_updated": "2026-04-14T08:04:28.232615+00:00",
+    "leafly_type": "Hybrid"
   },
   {
     "id": "black-mamba-cartridge",
@@ -9699,7 +9827,8 @@
     "last_verified": "2026-04-14T08:04:28.232615+00:00",
     "verification_status": "scraped",
     "catalog_version": "v10",
-    "catalog_updated": "2026-04-14T08:04:28.232615+00:00"
+    "catalog_updated": "2026-04-14T08:04:28.232615+00:00",
+    "leafly_type": "Indica"
   },
   {
     "id": "black-maple",
@@ -9742,7 +9871,8 @@
     "last_verified": null,
     "verification_status": "no_price_data",
     "catalog_version": "v10",
-    "catalog_updated": "2026-04-14T08:04:28.232615+00:00"
+    "catalog_updated": "2026-04-14T08:04:28.232615+00:00",
+    "leafly_type": "Hybrid"
   },
   {
     "id": "black-mrkt-prepack-no-mas",
@@ -9842,7 +9972,8 @@
     "last_verified": "2026-04-14T08:04:28.232615+00:00",
     "verification_status": "scraped",
     "catalog_version": "v10",
-    "catalog_updated": "2026-04-14T08:04:28.232615+00:00"
+    "catalog_updated": "2026-04-14T08:04:28.232615+00:00",
+    "leafly_type": "Hybrid"
   },
   {
     "id": "blood-orange-10pk-400mg-cbd-400mg-thc",
@@ -10118,7 +10249,8 @@
     "last_verified": null,
     "verification_status": "no_price_data",
     "catalog_version": "v10",
-    "catalog_updated": "2026-04-14T08:04:28.232615+00:00"
+    "catalog_updated": "2026-04-14T08:04:28.232615+00:00",
+    "leafly_type": "Indica"
   },
   {
     "id": "blue-crab",
@@ -10209,7 +10341,8 @@
     "last_verified": null,
     "verification_status": "no_price_data",
     "catalog_version": "v10",
-    "catalog_updated": "2026-04-14T08:04:28.232615+00:00"
+    "catalog_updated": "2026-04-14T08:04:28.232615+00:00",
+    "leafly_type": "Hybrid"
   },
   {
     "id": "blue-dream-cart",
@@ -10265,7 +10398,8 @@
     "last_verified": "2026-04-14T08:04:28.232615+00:00",
     "verification_status": "scraped",
     "catalog_version": "v10",
-    "catalog_updated": "2026-04-14T08:04:28.232615+00:00"
+    "catalog_updated": "2026-04-14T08:04:28.232615+00:00",
+    "leafly_type": "Hybrid"
   },
   {
     "id": "blue-dream-cartridge",
@@ -10361,7 +10495,8 @@
     "last_verified": "2026-04-14T08:04:28.232615+00:00",
     "verification_status": "scraped",
     "catalog_version": "v10",
-    "catalog_updated": "2026-04-14T08:04:28.232615+00:00"
+    "catalog_updated": "2026-04-14T08:04:28.232615+00:00",
+    "leafly_type": "Hybrid"
   },
   {
     "id": "blue-dream-disposable",
@@ -10447,7 +10582,8 @@
     "last_verified": "2026-04-14T08:04:28.232615+00:00",
     "verification_status": "scraped",
     "catalog_version": "v10",
-    "catalog_updated": "2026-04-14T08:04:28.232615+00:00"
+    "catalog_updated": "2026-04-14T08:04:28.232615+00:00",
+    "leafly_type": "Hybrid"
   },
   {
     "id": "blue-dream-super-fog-fire-liquid-diamonds-disposable",
@@ -10503,7 +10639,8 @@
     "last_verified": "2026-04-14T08:04:28.232615+00:00",
     "verification_status": "scraped",
     "catalog_version": "v10",
-    "catalog_updated": "2026-04-14T08:04:28.232615+00:00"
+    "catalog_updated": "2026-04-14T08:04:28.232615+00:00",
+    "leafly_type": "Hybrid"
   },
   {
     "id": "blue-dream-super-fog-fire-liquid-diamonds-disposable-jefe-xl",
@@ -10559,7 +10696,8 @@
     "last_verified": "2026-04-14T08:04:28.232615+00:00",
     "verification_status": "scraped",
     "catalog_version": "v10",
-    "catalog_updated": "2026-04-14T08:04:28.232615+00:00"
+    "catalog_updated": "2026-04-14T08:04:28.232615+00:00",
+    "leafly_type": "Hybrid"
   },
   {
     "id": "blue-lobster-whole",
@@ -10615,7 +10753,8 @@
     "last_verified": "2026-04-14T08:04:28.232615+00:00",
     "verification_status": "scraped",
     "catalog_version": "v10",
-    "catalog_updated": "2026-04-14T08:04:28.232615+00:00"
+    "catalog_updated": "2026-04-14T08:04:28.232615+00:00",
+    "leafly_type": "Hybrid"
   },
   {
     "id": "blue-raspberry-10-x",
@@ -10745,7 +10884,8 @@
     "last_verified": "2026-04-14T08:04:28.232615+00:00",
     "verification_status": "scraped",
     "catalog_version": "v10",
-    "catalog_updated": "2026-04-14T08:04:28.232615+00:00"
+    "catalog_updated": "2026-04-14T08:04:28.232615+00:00",
+    "leafly_type": "Hybrid"
   },
   {
     "id": "blue-raz-haze-1g-cartridge",
@@ -10797,7 +10937,8 @@
     "last_verified": "2026-04-14T08:04:28.232615+00:00",
     "verification_status": "scraped",
     "catalog_version": "v10",
-    "catalog_updated": "2026-04-14T08:04:28.232615+00:00"
+    "catalog_updated": "2026-04-14T08:04:28.232615+00:00",
+    "leafly_type": "Hybrid"
   },
   {
     "id": "blue-razz",
@@ -11195,7 +11336,8 @@
     "last_verified": "2026-04-14T08:04:28.232615+00:00",
     "verification_status": "scraped",
     "catalog_version": "v10",
-    "catalog_updated": "2026-04-14T08:04:28.232615+00:00"
+    "catalog_updated": "2026-04-14T08:04:28.232615+00:00",
+    "leafly_type": "Hybrid"
   },
   {
     "id": "blue-s-brothers-calicouture-live-resin-cart",
@@ -11285,7 +11427,8 @@
     "last_verified": null,
     "verification_status": "no_price_data",
     "catalog_version": "v10",
-    "catalog_updated": "2026-04-14T08:04:28.232615+00:00"
+    "catalog_updated": "2026-04-14T08:04:28.232615+00:00",
+    "leafly_type": "Indica"
   },
   {
     "id": "blueberry-cookies",
@@ -11296,11 +11439,23 @@
     "category_confidence": "inferred",
     "thc": 0,
     "cbd": 0,
-    "terpenes": [],
-    "effects": [],
-    "flavors": [],
-    "description": "",
-    "genetics": "",
+    "terpenes": [
+      "Myrcene",
+      "Caryophyllene",
+      "Pinene"
+    ],
+    "effects": [
+      "Sleepy",
+      "Relaxed",
+      "Happy"
+    ],
+    "flavors": [
+      "Blueberry",
+      "Berry",
+      "Sweet"
+    ],
+    "description": "Blueberry, also known as “Berry Blue,” is an indica marijuana strain made by crossing Purple Thai with Thai. A true A-List cannabis strain, Blueberry’s legendary status soared to new heights after claiming the High Times’ Cannabis Cup 2000 for Best indica.",
+    "genetics": "Purple Thai x Thai",
     "grade": "C",
     "prices": [],
     "price_min": null,
@@ -11319,7 +11474,8 @@
     "last_verified": null,
     "verification_status": "no_price_data",
     "catalog_version": "v10",
-    "catalog_updated": "2026-04-14T08:04:28.232615+00:00"
+    "catalog_updated": "2026-04-14T08:04:28.232615+00:00",
+    "leafly_type": "Indica"
   },
   {
     "id": "blueberry-cookies-cart",
@@ -11330,11 +11486,23 @@
     "category_confidence": "inferred",
     "thc": 80.5,
     "cbd": 0,
-    "terpenes": [],
-    "effects": [],
-    "flavors": [],
-    "description": "",
-    "genetics": "",
+    "terpenes": [
+      "Myrcene",
+      "Caryophyllene",
+      "Pinene"
+    ],
+    "effects": [
+      "Sleepy",
+      "Relaxed",
+      "Happy"
+    ],
+    "flavors": [
+      "Blueberry",
+      "Berry",
+      "Sweet"
+    ],
+    "description": "Blueberry, also known as “Berry Blue,” is an indica marijuana strain made by crossing Purple Thai with Thai. A true A-List cannabis strain, Blueberry’s legendary status soared to new heights after claiming the High Times’ Cannabis Cup 2000 for Best indica.",
+    "genetics": "Purple Thai x Thai",
     "grade": "B",
     "prices": [
       {
@@ -11363,7 +11531,8 @@
     "last_verified": "2026-04-14T08:04:28.232615+00:00",
     "verification_status": "scraped",
     "catalog_version": "v10",
-    "catalog_updated": "2026-04-14T08:04:28.232615+00:00"
+    "catalog_updated": "2026-04-14T08:04:28.232615+00:00",
+    "leafly_type": "Indica"
   },
   {
     "id": "blueberry-cookies-cartridge",
@@ -11374,11 +11543,23 @@
     "category_confidence": "inferred",
     "thc": 0,
     "cbd": 0,
-    "terpenes": [],
-    "effects": [],
-    "flavors": [],
-    "description": "",
-    "genetics": "",
+    "terpenes": [
+      "Myrcene",
+      "Caryophyllene",
+      "Pinene"
+    ],
+    "effects": [
+      "Sleepy",
+      "Relaxed",
+      "Happy"
+    ],
+    "flavors": [
+      "Blueberry",
+      "Berry",
+      "Sweet"
+    ],
+    "description": "Blueberry, also known as “Berry Blue,” is an indica marijuana strain made by crossing Purple Thai with Thai. A true A-List cannabis strain, Blueberry’s legendary status soared to new heights after claiming the High Times’ Cannabis Cup 2000 for Best indica.",
+    "genetics": "Purple Thai x Thai",
     "grade": "B",
     "prices": [
       {
@@ -11407,7 +11588,8 @@
     "last_verified": "2026-04-14T08:04:28.232615+00:00",
     "verification_status": "scraped",
     "catalog_version": "v10",
-    "catalog_updated": "2026-04-14T08:04:28.232615+00:00"
+    "catalog_updated": "2026-04-14T08:04:28.232615+00:00",
+    "leafly_type": "Indica"
   },
   {
     "id": "blueberry-crumb",
@@ -11418,11 +11600,23 @@
     "category_confidence": "inferred",
     "thc": 78.39,
     "cbd": 0,
-    "terpenes": [],
-    "effects": [],
-    "flavors": [],
-    "description": "",
-    "genetics": "",
+    "terpenes": [
+      "Myrcene",
+      "Caryophyllene",
+      "Pinene"
+    ],
+    "effects": [
+      "Sleepy",
+      "Relaxed",
+      "Happy"
+    ],
+    "flavors": [
+      "Blueberry",
+      "Berry",
+      "Sweet"
+    ],
+    "description": "Blueberry, also known as “Berry Blue,” is an indica marijuana strain made by crossing Purple Thai with Thai. A true A-List cannabis strain, Blueberry’s legendary status soared to new heights after claiming the High Times’ Cannabis Cup 2000 for Best indica.",
+    "genetics": "Purple Thai x Thai",
     "grade": "B",
     "prices": [],
     "price_min": null,
@@ -11441,7 +11635,8 @@
     "last_verified": null,
     "verification_status": "no_price_data",
     "catalog_version": "v10",
-    "catalog_updated": "2026-04-14T08:04:28.232615+00:00"
+    "catalog_updated": "2026-04-14T08:04:28.232615+00:00",
+    "leafly_type": "Indica"
   },
   {
     "id": "blueberry-crumb-cake",
@@ -11501,7 +11696,8 @@
     "last_verified": "2026-04-14T08:04:28.232615+00:00",
     "verification_status": "scraped",
     "catalog_version": "v10",
-    "catalog_updated": "2026-04-14T08:04:28.232615+00:00"
+    "catalog_updated": "2026-04-14T08:04:28.232615+00:00",
+    "leafly_type": "Hybrid"
   },
   {
     "id": "blueberry-dream",
@@ -11512,11 +11708,23 @@
     "category_confidence": "inferred",
     "thc": 85.78,
     "cbd": 0,
-    "terpenes": [],
-    "effects": [],
-    "flavors": [],
-    "description": "",
-    "genetics": "",
+    "terpenes": [
+      "Myrcene",
+      "Caryophyllene",
+      "Pinene"
+    ],
+    "effects": [
+      "Sleepy",
+      "Relaxed",
+      "Happy"
+    ],
+    "flavors": [
+      "Blueberry",
+      "Berry",
+      "Sweet"
+    ],
+    "description": "Blueberry, also known as “Berry Blue,” is an indica marijuana strain made by crossing Purple Thai with Thai. A true A-List cannabis strain, Blueberry’s legendary status soared to new heights after claiming the High Times’ Cannabis Cup 2000 for Best indica.",
+    "genetics": "Purple Thai x Thai",
     "grade": "B",
     "prices": [],
     "price_min": null,
@@ -11535,7 +11743,8 @@
     "last_verified": null,
     "verification_status": "no_price_data",
     "catalog_version": "v10",
-    "catalog_updated": "2026-04-14T08:04:28.232615+00:00"
+    "catalog_updated": "2026-04-14T08:04:28.232615+00:00",
+    "leafly_type": "Indica"
   },
   {
     "id": "blueberry-dream-5pk",
@@ -11546,11 +11755,23 @@
     "category_confidence": "inferred",
     "thc": 18.97,
     "cbd": 0,
-    "terpenes": [],
-    "effects": [],
-    "flavors": [],
-    "description": "",
-    "genetics": "",
+    "terpenes": [
+      "Myrcene",
+      "Caryophyllene",
+      "Pinene"
+    ],
+    "effects": [
+      "Sleepy",
+      "Relaxed",
+      "Happy"
+    ],
+    "flavors": [
+      "Blueberry",
+      "Berry",
+      "Sweet"
+    ],
+    "description": "Blueberry, also known as “Berry Blue,” is an indica marijuana strain made by crossing Purple Thai with Thai. A true A-List cannabis strain, Blueberry’s legendary status soared to new heights after claiming the High Times’ Cannabis Cup 2000 for Best indica.",
+    "genetics": "Purple Thai x Thai",
     "grade": "B",
     "prices": [],
     "price_min": null,
@@ -11571,7 +11792,8 @@
     "last_verified": null,
     "verification_status": "no_price_data",
     "catalog_version": "v10",
-    "catalog_updated": "2026-04-14T08:04:28.232615+00:00"
+    "catalog_updated": "2026-04-14T08:04:28.232615+00:00",
+    "leafly_type": "Indica"
   },
   {
     "id": "blueberry-dream-cloud-bar",
@@ -11582,11 +11804,23 @@
     "category_confidence": "inferred",
     "thc": 88.93,
     "cbd": 0,
-    "terpenes": [],
-    "effects": [],
-    "flavors": [],
-    "description": "",
-    "genetics": "",
+    "terpenes": [
+      "Myrcene",
+      "Caryophyllene",
+      "Pinene"
+    ],
+    "effects": [
+      "Sleepy",
+      "Relaxed",
+      "Happy"
+    ],
+    "flavors": [
+      "Blueberry",
+      "Berry",
+      "Sweet"
+    ],
+    "description": "Blueberry, also known as “Berry Blue,” is an indica marijuana strain made by crossing Purple Thai with Thai. A true A-List cannabis strain, Blueberry’s legendary status soared to new heights after claiming the High Times’ Cannabis Cup 2000 for Best indica.",
+    "genetics": "Purple Thai x Thai",
     "grade": "C",
     "prices": [
       {
@@ -11615,7 +11849,8 @@
     "last_verified": "2026-04-14T08:04:28.232615+00:00",
     "verification_status": "scraped",
     "catalog_version": "v10",
-    "catalog_updated": "2026-04-14T08:04:28.232615+00:00"
+    "catalog_updated": "2026-04-14T08:04:28.232615+00:00",
+    "leafly_type": "Indica"
   },
   {
     "id": "blueberry-dream-cloud-bar-rechargeable-disposable",
@@ -11626,11 +11861,23 @@
     "category_confidence": "inferred",
     "thc": 85.0,
     "cbd": 0,
-    "terpenes": [],
-    "effects": [],
-    "flavors": [],
-    "description": "",
-    "genetics": "",
+    "terpenes": [
+      "Myrcene",
+      "Caryophyllene",
+      "Pinene"
+    ],
+    "effects": [
+      "Sleepy",
+      "Relaxed",
+      "Happy"
+    ],
+    "flavors": [
+      "Blueberry",
+      "Berry",
+      "Sweet"
+    ],
+    "description": "Blueberry, also known as “Berry Blue,” is an indica marijuana strain made by crossing Purple Thai with Thai. A true A-List cannabis strain, Blueberry’s legendary status soared to new heights after claiming the High Times’ Cannabis Cup 2000 for Best indica.",
+    "genetics": "Purple Thai x Thai",
     "grade": "B",
     "prices": [
       {
@@ -11679,7 +11926,8 @@
     "last_verified": "2026-04-14T08:04:28.232615+00:00",
     "verification_status": "scraped",
     "catalog_version": "v10",
-    "catalog_updated": "2026-04-14T08:04:28.232615+00:00"
+    "catalog_updated": "2026-04-14T08:04:28.232615+00:00",
+    "leafly_type": "Indica"
   },
   {
     "id": "blueberry-kush",
@@ -11690,11 +11938,23 @@
     "category_confidence": "inferred",
     "thc": 42.07,
     "cbd": 0,
-    "terpenes": [],
-    "effects": [],
-    "flavors": [],
-    "description": "",
-    "genetics": "",
+    "terpenes": [
+      "Myrcene",
+      "Caryophyllene",
+      "Pinene"
+    ],
+    "effects": [
+      "Sleepy",
+      "Relaxed",
+      "Happy"
+    ],
+    "flavors": [
+      "Blueberry",
+      "Berry",
+      "Sweet"
+    ],
+    "description": "Blueberry, also known as “Berry Blue,” is an indica marijuana strain made by crossing Purple Thai with Thai. A true A-List cannabis strain, Blueberry’s legendary status soared to new heights after claiming the High Times’ Cannabis Cup 2000 for Best indica.",
+    "genetics": "Purple Thai x Thai",
     "grade": "B",
     "prices": [],
     "price_min": null,
@@ -11711,7 +11971,8 @@
     "last_verified": null,
     "verification_status": "no_price_data",
     "catalog_version": "v10",
-    "catalog_updated": "2026-04-14T08:04:28.232615+00:00"
+    "catalog_updated": "2026-04-14T08:04:28.232615+00:00",
+    "leafly_type": "Indica"
   },
   {
     "id": "blueberry-kush-infused-5-pack",
@@ -11722,11 +11983,23 @@
     "category_confidence": "inferred",
     "thc": 46.42,
     "cbd": 0,
-    "terpenes": [],
-    "effects": [],
-    "flavors": [],
-    "description": "",
-    "genetics": "",
+    "terpenes": [
+      "Myrcene",
+      "Caryophyllene",
+      "Pinene"
+    ],
+    "effects": [
+      "Sleepy",
+      "Relaxed",
+      "Happy"
+    ],
+    "flavors": [
+      "Blueberry",
+      "Berry",
+      "Sweet"
+    ],
+    "description": "Blueberry, also known as “Berry Blue,” is an indica marijuana strain made by crossing Purple Thai with Thai. A true A-List cannabis strain, Blueberry’s legendary status soared to new heights after claiming the High Times’ Cannabis Cup 2000 for Best indica.",
+    "genetics": "Purple Thai x Thai",
     "grade": "C",
     "prices": [
       {
@@ -11765,7 +12038,8 @@
     "last_verified": "2026-04-14T08:04:28.232615+00:00",
     "verification_status": "scraped",
     "catalog_version": "v10",
-    "catalog_updated": "2026-04-14T08:04:28.232615+00:00"
+    "catalog_updated": "2026-04-14T08:04:28.232615+00:00",
+    "leafly_type": "Indica"
   },
   {
     "id": "blueberry-rose",
@@ -11814,7 +12088,8 @@
     "last_verified": null,
     "verification_status": "no_price_data",
     "catalog_version": "v10",
-    "catalog_updated": "2026-04-14T08:04:28.232615+00:00"
+    "catalog_updated": "2026-04-14T08:04:28.232615+00:00",
+    "leafly_type": "Hybrid"
   },
   {
     "id": "bmore-z-untrimmed",
@@ -12145,11 +12420,23 @@
     "category_confidence": "inferred",
     "thc": 85.87,
     "cbd": 0,
-    "terpenes": [],
-    "effects": [],
-    "flavors": [],
-    "description": "",
-    "genetics": "",
+    "terpenes": [
+      "Myrcene",
+      "Pinene",
+      "Caryophyllene"
+    ],
+    "effects": [
+      "Creative",
+      "Euphoric",
+      "Uplifted"
+    ],
+    "flavors": [
+      "Berry",
+      "Blueberry",
+      "Sweet"
+    ],
+    "description": "Blue Dream is a sativa-dominant hybrid marijuana strain made by crossing Blueberry with Haze. This strain produces a balanced high, along with effects such as cerebral stimulation and full-body relaxation.",
+    "genetics": "Blueberry x Haze",
     "grade": "B",
     "prices": [
       {
@@ -12188,7 +12475,8 @@
     "last_verified": "2026-04-14T08:04:28.232615+00:00",
     "verification_status": "scraped",
     "catalog_version": "v10",
-    "catalog_updated": "2026-04-14T08:04:28.232615+00:00"
+    "catalog_updated": "2026-04-14T08:04:28.232615+00:00",
+    "leafly_type": "Hybrid"
   },
   {
     "id": "briq-green-crush-disposable",
@@ -12287,11 +12575,23 @@
     "category_confidence": "inferred",
     "thc": 82.37,
     "cbd": 0,
-    "terpenes": [],
-    "effects": [],
-    "flavors": [],
-    "description": "",
-    "genetics": "",
+    "terpenes": [
+      "Myrcene",
+      "Caryophyllene",
+      "Pinene"
+    ],
+    "effects": [
+      "Happy",
+      "Giggly",
+      "Energetic"
+    ],
+    "flavors": [
+      "Pineapple",
+      "Tropical",
+      "Citrus"
+    ],
+    "description": "Pineapple Express is a sativa-dominant hybrid marijuana strain made by crossing Trainwreck with Hawaiian. While this strain rose to fame on the silver screen in 2008 amidst the release of Pineapple Express, it is a real strain that you can find on the shelves of dispensaries across the country.",
+    "genetics": "Trainwreck x Hawaiian",
     "grade": "C",
     "prices": [
       {
@@ -12320,7 +12620,8 @@
     "last_verified": "2026-04-14T08:04:28.232615+00:00",
     "verification_status": "scraped",
     "catalog_version": "v10",
-    "catalog_updated": "2026-04-14T08:04:28.232615+00:00"
+    "catalog_updated": "2026-04-14T08:04:28.232615+00:00",
+    "leafly_type": "Hybrid"
   },
   {
     "id": "briq-super-sour-diesel-disposable",
@@ -12427,7 +12728,8 @@
     "last_verified": null,
     "verification_status": "no_price_data",
     "catalog_version": "v10",
-    "catalog_updated": "2026-04-14T08:04:28.232615+00:00"
+    "catalog_updated": "2026-04-14T08:04:28.232615+00:00",
+    "leafly_type": "Indica"
   },
   {
     "id": "brownie-scout-mixed-buds-indica",
@@ -12479,7 +12781,8 @@
     "last_verified": "2026-04-14T08:04:28.232615+00:00",
     "verification_status": "scraped",
     "catalog_version": "v10",
-    "catalog_updated": "2026-04-14T08:04:28.232615+00:00"
+    "catalog_updated": "2026-04-14T08:04:28.232615+00:00",
+    "leafly_type": "Indica"
   },
   {
     "id": "bubba-kush-root-beer",
@@ -12535,7 +12838,8 @@
     "last_verified": "2026-04-14T08:04:28.232615+00:00",
     "verification_status": "scraped",
     "catalog_version": "v10",
-    "catalog_updated": "2026-04-14T08:04:28.232615+00:00"
+    "catalog_updated": "2026-04-14T08:04:28.232615+00:00",
+    "leafly_type": "Indica"
   },
   {
     "id": "bubba-mints",
@@ -12965,7 +13269,8 @@
     "last_verified": "2026-04-14T08:04:28.232615+00:00",
     "verification_status": "scraped",
     "catalog_version": "v10",
-    "catalog_updated": "2026-04-14T08:04:28.232615+00:00"
+    "catalog_updated": "2026-04-14T08:04:28.232615+00:00",
+    "leafly_type": "Hybrid"
   },
   {
     "id": "cap-junky",
@@ -13036,7 +13341,8 @@
     "last_verified": "2026-04-14T08:04:28.232615+00:00",
     "verification_status": "scraped",
     "catalog_version": "v10",
-    "catalog_updated": "2026-04-14T08:04:28.232615+00:00"
+    "catalog_updated": "2026-04-14T08:04:28.232615+00:00",
+    "leafly_type": "Hybrid"
   },
   {
     "id": "cap-junky-small",
@@ -13088,7 +13394,8 @@
     "last_verified": "2026-04-14T08:04:28.232615+00:00",
     "verification_status": "scraped",
     "catalog_version": "v10",
-    "catalog_updated": "2026-04-14T08:04:28.232615+00:00"
+    "catalog_updated": "2026-04-14T08:04:28.232615+00:00",
+    "leafly_type": "Hybrid"
   },
   {
     "id": "captain-s-cake-cart",
@@ -13140,7 +13447,8 @@
     "last_verified": "2026-04-14T08:04:28.232615+00:00",
     "verification_status": "scraped",
     "catalog_version": "v10",
-    "catalog_updated": "2026-04-14T08:04:28.232615+00:00"
+    "catalog_updated": "2026-04-14T08:04:28.232615+00:00",
+    "leafly_type": "Hybrid"
   },
   {
     "id": "captain-s-cake",
@@ -13315,11 +13623,23 @@
     "category_confidence": "inferred",
     "thc": 89.83,
     "cbd": 0,
-    "terpenes": [],
-    "effects": [],
-    "flavors": [],
-    "description": "",
-    "genetics": "",
+    "terpenes": [
+      "Myrcene",
+      "Caryophyllene",
+      "Pinene"
+    ],
+    "effects": [
+      "Sleepy",
+      "Relaxed",
+      "Happy"
+    ],
+    "flavors": [
+      "Blueberry",
+      "Berry",
+      "Sweet"
+    ],
+    "description": "Blueberry, also known as “Berry Blue,” is an indica marijuana strain made by crossing Purple Thai with Thai. A true A-List cannabis strain, Blueberry’s legendary status soared to new heights after claiming the High Times’ Cannabis Cup 2000 for Best indica.",
+    "genetics": "Purple Thai x Thai",
     "grade": "B",
     "prices": [
       {
@@ -13348,7 +13668,8 @@
     "last_verified": "2026-04-14T08:04:28.232615+00:00",
     "verification_status": "scraped",
     "catalog_version": "v10",
-    "catalog_updated": "2026-04-14T08:04:28.232615+00:00"
+    "catalog_updated": "2026-04-14T08:04:28.232615+00:00",
+    "leafly_type": "Indica"
   },
   {
     "id": "cartridge-pineapple-runtz",
@@ -13569,7 +13890,8 @@
     "last_verified": "2026-04-14T08:04:28.232615+00:00",
     "verification_status": "scraped",
     "catalog_version": "v10",
-    "catalog_updated": "2026-04-14T08:04:28.232615+00:00"
+    "catalog_updated": "2026-04-14T08:04:28.232615+00:00",
+    "leafly_type": "Hybrid"
   },
   {
     "id": "cereal-milk-cartridge",
@@ -13625,7 +13947,8 @@
     "last_verified": "2026-04-14T08:04:28.232615+00:00",
     "verification_status": "scraped",
     "catalog_version": "v10",
-    "catalog_updated": "2026-04-14T08:04:28.232615+00:00"
+    "catalog_updated": "2026-04-14T08:04:28.232615+00:00",
+    "leafly_type": "Hybrid"
   },
   {
     "id": "champagne-supernova-cart",
@@ -13758,7 +14081,8 @@
     "last_verified": null,
     "verification_status": "no_price_data",
     "catalog_version": "v10",
-    "catalog_updated": "2026-04-14T08:04:28.232615+00:00"
+    "catalog_updated": "2026-04-14T08:04:28.232615+00:00",
+    "leafly_type": "Hybrid"
   },
   {
     "id": "cheese",
@@ -13824,7 +14148,8 @@
     "last_verified": "2026-04-14T08:04:28.232615+00:00",
     "verification_status": "scraped",
     "catalog_version": "v10",
-    "catalog_updated": "2026-04-14T08:04:28.232615+00:00"
+    "catalog_updated": "2026-04-14T08:04:28.232615+00:00",
+    "leafly_type": "Hybrid"
   },
   {
     "id": "cheetah",
@@ -13879,11 +14204,29 @@
     "category_confidence": "inferred",
     "thc": 72.95,
     "cbd": 0,
-    "terpenes": [],
-    "effects": [],
-    "flavors": [],
-    "description": "",
-    "genetics": "",
+    "terpenes": [
+      "Myrcene",
+      "Pinene",
+      "Ocimene",
+      "Caryophyllene",
+      "Limonene"
+    ],
+    "effects": [
+      "Relaxed",
+      "Talkative",
+      "Focused",
+      "Uplifting"
+    ],
+    "flavors": [
+      "Earthy",
+      "Floral",
+      "Woody",
+      "Vanilla",
+      "Coffee",
+      "Nutty"
+    ],
+    "description": "Horchata is a balanced hybrid marijuana strain made by crossing Jet Fuel Gelato with Mochi Gelato. The effects of Horchata are more calming than energizing.",
+    "genetics": "Jet Fuel Gelato x Mochi Gelato",
     "grade": "B",
     "prices": [
       {
@@ -13912,7 +14255,8 @@
     "last_verified": "2026-04-14T08:04:28.232615+00:00",
     "verification_status": "scraped",
     "catalog_version": "v10",
-    "catalog_updated": "2026-04-14T08:04:28.232615+00:00"
+    "catalog_updated": "2026-04-14T08:04:28.232615+00:00",
+    "leafly_type": "Hybrid"
   },
   {
     "id": "cheetah-piss-live-resin-badder",
@@ -13967,11 +14311,23 @@
     "category_confidence": "inferred",
     "thc": 34.44,
     "cbd": 0,
-    "terpenes": [],
-    "effects": [],
-    "flavors": [],
-    "description": "",
-    "genetics": "",
+    "terpenes": [
+      "Limonene",
+      "Caryophyllene",
+      "Pinene"
+    ],
+    "effects": [
+      "Focused",
+      "Creative",
+      "Energetic"
+    ],
+    "flavors": [
+      "Chemical",
+      "Ammonia",
+      "Diesel"
+    ],
+    "description": "Chem de la Chem is a sativa marijuana strain made by crossing Chemdog and i95. The result is a complex blend of sweet, creamy and earthy flavors you can only find in Chem de la Chem. When smoking this strain, you'll experience a classic head high that will help you focus and get on with your daily tasks.",
+    "genetics": "Chemdog x i95",
     "grade": "C",
     "prices": [
       {
@@ -14000,7 +14356,8 @@
     "last_verified": "2026-04-14T08:04:28.232615+00:00",
     "verification_status": "scraped",
     "catalog_version": "v10",
-    "catalog_updated": "2026-04-14T08:04:28.232615+00:00"
+    "catalog_updated": "2026-04-14T08:04:28.232615+00:00",
+    "leafly_type": "Sativa"
   },
   {
     "id": "chem-de-la-chem-prj-5ct",
@@ -14162,7 +14519,8 @@
     "last_verified": "2026-04-14T08:04:28.232615+00:00",
     "verification_status": "scraped",
     "catalog_version": "v10",
-    "catalog_updated": "2026-04-14T08:04:28.232615+00:00"
+    "catalog_updated": "2026-04-14T08:04:28.232615+00:00",
+    "leafly_type": "Hybrid"
   },
   {
     "id": "cherry-10pk-400mg-thc-400mg-cbd-50mg-cbc",
@@ -14274,7 +14632,8 @@
     "last_verified": null,
     "verification_status": "no_price_data",
     "catalog_version": "v10",
-    "catalog_updated": "2026-04-14T08:04:28.232615+00:00"
+    "catalog_updated": "2026-04-14T08:04:28.232615+00:00",
+    "leafly_type": "Indica"
   },
   {
     "id": "cherry-chem-pie-live-resin-batter",
@@ -14330,7 +14689,8 @@
     "last_verified": "2026-04-14T08:04:28.232615+00:00",
     "verification_status": "scraped",
     "catalog_version": "v10",
-    "catalog_updated": "2026-04-14T08:04:28.232615+00:00"
+    "catalog_updated": "2026-04-14T08:04:28.232615+00:00",
+    "leafly_type": "Hybrid"
   },
   {
     "id": "cherry-chem-sugar",
@@ -14386,7 +14746,8 @@
     "last_verified": "2026-04-14T08:04:28.232615+00:00",
     "verification_status": "scraped",
     "catalog_version": "v10",
-    "catalog_updated": "2026-04-14T08:04:28.232615+00:00"
+    "catalog_updated": "2026-04-14T08:04:28.232615+00:00",
+    "leafly_type": "Hybrid"
   },
   {
     "id": "cherry-circa-1995-x-grapple-noir-live-resin-cartridge",
@@ -14526,7 +14887,8 @@
     "last_verified": null,
     "verification_status": "no_price_data",
     "catalog_version": "v10",
-    "catalog_updated": "2026-04-14T08:04:28.232615+00:00"
+    "catalog_updated": "2026-04-14T08:04:28.232615+00:00",
+    "leafly_type": "Hybrid"
   },
   {
     "id": "cherry-limeade-cake-live-sugar",
@@ -14622,10 +14984,18 @@
     "thc": 76.43,
     "cbd": 0,
     "terpenes": [],
-    "effects": [],
-    "flavors": [],
-    "description": "",
-    "genetics": "",
+    "effects": [
+      "Euphoric",
+      "Happy",
+      "Focused"
+    ],
+    "flavors": [
+      "Diesel",
+      "Berry",
+      "Chemical"
+    ],
+    "description": "Cherry Limeade Cake is a cannabis strain from the top breeder Mean Gene and his Freeborn Selections. Cherry Limeade Cake comes from Ice Cream Cake x Gelato 33 x Cherry Limeade F5. Cherry Limeade Cake is a more optimized Ice Cream Cake, a national best-seller.",
+    "genetics": "Ice Cream Cake x Gelato 33 x Cherry Limeade F5",
     "grade": "B",
     "prices": [
       {
@@ -14654,7 +15024,8 @@
     "last_verified": "2026-04-14T08:04:28.232615+00:00",
     "verification_status": "scraped",
     "catalog_version": "v10",
-    "catalog_updated": "2026-04-14T08:04:28.232615+00:00"
+    "catalog_updated": "2026-04-14T08:04:28.232615+00:00",
+    "leafly_type": "Hybrid"
   },
   {
     "id": "cherry-limeade-cart",
@@ -14831,7 +15202,8 @@
     "last_verified": null,
     "verification_status": "no_price_data",
     "catalog_version": "v10",
-    "catalog_updated": "2026-04-14T08:04:28.232615+00:00"
+    "catalog_updated": "2026-04-14T08:04:28.232615+00:00",
+    "leafly_type": "Hybrid"
   },
   {
     "id": "cherry-on-top",
@@ -14907,7 +15279,8 @@
     "last_verified": "2026-04-14T08:04:28.232615+00:00",
     "verification_status": "scraped",
     "catalog_version": "v10",
-    "catalog_updated": "2026-04-14T08:04:28.232615+00:00"
+    "catalog_updated": "2026-04-14T08:04:28.232615+00:00",
+    "leafly_type": "Hybrid"
   },
   {
     "id": "cherry-pie-og",
@@ -14953,7 +15326,8 @@
     "last_verified": null,
     "verification_status": "no_price_data",
     "catalog_version": "v10",
-    "catalog_updated": "2026-04-14T08:04:28.232615+00:00"
+    "catalog_updated": "2026-04-14T08:04:28.232615+00:00",
+    "leafly_type": "Hybrid"
   },
   {
     "id": "cherry-slushee",
@@ -15005,7 +15379,8 @@
     "last_verified": "2026-04-14T08:04:28.232615+00:00",
     "verification_status": "scraped",
     "catalog_version": "v10",
-    "catalog_updated": "2026-04-14T08:04:28.232615+00:00"
+    "catalog_updated": "2026-04-14T08:04:28.232615+00:00",
+    "leafly_type": "Hybrid"
   },
   {
     "id": "cherryland",
@@ -15618,7 +15993,8 @@
     "last_verified": "2026-04-14T08:04:28.232615+00:00",
     "verification_status": "scraped",
     "catalog_version": "v10",
-    "catalog_updated": "2026-04-14T08:04:28.232615+00:00"
+    "catalog_updated": "2026-04-14T08:04:28.232615+00:00",
+    "leafly_type": "Hybrid"
   },
   {
     "id": "chocolate-chip-bites",
@@ -15718,7 +16094,8 @@
     "last_verified": "2026-04-14T08:04:28.232615+00:00",
     "verification_status": "scraped",
     "catalog_version": "v10",
-    "catalog_updated": "2026-04-14T08:04:28.232615+00:00"
+    "catalog_updated": "2026-04-14T08:04:28.232615+00:00",
+    "leafly_type": "Sativa"
   },
   {
     "id": "chocolatina-live-budder",
@@ -15729,11 +16106,23 @@
     "category_confidence": "inferred",
     "thc": 80.33,
     "cbd": 0,
-    "terpenes": [],
-    "effects": [],
-    "flavors": [],
-    "description": "",
-    "genetics": "",
+    "terpenes": [
+      "Myrcene",
+      "Limonene",
+      "Caryophyllene"
+    ],
+    "effects": [
+      "Giggly",
+      "Uplifted",
+      "Euphoric"
+    ],
+    "flavors": [
+      "Nutty",
+      "Coffee",
+      "Cheese"
+    ],
+    "description": "Chocolatina is a rare sativa-dominant strain that crosses Tina and Minto Chocolate Chip. Its terpene profile is something special: You’ll get a classic cheese taste with hints of pine, and a finish that is sweet and smooth. Be sure to grab it fresh so you get the full experience.",
+    "genetics": "Tina x Minto Chocolate Chip",
     "grade": "C",
     "prices": [
       {
@@ -15772,7 +16161,8 @@
     "last_verified": "2026-04-14T08:04:28.232615+00:00",
     "verification_status": "scraped",
     "catalog_version": "v10",
-    "catalog_updated": "2026-04-14T08:04:28.232615+00:00"
+    "catalog_updated": "2026-04-14T08:04:28.232615+00:00",
+    "leafly_type": "Sativa"
   },
   {
     "id": "chunky-monkey",
@@ -15857,7 +16247,8 @@
     "last_verified": "2026-04-14T08:04:28.232615+00:00",
     "verification_status": "scraped",
     "catalog_version": "v10",
-    "catalog_updated": "2026-04-14T08:04:28.232615+00:00"
+    "catalog_updated": "2026-04-14T08:04:28.232615+00:00",
+    "leafly_type": "Hybrid"
   },
   {
     "id": "cinnamon-milk",
@@ -15909,7 +16300,8 @@
     "last_verified": "2026-04-14T08:04:28.232615+00:00",
     "verification_status": "scraped",
     "catalog_version": "v10",
-    "catalog_updated": "2026-04-14T08:04:28.232615+00:00"
+    "catalog_updated": "2026-04-14T08:04:28.232615+00:00",
+    "leafly_type": "Hybrid"
   },
   {
     "id": "citrus",
@@ -16743,7 +17135,8 @@
     "last_verified": "2026-04-14T08:04:28.232615+00:00",
     "verification_status": "scraped",
     "catalog_version": "v10",
-    "catalog_updated": "2026-04-14T08:04:28.232615+00:00"
+    "catalog_updated": "2026-04-14T08:04:28.232615+00:00",
+    "leafly_type": "Hybrid"
   },
   {
     "id": "cold-snap-whole",
@@ -16799,7 +17192,8 @@
     "last_verified": "2026-04-14T08:04:28.232615+00:00",
     "verification_status": "scraped",
     "catalog_version": "v10",
-    "catalog_updated": "2026-04-14T08:04:28.232615+00:00"
+    "catalog_updated": "2026-04-14T08:04:28.232615+00:00",
+    "leafly_type": "Hybrid"
   },
   {
     "id": "college-park",
@@ -16844,11 +17238,23 @@
     "category_confidence": "inferred",
     "thc": 0,
     "cbd": 0,
-    "terpenes": [],
-    "effects": [],
-    "flavors": [],
-    "description": "",
-    "genetics": "",
+    "terpenes": [
+      "Myrcene",
+      "Pinene",
+      "Limonene"
+    ],
+    "effects": [
+      "Energetic",
+      "Talkative",
+      "Uplifted"
+    ],
+    "flavors": [
+      "Diesel",
+      "Earthy",
+      "Citrus"
+    ],
+    "description": "Bred by Humboldt Seed Company for the band Slightly Stoopid, Collie Man Kush crosses their own Humboldt Reserve OG Kush with Asphalt Plant. This indica-dominant strain has a heavy gas and turpentine smell with a little bit of a citrus influence.",
+    "genetics": "Humboldt Reserve OG Kush x Asphalt Plant",
     "grade": "B",
     "prices": [
       {
@@ -16887,7 +17293,8 @@
     "last_verified": "2026-04-14T08:04:28.232615+00:00",
     "verification_status": "scraped",
     "catalog_version": "v10",
-    "catalog_updated": "2026-04-14T08:04:28.232615+00:00"
+    "catalog_updated": "2026-04-14T08:04:28.232615+00:00",
+    "leafly_type": "Hybrid"
   },
   {
     "id": "comfort-creme-cartridge",
@@ -16973,7 +17380,8 @@
     "last_verified": null,
     "verification_status": "no_price_data",
     "catalog_version": "v10",
-    "catalog_updated": "2026-04-14T08:04:28.232615+00:00"
+    "catalog_updated": "2026-04-14T08:04:28.232615+00:00",
+    "leafly_type": "Hybrid"
   },
   {
     "id": "compound-z",
@@ -17469,7 +17877,8 @@
     "last_verified": null,
     "verification_status": "no_price_data",
     "catalog_version": "v10",
-    "catalog_updated": "2026-04-14T08:04:28.232615+00:00"
+    "catalog_updated": "2026-04-14T08:04:28.232615+00:00",
+    "leafly_type": "Hybrid"
   },
   {
     "id": "cured-sugar",
@@ -17745,7 +18154,8 @@
     "last_verified": "2026-04-14T08:04:28.232615+00:00",
     "verification_status": "scraped",
     "catalog_version": "v10",
-    "catalog_updated": "2026-04-14T08:04:28.232615+00:00"
+    "catalog_updated": "2026-04-14T08:04:28.232615+00:00",
+    "leafly_type": "Sativa"
   },
   {
     "id": "dark-berry-5mg-thc-1-serving",
@@ -17871,7 +18281,8 @@
     "last_verified": "2026-04-14T08:04:28.232615+00:00",
     "verification_status": "scraped",
     "catalog_version": "v10",
-    "catalog_updated": "2026-04-14T08:04:28.232615+00:00"
+    "catalog_updated": "2026-04-14T08:04:28.232615+00:00",
+    "leafly_type": "Hybrid"
   },
   {
     "id": "dark-rainbow-pre-ground",
@@ -17927,7 +18338,8 @@
     "last_verified": "2026-04-14T08:04:28.232615+00:00",
     "verification_status": "scraped",
     "catalog_version": "v10",
-    "catalog_updated": "2026-04-14T08:04:28.232615+00:00"
+    "catalog_updated": "2026-04-14T08:04:28.232615+00:00",
+    "leafly_type": "Hybrid"
   },
   {
     "id": "deadband-12",
@@ -17979,7 +18391,8 @@
     "last_verified": "2026-04-14T08:04:28.232615+00:00",
     "verification_status": "scraped",
     "catalog_version": "v10",
-    "catalog_updated": "2026-04-14T08:04:28.232615+00:00"
+    "catalog_updated": "2026-04-14T08:04:28.232615+00:00",
+    "leafly_type": "Hybrid"
   },
   {
     "id": "deadband-live-resin-oil",
@@ -18167,7 +18580,8 @@
     "last_verified": "2026-04-14T08:04:28.232615+00:00",
     "verification_status": "scraped",
     "catalog_version": "v10",
-    "catalog_updated": "2026-04-14T08:04:28.232615+00:00"
+    "catalog_updated": "2026-04-14T08:04:28.232615+00:00",
+    "leafly_type": "Hybrid"
   },
   {
     "id": "depth-charge",
@@ -18337,7 +18751,8 @@
     "last_verified": "2026-04-14T08:04:28.232615+00:00",
     "verification_status": "scraped",
     "catalog_version": "v10",
-    "catalog_updated": "2026-04-14T08:04:28.232615+00:00"
+    "catalog_updated": "2026-04-14T08:04:28.232615+00:00",
+    "leafly_type": "Indica"
   },
   {
     "id": "dirty-banana-5-pack",
@@ -18348,11 +18763,29 @@
     "category_confidence": "inferred",
     "thc": 28.3,
     "cbd": 0,
-    "terpenes": [],
-    "effects": [],
-    "flavors": [],
-    "description": "",
-    "genetics": "",
+    "terpenes": [
+      "Myrcene",
+      "Caryophyllene",
+      "Pinene",
+      "Linalool"
+    ],
+    "effects": [
+      "Sleepy",
+      "Stoney",
+      "Spacey",
+      "Focused",
+      "Relaxed"
+    ],
+    "flavors": [
+      "Banana",
+      "Gas",
+      "Funk",
+      "Plum",
+      "Strawberry",
+      "Cheese"
+    ],
+    "description": "Dirty Banana is an indica weed strain made from a genetic cross between Banana OG and GMO. This strain is a flower product from Ember Valley, a brand that offers high-quality cannabis flower with exotic flavors and potent effects.",
+    "genetics": "Banana OG x GMO",
     "grade": "B",
     "prices": [
       {
@@ -18381,7 +18814,8 @@
     "last_verified": "2026-04-14T08:04:28.232615+00:00",
     "verification_status": "scraped",
     "catalog_version": "v10",
-    "catalog_updated": "2026-04-14T08:04:28.232615+00:00"
+    "catalog_updated": "2026-04-14T08:04:28.232615+00:00",
+    "leafly_type": "Indica"
   },
   {
     "id": "discos-10mg-dark-chocolate-salted-caramel",
@@ -18975,7 +19409,8 @@
     "last_verified": null,
     "verification_status": "no_price_data",
     "catalog_version": "v10",
-    "catalog_updated": "2026-04-14T08:04:28.232615+00:00"
+    "catalog_updated": "2026-04-14T08:04:28.232615+00:00",
+    "leafly_type": "Hybrid"
   },
   {
     "id": "dog-town-daydream-live-resin-cart",
@@ -19573,7 +20008,8 @@
     "last_verified": "2026-04-14T08:04:28.232615+00:00",
     "verification_status": "scraped",
     "catalog_version": "v10",
-    "catalog_updated": "2026-04-14T08:04:28.232615+00:00"
+    "catalog_updated": "2026-04-14T08:04:28.232615+00:00",
+    "leafly_type": "Hybrid"
   },
   {
     "id": "dr-solomon-s-fantasy-melonz-thc-rich-hybrid-rso",
@@ -19891,7 +20327,8 @@
     "last_verified": null,
     "verification_status": "no_price_data",
     "catalog_version": "v10",
-    "catalog_updated": "2026-04-14T08:04:28.232615+00:00"
+    "catalog_updated": "2026-04-14T08:04:28.232615+00:00",
+    "leafly_type": "Sativa"
   },
   {
     "id": "durban-poison-liquid-diamonds-disposable",
@@ -19947,7 +20384,8 @@
     "last_verified": "2026-04-14T08:04:28.232615+00:00",
     "verification_status": "scraped",
     "catalog_version": "v10",
-    "catalog_updated": "2026-04-14T08:04:28.232615+00:00"
+    "catalog_updated": "2026-04-14T08:04:28.232615+00:00",
+    "leafly_type": "Sativa"
   },
   {
     "id": "durban-posion",
@@ -20194,7 +20632,8 @@
     "last_verified": null,
     "verification_status": "no_price_data",
     "catalog_version": "v10",
-    "catalog_updated": "2026-04-14T08:04:28.232615+00:00"
+    "catalog_updated": "2026-04-14T08:04:28.232615+00:00",
+    "leafly_type": "Hybrid"
   },
   {
     "id": "eden-bubblegum-biscotti-live-rosin",
@@ -21535,7 +21974,8 @@
     "last_verified": "2026-04-14T08:04:28.232615+00:00",
     "verification_status": "scraped",
     "catalog_version": "v10",
-    "catalog_updated": "2026-04-14T08:04:28.232615+00:00"
+    "catalog_updated": "2026-04-14T08:04:28.232615+00:00",
+    "leafly_type": "Hybrid"
   },
   {
     "id": "florida-kush",
@@ -21591,7 +22031,8 @@
     "last_verified": "2026-04-14T08:04:28.232615+00:00",
     "verification_status": "scraped",
     "catalog_version": "v10",
-    "catalog_updated": "2026-04-14T08:04:28.232615+00:00"
+    "catalog_updated": "2026-04-14T08:04:28.232615+00:00",
+    "leafly_type": "Hybrid"
   },
   {
     "id": "florida-wedding",
@@ -21802,11 +22243,23 @@
     "category_confidence": "inferred",
     "thc": 0,
     "cbd": 0,
-    "terpenes": [],
-    "effects": [],
-    "flavors": [],
-    "description": "",
-    "genetics": "",
+    "terpenes": [
+      "Limonene",
+      "Caryophyllene",
+      "Linalool"
+    ],
+    "effects": [
+      "Aroused",
+      "Relaxed",
+      "Euphoric"
+    ],
+    "flavors": [
+      "Menthol",
+      "Mint",
+      "Ammonia"
+    ],
+    "description": "Kush Mints is a hybrid weed strain made from a genetic cross between Animal Mints and Bubba Kush. This strain is 50% sativa and 50% indica. Kush Mints is a potent and flavorful strain that has a minty and cookie-like aroma and flavor, with hints of gas and pine.",
+    "genetics": "Animal Mints x Bubba Kush",
     "grade": "C",
     "prices": [
       {
@@ -21835,7 +22288,8 @@
     "last_verified": "2026-04-14T08:04:28.232615+00:00",
     "verification_status": "scraped",
     "catalog_version": "v10",
-    "catalog_updated": "2026-04-14T08:04:28.232615+00:00"
+    "catalog_updated": "2026-04-14T08:04:28.232615+00:00",
+    "leafly_type": "Hybrid"
   },
   {
     "id": "fpog-x-sour-dub",
@@ -21958,7 +22412,8 @@
     "last_verified": "2026-04-14T08:04:28.232615+00:00",
     "verification_status": "scraped",
     "catalog_version": "v10",
-    "catalog_updated": "2026-04-14T08:04:28.232615+00:00"
+    "catalog_updated": "2026-04-14T08:04:28.232615+00:00",
+    "leafly_type": "Hybrid"
   },
   {
     "id": "fritter-licker-live-rosin-cart",
@@ -22015,7 +22470,8 @@
     "last_verified": "2026-04-14T08:04:28.232615+00:00",
     "verification_status": "scraped",
     "catalog_version": "v10",
-    "catalog_updated": "2026-04-14T08:04:28.232615+00:00"
+    "catalog_updated": "2026-04-14T08:04:28.232615+00:00",
+    "leafly_type": "Hybrid"
   },
   {
     "id": "frosted-jungle",
@@ -22249,7 +22705,8 @@
     "last_verified": "2026-04-14T08:04:28.232615+00:00",
     "verification_status": "scraped",
     "catalog_version": "v10",
-    "catalog_updated": "2026-04-14T08:04:28.232615+00:00"
+    "catalog_updated": "2026-04-14T08:04:28.232615+00:00",
+    "leafly_type": "Hybrid"
   },
   {
     "id": "fruit-loot-5",
@@ -22297,7 +22754,8 @@
     "last_verified": "2026-04-14T08:04:28.232615+00:00",
     "verification_status": "scraped",
     "catalog_version": "v10",
-    "catalog_updated": "2026-04-14T08:04:28.232615+00:00"
+    "catalog_updated": "2026-04-14T08:04:28.232615+00:00",
+    "leafly_type": "Hybrid"
   },
   {
     "id": "fruit-punch-live-resin-diamond-reload-pod",
@@ -22860,11 +23318,23 @@
     "category_confidence": "inferred",
     "thc": 20.62,
     "cbd": 0,
-    "terpenes": [],
-    "effects": [],
-    "flavors": [],
-    "description": "",
-    "genetics": "",
+    "terpenes": [
+      "Caryophyllene",
+      "Limonene",
+      "Humulene"
+    ],
+    "effects": [
+      "Relaxed",
+      "Aroused",
+      "Euphoric"
+    ],
+    "flavors": [
+      "Sweet",
+      "Flowery",
+      "Pepper"
+    ],
+    "description": "Gelato, also known as \"Larry Bird\" and \"Gelato #42\" is an evenly-balanced hybrid marijuana strain made from a crossing of Sunset Sherbet and Thin Mint Girl Scout Cookies.",
+    "genetics": "Sunset Sherbet x Thin Mint Girl Scout Cookies",
     "grade": "B",
     "prices": [
       {
@@ -22893,7 +23363,8 @@
     "last_verified": "2026-04-14T08:04:28.232615+00:00",
     "verification_status": "scraped",
     "catalog_version": "v10",
-    "catalog_updated": "2026-04-14T08:04:28.232615+00:00"
+    "catalog_updated": "2026-04-14T08:04:28.232615+00:00",
+    "leafly_type": "Hybrid"
   },
   {
     "id": "gelato-410",
@@ -22904,11 +23375,23 @@
     "category_confidence": "inferred",
     "thc": 20.48,
     "cbd": 0,
-    "terpenes": [],
-    "effects": [],
-    "flavors": [],
-    "description": "",
-    "genetics": "",
+    "terpenes": [
+      "Caryophyllene",
+      "Limonene",
+      "Humulene"
+    ],
+    "effects": [
+      "Relaxed",
+      "Aroused",
+      "Euphoric"
+    ],
+    "flavors": [
+      "Sweet",
+      "Flowery",
+      "Pepper"
+    ],
+    "description": "Gelato, also known as \"Larry Bird\" and \"Gelato #42\" is an evenly-balanced hybrid marijuana strain made from a crossing of Sunset Sherbet and Thin Mint Girl Scout Cookies.",
+    "genetics": "Sunset Sherbet x Thin Mint Girl Scout Cookies",
     "grade": "B",
     "prices": [
       {
@@ -22937,7 +23420,8 @@
     "last_verified": "2026-04-14T08:04:28.232615+00:00",
     "verification_status": "scraped",
     "catalog_version": "v10",
-    "catalog_updated": "2026-04-14T08:04:28.232615+00:00"
+    "catalog_updated": "2026-04-14T08:04:28.232615+00:00",
+    "leafly_type": "Hybrid"
   },
   {
     "id": "gelato-cake-cured-sugar",
@@ -22993,7 +23477,8 @@
     "last_verified": "2026-04-14T08:04:28.232615+00:00",
     "verification_status": "scraped",
     "catalog_version": "v10",
-    "catalog_updated": "2026-04-14T08:04:28.232615+00:00"
+    "catalog_updated": "2026-04-14T08:04:28.232615+00:00",
+    "leafly_type": "Hybrid"
   },
   {
     "id": "gentlemen-s-smugglers-blue-dream-x-sour-jack",
@@ -23137,7 +23622,8 @@
     "last_verified": "2026-04-14T08:04:28.232615+00:00",
     "verification_status": "scraped",
     "catalog_version": "v10",
-    "catalog_updated": "2026-04-14T08:04:28.232615+00:00"
+    "catalog_updated": "2026-04-14T08:04:28.232615+00:00",
+    "leafly_type": "Hybrid"
   },
   {
     "id": "germantown",
@@ -23232,7 +23718,8 @@
     "last_verified": "2026-04-14T08:04:28.232615+00:00",
     "verification_status": "scraped",
     "catalog_version": "v10",
-    "catalog_updated": "2026-04-14T08:04:28.232615+00:00"
+    "catalog_updated": "2026-04-14T08:04:28.232615+00:00",
+    "leafly_type": "Hybrid"
   },
   {
     "id": "glacial-guava-distillate-vape",
@@ -23332,7 +23819,8 @@
     "last_verified": "2026-04-14T08:04:28.232615+00:00",
     "verification_status": "scraped",
     "catalog_version": "v10",
-    "catalog_updated": "2026-04-14T08:04:28.232615+00:00"
+    "catalog_updated": "2026-04-14T08:04:28.232615+00:00",
+    "leafly_type": "Hybrid"
   },
   {
     "id": "glow-chews-100mg-feeling-punchy-10ct",
@@ -23577,7 +24065,8 @@
     "last_verified": "2026-04-14T08:04:28.232615+00:00",
     "verification_status": "scraped",
     "catalog_version": "v10",
-    "catalog_updated": "2026-04-14T08:04:28.232615+00:00"
+    "catalog_updated": "2026-04-14T08:04:28.232615+00:00",
+    "leafly_type": "Hybrid"
   },
   {
     "id": "gmo-x-skywalker-og-pre-roll-0-5g-5-pack-tin",
@@ -23799,7 +24288,8 @@
     "last_verified": "2026-04-14T08:04:28.232615+00:00",
     "verification_status": "scraped",
     "catalog_version": "v10",
-    "catalog_updated": "2026-04-14T08:04:28.232615+00:00"
+    "catalog_updated": "2026-04-14T08:04:28.232615+00:00",
+    "leafly_type": "Hybrid"
   },
   {
     "id": "golden-pineapple-cartridge",
@@ -23865,7 +24355,8 @@
     "last_verified": "2026-04-14T08:04:28.232615+00:00",
     "verification_status": "scraped",
     "catalog_version": "v10",
-    "catalog_updated": "2026-04-14T08:04:28.232615+00:00"
+    "catalog_updated": "2026-04-14T08:04:28.232615+00:00",
+    "leafly_type": "Hybrid"
   },
   {
     "id": "golden-pineapple-disposable",
@@ -23931,7 +24422,8 @@
     "last_verified": "2026-04-14T08:04:28.232615+00:00",
     "verification_status": "scraped",
     "catalog_version": "v10",
-    "catalog_updated": "2026-04-14T08:04:28.232615+00:00"
+    "catalog_updated": "2026-04-14T08:04:28.232615+00:00",
+    "leafly_type": "Hybrid"
   },
   {
     "id": "golden-skunk",
@@ -24089,7 +24581,8 @@
     "last_verified": "2026-04-14T08:04:28.232615+00:00",
     "verification_status": "scraped",
     "catalog_version": "v10",
-    "catalog_updated": "2026-04-14T08:04:28.232615+00:00"
+    "catalog_updated": "2026-04-14T08:04:28.232615+00:00",
+    "leafly_type": "Hybrid"
   },
   {
     "id": "governmint-oasis-1pk",
@@ -24149,7 +24642,8 @@
     "last_verified": "2026-04-14T08:04:28.232615+00:00",
     "verification_status": "scraped",
     "catalog_version": "v10",
-    "catalog_updated": "2026-04-14T08:04:28.232615+00:00"
+    "catalog_updated": "2026-04-14T08:04:28.232615+00:00",
+    "leafly_type": "Hybrid"
   },
   {
     "id": "gpog",
@@ -24867,7 +25361,8 @@
     "last_verified": "2026-04-14T08:04:28.232615+00:00",
     "verification_status": "scraped",
     "catalog_version": "v10",
-    "catalog_updated": "2026-04-14T08:04:28.232615+00:00"
+    "catalog_updated": "2026-04-14T08:04:28.232615+00:00",
+    "leafly_type": "Hybrid"
   },
   {
     "id": "grape-stomper",
@@ -25037,7 +25532,8 @@
     "last_verified": null,
     "verification_status": "no_price_data",
     "catalog_version": "v10",
-    "catalog_updated": "2026-04-14T08:04:28.232615+00:00"
+    "catalog_updated": "2026-04-14T08:04:28.232615+00:00",
+    "leafly_type": "Hybrid"
   },
   {
     "id": "grapefruit-gelato-cured-batter",
@@ -25093,7 +25589,8 @@
     "last_verified": "2026-04-14T08:04:28.232615+00:00",
     "verification_status": "scraped",
     "catalog_version": "v10",
-    "catalog_updated": "2026-04-14T08:04:28.232615+00:00"
+    "catalog_updated": "2026-04-14T08:04:28.232615+00:00",
+    "leafly_type": "Hybrid"
   },
   {
     "id": "grass-gummies-100mg-baltimore-crush",
@@ -25666,7 +26163,8 @@
     "last_verified": null,
     "verification_status": "no_price_data",
     "catalog_version": "v10",
-    "catalog_updated": "2026-04-14T08:04:28.232615+00:00"
+    "catalog_updated": "2026-04-14T08:04:28.232615+00:00",
+    "leafly_type": "Hybrid"
   },
   {
     "id": "guava-biscuits",
@@ -25752,7 +26250,8 @@
     "last_verified": null,
     "verification_status": "no_price_data",
     "catalog_version": "v10",
-    "catalog_updated": "2026-04-14T08:04:28.232615+00:00"
+    "catalog_updated": "2026-04-14T08:04:28.232615+00:00",
+    "leafly_type": "Hybrid"
   },
   {
     "id": "guava-kush",
@@ -25840,7 +26339,8 @@
     "last_verified": "2026-04-14T08:04:28.232615+00:00",
     "verification_status": "scraped",
     "catalog_version": "v10",
-    "catalog_updated": "2026-04-14T08:04:28.232615+00:00"
+    "catalog_updated": "2026-04-14T08:04:28.232615+00:00",
+    "leafly_type": "Hybrid"
   },
   {
     "id": "guava-tart-distillate-cartridge",
@@ -25906,10 +26406,18 @@
     "thc": 24.91,
     "cbd": 0,
     "terpenes": [],
-    "effects": [],
-    "flavors": [],
-    "description": "",
-    "genetics": "",
+    "effects": [
+      "Energetic",
+      "Creative",
+      "Uplifted"
+    ],
+    "flavors": [
+      "Grape",
+      "Earthy",
+      "Flowery"
+    ],
+    "description": "Gumi 6 is a premium hybrid from Umami Seed Company, a masterful blend of its parent strains, Jelly Zonuts and Zoda, Gumi 6 carries forward the best characteristics of both, creating a uniquely appealing plant. The genetic lineage includes the delightful sweetness of Zkittles and the rich, fruity undertones of Strawberry Fritter, making every whiff a decadently aromatic experience.",
+    "genetics": "Jelly Zonuts x Zoda",
     "grade": "B",
     "prices": [
       {
@@ -25938,7 +26446,8 @@
     "last_verified": "2026-04-14T08:04:28.232615+00:00",
     "verification_status": "scraped",
     "catalog_version": "v10",
-    "catalog_updated": "2026-04-14T08:04:28.232615+00:00"
+    "catalog_updated": "2026-04-14T08:04:28.232615+00:00",
+    "leafly_type": "Hybrid"
   },
   {
     "id": "gumi-6-live-resin-cake-badder",
@@ -25950,10 +26459,18 @@
     "thc": 72.7,
     "cbd": 0,
     "terpenes": [],
-    "effects": [],
-    "flavors": [],
-    "description": "",
-    "genetics": "",
+    "effects": [
+      "Energetic",
+      "Creative",
+      "Uplifted"
+    ],
+    "flavors": [
+      "Grape",
+      "Earthy",
+      "Flowery"
+    ],
+    "description": "Gumi 6 is a premium hybrid from Umami Seed Company, a masterful blend of its parent strains, Jelly Zonuts and Zoda, Gumi 6 carries forward the best characteristics of both, creating a uniquely appealing plant. The genetic lineage includes the delightful sweetness of Zkittles and the rich, fruity undertones of Strawberry Fritter, making every whiff a decadently aromatic experience.",
+    "genetics": "Jelly Zonuts x Zoda",
     "grade": "B",
     "prices": [
       {
@@ -25992,7 +26509,8 @@
     "last_verified": "2026-04-14T08:04:28.232615+00:00",
     "verification_status": "scraped",
     "catalog_version": "v10",
-    "catalog_updated": "2026-04-14T08:04:28.232615+00:00"
+    "catalog_updated": "2026-04-14T08:04:28.232615+00:00",
+    "leafly_type": "Hybrid"
   },
   {
     "id": "gumi-6-untrimmed",
@@ -26004,10 +26522,18 @@
     "thc": 23.07,
     "cbd": 0,
     "terpenes": [],
-    "effects": [],
-    "flavors": [],
-    "description": "",
-    "genetics": "",
+    "effects": [
+      "Energetic",
+      "Creative",
+      "Uplifted"
+    ],
+    "flavors": [
+      "Grape",
+      "Earthy",
+      "Flowery"
+    ],
+    "description": "Gumi 6 is a premium hybrid from Umami Seed Company, a masterful blend of its parent strains, Jelly Zonuts and Zoda, Gumi 6 carries forward the best characteristics of both, creating a uniquely appealing plant. The genetic lineage includes the delightful sweetness of Zkittles and the rich, fruity undertones of Strawberry Fritter, making every whiff a decadently aromatic experience.",
+    "genetics": "Jelly Zonuts x Zoda",
     "grade": "B",
     "prices": [
       {
@@ -26036,7 +26562,8 @@
     "last_verified": "2026-04-14T08:04:28.232615+00:00",
     "verification_status": "scraped",
     "catalog_version": "v10",
-    "catalog_updated": "2026-04-14T08:04:28.232615+00:00"
+    "catalog_updated": "2026-04-14T08:04:28.232615+00:00",
+    "leafly_type": "Hybrid"
   },
   {
     "id": "gummiez",
@@ -26102,7 +26629,8 @@
     "last_verified": "2026-04-14T08:04:28.232615+00:00",
     "verification_status": "scraped",
     "catalog_version": "v10",
-    "catalog_updated": "2026-04-14T08:04:28.232615+00:00"
+    "catalog_updated": "2026-04-14T08:04:28.232615+00:00",
+    "leafly_type": "Hybrid"
   },
   {
     "id": "gush-mints",
@@ -26169,7 +26697,8 @@
     "last_verified": "2026-04-14T08:04:28.232615+00:00",
     "verification_status": "scraped",
     "catalog_version": "v10",
-    "catalog_updated": "2026-04-14T08:04:28.232615+00:00"
+    "catalog_updated": "2026-04-14T08:04:28.232615+00:00",
+    "leafly_type": "Hybrid"
   },
   {
     "id": "gush-mints-2pk",
@@ -26225,7 +26754,8 @@
     "last_verified": "2026-04-14T08:04:28.232615+00:00",
     "verification_status": "scraped",
     "catalog_version": "v10",
-    "catalog_updated": "2026-04-14T08:04:28.232615+00:00"
+    "catalog_updated": "2026-04-14T08:04:28.232615+00:00",
+    "leafly_type": "Hybrid"
   },
   {
     "id": "gush-mints-whole",
@@ -26281,7 +26811,8 @@
     "last_verified": "2026-04-14T08:04:28.232615+00:00",
     "verification_status": "scraped",
     "catalog_version": "v10",
-    "catalog_updated": "2026-04-14T08:04:28.232615+00:00"
+    "catalog_updated": "2026-04-14T08:04:28.232615+00:00",
+    "leafly_type": "Hybrid"
   },
   {
     "id": "gut-calming-apple-cbg-thc-disposable",
@@ -26854,11 +27385,23 @@
     "category_confidence": "inferred",
     "thc": 21.74,
     "cbd": 0,
-    "terpenes": [],
-    "effects": [],
-    "flavors": [],
-    "description": "",
-    "genetics": "",
+    "terpenes": [
+      "Caryophyllene",
+      "Limonene",
+      "Pinene"
+    ],
+    "effects": [
+      "Happy",
+      "Uplifted",
+      "Euphoric"
+    ],
+    "flavors": [
+      "Berry",
+      "Lemon",
+      "Sweet"
+    ],
+    "description": "Sunset Animals is a hybrid weed strain made from a genetic cross between Sunset Sherbert and Animal Cookies. This strain is 30% sativa and 70% indica. Sunset Animals is 23% THC, making this strain an ideal choice for experienced cannabis consumers.",
+    "genetics": "Sunset Sherbert x Animal Cookies",
     "grade": "B",
     "prices": [
       {
@@ -26887,7 +27430,8 @@
     "last_verified": "2026-04-14T08:04:28.232615+00:00",
     "verification_status": "scraped",
     "catalog_version": "v10",
-    "catalog_updated": "2026-04-14T08:04:28.232615+00:00"
+    "catalog_updated": "2026-04-14T08:04:28.232615+00:00",
+    "leafly_type": "Hybrid"
   },
   {
     "id": "happy-j-s-midnight-circus-prj-2x",
@@ -26943,10 +27487,18 @@
     "thc": 24.03,
     "cbd": 0,
     "terpenes": [],
-    "effects": [],
-    "flavors": [],
-    "description": "",
-    "genetics": "",
+    "effects": [
+      "Happy",
+      "Giggly",
+      "Sleepy"
+    ],
+    "flavors": [
+      "Vanilla",
+      "Mint",
+      "Butter"
+    ],
+    "description": "Patapeake Shortbread is a weed strain bred by Seed Junky Genetics. Patapeake Shortbread is a reported cross of Wedding Cake x Kush Mints. It's sold by Evermore in Maryland.",
+    "genetics": "Wedding Cake x Kush Mints",
     "grade": "B",
     "prices": [
       {
@@ -26975,7 +27527,8 @@
     "last_verified": "2026-04-14T08:04:28.232615+00:00",
     "verification_status": "scraped",
     "catalog_version": "v10",
-    "catalog_updated": "2026-04-14T08:04:28.232615+00:00"
+    "catalog_updated": "2026-04-14T08:04:28.232615+00:00",
+    "leafly_type": "Hybrid"
   },
   {
     "id": "happy-j-s-peach-runtz-prj-7ct",
@@ -27030,11 +27583,23 @@
     "category_confidence": "inferred",
     "thc": 29.37,
     "cbd": 0,
-    "terpenes": [],
-    "effects": [],
-    "flavors": [],
-    "description": "",
-    "genetics": "",
+    "terpenes": [
+      "Limonene",
+      "Linalool",
+      "Caryophyllene"
+    ],
+    "effects": [
+      "Euphoric",
+      "Hungry",
+      "Happy"
+    ],
+    "flavors": [
+      "Butter",
+      "Ammonia",
+      "Blue Cheese"
+    ],
+    "description": "Sunset Octane is a weed strain bred by Seed Junky Genetics from Sunset Sherbet x High Octane OG BX3. It comes the fruity ice cream of sherbert with the fuel of of a High Octane OG. Growers of Sunset Octane include Evermore of Maryland.",
+    "genetics": "Sunset Sherbet x High Octane OG BX3",
     "grade": "C",
     "prices": [
       {
@@ -27063,7 +27628,8 @@
     "last_verified": "2026-04-14T08:04:28.232615+00:00",
     "verification_status": "scraped",
     "catalog_version": "v10",
-    "catalog_updated": "2026-04-14T08:04:28.232615+00:00"
+    "catalog_updated": "2026-04-14T08:04:28.232615+00:00",
+    "leafly_type": "Hybrid"
   },
   {
     "id": "happy-j-s-sunset-octane-prj-7ct",
@@ -27630,7 +28196,8 @@
     "last_verified": "2026-04-14T08:04:28.232615+00:00",
     "verification_status": "scraped",
     "catalog_version": "v10",
-    "catalog_updated": "2026-04-14T08:04:28.232615+00:00"
+    "catalog_updated": "2026-04-14T08:04:28.232615+00:00",
+    "leafly_type": "Sativa"
   },
   {
     "id": "hazy-face-cured-batter",
@@ -27677,7 +28244,8 @@
     "last_verified": "2026-04-14T08:04:28.232615+00:00",
     "verification_status": "scraped",
     "catalog_version": "v10",
-    "catalog_updated": "2026-04-14T08:04:28.232615+00:00"
+    "catalog_updated": "2026-04-14T08:04:28.232615+00:00",
+    "leafly_type": "Sativa"
   },
   {
     "id": "headband-loompas-cut-live-resin-cake-badder",
@@ -27761,7 +28329,8 @@
     "last_verified": null,
     "verification_status": "no_price_data",
     "catalog_version": "v10",
-    "catalog_updated": "2026-04-14T08:04:28.232615+00:00"
+    "catalog_updated": "2026-04-14T08:04:28.232615+00:00",
+    "leafly_type": "Hybrid"
   },
   {
     "id": "headcracker-full-spectrum-live-disposable",
@@ -27773,9 +28342,17 @@
     "thc": 83.39,
     "cbd": 0,
     "terpenes": [],
-    "effects": [],
-    "flavors": [],
-    "description": "",
+    "effects": [
+      "Relaxed",
+      "Euphoric",
+      "Happy"
+    ],
+    "flavors": [
+      "Chemical",
+      "Diesel",
+      "Earthy"
+    ],
+    "description": "Headcracker, also known as Head Cracker, is a hybrid weed strain. Reviewers on Leafly say this strain makes them feel relaxed, euphoric, and happy.",
     "genetics": "",
     "grade": "C",
     "prices": [
@@ -27805,7 +28382,8 @@
     "last_verified": "2026-04-14T08:04:28.232615+00:00",
     "verification_status": "scraped",
     "catalog_version": "v10",
-    "catalog_updated": "2026-04-14T08:04:28.232615+00:00"
+    "catalog_updated": "2026-04-14T08:04:28.232615+00:00",
+    "leafly_type": "Hybrid"
   },
   {
     "id": "headspace",
@@ -29309,7 +29887,8 @@
     "last_verified": "2026-04-14T08:04:28.232615+00:00",
     "verification_status": "scraped",
     "catalog_version": "v10",
-    "catalog_updated": "2026-04-14T08:04:28.232615+00:00"
+    "catalog_updated": "2026-04-14T08:04:28.232615+00:00",
+    "leafly_type": "Hybrid"
   },
   {
     "id": "holy-grail-prepack-fried-ice-cream",
@@ -29365,7 +29944,8 @@
     "last_verified": "2026-04-14T08:04:28.232615+00:00",
     "verification_status": "scraped",
     "catalog_version": "v10",
-    "catalog_updated": "2026-04-14T08:04:28.232615+00:00"
+    "catalog_updated": "2026-04-14T08:04:28.232615+00:00",
+    "leafly_type": "Hybrid"
   },
   {
     "id": "homestead-haze-single",
@@ -29603,7 +30183,8 @@
     "last_verified": "2026-04-14T08:04:28.232615+00:00",
     "verification_status": "scraped",
     "catalog_version": "v10",
-    "catalog_updated": "2026-04-14T08:04:28.232615+00:00"
+    "catalog_updated": "2026-04-14T08:04:28.232615+00:00",
+    "leafly_type": "Hybrid"
   },
   {
     "id": "huckleberry-soda-5-live-resin-cake-badder",
@@ -29659,7 +30240,8 @@
     "last_verified": "2026-04-14T08:04:28.232615+00:00",
     "verification_status": "scraped",
     "catalog_version": "v10",
-    "catalog_updated": "2026-04-14T08:04:28.232615+00:00"
+    "catalog_updated": "2026-04-14T08:04:28.232615+00:00",
+    "leafly_type": "Hybrid"
   },
   {
     "id": "hybrid-10pk",
@@ -30151,7 +30733,8 @@
     "last_verified": "2026-04-14T08:04:28.232615+00:00",
     "verification_status": "scraped",
     "catalog_version": "v10",
-    "catalog_updated": "2026-04-14T08:04:28.232615+00:00"
+    "catalog_updated": "2026-04-14T08:04:28.232615+00:00",
+    "leafly_type": "Hybrid"
   },
   {
     "id": "ice-cream-cake-bho-live-sugar",
@@ -30206,11 +30789,23 @@
     "category_confidence": "inferred",
     "thc": 0,
     "cbd": 0,
-    "terpenes": [],
-    "effects": [],
-    "flavors": [],
-    "description": "",
-    "genetics": "",
+    "terpenes": [
+      "Caryophyllene",
+      "Limonene",
+      "Linalool"
+    ],
+    "effects": [
+      "Sleepy",
+      "Relaxed",
+      "Hungry"
+    ],
+    "flavors": [
+      "Vanilla",
+      "Butter",
+      "Pepper"
+    ],
+    "description": "Ice Cream Cake is an Indica-dominant hybrid marijuana strain made by crossing Wedding Cake with Gelato #33. This strain offers sedating effects that leave your mind and body completely relaxed. Ice Cream Cake features a creamy flavor profile with sweet hints of vanilla and sugary dough.",
+    "genetics": "Wedding Cake x Gelato #33",
     "grade": "B",
     "prices": [
       {
@@ -30239,7 +30834,8 @@
     "last_verified": "2026-04-14T08:04:28.232615+00:00",
     "verification_status": "scraped",
     "catalog_version": "v10",
-    "catalog_updated": "2026-04-14T08:04:28.232615+00:00"
+    "catalog_updated": "2026-04-14T08:04:28.232615+00:00",
+    "leafly_type": "Hybrid"
   },
   {
     "id": "ice-cream-mintz",
@@ -31610,7 +32206,8 @@
     "last_verified": null,
     "verification_status": "no_price_data",
     "catalog_version": "v10",
-    "catalog_updated": "2026-04-14T08:04:28.232615+00:00"
+    "catalog_updated": "2026-04-14T08:04:28.232615+00:00",
+    "leafly_type": "Sativa"
   },
   {
     "id": "jack-herer-cured-resin-shatter",
@@ -31687,7 +32284,8 @@
     "last_verified": "2026-04-14T08:04:28.232615+00:00",
     "verification_status": "scraped",
     "catalog_version": "v10",
-    "catalog_updated": "2026-04-14T08:04:28.232615+00:00"
+    "catalog_updated": "2026-04-14T08:04:28.232615+00:00",
+    "leafly_type": "Sativa"
   },
   {
     "id": "jack-herer-distillate-cartridge",
@@ -31744,7 +32342,8 @@
     "last_verified": "2026-04-14T08:04:28.232615+00:00",
     "verification_status": "scraped",
     "catalog_version": "v10",
-    "catalog_updated": "2026-04-14T08:04:28.232615+00:00"
+    "catalog_updated": "2026-04-14T08:04:28.232615+00:00",
+    "leafly_type": "Sativa"
   },
   {
     "id": "jack-herer-live-terpene-cart",
@@ -31801,7 +32400,8 @@
     "last_verified": "2026-04-14T08:04:28.232615+00:00",
     "verification_status": "scraped",
     "catalog_version": "v10",
-    "catalog_updated": "2026-04-14T08:04:28.232615+00:00"
+    "catalog_updated": "2026-04-14T08:04:28.232615+00:00",
+    "leafly_type": "Sativa"
   },
   {
     "id": "jack-s-heir-badder",
@@ -31935,7 +32535,8 @@
     "last_verified": "2026-04-14T08:04:28.232615+00:00",
     "verification_status": "scraped",
     "catalog_version": "v10",
-    "catalog_updated": "2026-04-14T08:04:28.232615+00:00"
+    "catalog_updated": "2026-04-14T08:04:28.232615+00:00",
+    "leafly_type": "Hybrid"
   },
   {
     "id": "jelly-donut-x-gmo",
@@ -32069,7 +32670,8 @@
     "last_verified": "2026-04-14T08:04:28.232615+00:00",
     "verification_status": "scraped",
     "catalog_version": "v10",
-    "catalog_updated": "2026-04-14T08:04:28.232615+00:00"
+    "catalog_updated": "2026-04-14T08:04:28.232615+00:00",
+    "leafly_type": "Hybrid"
   },
   {
     "id": "jokerz",
@@ -32113,7 +32715,8 @@
     "last_verified": null,
     "verification_status": "no_price_data",
     "catalog_version": "v10",
-    "catalog_updated": "2026-04-14T08:04:28.232615+00:00"
+    "catalog_updated": "2026-04-14T08:04:28.232615+00:00",
+    "leafly_type": "Hybrid"
   },
   {
     "id": "juicee-j",
@@ -32188,7 +32791,8 @@
     "last_verified": "2026-04-14T08:04:28.232615+00:00",
     "verification_status": "scraped",
     "catalog_version": "v10",
-    "catalog_updated": "2026-04-14T08:04:28.232615+00:00"
+    "catalog_updated": "2026-04-14T08:04:28.232615+00:00",
+    "leafly_type": "Hybrid"
   },
   {
     "id": "juicee-j-distillate-cartridge",
@@ -32240,7 +32844,8 @@
     "last_verified": "2026-04-14T08:04:28.232615+00:00",
     "verification_status": "scraped",
     "catalog_version": "v10",
-    "catalog_updated": "2026-04-14T08:04:28.232615+00:00"
+    "catalog_updated": "2026-04-14T08:04:28.232615+00:00",
+    "leafly_type": "Hybrid"
   },
   {
     "id": "juicy-peach-10mg-thc-1-serving",
@@ -32339,11 +32944,23 @@
     "category_confidence": "inferred",
     "thc": 86.32,
     "cbd": 0,
-    "terpenes": [],
-    "effects": [],
-    "flavors": [],
-    "description": "",
-    "genetics": "",
+    "terpenes": [
+      "Myrcene",
+      "Caryophyllene",
+      "Limonene"
+    ],
+    "effects": [
+      "Relaxed",
+      "Sleepy",
+      "Tingly"
+    ],
+    "flavors": [
+      "Grapefruit",
+      "Tropical",
+      "Tree fruit"
+    ],
+    "description": "Forbidden Fruit is the mouthwatering cross of Cherry Pie x Tangie. This sumptuous genetic cross expresses a beautiful dense bud structure with deep purple hues, dark green foliage, and wiry orange hairs. The terpene profile is a perfect mixture of Cherry Pie’s musky, sweet cherry undertones and Tangie’s loud tropical flavors.",
+    "genetics": "Cherry Pie x Tangie",
     "grade": "B",
     "prices": [
       {
@@ -32372,7 +32989,8 @@
     "last_verified": "2026-04-14T08:04:28.232615+00:00",
     "verification_status": "scraped",
     "catalog_version": "v10",
-    "catalog_updated": "2026-04-14T08:04:28.232615+00:00"
+    "catalog_updated": "2026-04-14T08:04:28.232615+00:00",
+    "leafly_type": "Indica"
   },
   {
     "id": "karma-kush-distillate-cart",
@@ -32861,7 +33479,8 @@
     "last_verified": null,
     "verification_status": "no_price_data",
     "catalog_version": "v10",
-    "catalog_updated": "2026-04-14T08:04:28.232615+00:00"
+    "catalog_updated": "2026-04-14T08:04:28.232615+00:00",
+    "leafly_type": "Indica"
   },
   {
     "id": "kings-queens-blueberry-cruffin-live-resin-budder",
@@ -32872,11 +33491,21 @@
     "category_confidence": "inferred",
     "thc": 78.75,
     "cbd": 0,
-    "terpenes": [],
-    "effects": [],
-    "flavors": [],
-    "description": "",
-    "genetics": "",
+    "terpenes": [
+      "Pinene"
+    ],
+    "effects": [
+      "Hungry",
+      "Sleepy",
+      "Euphoric"
+    ],
+    "flavors": [
+      "Blueberry",
+      "Apple",
+      "Fruit"
+    ],
+    "description": "Blueberry Cruffin is a indica-dominant hybrid weed strain made from a genetic cross between Blue sherbert and Zkittlez. Bred by Backpackboyz group, Blueberry Cruffin is 23% THC, making this strain an ideal choice for experienced cannabis consumers.",
+    "genetics": "Blue sherbert x Zkittlez",
     "grade": "C",
     "prices": [
       {
@@ -32905,7 +33534,8 @@
     "last_verified": "2026-04-14T08:04:28.232615+00:00",
     "verification_status": "scraped",
     "catalog_version": "v10",
-    "catalog_updated": "2026-04-14T08:04:28.232615+00:00"
+    "catalog_updated": "2026-04-14T08:04:28.232615+00:00",
+    "leafly_type": "Hybrid"
   },
   {
     "id": "kings-queens-infused-chem-x-chocolate-blunts-2pk",
@@ -33260,7 +33890,8 @@
     "last_verified": "2026-04-14T08:04:28.232615+00:00",
     "verification_status": "scraped",
     "catalog_version": "v10",
-    "catalog_updated": "2026-04-14T08:04:28.232615+00:00"
+    "catalog_updated": "2026-04-14T08:04:28.232615+00:00",
+    "leafly_type": "Hybrid"
   },
   {
     "id": "kush-monts-x-str8-lemonade-cold-cured-live-rosin",
@@ -33348,7 +33979,8 @@
     "last_verified": null,
     "verification_status": "no_price_data",
     "catalog_version": "v10",
-    "catalog_updated": "2026-04-14T08:04:28.232615+00:00"
+    "catalog_updated": "2026-04-14T08:04:28.232615+00:00",
+    "leafly_type": "Hybrid"
   },
   {
     "id": "la-baker",
@@ -33394,7 +34026,8 @@
     "last_verified": null,
     "verification_status": "no_price_data",
     "catalog_version": "v10",
-    "catalog_updated": "2026-04-14T08:04:28.232615+00:00"
+    "catalog_updated": "2026-04-14T08:04:28.232615+00:00",
+    "leafly_type": "Hybrid"
   },
   {
     "id": "la-kush-cake-2pk",
@@ -33405,11 +34038,23 @@
     "category_confidence": "inferred",
     "thc": 30.66,
     "cbd": 0,
-    "terpenes": [],
-    "effects": [],
-    "flavors": [],
-    "description": "",
-    "genetics": "",
+    "terpenes": [
+      "Limonene",
+      "Caryophyllene",
+      "Myrcene"
+    ],
+    "effects": [
+      "Aroused",
+      "Relaxed",
+      "Sleepy"
+    ],
+    "flavors": [
+      "Vanilla",
+      "Mint",
+      "Pepper"
+    ],
+    "description": "LA Kush Cake, also known as \"Los Angeles Kush Cake\" and \"LA Kush Cake #11,\" is a hybrid marijuana strain. This cross of the popular Wedding Cake and Kush Mints comes from Liberty Health Sciences and Seed Junky Genetics. La Kush Cake is an indica-dominant strain that smells like vanilla and has an earthy peppermint taste.",
+    "genetics": "Wedding Cake x Kush Mints",
     "grade": "C",
     "prices": [
       {
@@ -33438,7 +34083,8 @@
     "last_verified": "2026-04-14T08:04:28.232615+00:00",
     "verification_status": "scraped",
     "catalog_version": "v10",
-    "catalog_updated": "2026-04-14T08:04:28.232615+00:00"
+    "catalog_updated": "2026-04-14T08:04:28.232615+00:00",
+    "leafly_type": "Hybrid"
   },
   {
     "id": "la-pop-rocks",
@@ -33486,7 +34132,8 @@
     "last_verified": null,
     "verification_status": "no_price_data",
     "catalog_version": "v10",
-    "catalog_updated": "2026-04-14T08:04:28.232615+00:00"
+    "catalog_updated": "2026-04-14T08:04:28.232615+00:00",
+    "leafly_type": "Hybrid"
   },
   {
     "id": "labs-1g-thca-isolate",
@@ -33670,7 +34317,8 @@
     "last_verified": "2026-04-14T08:04:28.232615+00:00",
     "verification_status": "scraped",
     "catalog_version": "v10",
-    "catalog_updated": "2026-04-14T08:04:28.232615+00:00"
+    "catalog_updated": "2026-04-14T08:04:28.232615+00:00",
+    "leafly_type": "Hybrid"
   },
   {
     "id": "larry-bird-mints-live-resin-cartridge",
@@ -33730,7 +34378,8 @@
     "last_verified": "2026-04-14T08:04:28.232615+00:00",
     "verification_status": "scraped",
     "catalog_version": "v10",
-    "catalog_updated": "2026-04-14T08:04:28.232615+00:00"
+    "catalog_updated": "2026-04-14T08:04:28.232615+00:00",
+    "leafly_type": "Hybrid"
   },
   {
     "id": "lava-lamp",
@@ -33840,7 +34489,8 @@
     "last_verified": "2026-04-14T08:04:28.232615+00:00",
     "verification_status": "scraped",
     "catalog_version": "v10",
-    "catalog_updated": "2026-04-14T08:04:28.232615+00:00"
+    "catalog_updated": "2026-04-14T08:04:28.232615+00:00",
+    "leafly_type": "Hybrid"
   },
   {
     "id": "layer-cake-liquid-diamonds-sauce-disposable",
@@ -33896,7 +34546,8 @@
     "last_verified": "2026-04-14T08:04:28.232615+00:00",
     "verification_status": "scraped",
     "catalog_version": "v10",
-    "catalog_updated": "2026-04-14T08:04:28.232615+00:00"
+    "catalog_updated": "2026-04-14T08:04:28.232615+00:00",
+    "leafly_type": "Hybrid"
   },
   {
     "id": "layer-cake-sugar",
@@ -33952,7 +34603,8 @@
     "last_verified": "2026-04-14T08:04:28.232615+00:00",
     "verification_status": "scraped",
     "catalog_version": "v10",
-    "catalog_updated": "2026-04-14T08:04:28.232615+00:00"
+    "catalog_updated": "2026-04-14T08:04:28.232615+00:00",
+    "leafly_type": "Hybrid"
   },
   {
     "id": "leaf-socks-assorted-colors",
@@ -34007,11 +34659,23 @@
     "category_confidence": "inferred",
     "thc": 25.04,
     "cbd": 0,
-    "terpenes": [],
-    "effects": [],
-    "flavors": [],
-    "description": "",
-    "genetics": "",
+    "terpenes": [
+      "Myrcene",
+      "Limonene",
+      "Caryophyllene"
+    ],
+    "effects": [
+      "Sleepy",
+      "Relaxed",
+      "Hungry"
+    ],
+    "flavors": [
+      "Chemical",
+      "Woody",
+      "Pungent"
+    ],
+    "description": "Legend OG is an indica marijuana strain made by crossing OG Kush with an unknown strain. This strain produces relaxing effects that elevate the mind while soothing aches and pains throughout the body. L",
+    "genetics": "OG Kush x unknown strain",
     "grade": "B",
     "prices": [
       {
@@ -34040,7 +34704,8 @@
     "last_verified": "2026-04-14T08:04:28.232615+00:00",
     "verification_status": "scraped",
     "catalog_version": "v10",
-    "catalog_updated": "2026-04-14T08:04:28.232615+00:00"
+    "catalog_updated": "2026-04-14T08:04:28.232615+00:00",
+    "leafly_type": "Indica"
   },
   {
     "id": "legendary-gmo",
@@ -34186,7 +34851,8 @@
     "last_verified": "2026-04-14T08:04:28.232615+00:00",
     "verification_status": "scraped",
     "catalog_version": "v10",
-    "catalog_updated": "2026-04-14T08:04:28.232615+00:00"
+    "catalog_updated": "2026-04-14T08:04:28.232615+00:00",
+    "leafly_type": "Hybrid"
   },
   {
     "id": "lemon-cherry-gelato-1pk",
@@ -34197,11 +34863,25 @@
     "category_confidence": "inferred",
     "thc": 23.92,
     "cbd": 0,
-    "terpenes": [],
-    "effects": [],
-    "flavors": [],
-    "description": "",
-    "genetics": "",
+    "terpenes": [
+      "Caryophyllene",
+      "Limonene",
+      "Linalool"
+    ],
+    "effects": [
+      "Tingly",
+      "Relaxed",
+      "Euphoric"
+    ],
+    "flavors": [
+      "Lime",
+      "Berries",
+      "Citrus",
+      "Lemon",
+      "Sweet Fruit"
+    ],
+    "description": "Lemon Cherry Gelato is a extremely popular hybrid weed strain with several alleged origins. It could just be Gelato bagseed, aka a between Sunset Sherbet and Girl Scout Cookies. It can also be a type of Runtz, which is Gelato x Z.",
+    "genetics": "Sunset Sherbet x Girl Scout Cookies",
     "grade": "C",
     "prices": [
       {
@@ -34230,7 +34910,8 @@
     "last_verified": "2026-04-14T08:04:28.232615+00:00",
     "verification_status": "scraped",
     "catalog_version": "v10",
-    "catalog_updated": "2026-04-14T08:04:28.232615+00:00"
+    "catalog_updated": "2026-04-14T08:04:28.232615+00:00",
+    "leafly_type": "Hybrid"
   },
   {
     "id": "lemon-cherry-gelato-distillate-vape",
@@ -34241,11 +34922,25 @@
     "category_confidence": "inferred",
     "thc": 79.73,
     "cbd": 0,
-    "terpenes": [],
-    "effects": [],
-    "flavors": [],
-    "description": "",
-    "genetics": "",
+    "terpenes": [
+      "Caryophyllene",
+      "Limonene",
+      "Linalool"
+    ],
+    "effects": [
+      "Tingly",
+      "Relaxed",
+      "Euphoric"
+    ],
+    "flavors": [
+      "Lime",
+      "Berries",
+      "Citrus",
+      "Lemon",
+      "Sweet Fruit"
+    ],
+    "description": "Lemon Cherry Gelato is a extremely popular hybrid weed strain with several alleged origins. It could just be Gelato bagseed, aka a between Sunset Sherbet and Girl Scout Cookies. It can also be a type of Runtz, which is Gelato x Z.",
+    "genetics": "Sunset Sherbet x Girl Scout Cookies",
     "grade": "B",
     "prices": [
       {
@@ -34274,7 +34969,8 @@
     "last_verified": "2026-04-14T08:04:28.232615+00:00",
     "verification_status": "scraped",
     "catalog_version": "v10",
-    "catalog_updated": "2026-04-14T08:04:28.232615+00:00"
+    "catalog_updated": "2026-04-14T08:04:28.232615+00:00",
+    "leafly_type": "Hybrid"
   },
   {
     "id": "lemon-cherry-gelato-live-resin-cake-badder",
@@ -34409,7 +35105,8 @@
     "last_verified": "2026-04-14T08:04:28.232615+00:00",
     "verification_status": "scraped",
     "catalog_version": "v10",
-    "catalog_updated": "2026-04-14T08:04:28.232615+00:00"
+    "catalog_updated": "2026-04-14T08:04:28.232615+00:00",
+    "leafly_type": "Sativa"
   },
   {
     "id": "lemon-jeffery-live-resin-cart",
@@ -34461,7 +35158,8 @@
     "last_verified": "2026-04-14T08:04:28.232615+00:00",
     "verification_status": "scraped",
     "catalog_version": "v10",
-    "catalog_updated": "2026-04-14T08:04:28.232615+00:00"
+    "catalog_updated": "2026-04-14T08:04:28.232615+00:00",
+    "leafly_type": "Hybrid"
   },
   {
     "id": "lemon-layer-cake",
@@ -34614,7 +35312,8 @@
     "last_verified": "2026-04-14T08:04:28.232615+00:00",
     "verification_status": "scraped",
     "catalog_version": "v10",
-    "catalog_updated": "2026-04-14T08:04:28.232615+00:00"
+    "catalog_updated": "2026-04-14T08:04:28.232615+00:00",
+    "leafly_type": "Hybrid"
   },
   {
     "id": "lemon-margy-live-badder",
@@ -34689,7 +35388,8 @@
     "last_verified": "2026-04-14T08:04:28.232615+00:00",
     "verification_status": "scraped",
     "catalog_version": "v10",
-    "catalog_updated": "2026-04-14T08:04:28.232615+00:00"
+    "catalog_updated": "2026-04-14T08:04:28.232615+00:00",
+    "leafly_type": "Hybrid"
   },
   {
     "id": "lemon-og-smoke-stack-disposable",
@@ -35644,11 +36344,24 @@
     "category_confidence": "inferred",
     "thc": 79.83,
     "cbd": 0,
-    "terpenes": [],
-    "effects": [],
-    "flavors": [],
-    "description": "",
-    "genetics": "",
+    "terpenes": [
+      "Caryophyllene",
+      "Myrcene",
+      "Limonene"
+    ],
+    "effects": [
+      "Energetic",
+      "Happy",
+      "Focused"
+    ],
+    "flavors": [
+      "Berry",
+      "Tropical",
+      "Pineapple",
+      "Sweet"
+    ],
+    "description": "Cherry Maui Wowie is a hybrid cannabis strain made from a genetic cross of Cherry Pie x Maui Wowie and released by Rythm cannabis. This strain captures the feeling of an afternoon on a tropical beach, with ...",
+    "genetics": "Cherry Pie x Maui Wowie",
     "grade": "B",
     "prices": [
       {
@@ -35677,7 +36390,8 @@
     "last_verified": "2026-04-14T08:04:28.232615+00:00",
     "verification_status": "scraped",
     "catalog_version": "v10",
-    "catalog_updated": "2026-04-14T08:04:28.232615+00:00"
+    "catalog_updated": "2026-04-14T08:04:28.232615+00:00",
+    "leafly_type": "Hybrid"
   },
   {
     "id": "lr-badder-sweets",
@@ -35864,11 +36578,23 @@
     "category_confidence": "inferred",
     "thc": 73.36,
     "cbd": 0,
-    "terpenes": [],
-    "effects": [],
-    "flavors": [],
-    "description": "",
-    "genetics": "",
+    "terpenes": [
+      "Limonene",
+      "Caryophyllene",
+      "Myrcene"
+    ],
+    "effects": [
+      "Giggly",
+      "Relaxed",
+      "Uplifted"
+    ],
+    "flavors": [
+      "Apple",
+      "Tropical",
+      "Grapefruit"
+    ],
+    "description": "Watermelon Gelato is an indica-dominant hybrid marijuana strain made by crossing Watermelon Zkittlez with Gelato 45. This strain produces uplifting effects that take hold instantly and put your mind into a cerebral, relaxing haze. Watermelon Gelato features bright, floral flavors with earthy undertones.",
+    "genetics": "Watermelon Zkittlez x Gelato 45",
     "grade": "B",
     "prices": [
       {
@@ -35897,7 +36623,8 @@
     "last_verified": "2026-04-14T08:04:28.232615+00:00",
     "verification_status": "scraped",
     "catalog_version": "v10",
-    "catalog_updated": "2026-04-14T08:04:28.232615+00:00"
+    "catalog_updated": "2026-04-14T08:04:28.232615+00:00",
+    "leafly_type": "Hybrid"
   },
   {
     "id": "lr-cake-badder-blueberry-crumb-cake",
@@ -36131,7 +36858,8 @@
     "last_verified": null,
     "verification_status": "no_price_data",
     "catalog_version": "v10",
-    "catalog_updated": "2026-04-14T08:04:28.232615+00:00"
+    "catalog_updated": "2026-04-14T08:04:28.232615+00:00",
+    "leafly_type": "Hybrid"
   },
   {
     "id": "mai-tai-infused-5-pack",
@@ -36201,7 +36929,8 @@
     "last_verified": "2026-04-14T08:04:28.232615+00:00",
     "verification_status": "scraped",
     "catalog_version": "v10",
-    "catalog_updated": "2026-04-14T08:04:28.232615+00:00"
+    "catalog_updated": "2026-04-14T08:04:28.232615+00:00",
+    "leafly_type": "Hybrid"
   },
   {
     "id": "majestik-12",
@@ -36246,11 +36975,23 @@
     "category_confidence": "inferred",
     "thc": 83.09,
     "cbd": 0,
-    "terpenes": [],
-    "effects": [],
-    "flavors": [],
-    "description": "",
-    "genetics": "",
+    "terpenes": [
+      "Myrcene",
+      "Pinene",
+      "Caryophyllene"
+    ],
+    "effects": [
+      "Hungry",
+      "Relaxed",
+      "Sleepy"
+    ],
+    "flavors": [
+      "Mango",
+      "Tropical",
+      "Sweet"
+    ],
+    "description": "Mango, also known as \"Mango OG,\" is an indica marijuana strain made by crossing KC 33 with Afghani. This strain produces euphoric and uplifting effects that are sure to boost your mood.",
+    "genetics": "KC 33 x Afghani",
     "grade": "B",
     "prices": [],
     "price_min": null,
@@ -36271,7 +37012,8 @@
     "last_verified": null,
     "verification_status": "no_price_data",
     "catalog_version": "v10",
-    "catalog_updated": "2026-04-14T08:04:28.232615+00:00"
+    "catalog_updated": "2026-04-14T08:04:28.232615+00:00",
+    "leafly_type": "Indica"
   },
   {
     "id": "mango-dragon-juicy-stickz",
@@ -36282,11 +37024,23 @@
     "category_confidence": "inferred",
     "thc": 34.07,
     "cbd": 0,
-    "terpenes": [],
-    "effects": [],
-    "flavors": [],
-    "description": "",
-    "genetics": "",
+    "terpenes": [
+      "Myrcene",
+      "Pinene",
+      "Caryophyllene"
+    ],
+    "effects": [
+      "Hungry",
+      "Relaxed",
+      "Sleepy"
+    ],
+    "flavors": [
+      "Mango",
+      "Tropical",
+      "Sweet"
+    ],
+    "description": "Mango, also known as \"Mango OG,\" is an indica marijuana strain made by crossing KC 33 with Afghani. This strain produces euphoric and uplifting effects that are sure to boost your mood.",
+    "genetics": "KC 33 x Afghani",
     "grade": "B",
     "prices": [
       {
@@ -36315,7 +37069,8 @@
     "last_verified": "2026-04-14T08:04:28.232615+00:00",
     "verification_status": "scraped",
     "catalog_version": "v10",
-    "catalog_updated": "2026-04-14T08:04:28.232615+00:00"
+    "catalog_updated": "2026-04-14T08:04:28.232615+00:00",
+    "leafly_type": "Indica"
   },
   {
     "id": "mango-ginger-chews",
@@ -36326,11 +37081,23 @@
     "category_confidence": "inferred",
     "thc": 2.45,
     "cbd": 0,
-    "terpenes": [],
-    "effects": [],
-    "flavors": [],
-    "description": "",
-    "genetics": "",
+    "terpenes": [
+      "Myrcene",
+      "Pinene",
+      "Caryophyllene"
+    ],
+    "effects": [
+      "Hungry",
+      "Relaxed",
+      "Sleepy"
+    ],
+    "flavors": [
+      "Mango",
+      "Tropical",
+      "Sweet"
+    ],
+    "description": "Mango, also known as \"Mango OG,\" is an indica marijuana strain made by crossing KC 33 with Afghani. This strain produces euphoric and uplifting effects that are sure to boost your mood.",
+    "genetics": "KC 33 x Afghani",
     "grade": "B",
     "prices": [
       {
@@ -36359,7 +37126,8 @@
     "last_verified": "2026-04-14T08:04:28.232615+00:00",
     "verification_status": "scraped",
     "catalog_version": "v10",
-    "catalog_updated": "2026-04-14T08:04:28.232615+00:00"
+    "catalog_updated": "2026-04-14T08:04:28.232615+00:00",
+    "leafly_type": "Indica"
   },
   {
     "id": "mango-haze",
@@ -36425,7 +37193,8 @@
     "last_verified": "2026-04-14T08:04:28.232615+00:00",
     "verification_status": "scraped",
     "catalog_version": "v10",
-    "catalog_updated": "2026-04-14T08:04:28.232615+00:00"
+    "catalog_updated": "2026-04-14T08:04:28.232615+00:00",
+    "leafly_type": "Sativa"
   },
   {
     "id": "mango-mint-5-2-1-cbd-thc",
@@ -36472,7 +37241,8 @@
     "last_verified": "2026-04-14T08:04:28.232615+00:00",
     "verification_status": "scraped",
     "catalog_version": "v10",
-    "catalog_updated": "2026-04-14T08:04:28.232615+00:00"
+    "catalog_updated": "2026-04-14T08:04:28.232615+00:00",
+    "leafly_type": "Hybrid"
   },
   {
     "id": "maple-cartridge",
@@ -36564,7 +37334,8 @@
     "last_verified": "2026-04-14T08:04:28.232615+00:00",
     "verification_status": "scraped",
     "catalog_version": "v10",
-    "catalog_updated": "2026-04-14T08:04:28.232615+00:00"
+    "catalog_updated": "2026-04-14T08:04:28.232615+00:00",
+    "leafly_type": "Hybrid"
   },
   {
     "id": "maroon-baboon",
@@ -36618,7 +37389,8 @@
     "last_verified": "2026-04-14T08:04:28.232615+00:00",
     "verification_status": "scraped",
     "catalog_version": "v10",
-    "catalog_updated": "2026-04-14T08:04:28.232615+00:00"
+    "catalog_updated": "2026-04-14T08:04:28.232615+00:00",
+    "leafly_type": "Hybrid"
   },
   {
     "id": "maryland-mantis",
@@ -36673,11 +37445,23 @@
     "category_confidence": "inferred",
     "thc": 28.16,
     "cbd": 0,
-    "terpenes": [],
-    "effects": [],
-    "flavors": [],
-    "description": "",
-    "genetics": "",
+    "terpenes": [
+      "Limonene",
+      "Myrcene",
+      "Caryophyllene"
+    ],
+    "effects": [
+      "Energetic",
+      "Creative",
+      "Happy"
+    ],
+    "flavors": [
+      "Diesel",
+      "Apple",
+      "Citrus"
+    ],
+    "description": "Matanuska is a hybrid weed strain made from a genetic cross between unknown parent strains. This strain is 60% sativa and 40% indica.",
+    "genetics": "Unknown parent strains",
     "grade": "C",
     "prices": [
       {
@@ -36706,7 +37490,8 @@
     "last_verified": "2026-04-14T08:04:28.232615+00:00",
     "verification_status": "scraped",
     "catalog_version": "v10",
-    "catalog_updated": "2026-04-14T08:04:28.232615+00:00"
+    "catalog_updated": "2026-04-14T08:04:28.232615+00:00",
+    "leafly_type": "Hybrid"
   },
   {
     "id": "maui-berry",
@@ -37316,7 +38101,8 @@
     "last_verified": "2026-04-14T08:04:28.232615+00:00",
     "verification_status": "scraped",
     "catalog_version": "v10",
-    "catalog_updated": "2026-04-14T08:04:28.232615+00:00"
+    "catalog_updated": "2026-04-14T08:04:28.232615+00:00",
+    "leafly_type": "Hybrid"
   },
   {
     "id": "member-berry",
@@ -37372,7 +38158,8 @@
     "last_verified": "2026-04-14T08:04:28.232615+00:00",
     "verification_status": "scraped",
     "catalog_version": "v10",
-    "catalog_updated": "2026-04-14T08:04:28.232615+00:00"
+    "catalog_updated": "2026-04-14T08:04:28.232615+00:00",
+    "leafly_type": "Hybrid"
   },
   {
     "id": "mexican-flan-ta",
@@ -37570,7 +38357,8 @@
     "last_verified": "2026-04-14T08:04:28.232615+00:00",
     "verification_status": "scraped",
     "catalog_version": "v10",
-    "catalog_updated": "2026-04-14T08:04:28.232615+00:00"
+    "catalog_updated": "2026-04-14T08:04:28.232615+00:00",
+    "leafly_type": "Hybrid"
   },
   {
     "id": "midnight-diesel",
@@ -37649,11 +38437,23 @@
     "category_confidence": "inferred",
     "thc": 29.54,
     "cbd": 0,
-    "terpenes": [],
-    "effects": [],
-    "flavors": [],
-    "description": "",
-    "genetics": "",
+    "terpenes": [
+      "Myrcene",
+      "Pinene",
+      "Caryophyllene"
+    ],
+    "effects": [
+      "Focused",
+      "Energetic",
+      "Uplifted"
+    ],
+    "flavors": [
+      "Citrus",
+      "Orange",
+      "Grapefruit"
+    ],
+    "description": "Mimosa, also known as “Purple Mimosa,” is a hybrid marijuana strain made by crossing Clementine with Purple Punch. In small doses, this strain produces happy, level-headed effects that will leave you feeling uplifted and motivated enough to take on any mundane task.",
+    "genetics": "Clementine x Purple Punch",
     "grade": "B",
     "prices": [],
     "price_min": null,
@@ -37672,7 +38472,8 @@
     "last_verified": null,
     "verification_status": "no_price_data",
     "catalog_version": "v10",
-    "catalog_updated": "2026-04-14T08:04:28.232615+00:00"
+    "catalog_updated": "2026-04-14T08:04:28.232615+00:00",
+    "leafly_type": "Hybrid"
   },
   {
     "id": "mimosa-kush-mints-whole",
@@ -37683,11 +38484,23 @@
     "category_confidence": "inferred",
     "thc": 26.27,
     "cbd": 0,
-    "terpenes": [],
-    "effects": [],
-    "flavors": [],
-    "description": "",
-    "genetics": "",
+    "terpenes": [
+      "Myrcene",
+      "Pinene",
+      "Caryophyllene"
+    ],
+    "effects": [
+      "Focused",
+      "Energetic",
+      "Uplifted"
+    ],
+    "flavors": [
+      "Citrus",
+      "Orange",
+      "Grapefruit"
+    ],
+    "description": "Mimosa, also known as “Purple Mimosa,” is a hybrid marijuana strain made by crossing Clementine with Purple Punch. In small doses, this strain produces happy, level-headed effects that will leave you feeling uplifted and motivated enough to take on any mundane task.",
+    "genetics": "Clementine x Purple Punch",
     "grade": "B",
     "prices": [
       {
@@ -37716,7 +38529,8 @@
     "last_verified": "2026-04-14T08:04:28.232615+00:00",
     "verification_status": "scraped",
     "catalog_version": "v10",
-    "catalog_updated": "2026-04-14T08:04:28.232615+00:00"
+    "catalog_updated": "2026-04-14T08:04:28.232615+00:00",
+    "leafly_type": "Hybrid"
   },
   {
     "id": "mimosa-x-kush-mints-rso",
@@ -37802,7 +38616,8 @@
     "last_verified": "2026-04-14T08:04:28.232615+00:00",
     "verification_status": "scraped",
     "catalog_version": "v10",
-    "catalog_updated": "2026-04-14T08:04:28.232615+00:00"
+    "catalog_updated": "2026-04-14T08:04:28.232615+00:00",
+    "leafly_type": "Hybrid"
   },
   {
     "id": "mini",
@@ -38014,7 +38829,8 @@
     "last_verified": null,
     "verification_status": "no_price_data",
     "catalog_version": "v10",
-    "catalog_updated": "2026-04-14T08:04:28.232615+00:00"
+    "catalog_updated": "2026-04-14T08:04:28.232615+00:00",
+    "leafly_type": "Indica"
   },
   {
     "id": "mob-boss",
@@ -38080,7 +38896,8 @@
     "last_verified": "2026-04-14T08:04:28.232615+00:00",
     "verification_status": "scraped",
     "catalog_version": "v10",
-    "catalog_updated": "2026-04-14T08:04:28.232615+00:00"
+    "catalog_updated": "2026-04-14T08:04:28.232615+00:00",
+    "leafly_type": "Hybrid"
   },
   {
     "id": "modern",
@@ -38172,7 +38989,8 @@
     "last_verified": "2026-04-14T08:04:28.232615+00:00",
     "verification_status": "scraped",
     "catalog_version": "v10",
-    "catalog_updated": "2026-04-14T08:04:28.232615+00:00"
+    "catalog_updated": "2026-04-14T08:04:28.232615+00:00",
+    "leafly_type": "Hybrid"
   },
   {
     "id": "moon-boots",
@@ -38216,7 +39034,8 @@
     "last_verified": null,
     "verification_status": "no_price_data",
     "catalog_version": "v10",
-    "catalog_updated": "2026-04-14T08:04:28.232615+00:00"
+    "catalog_updated": "2026-04-14T08:04:28.232615+00:00",
+    "leafly_type": "Hybrid"
   },
   {
     "id": "moonbeam-gelato",
@@ -38227,10 +39046,22 @@
     "category_confidence": "inferred",
     "thc": 86.69,
     "cbd": 0,
-    "terpenes": [],
-    "effects": [],
-    "flavors": [],
-    "description": "",
+    "terpenes": [
+      "Caryophyllene",
+      "Limonene",
+      "Pinene"
+    ],
+    "effects": [
+      "Sleepy",
+      "Relaxed",
+      "Happy"
+    ],
+    "flavors": [
+      "Earthy",
+      "Pear",
+      "Apricot"
+    ],
+    "description": "Grown by Canadian LP Leafs By Snoop, Moonbeam is an extremely potent indica strain with high THC content. Expect flavors to be fruity and sweety with earthy undertones. Consumers seek this strain for relief of insomnia and anxiety, as its potency can be a one-way ticket to an early bedtime.",
     "genetics": "",
     "grade": "B",
     "prices": [],
@@ -38250,7 +39081,8 @@
     "last_verified": null,
     "verification_status": "no_price_data",
     "catalog_version": "v10",
-    "catalog_updated": "2026-04-14T08:04:28.232615+00:00"
+    "catalog_updated": "2026-04-14T08:04:28.232615+00:00",
+    "leafly_type": "Indica"
   },
   {
     "id": "moonbeam-gelato-sugar",
@@ -38261,10 +39093,22 @@
     "category_confidence": "inferred",
     "thc": 85.73,
     "cbd": 0,
-    "terpenes": [],
-    "effects": [],
-    "flavors": [],
-    "description": "",
+    "terpenes": [
+      "Caryophyllene",
+      "Limonene",
+      "Pinene"
+    ],
+    "effects": [
+      "Sleepy",
+      "Relaxed",
+      "Happy"
+    ],
+    "flavors": [
+      "Earthy",
+      "Pear",
+      "Apricot"
+    ],
+    "description": "Grown by Canadian LP Leafs By Snoop, Moonbeam is an extremely potent indica strain with high THC content. Expect flavors to be fruity and sweety with earthy undertones. Consumers seek this strain for relief of insomnia and anxiety, as its potency can be a one-way ticket to an early bedtime.",
     "genetics": "",
     "grade": "B",
     "prices": [
@@ -38294,7 +39138,8 @@
     "last_verified": "2026-04-14T08:04:28.232615+00:00",
     "verification_status": "scraped",
     "catalog_version": "v10",
-    "catalog_updated": "2026-04-14T08:04:28.232615+00:00"
+    "catalog_updated": "2026-04-14T08:04:28.232615+00:00",
+    "leafly_type": "Indica"
   },
   {
     "id": "moonbeam-gelato-whole",
@@ -38305,10 +39150,22 @@
     "category_confidence": "inferred",
     "thc": 25.9,
     "cbd": 0,
-    "terpenes": [],
-    "effects": [],
-    "flavors": [],
-    "description": "",
+    "terpenes": [
+      "Caryophyllene",
+      "Limonene",
+      "Pinene"
+    ],
+    "effects": [
+      "Sleepy",
+      "Relaxed",
+      "Happy"
+    ],
+    "flavors": [
+      "Earthy",
+      "Pear",
+      "Apricot"
+    ],
+    "description": "Grown by Canadian LP Leafs By Snoop, Moonbeam is an extremely potent indica strain with high THC content. Expect flavors to be fruity and sweety with earthy undertones. Consumers seek this strain for relief of insomnia and anxiety, as its potency can be a one-way ticket to an early bedtime.",
     "genetics": "",
     "grade": "B",
     "prices": [
@@ -38338,7 +39195,8 @@
     "last_verified": "2026-04-14T08:04:28.232615+00:00",
     "verification_status": "scraped",
     "catalog_version": "v10",
-    "catalog_updated": "2026-04-14T08:04:28.232615+00:00"
+    "catalog_updated": "2026-04-14T08:04:28.232615+00:00",
+    "leafly_type": "Indica"
   },
   {
     "id": "more-altitude-with-swift-lifts-pre-rolls",
@@ -38349,11 +39207,22 @@
     "category_confidence": "inferred",
     "thc": 0,
     "cbd": 0,
-    "terpenes": [],
-    "effects": [],
-    "flavors": [],
-    "description": "",
-    "genetics": "",
+    "terpenes": [
+      "Myrcene",
+      "Limonene"
+    ],
+    "effects": [
+      "Creative",
+      "Happy",
+      "Uplifted"
+    ],
+    "flavors": [
+      "Berry",
+      "Sweet",
+      "Nutty"
+    ],
+    "description": "More Cowbell from Bodhi Seeds crosses GSC and Hash Plant. Buds are dark green with orange pistils. More Cowbell is simply delicious with notes of cookies, lemon, mint, dates, and figs. The all-encompas...",
+    "genetics": "GSC x Hash Plant",
     "grade": "C",
     "prices": [],
     "price_min": null,
@@ -38383,7 +39252,8 @@
     "last_verified": null,
     "verification_status": "no_price_data",
     "catalog_version": "v10",
-    "catalog_updated": "2026-04-14T08:04:28.232615+00:00"
+    "catalog_updated": "2026-04-14T08:04:28.232615+00:00",
+    "leafly_type": "Hybrid"
   },
   {
     "id": "mother-s-glow",
@@ -38606,7 +39476,8 @@
     "last_verified": "2026-04-14T08:04:28.232615+00:00",
     "verification_status": "scraped",
     "catalog_version": "v10",
-    "catalog_updated": "2026-04-14T08:04:28.232615+00:00"
+    "catalog_updated": "2026-04-14T08:04:28.232615+00:00",
+    "leafly_type": "Hybrid"
   },
   {
     "id": "mountain-time-mt",
@@ -38741,7 +39612,8 @@
     "last_verified": null,
     "verification_status": "no_price_data",
     "catalog_version": "v10",
-    "catalog_updated": "2026-04-14T08:04:28.232615+00:00"
+    "catalog_updated": "2026-04-14T08:04:28.232615+00:00",
+    "leafly_type": "Hybrid"
   },
   {
     "id": "mule-fuel-a",
@@ -38797,7 +39669,8 @@
     "last_verified": "2026-04-14T08:04:28.232615+00:00",
     "verification_status": "scraped",
     "catalog_version": "v10",
-    "catalog_updated": "2026-04-14T08:04:28.232615+00:00"
+    "catalog_updated": "2026-04-14T08:04:28.232615+00:00",
+    "leafly_type": "Hybrid"
   },
   {
     "id": "mule-fuel-live-resin-sugar",
@@ -38853,7 +39726,8 @@
     "last_verified": "2026-04-14T08:04:28.232615+00:00",
     "verification_status": "scraped",
     "catalog_version": "v10",
-    "catalog_updated": "2026-04-14T08:04:28.232615+00:00"
+    "catalog_updated": "2026-04-14T08:04:28.232615+00:00",
+    "leafly_type": "Hybrid"
   },
   {
     "id": "mule-fuel-prj-5ct",
@@ -38909,7 +39783,8 @@
     "last_verified": "2026-04-14T08:04:28.232615+00:00",
     "verification_status": "scraped",
     "catalog_version": "v10",
-    "catalog_updated": "2026-04-14T08:04:28.232615+00:00"
+    "catalog_updated": "2026-04-14T08:04:28.232615+00:00",
+    "leafly_type": "Hybrid"
   },
   {
     "id": "mystic-mint-mixed-buds-indica",
@@ -39402,11 +40277,25 @@
     "category_confidence": "inferred",
     "thc": 74.27,
     "cbd": 0,
-    "terpenes": [],
-    "effects": [],
-    "flavors": [],
-    "description": "",
-    "genetics": "",
+    "terpenes": [
+      "Terpinolene"
+    ],
+    "effects": [
+      "Focused",
+      "Happy",
+      "Uplifted",
+      "Energetic"
+    ],
+    "flavors": [
+      "Hashish",
+      "Spicy/Herbal",
+      "Citrus",
+      "Flowery",
+      "Earthy",
+      "Diesel"
+    ],
+    "description": "Novarine is a sativa-dominant hybrid weed strain made from a genetic cross between Caprichosa Thai and a Thai landrace line known for its richness in THCV. This strain is a rare and exotic strain that offers a unique cannabinoid profile with a 1:1 ratio of THC and THCV. Novarine is a potent strain that can produce a stimulating and energetic high.",
+    "genetics": "Caprichosa Thai x Thai landrace",
     "grade": "C",
     "prices": [
       {
@@ -39435,7 +40324,8 @@
     "last_verified": "2026-04-14T08:04:28.232615+00:00",
     "verification_status": "scraped",
     "catalog_version": "v10",
-    "catalog_updated": "2026-04-14T08:04:28.232615+00:00"
+    "catalog_updated": "2026-04-14T08:04:28.232615+00:00",
+    "leafly_type": "Hybrid"
   },
   {
     "id": "now-n-laterz-live-resin-cartridge",
@@ -39490,11 +40380,25 @@
     "category_confidence": "inferred",
     "thc": 78.99,
     "cbd": 0,
-    "terpenes": [],
-    "effects": [],
-    "flavors": [],
-    "description": "",
-    "genetics": "",
+    "terpenes": [
+      "Limonene",
+      "Caryophyllene",
+      "Myrcene"
+    ],
+    "effects": [
+      "Uplifting",
+      "Creative",
+      "Relaxed"
+    ],
+    "flavors": [
+      "Earthy",
+      "Pine",
+      "Citrus",
+      "Sweet",
+      "Skunky"
+    ],
+    "description": "Ocifer is a balanced hybrid bred from Cap Junky × Rosetta Stone, delivering a potent and flavorful experience that bridges classic and modern profiles. With THC frequently testing around the high-20s to low-30s, this strain greets the senses with earthy pine, citrus zest, warm spice, and skunky sweetness, backed by a terpene bouquet of Limonene, Caryophyllene, and Myrcene that adds bright citrus highlights and rich herbal depth.",
+    "genetics": "Cap Junky x Rosetta Stone",
     "grade": "B",
     "prices": [],
     "price_min": null,
@@ -39513,7 +40417,8 @@
     "last_verified": null,
     "verification_status": "no_price_data",
     "catalog_version": "v10",
-    "catalog_updated": "2026-04-14T08:04:28.232615+00:00"
+    "catalog_updated": "2026-04-14T08:04:28.232615+00:00",
+    "leafly_type": "Hybrid"
   },
   {
     "id": "og-kush",
@@ -39579,7 +40484,8 @@
     "last_verified": "2026-04-14T08:04:28.232615+00:00",
     "verification_status": "scraped",
     "catalog_version": "v10",
-    "catalog_updated": "2026-04-14T08:04:28.232615+00:00"
+    "catalog_updated": "2026-04-14T08:04:28.232615+00:00",
+    "leafly_type": "Hybrid"
   },
   {
     "id": "og-kush-cart",
@@ -39635,7 +40541,8 @@
     "last_verified": "2026-04-14T08:04:28.232615+00:00",
     "verification_status": "scraped",
     "catalog_version": "v10",
-    "catalog_updated": "2026-04-14T08:04:28.232615+00:00"
+    "catalog_updated": "2026-04-14T08:04:28.232615+00:00",
+    "leafly_type": "Hybrid"
   },
   {
     "id": "omg",
@@ -39679,7 +40586,8 @@
     "last_verified": null,
     "verification_status": "no_price_data",
     "catalog_version": "v10",
-    "catalog_updated": "2026-04-14T08:04:28.232615+00:00"
+    "catalog_updated": "2026-04-14T08:04:28.232615+00:00",
+    "leafly_type": "Hybrid"
   },
   {
     "id": "opals-and-banonoze-cart",
@@ -40043,7 +40951,8 @@
     "last_verified": "2026-04-14T08:04:28.232615+00:00",
     "verification_status": "scraped",
     "catalog_version": "v10",
-    "catalog_updated": "2026-04-14T08:04:28.232615+00:00"
+    "catalog_updated": "2026-04-14T08:04:28.232615+00:00",
+    "leafly_type": "Hybrid"
   },
   {
     "id": "oreoz",
@@ -40099,7 +41008,8 @@
     "last_verified": "2026-04-14T08:04:28.232615+00:00",
     "verification_status": "scraped",
     "catalog_version": "v10",
-    "catalog_updated": "2026-04-14T08:04:28.232615+00:00"
+    "catalog_updated": "2026-04-14T08:04:28.232615+00:00",
+    "leafly_type": "Hybrid"
   },
   {
     "id": "oria-10mg-berry-bliss-indica-gummies",
@@ -40474,7 +41384,8 @@
     "last_verified": "2026-04-14T08:04:28.232615+00:00",
     "verification_status": "scraped",
     "catalog_version": "v10",
-    "catalog_updated": "2026-04-14T08:04:28.232615+00:00"
+    "catalog_updated": "2026-04-14T08:04:28.232615+00:00",
+    "leafly_type": "Sativa"
   },
   {
     "id": "panlato",
@@ -40529,11 +41440,23 @@
     "category_confidence": "inferred",
     "thc": 82.33,
     "cbd": 0,
-    "terpenes": [],
-    "effects": [],
-    "flavors": [],
-    "description": "",
-    "genetics": "",
+    "terpenes": [
+      "Myrcene",
+      "Limonene",
+      "Caryophyllene"
+    ],
+    "effects": [
+      "Relaxed",
+      "Sleepy",
+      "Hungry"
+    ],
+    "flavors": [
+      "Tree fruit",
+      "Tropical",
+      "Apricot"
+    ],
+    "description": "Papaya is an indica-dominant hybrid cannabis strain that is known for producing a mental calmness, though many consumers also find that this strain makes them energetic and productive.",
+    "genetics": "Citral #13 x Ice #2",
     "grade": "C",
     "prices": [
       {
@@ -40572,7 +41495,8 @@
     "last_verified": "2026-04-14T08:04:28.232615+00:00",
     "verification_status": "scraped",
     "catalog_version": "v10",
-    "catalog_updated": "2026-04-14T08:04:28.232615+00:00"
+    "catalog_updated": "2026-04-14T08:04:28.232615+00:00",
+    "leafly_type": "Indica"
   },
   {
     "id": "paradise-pine-live-terpene-cart",
@@ -40787,7 +41711,8 @@
     "last_verified": "2026-04-14T08:04:28.232615+00:00",
     "verification_status": "scraped",
     "catalog_version": "v10",
-    "catalog_updated": "2026-04-14T08:04:28.232615+00:00"
+    "catalog_updated": "2026-04-14T08:04:28.232615+00:00",
+    "leafly_type": "Hybrid"
   },
   {
     "id": "patient-registration-event",
@@ -40835,10 +41760,18 @@
     "thc": 21.45,
     "cbd": 0,
     "terpenes": [],
-    "effects": [],
-    "flavors": [],
-    "description": "",
-    "genetics": "",
+    "effects": [
+      "Tingly",
+      "Relaxed",
+      "Euphoric"
+    ],
+    "flavors": [
+      "Pear",
+      "Menthol",
+      "Pepper"
+    ],
+    "description": "Pavé is a marijuana strain from Compound Genetics. It's a blingy, minty, gassy cross of Paris OG and The Menthol.",
+    "genetics": "Paris OG x The Menthol",
     "grade": "B",
     "prices": [
       {
@@ -40867,7 +41800,8 @@
     "last_verified": "2026-04-14T08:04:28.232615+00:00",
     "verification_status": "scraped",
     "catalog_version": "v10",
-    "catalog_updated": "2026-04-14T08:04:28.232615+00:00"
+    "catalog_updated": "2026-04-14T08:04:28.232615+00:00",
+    "leafly_type": "Hybrid"
   },
   {
     "id": "pave-thc-rso-syringe",
@@ -40879,10 +41813,18 @@
     "thc": 0,
     "cbd": 0,
     "terpenes": [],
-    "effects": [],
-    "flavors": [],
-    "description": "",
-    "genetics": "",
+    "effects": [
+      "Tingly",
+      "Relaxed",
+      "Euphoric"
+    ],
+    "flavors": [
+      "Pear",
+      "Menthol",
+      "Pepper"
+    ],
+    "description": "Pavé is a marijuana strain from Compound Genetics. It's a blingy, minty, gassy cross of Paris OG and The Menthol.",
+    "genetics": "Paris OG x The Menthol",
     "grade": "C",
     "prices": [
       {
@@ -40911,7 +41853,8 @@
     "last_verified": "2026-04-14T08:04:28.232615+00:00",
     "verification_status": "scraped",
     "catalog_version": "v10",
-    "catalog_updated": "2026-04-14T08:04:28.232615+00:00"
+    "catalog_updated": "2026-04-14T08:04:28.232615+00:00",
+    "leafly_type": "Hybrid"
   },
   {
     "id": "pav",
@@ -40955,7 +41898,8 @@
     "last_verified": null,
     "verification_status": "no_price_data",
     "catalog_version": "v10",
-    "catalog_updated": "2026-04-14T08:04:28.232615+00:00"
+    "catalog_updated": "2026-04-14T08:04:28.232615+00:00",
+    "leafly_type": "Hybrid"
   },
   {
     "id": "pb-souffle",
@@ -41143,7 +42087,8 @@
     "last_verified": "2026-04-14T08:04:28.232615+00:00",
     "verification_status": "scraped",
     "catalog_version": "v10",
-    "catalog_updated": "2026-04-14T08:04:28.232615+00:00"
+    "catalog_updated": "2026-04-14T08:04:28.232615+00:00",
+    "leafly_type": "Hybrid"
   },
   {
     "id": "peach-runtz",
@@ -41317,7 +42262,8 @@
     "last_verified": "2026-04-14T08:04:28.232615+00:00",
     "verification_status": "scraped",
     "catalog_version": "v10",
-    "catalog_updated": "2026-04-14T08:04:28.232615+00:00"
+    "catalog_updated": "2026-04-14T08:04:28.232615+00:00",
+    "leafly_type": "Hybrid"
   },
   {
     "id": "peanut-butter-pie",
@@ -41375,7 +42321,8 @@
     "last_verified": "2026-04-14T08:04:28.232615+00:00",
     "verification_status": "scraped",
     "catalog_version": "v10",
-    "catalog_updated": "2026-04-14T08:04:28.232615+00:00"
+    "catalog_updated": "2026-04-14T08:04:28.232615+00:00",
+    "leafly_type": "Hybrid"
   },
   {
     "id": "peanut-butter-souffl",
@@ -41431,7 +42378,8 @@
     "last_verified": "2026-04-14T08:04:28.232615+00:00",
     "verification_status": "scraped",
     "catalog_version": "v10",
-    "catalog_updated": "2026-04-14T08:04:28.232615+00:00"
+    "catalog_updated": "2026-04-14T08:04:28.232615+00:00",
+    "leafly_type": "Hybrid"
   },
   {
     "id": "pear-1-1-cbg-hybrid-enhanced-gummies",
@@ -41573,7 +42521,8 @@
     "last_verified": "2026-04-14T08:04:28.232615+00:00",
     "verification_status": "scraped",
     "catalog_version": "v10",
-    "catalog_updated": "2026-04-14T08:04:28.232615+00:00"
+    "catalog_updated": "2026-04-14T08:04:28.232615+00:00",
+    "leafly_type": "Hybrid"
   },
   {
     "id": "pepper-poundcake",
@@ -41713,7 +42662,8 @@
     "last_verified": "2026-04-14T08:04:28.232615+00:00",
     "verification_status": "scraped",
     "catalog_version": "v10",
-    "catalog_updated": "2026-04-14T08:04:28.232615+00:00"
+    "catalog_updated": "2026-04-14T08:04:28.232615+00:00",
+    "leafly_type": "Hybrid"
   },
   {
     "id": "permanent-marker",
@@ -41779,7 +42729,8 @@
     "last_verified": "2026-04-14T08:04:28.232615+00:00",
     "verification_status": "scraped",
     "catalog_version": "v10",
-    "catalog_updated": "2026-04-14T08:04:28.232615+00:00"
+    "catalog_updated": "2026-04-14T08:04:28.232615+00:00",
+    "leafly_type": "Hybrid"
   },
   {
     "id": "permanent-marker-live-resin-batter",
@@ -41835,7 +42786,8 @@
     "last_verified": "2026-04-14T08:04:28.232615+00:00",
     "verification_status": "scraped",
     "catalog_version": "v10",
-    "catalog_updated": "2026-04-14T08:04:28.232615+00:00"
+    "catalog_updated": "2026-04-14T08:04:28.232615+00:00",
+    "leafly_type": "Hybrid"
   },
   {
     "id": "pickup",
@@ -41943,7 +42895,8 @@
     "last_verified": "2026-04-14T08:04:28.232615+00:00",
     "verification_status": "scraped",
     "catalog_version": "v10",
-    "catalog_updated": "2026-04-14T08:04:28.232615+00:00"
+    "catalog_updated": "2026-04-14T08:04:28.232615+00:00",
+    "leafly_type": "Indica"
   },
   {
     "id": "pineapple-99",
@@ -42143,7 +43096,8 @@
     "last_verified": null,
     "verification_status": "no_price_data",
     "catalog_version": "v10",
-    "catalog_updated": "2026-04-14T08:04:28.232615+00:00"
+    "catalog_updated": "2026-04-14T08:04:28.232615+00:00",
+    "leafly_type": "Hybrid"
   },
   {
     "id": "pineapple-express-cartridge",
@@ -42199,7 +43153,8 @@
     "last_verified": "2026-04-14T08:04:28.232615+00:00",
     "verification_status": "scraped",
     "catalog_version": "v10",
-    "catalog_updated": "2026-04-14T08:04:28.232615+00:00"
+    "catalog_updated": "2026-04-14T08:04:28.232615+00:00",
+    "leafly_type": "Hybrid"
   },
   {
     "id": "pineapple-express-liquid-diamonds-disposable",
@@ -42275,7 +43230,8 @@
     "last_verified": "2026-04-14T08:04:28.232615+00:00",
     "verification_status": "scraped",
     "catalog_version": "v10",
-    "catalog_updated": "2026-04-14T08:04:28.232615+00:00"
+    "catalog_updated": "2026-04-14T08:04:28.232615+00:00",
+    "leafly_type": "Hybrid"
   },
   {
     "id": "pineapple-express-liquid-diamonds-disposable-pen",
@@ -42331,7 +43287,8 @@
     "last_verified": "2026-04-14T08:04:28.232615+00:00",
     "verification_status": "scraped",
     "catalog_version": "v10",
-    "catalog_updated": "2026-04-14T08:04:28.232615+00:00"
+    "catalog_updated": "2026-04-14T08:04:28.232615+00:00",
+    "leafly_type": "Hybrid"
   },
   {
     "id": "pineapple-express-live-resin-diamond-disposable",
@@ -42387,7 +43344,8 @@
     "last_verified": "2026-04-14T08:04:28.232615+00:00",
     "verification_status": "scraped",
     "catalog_version": "v10",
-    "catalog_updated": "2026-04-14T08:04:28.232615+00:00"
+    "catalog_updated": "2026-04-14T08:04:28.232615+00:00",
+    "leafly_type": "Hybrid"
   },
   {
     "id": "pineapple-ginger-4-1-cbg-thc-10pk-400mg-cbg-100mg-thc",
@@ -42697,7 +43655,8 @@
     "last_verified": "2026-04-14T08:04:28.232615+00:00",
     "verification_status": "scraped",
     "catalog_version": "v10",
-    "catalog_updated": "2026-04-14T08:04:28.232615+00:00"
+    "catalog_updated": "2026-04-14T08:04:28.232615+00:00",
+    "leafly_type": "Hybrid"
   },
   {
     "id": "pineapple-skunk-pre",
@@ -42753,7 +43712,8 @@
     "last_verified": "2026-04-14T08:04:28.232615+00:00",
     "verification_status": "scraped",
     "catalog_version": "v10",
-    "catalog_updated": "2026-04-14T08:04:28.232615+00:00"
+    "catalog_updated": "2026-04-14T08:04:28.232615+00:00",
+    "leafly_type": "Hybrid"
   },
   {
     "id": "pineapple-skunk-disposable",
@@ -42809,7 +43769,8 @@
     "last_verified": "2026-04-14T08:04:28.232615+00:00",
     "verification_status": "scraped",
     "catalog_version": "v10",
-    "catalog_updated": "2026-04-14T08:04:28.232615+00:00"
+    "catalog_updated": "2026-04-14T08:04:28.232615+00:00",
+    "leafly_type": "Hybrid"
   },
   {
     "id": "pineapple-tajin-10pk",
@@ -42900,7 +43861,8 @@
     "last_verified": "2026-04-14T08:04:28.232615+00:00",
     "verification_status": "scraped",
     "catalog_version": "v10",
-    "catalog_updated": "2026-04-14T08:04:28.232615+00:00"
+    "catalog_updated": "2026-04-14T08:04:28.232615+00:00",
+    "leafly_type": "Hybrid"
   },
   {
     "id": "pineapple-whip",
@@ -43084,7 +44046,8 @@
     "last_verified": "2026-04-14T08:04:28.232615+00:00",
     "verification_status": "scraped",
     "catalog_version": "v10",
-    "catalog_updated": "2026-04-14T08:04:28.232615+00:00"
+    "catalog_updated": "2026-04-14T08:04:28.232615+00:00",
+    "leafly_type": "Hybrid"
   },
   {
     "id": "pink-hawaiian-distillate-cartridge",
@@ -45189,7 +46152,8 @@
     "last_verified": "2026-04-14T08:04:28.232615+00:00",
     "verification_status": "scraped",
     "catalog_version": "v10",
-    "catalog_updated": "2026-04-14T08:04:28.232615+00:00"
+    "catalog_updated": "2026-04-14T08:04:28.232615+00:00",
+    "leafly_type": "Hybrid"
   },
   {
     "id": "purple-urkle",
@@ -45235,7 +46199,8 @@
     "last_verified": null,
     "verification_status": "no_price_data",
     "catalog_version": "v10",
-    "catalog_updated": "2026-04-14T08:04:28.232615+00:00"
+    "catalog_updated": "2026-04-14T08:04:28.232615+00:00",
+    "leafly_type": "Indica"
   },
   {
     "id": "purple-urkle-cured-resin-shatter",
@@ -45301,7 +46266,8 @@
     "last_verified": "2026-04-14T08:04:28.232615+00:00",
     "verification_status": "scraped",
     "catalog_version": "v10",
-    "catalog_updated": "2026-04-14T08:04:28.232615+00:00"
+    "catalog_updated": "2026-04-14T08:04:28.232615+00:00",
+    "leafly_type": "Indica"
   },
   {
     "id": "quad-burger-single",
@@ -45717,7 +46683,8 @@
     "last_verified": "2026-04-14T08:04:28.232615+00:00",
     "verification_status": "scraped",
     "catalog_version": "v10",
-    "catalog_updated": "2026-04-14T08:04:28.232615+00:00"
+    "catalog_updated": "2026-04-14T08:04:28.232615+00:00",
+    "leafly_type": "Hybrid"
   },
   {
     "id": "raspberry-razzle-slyde-disposable",
@@ -45851,7 +46818,8 @@
     "last_verified": "2026-04-14T08:04:28.232615+00:00",
     "verification_status": "scraped",
     "catalog_version": "v10",
-    "catalog_updated": "2026-04-14T08:04:28.232615+00:00"
+    "catalog_updated": "2026-04-14T08:04:28.232615+00:00",
+    "leafly_type": "Indica"
   },
   {
     "id": "ray-charles-live-sugar",
@@ -45907,7 +46875,8 @@
     "last_verified": "2026-04-14T08:04:28.232615+00:00",
     "verification_status": "scraped",
     "catalog_version": "v10",
-    "catalog_updated": "2026-04-14T08:04:28.232615+00:00"
+    "catalog_updated": "2026-04-14T08:04:28.232615+00:00",
+    "leafly_type": "Indica"
   },
   {
     "id": "ray-charles-live-sugar-and-sauce",
@@ -45963,7 +46932,8 @@
     "last_verified": "2026-04-14T08:04:28.232615+00:00",
     "verification_status": "scraped",
     "catalog_version": "v10",
-    "catalog_updated": "2026-04-14T08:04:28.232615+00:00"
+    "catalog_updated": "2026-04-14T08:04:28.232615+00:00",
+    "leafly_type": "Indica"
   },
   {
     "id": "ray-charles-rso",
@@ -46019,7 +46989,8 @@
     "last_verified": "2026-04-14T08:04:28.232615+00:00",
     "verification_status": "scraped",
     "catalog_version": "v10",
-    "catalog_updated": "2026-04-14T08:04:28.232615+00:00"
+    "catalog_updated": "2026-04-14T08:04:28.232615+00:00",
+    "leafly_type": "Indica"
   },
   {
     "id": "ray-charles-small",
@@ -46075,7 +47046,8 @@
     "last_verified": "2026-04-14T08:04:28.232615+00:00",
     "verification_status": "scraped",
     "catalog_version": "v10",
-    "catalog_updated": "2026-04-14T08:04:28.232615+00:00"
+    "catalog_updated": "2026-04-14T08:04:28.232615+00:00",
+    "leafly_type": "Indica"
   },
   {
     "id": "ray-charles-whole",
@@ -46131,7 +47103,8 @@
     "last_verified": "2026-04-14T08:04:28.232615+00:00",
     "verification_status": "scraped",
     "catalog_version": "v10",
-    "catalog_updated": "2026-04-14T08:04:28.232615+00:00"
+    "catalog_updated": "2026-04-14T08:04:28.232615+00:00",
+    "leafly_type": "Indica"
   },
   {
     "id": "raymond-berry-runtz-rso",
@@ -47117,7 +48090,8 @@
     "last_verified": null,
     "verification_status": "no_price_data",
     "catalog_version": "v10",
-    "catalog_updated": "2026-04-14T08:04:28.232615+00:00"
+    "catalog_updated": "2026-04-14T08:04:28.232615+00:00",
+    "leafly_type": "Indica"
   },
   {
     "id": "romulan-live-badder",
@@ -47128,11 +48102,23 @@
     "category_confidence": "inferred",
     "thc": 80.41,
     "cbd": 0,
-    "terpenes": [],
-    "effects": [],
-    "flavors": [],
-    "description": "",
-    "genetics": "",
+    "terpenes": [
+      "Myrcene",
+      "Caryophyllene",
+      "Pinene"
+    ],
+    "effects": [
+      "Sleepy",
+      "Relaxed",
+      "Hungry"
+    ],
+    "flavors": [
+      "Pine",
+      "Earthy",
+      "Woody"
+    ],
+    "description": "Romulan is an indica marijuana strain made by crossing North American Indica with White Rhino. Named after the alien Star Trek race, this distinctly pine-scented strain is revered for its potent and therapeutic qualities. You can expect Romulan to deliver intense, cerebral effects that eventually give way to sedation and relaxation.",
+    "genetics": "North American Indica x White Rhino",
     "grade": "B",
     "prices": [
       {
@@ -47161,7 +48147,8 @@
     "last_verified": "2026-04-14T08:04:28.232615+00:00",
     "verification_status": "scraped",
     "catalog_version": "v10",
-    "catalog_updated": "2026-04-14T08:04:28.232615+00:00"
+    "catalog_updated": "2026-04-14T08:04:28.232615+00:00",
+    "leafly_type": "Indica"
   },
   {
     "id": "root-beer-float-gummies-10pk",
@@ -47558,11 +48545,23 @@
     "category_confidence": "inferred",
     "thc": 77.27,
     "cbd": 0,
-    "terpenes": [],
-    "effects": [],
-    "flavors": [],
-    "description": "",
-    "genetics": "",
+    "terpenes": [
+      "Limonene",
+      "Caryophyllene",
+      "Linalool"
+    ],
+    "effects": [
+      "Aroused",
+      "Relaxed",
+      "Euphoric"
+    ],
+    "flavors": [
+      "Menthol",
+      "Mint",
+      "Ammonia"
+    ],
+    "description": "Kush Mints is a hybrid weed strain made from a genetic cross between Animal Mints and Bubba Kush. This strain is 50% sativa and 50% indica. Kush Mints is a potent and flavorful strain that has a minty and cookie-like aroma and flavor, with hints of gas and pine.",
+    "genetics": "Animal Mints x Bubba Kush",
     "grade": "B",
     "prices": [
       {
@@ -47591,7 +48590,8 @@
     "last_verified": "2026-04-14T08:04:28.232615+00:00",
     "verification_status": "scraped",
     "catalog_version": "v10",
-    "catalog_updated": "2026-04-14T08:04:28.232615+00:00"
+    "catalog_updated": "2026-04-14T08:04:28.232615+00:00",
+    "leafly_type": "Hybrid"
   },
   {
     "id": "sage",
@@ -47637,7 +48637,8 @@
     "last_verified": null,
     "verification_status": "no_price_data",
     "catalog_version": "v10",
-    "catalog_updated": "2026-04-14T08:04:28.232615+00:00"
+    "catalog_updated": "2026-04-14T08:04:28.232615+00:00",
+    "leafly_type": "Hybrid"
   },
   {
     "id": "sativa",
@@ -47862,7 +48863,8 @@
     "last_verified": "2026-04-14T08:04:28.232615+00:00",
     "verification_status": "scraped",
     "catalog_version": "v10",
-    "catalog_updated": "2026-04-14T08:04:28.232615+00:00"
+    "catalog_updated": "2026-04-14T08:04:28.232615+00:00",
+    "leafly_type": "Hybrid"
   },
   {
     "id": "scotch-soda",
@@ -49010,7 +50012,8 @@
     "last_verified": "2026-04-14T08:04:28.232615+00:00",
     "verification_status": "scraped",
     "catalog_version": "v10",
-    "catalog_updated": "2026-04-14T08:04:28.232615+00:00"
+    "catalog_updated": "2026-04-14T08:04:28.232615+00:00",
+    "leafly_type": "Sativa"
   },
   {
     "id": "sex-bedroom-berry-all-in-one-vape",
@@ -49190,7 +50193,8 @@
     "last_verified": "2026-04-14T08:04:28.232615+00:00",
     "verification_status": "scraped",
     "catalog_version": "v10",
-    "catalog_updated": "2026-04-14T08:04:28.232615+00:00"
+    "catalog_updated": "2026-04-14T08:04:28.232615+00:00",
+    "leafly_type": "Hybrid"
   },
   {
     "id": "shorties-5-pack",
@@ -49300,7 +50304,8 @@
     "last_verified": "2026-04-14T08:04:28.232615+00:00",
     "verification_status": "scraped",
     "catalog_version": "v10",
-    "catalog_updated": "2026-04-14T08:04:28.232615+00:00"
+    "catalog_updated": "2026-04-14T08:04:28.232615+00:00",
+    "leafly_type": "Hybrid"
   },
   {
     "id": "singapore-sling-cold-cure-live-rosin",
@@ -49356,7 +50361,8 @@
     "last_verified": "2026-04-14T08:04:28.232615+00:00",
     "verification_status": "scraped",
     "catalog_version": "v10",
-    "catalog_updated": "2026-04-14T08:04:28.232615+00:00"
+    "catalog_updated": "2026-04-14T08:04:28.232615+00:00",
+    "leafly_type": "Hybrid"
   },
   {
     "id": "singapore-sling-rso",
@@ -49442,7 +50448,8 @@
     "last_verified": "2026-04-14T08:04:28.232615+00:00",
     "verification_status": "scraped",
     "catalog_version": "v10",
-    "catalog_updated": "2026-04-14T08:04:28.232615+00:00"
+    "catalog_updated": "2026-04-14T08:04:28.232615+00:00",
+    "leafly_type": "Hybrid"
   },
   {
     "id": "single",
@@ -49592,7 +50599,8 @@
     "last_verified": "2026-04-14T08:04:28.232615+00:00",
     "verification_status": "scraped",
     "catalog_version": "v10",
-    "catalog_updated": "2026-04-14T08:04:28.232615+00:00"
+    "catalog_updated": "2026-04-14T08:04:28.232615+00:00",
+    "leafly_type": "Hybrid"
   },
   {
     "id": "skywalker-11",
@@ -49603,11 +50611,23 @@
     "category_confidence": "inferred",
     "thc": 29.21,
     "cbd": 0,
-    "terpenes": [],
-    "effects": [],
-    "flavors": [],
-    "description": "",
-    "genetics": "",
+    "terpenes": [
+      "Myrcene",
+      "Caryophyllene",
+      "Limonene"
+    ],
+    "effects": [
+      "Sleepy",
+      "Relaxed",
+      "Euphoric"
+    ],
+    "flavors": [
+      "Earthy",
+      "Flowery",
+      "Sweet"
+    ],
+    "description": "Skywalker is an indica-dominant hybrid strain that is renowned for its potent effects and distinct aroma. It typically has a THC percentage ranging from 15% to 23%, with low levels of CBD.",
+    "genetics": "Mazar x Blueberry",
     "grade": "B",
     "prices": [
       {
@@ -49636,7 +50656,8 @@
     "last_verified": "2026-04-14T08:04:28.232615+00:00",
     "verification_status": "scraped",
     "catalog_version": "v10",
-    "catalog_updated": "2026-04-14T08:04:28.232615+00:00"
+    "catalog_updated": "2026-04-14T08:04:28.232615+00:00",
+    "leafly_type": "Hybrid"
   },
   {
     "id": "skywalker-og-live-resin-diamond-reload-pod",
@@ -49647,11 +50668,23 @@
     "category_confidence": "inferred",
     "thc": 89.11,
     "cbd": 0,
-    "terpenes": [],
-    "effects": [],
-    "flavors": [],
-    "description": "",
-    "genetics": "",
+    "terpenes": [
+      "Myrcene",
+      "Caryophyllene",
+      "Limonene"
+    ],
+    "effects": [
+      "Sleepy",
+      "Relaxed",
+      "Euphoric"
+    ],
+    "flavors": [
+      "Earthy",
+      "Flowery",
+      "Sweet"
+    ],
+    "description": "Skywalker is an indica-dominant hybrid strain that is renowned for its potent effects and distinct aroma. It typically has a THC percentage ranging from 15% to 23%, with low levels of CBD.",
+    "genetics": "Mazar x Blueberry",
     "grade": "B",
     "prices": [
       {
@@ -49680,7 +50713,8 @@
     "last_verified": "2026-04-14T08:04:28.232615+00:00",
     "verification_status": "scraped",
     "catalog_version": "v10",
-    "catalog_updated": "2026-04-14T08:04:28.232615+00:00"
+    "catalog_updated": "2026-04-14T08:04:28.232615+00:00",
+    "leafly_type": "Hybrid"
   },
   {
     "id": "slingria",
@@ -50220,10 +51254,18 @@
     "thc": 76.75,
     "cbd": 0,
     "terpenes": [],
-    "effects": [],
-    "flavors": [],
-    "description": "",
-    "genetics": "",
+    "effects": [
+      "Relaxed",
+      "Tingly",
+      "Sleepy"
+    ],
+    "flavors": [
+      "Diesel",
+      "Lemon",
+      "Pine"
+    ],
+    "description": "Named after the rap artist and cannabis enthusiast, Snoop Dogg OG is a 70% indica-dominant hybrid strain that is said to contain genetics from Lemon OG and Sour Diesel. The diesel aroma of Snoop Dogg OG dominates the less prominent lemon notes, making this strain remarkably similar to OG Kush in both aroma and bud structure.",
+    "genetics": "Lemon OG x Sour Diesel",
     "grade": "B",
     "prices": [
       {
@@ -50262,7 +51304,8 @@
     "last_verified": "2026-04-14T08:04:28.232615+00:00",
     "verification_status": "scraped",
     "catalog_version": "v10",
-    "catalog_updated": "2026-04-14T08:04:28.232615+00:00"
+    "catalog_updated": "2026-04-14T08:04:28.232615+00:00",
+    "leafly_type": "Indica"
   },
   {
     "id": "snow-man-snow-montana-ta",
@@ -50778,7 +51821,8 @@
     "last_verified": "2026-04-14T08:04:28.232615+00:00",
     "verification_status": "scraped",
     "catalog_version": "v10",
-    "catalog_updated": "2026-04-14T08:04:28.232615+00:00"
+    "catalog_updated": "2026-04-14T08:04:28.232615+00:00",
+    "leafly_type": "Hybrid"
   },
   {
     "id": "sour-diesel",
@@ -50856,7 +51900,8 @@
     "last_verified": "2026-04-14T08:04:28.232615+00:00",
     "verification_status": "scraped",
     "catalog_version": "v10",
-    "catalog_updated": "2026-04-14T08:04:28.232615+00:00"
+    "catalog_updated": "2026-04-14T08:04:28.232615+00:00",
+    "leafly_type": "Hybrid"
   },
   {
     "id": "sour-diesel-pre",
@@ -50912,7 +51957,8 @@
     "last_verified": "2026-04-14T08:04:28.232615+00:00",
     "verification_status": "scraped",
     "catalog_version": "v10",
-    "catalog_updated": "2026-04-14T08:04:28.232615+00:00"
+    "catalog_updated": "2026-04-14T08:04:28.232615+00:00",
+    "leafly_type": "Hybrid"
   },
   {
     "id": "sour-diesel-pre-roll-0-5g-2-pack",
@@ -50960,7 +52006,8 @@
     "last_verified": null,
     "verification_status": "no_price_data",
     "catalog_version": "v10",
-    "catalog_updated": "2026-04-14T08:04:28.232615+00:00"
+    "catalog_updated": "2026-04-14T08:04:28.232615+00:00",
+    "leafly_type": "Hybrid"
   },
   {
     "id": "sour-gummies-100mg-sour-pineapple",
@@ -51100,7 +52147,8 @@
     "last_verified": "2026-04-14T08:04:28.232615+00:00",
     "verification_status": "scraped",
     "catalog_version": "v10",
-    "catalog_updated": "2026-04-14T08:04:28.232615+00:00"
+    "catalog_updated": "2026-04-14T08:04:28.232615+00:00",
+    "leafly_type": "Sativa"
   },
   {
     "id": "sour-peel-live-resin-oil",
@@ -51152,7 +52200,8 @@
     "last_verified": "2026-04-14T08:04:28.232615+00:00",
     "verification_status": "scraped",
     "catalog_version": "v10",
-    "catalog_updated": "2026-04-14T08:04:28.232615+00:00"
+    "catalog_updated": "2026-04-14T08:04:28.232615+00:00",
+    "leafly_type": "Sativa"
   },
   {
     "id": "sour-tropical-fruit-1-1-cbd-thc-sativa",
@@ -51402,7 +52451,8 @@
     "last_verified": "2026-04-14T08:04:28.232615+00:00",
     "verification_status": "scraped",
     "catalog_version": "v10",
-    "catalog_updated": "2026-04-14T08:04:28.232615+00:00"
+    "catalog_updated": "2026-04-14T08:04:28.232615+00:00",
+    "leafly_type": "Hybrid"
   },
   {
     "id": "spritzer",
@@ -51448,7 +52498,8 @@
     "last_verified": null,
     "verification_status": "no_price_data",
     "catalog_version": "v10",
-    "catalog_updated": "2026-04-14T08:04:28.232615+00:00"
+    "catalog_updated": "2026-04-14T08:04:28.232615+00:00",
+    "leafly_type": "Hybrid"
   },
   {
     "id": "spritzer-batter",
@@ -51459,11 +52510,23 @@
     "category_confidence": "inferred",
     "thc": 0,
     "cbd": 0,
-    "terpenes": [],
-    "effects": [],
-    "flavors": [],
-    "description": "",
-    "genetics": "",
+    "terpenes": [
+      "Caryophyllene",
+      "Limonene",
+      "Linalool"
+    ],
+    "effects": [
+      "Aroused",
+      "Tingly",
+      "Relaxed"
+    ],
+    "flavors": [
+      "Apricot",
+      "Ammonia",
+      "Grapefruit"
+    ],
+    "description": "Spritzer is a hybrid marijuana strain made by crossing Runtz with Grape Pie and MAC. We're still learning about the flavors and effects of Spritzer - if you've smoked this strain before, tell us about it by ...",
+    "genetics": "Runtz x Grape Pie x MAC",
     "grade": "B",
     "prices": [
       {
@@ -51492,7 +52555,8 @@
     "last_verified": "2026-04-14T08:04:28.232615+00:00",
     "verification_status": "scraped",
     "catalog_version": "v10",
-    "catalog_updated": "2026-04-14T08:04:28.232615+00:00"
+    "catalog_updated": "2026-04-14T08:04:28.232615+00:00",
+    "leafly_type": "Hybrid"
   },
   {
     "id": "spritzer-live-sugar",
@@ -51503,11 +52567,23 @@
     "category_confidence": "inferred",
     "thc": 86.07,
     "cbd": 0,
-    "terpenes": [],
-    "effects": [],
-    "flavors": [],
-    "description": "",
-    "genetics": "",
+    "terpenes": [
+      "Caryophyllene",
+      "Limonene",
+      "Linalool"
+    ],
+    "effects": [
+      "Aroused",
+      "Tingly",
+      "Relaxed"
+    ],
+    "flavors": [
+      "Apricot",
+      "Ammonia",
+      "Grapefruit"
+    ],
+    "description": "Spritzer is a hybrid marijuana strain made by crossing Runtz with Grape Pie and MAC. We're still learning about the flavors and effects of Spritzer - if you've smoked this strain before, tell us about it by ...",
+    "genetics": "Runtz x Grape Pie x MAC",
     "grade": "B",
     "prices": [
       {
@@ -51556,7 +52632,8 @@
     "last_verified": "2026-04-14T08:04:28.232615+00:00",
     "verification_status": "scraped",
     "catalog_version": "v10",
-    "catalog_updated": "2026-04-14T08:04:28.232615+00:00"
+    "catalog_updated": "2026-04-14T08:04:28.232615+00:00",
+    "leafly_type": "Hybrid"
   },
   {
     "id": "starfruit",
@@ -52282,7 +53359,8 @@
     "last_verified": null,
     "verification_status": "no_price_data",
     "catalog_version": "v10",
-    "catalog_updated": "2026-04-14T08:04:28.232615+00:00"
+    "catalog_updated": "2026-04-14T08:04:28.232615+00:00",
+    "leafly_type": "Sativa"
   },
   {
     "id": "strawberry-cough-cart",
@@ -52338,7 +53416,8 @@
     "last_verified": "2026-04-14T08:04:28.232615+00:00",
     "verification_status": "scraped",
     "catalog_version": "v10",
-    "catalog_updated": "2026-04-14T08:04:28.232615+00:00"
+    "catalog_updated": "2026-04-14T08:04:28.232615+00:00",
+    "leafly_type": "Sativa"
   },
   {
     "id": "strawberry-cough-live-resin-diamond-disposable",
@@ -52404,7 +53483,8 @@
     "last_verified": "2026-04-14T08:04:28.232615+00:00",
     "verification_status": "scraped",
     "catalog_version": "v10",
-    "catalog_updated": "2026-04-14T08:04:28.232615+00:00"
+    "catalog_updated": "2026-04-14T08:04:28.232615+00:00",
+    "leafly_type": "Sativa"
   },
   {
     "id": "strawberry-crunch-bites",
@@ -52736,7 +53816,8 @@
     "last_verified": null,
     "verification_status": "no_price_data",
     "catalog_version": "v10",
-    "catalog_updated": "2026-04-14T08:04:28.232615+00:00"
+    "catalog_updated": "2026-04-14T08:04:28.232615+00:00",
+    "leafly_type": "Hybrid"
   },
   {
     "id": "strawberry-jelly-live-sugar",
@@ -52792,7 +53873,8 @@
     "last_verified": "2026-04-14T08:04:28.232615+00:00",
     "verification_status": "scraped",
     "catalog_version": "v10",
-    "catalog_updated": "2026-04-14T08:04:28.232615+00:00"
+    "catalog_updated": "2026-04-14T08:04:28.232615+00:00",
+    "leafly_type": "Hybrid"
   },
   {
     "id": "strawberry-lemonade-mix",
@@ -53255,7 +54337,8 @@
     "last_verified": "2026-04-14T08:04:28.232615+00:00",
     "verification_status": "scraped",
     "catalog_version": "v10",
-    "catalog_updated": "2026-04-14T08:04:28.232615+00:00"
+    "catalog_updated": "2026-04-14T08:04:28.232615+00:00",
+    "leafly_type": "Hybrid"
   },
   {
     "id": "sundae-walker",
@@ -54764,11 +55847,23 @@
     "category_confidence": "inferred",
     "thc": 73.48,
     "cbd": 0,
-    "terpenes": [],
-    "effects": [],
-    "flavors": [],
-    "description": "",
-    "genetics": "",
+    "terpenes": [
+      "Limonene",
+      "Myrcene",
+      "Caryophyllene"
+    ],
+    "effects": [
+      "Uplifted",
+      "Talkative",
+      "Relaxed"
+    ],
+    "flavors": [
+      "Citrus",
+      "Ammonia",
+      "Lemon"
+    ],
+    "description": "Sunshine #4 is an award-winning hybrid bred by Bodhi Seeds. This blend of Chemdawg 4 and Sunshine Daydream genetics took the prize for Best Hybrid Flower at the 2015 High Times Medical Cup in Michigan.",
+    "genetics": "Chemdawg 4 x Sunshine Daydream",
     "grade": "B",
     "prices": [
       {
@@ -54797,7 +55892,8 @@
     "last_verified": "2026-04-14T08:04:28.232615+00:00",
     "verification_status": "scraped",
     "catalog_version": "v10",
-    "catalog_updated": "2026-04-14T08:04:28.232615+00:00"
+    "catalog_updated": "2026-04-14T08:04:28.232615+00:00",
+    "leafly_type": "Hybrid"
   },
   {
     "id": "sunnies-watermelon-gelato-live-resin-batter",
@@ -54808,11 +55904,23 @@
     "category_confidence": "inferred",
     "thc": 73.36,
     "cbd": 0,
-    "terpenes": [],
-    "effects": [],
-    "flavors": [],
-    "description": "",
-    "genetics": "",
+    "terpenes": [
+      "Limonene",
+      "Caryophyllene",
+      "Myrcene"
+    ],
+    "effects": [
+      "Giggly",
+      "Relaxed",
+      "Uplifted"
+    ],
+    "flavors": [
+      "Apple",
+      "Tropical",
+      "Grapefruit"
+    ],
+    "description": "Watermelon Gelato is an indica-dominant hybrid marijuana strain made by crossing Watermelon Zkittlez with Gelato 45. This strain produces uplifting effects that take hold instantly and put your mind into a cerebral, relaxing haze. Watermelon Gelato features bright, floral flavors with earthy undertones.",
+    "genetics": "Watermelon Zkittlez x Gelato 45",
     "grade": "C",
     "prices": [
       {
@@ -54841,7 +55949,8 @@
     "last_verified": "2026-04-14T08:04:28.232615+00:00",
     "verification_status": "scraped",
     "catalog_version": "v10",
-    "catalog_updated": "2026-04-14T08:04:28.232615+00:00"
+    "catalog_updated": "2026-04-14T08:04:28.232615+00:00",
+    "leafly_type": "Hybrid"
   },
   {
     "id": "sunset-octane",
@@ -54897,7 +56006,8 @@
     "last_verified": "2026-04-14T08:04:28.232615+00:00",
     "verification_status": "scraped",
     "catalog_version": "v10",
-    "catalog_updated": "2026-04-14T08:04:28.232615+00:00"
+    "catalog_updated": "2026-04-14T08:04:28.232615+00:00",
+    "leafly_type": "Hybrid"
   },
   {
     "id": "sunset-sherbet-live-resin-oil",
@@ -55010,7 +56120,8 @@
     "last_verified": "2026-04-14T08:04:28.232615+00:00",
     "verification_status": "scraped",
     "catalog_version": "v10",
-    "catalog_updated": "2026-04-14T08:04:28.232615+00:00"
+    "catalog_updated": "2026-04-14T08:04:28.232615+00:00",
+    "leafly_type": "Hybrid"
   },
   {
     "id": "sunshine-4-pre-roll-0-5g-2-pack",
@@ -55066,7 +56177,8 @@
     "last_verified": "2026-04-14T08:04:28.232615+00:00",
     "verification_status": "scraped",
     "catalog_version": "v10",
-    "catalog_updated": "2026-04-14T08:04:28.232615+00:00"
+    "catalog_updated": "2026-04-14T08:04:28.232615+00:00",
+    "leafly_type": "Hybrid"
   },
   {
     "id": "sunshine-4-prj-5ct",
@@ -55122,7 +56234,8 @@
     "last_verified": "2026-04-14T08:04:28.232615+00:00",
     "verification_status": "scraped",
     "catalog_version": "v10",
-    "catalog_updated": "2026-04-14T08:04:28.232615+00:00"
+    "catalog_updated": "2026-04-14T08:04:28.232615+00:00",
+    "leafly_type": "Hybrid"
   },
   {
     "id": "supafreak",
@@ -55212,7 +56325,8 @@
     "last_verified": "2026-04-14T08:04:28.232615+00:00",
     "verification_status": "scraped",
     "catalog_version": "v10",
-    "catalog_updated": "2026-04-14T08:04:28.232615+00:00"
+    "catalog_updated": "2026-04-14T08:04:28.232615+00:00",
+    "leafly_type": "Hybrid"
   },
   {
     "id": "super-boof-a",
@@ -55279,7 +56393,8 @@
     "last_verified": "2026-04-14T08:04:28.232615+00:00",
     "verification_status": "scraped",
     "catalog_version": "v10",
-    "catalog_updated": "2026-04-14T08:04:28.232615+00:00"
+    "catalog_updated": "2026-04-14T08:04:28.232615+00:00",
+    "leafly_type": "Hybrid"
   },
   {
     "id": "super-boof-disposable-pen",
@@ -55337,7 +56452,8 @@
     "last_verified": "2026-04-14T08:04:28.232615+00:00",
     "verification_status": "scraped",
     "catalog_version": "v10",
-    "catalog_updated": "2026-04-14T08:04:28.232615+00:00"
+    "catalog_updated": "2026-04-14T08:04:28.232615+00:00",
+    "leafly_type": "Hybrid"
   },
   {
     "id": "super-gremlin",
@@ -55474,7 +56590,8 @@
     "last_verified": "2026-04-14T08:04:28.232615+00:00",
     "verification_status": "scraped",
     "catalog_version": "v10",
-    "catalog_updated": "2026-04-14T08:04:28.232615+00:00"
+    "catalog_updated": "2026-04-14T08:04:28.232615+00:00",
+    "leafly_type": "Sativa"
   },
   {
     "id": "super-silver-dawg-cured-batter",
@@ -55789,7 +56906,8 @@
     "last_verified": "2026-04-14T08:04:28.232615+00:00",
     "verification_status": "scraped",
     "catalog_version": "v10",
-    "catalog_updated": "2026-04-14T08:04:28.232615+00:00"
+    "catalog_updated": "2026-04-14T08:04:28.232615+00:00",
+    "leafly_type": "Indica"
   },
   {
     "id": "swampwater-fumez-live-rosin-cold-cure",
@@ -55844,7 +56962,8 @@
     "last_verified": "2026-04-14T08:04:28.232615+00:00",
     "verification_status": "scraped",
     "catalog_version": "v10",
-    "catalog_updated": "2026-04-14T08:04:28.232615+00:00"
+    "catalog_updated": "2026-04-14T08:04:28.232615+00:00",
+    "leafly_type": "Indica"
   },
   {
     "id": "sweet-blackberry-indica-chill",
@@ -56211,7 +57330,8 @@
     "last_verified": "2026-04-14T08:04:28.232615+00:00",
     "verification_status": "scraped",
     "catalog_version": "v10",
-    "catalog_updated": "2026-04-14T08:04:28.232615+00:00"
+    "catalog_updated": "2026-04-14T08:04:28.232615+00:00",
+    "leafly_type": "Hybrid"
   },
   {
     "id": "tarts-live-live-budder",
@@ -56223,10 +57343,18 @@
     "thc": 73.84,
     "cbd": 0,
     "terpenes": [],
-    "effects": [],
-    "flavors": [],
-    "description": "",
-    "genetics": "",
+    "effects": [
+      "Creative",
+      "Focused",
+      "Happy"
+    ],
+    "flavors": [
+      "Apple",
+      "Vanilla",
+      "Blueberry"
+    ],
+    "description": "Tarts is a hybrid weed strain made from a genetic cross between Wojo Mints and Grease Monkey. This strain is 50% sativa and 50% indica. Tarts is 32.6% THC, making this strain an ideal choice for experienced cannabis consumers.",
+    "genetics": "Wojo Mints x Grease Monkey",
     "grade": "B",
     "prices": [
       {
@@ -56255,7 +57383,8 @@
     "last_verified": "2026-04-14T08:04:28.232615+00:00",
     "verification_status": "scraped",
     "catalog_version": "v10",
-    "catalog_updated": "2026-04-14T08:04:28.232615+00:00"
+    "catalog_updated": "2026-04-14T08:04:28.232615+00:00",
+    "leafly_type": "Hybrid"
   },
   {
     "id": "tarts-rso",
@@ -56267,10 +57396,18 @@
     "thc": 0,
     "cbd": 0,
     "terpenes": [],
-    "effects": [],
-    "flavors": [],
-    "description": "",
-    "genetics": "",
+    "effects": [
+      "Creative",
+      "Focused",
+      "Happy"
+    ],
+    "flavors": [
+      "Apple",
+      "Vanilla",
+      "Blueberry"
+    ],
+    "description": "Tarts is a hybrid weed strain made from a genetic cross between Wojo Mints and Grease Monkey. This strain is 50% sativa and 50% indica. Tarts is 32.6% THC, making this strain an ideal choice for experienced cannabis consumers.",
+    "genetics": "Wojo Mints x Grease Monkey",
     "grade": "B",
     "prices": [
       {
@@ -56299,7 +57436,8 @@
     "last_verified": "2026-04-14T08:04:28.232615+00:00",
     "verification_status": "scraped",
     "catalog_version": "v10",
-    "catalog_updated": "2026-04-14T08:04:28.232615+00:00"
+    "catalog_updated": "2026-04-14T08:04:28.232615+00:00",
+    "leafly_type": "Hybrid"
   },
   {
     "id": "tea-time-6",
@@ -56354,11 +57492,23 @@
     "category_confidence": "inferred",
     "thc": 28.33,
     "cbd": 0,
-    "terpenes": [],
-    "effects": [],
-    "flavors": [],
-    "description": "",
-    "genetics": "",
+    "terpenes": [
+      "Caryophyllene",
+      "Myrcene",
+      "Limonene"
+    ],
+    "effects": [
+      "Focused",
+      "Energetic",
+      "Creative"
+    ],
+    "flavors": [
+      "Tobacco",
+      "Tea",
+      "Earthy"
+    ],
+    "description": "Thai refers to a cannabis variety that grows natively in Thailand and was brought to the U.S. in the 70s and 80s. This pure sativa landrace is sometimes called “Thai Sticks” because of the way its buds are traditionally dried and tied into long sticks.",
+    "genetics": "Landrace",
     "grade": "B",
     "prices": [
       {
@@ -56387,7 +57537,8 @@
     "last_verified": "2026-04-14T08:04:28.232615+00:00",
     "verification_status": "scraped",
     "catalog_version": "v10",
-    "catalog_updated": "2026-04-14T08:04:28.232615+00:00"
+    "catalog_updated": "2026-04-14T08:04:28.232615+00:00",
+    "leafly_type": "Sativa"
   },
   {
     "id": "thai-sunrise-whole",
@@ -56398,11 +57549,23 @@
     "category_confidence": "inferred",
     "thc": 24.1,
     "cbd": 0,
-    "terpenes": [],
-    "effects": [],
-    "flavors": [],
-    "description": "",
-    "genetics": "",
+    "terpenes": [
+      "Caryophyllene",
+      "Myrcene",
+      "Limonene"
+    ],
+    "effects": [
+      "Focused",
+      "Energetic",
+      "Creative"
+    ],
+    "flavors": [
+      "Tobacco",
+      "Tea",
+      "Earthy"
+    ],
+    "description": "Thai refers to a cannabis variety that grows natively in Thailand and was brought to the U.S. in the 70s and 80s. This pure sativa landrace is sometimes called “Thai Sticks” because of the way its buds are traditionally dried and tied into long sticks.",
+    "genetics": "Landrace",
     "grade": "B",
     "prices": [
       {
@@ -56431,7 +57594,8 @@
     "last_verified": "2026-04-14T08:04:28.232615+00:00",
     "verification_status": "scraped",
     "catalog_version": "v10",
-    "catalog_updated": "2026-04-14T08:04:28.232615+00:00"
+    "catalog_updated": "2026-04-14T08:04:28.232615+00:00",
+    "leafly_type": "Sativa"
   },
   {
     "id": "thai-ger-king",
@@ -56901,7 +58065,8 @@
     "last_verified": "2026-04-14T08:04:28.232615+00:00",
     "verification_status": "scraped",
     "catalog_version": "v10",
-    "catalog_updated": "2026-04-14T08:04:28.232615+00:00"
+    "catalog_updated": "2026-04-14T08:04:28.232615+00:00",
+    "leafly_type": "Hybrid"
   },
   {
     "id": "the-essence",
@@ -57232,7 +58397,8 @@
     "last_verified": "2026-04-14T08:04:28.232615+00:00",
     "verification_status": "scraped",
     "catalog_version": "v10",
-    "catalog_updated": "2026-04-14T08:04:28.232615+00:00"
+    "catalog_updated": "2026-04-14T08:04:28.232615+00:00",
+    "leafly_type": "Sativa"
   },
   {
     "id": "titan-express-live-sugar-and-sauce",
@@ -57304,7 +58470,8 @@
     "last_verified": "2026-04-14T08:04:28.232615+00:00",
     "verification_status": "scraped",
     "catalog_version": "v10",
-    "catalog_updated": "2026-04-14T08:04:28.232615+00:00"
+    "catalog_updated": "2026-04-14T08:04:28.232615+00:00",
+    "leafly_type": "Sativa"
   },
   {
     "id": "titan-express-small",
@@ -57366,7 +58533,8 @@
     "last_verified": "2026-04-14T08:04:28.232615+00:00",
     "verification_status": "scraped",
     "catalog_version": "v10",
-    "catalog_updated": "2026-04-14T08:04:28.232615+00:00"
+    "catalog_updated": "2026-04-14T08:04:28.232615+00:00",
+    "leafly_type": "Sativa"
   },
   {
     "id": "titan-express-whole",
@@ -57428,7 +58596,8 @@
     "last_verified": "2026-04-14T08:04:28.232615+00:00",
     "verification_status": "scraped",
     "catalog_version": "v10",
-    "catalog_updated": "2026-04-14T08:04:28.232615+00:00"
+    "catalog_updated": "2026-04-14T08:04:28.232615+00:00",
+    "leafly_type": "Sativa"
   },
   {
     "id": "toad-venom",
@@ -57797,7 +58966,8 @@
     "last_verified": null,
     "verification_status": "no_price_data",
     "catalog_version": "v10",
-    "catalog_updated": "2026-04-14T08:04:28.232615+00:00"
+    "catalog_updated": "2026-04-14T08:04:28.232615+00:00",
+    "leafly_type": "Indica"
   },
   {
     "id": "triple-stack-small",
@@ -57848,7 +59018,8 @@
     "last_verified": "2026-04-14T08:04:28.232615+00:00",
     "verification_status": "scraped",
     "catalog_version": "v10",
-    "catalog_updated": "2026-04-14T08:04:28.232615+00:00"
+    "catalog_updated": "2026-04-14T08:04:28.232615+00:00",
+    "leafly_type": "Hybrid"
   },
   {
     "id": "triple-stack-whole",
@@ -57899,7 +59070,8 @@
     "last_verified": "2026-04-14T08:04:28.232615+00:00",
     "verification_status": "scraped",
     "catalog_version": "v10",
-    "catalog_updated": "2026-04-14T08:04:28.232615+00:00"
+    "catalog_updated": "2026-04-14T08:04:28.232615+00:00",
+    "leafly_type": "Hybrid"
   },
   {
     "id": "trippy-mac",
@@ -58195,7 +59367,8 @@
     "last_verified": "2026-04-14T08:04:28.232615+00:00",
     "verification_status": "scraped",
     "catalog_version": "v10",
-    "catalog_updated": "2026-04-14T08:04:28.232615+00:00"
+    "catalog_updated": "2026-04-14T08:04:28.232615+00:00",
+    "leafly_type": "Hybrid"
   },
   {
     "id": "tropicana-banana-whole",
@@ -58251,7 +59424,8 @@
     "last_verified": "2026-04-14T08:04:28.232615+00:00",
     "verification_status": "scraped",
     "catalog_version": "v10",
-    "catalog_updated": "2026-04-14T08:04:28.232615+00:00"
+    "catalog_updated": "2026-04-14T08:04:28.232615+00:00",
+    "leafly_type": "Hybrid"
   },
   {
     "id": "tropicana-cookies-cartridge",
@@ -58317,7 +59491,8 @@
     "last_verified": "2026-04-14T08:04:28.232615+00:00",
     "verification_status": "scraped",
     "catalog_version": "v10",
-    "catalog_updated": "2026-04-14T08:04:28.232615+00:00"
+    "catalog_updated": "2026-04-14T08:04:28.232615+00:00",
+    "leafly_type": "Hybrid"
   },
   {
     "id": "tropicana-cookies-disposable",
@@ -58393,7 +59568,8 @@
     "last_verified": "2026-04-14T08:04:28.232615+00:00",
     "verification_status": "scraped",
     "catalog_version": "v10",
-    "catalog_updated": "2026-04-14T08:04:28.232615+00:00"
+    "catalog_updated": "2026-04-14T08:04:28.232615+00:00",
+    "leafly_type": "Hybrid"
   },
   {
     "id": "tropicanna-banana",
@@ -59374,7 +60550,8 @@
     "last_verified": null,
     "verification_status": "no_price_data",
     "catalog_version": "v10",
-    "catalog_updated": "2026-04-14T08:04:28.232615+00:00"
+    "catalog_updated": "2026-04-14T08:04:28.232615+00:00",
+    "leafly_type": "Hybrid"
   },
   {
     "id": "watermelon-ice",
@@ -59832,7 +61009,8 @@
     "last_verified": null,
     "verification_status": "no_price_data",
     "catalog_version": "v10",
-    "catalog_updated": "2026-04-14T08:04:28.232615+00:00"
+    "catalog_updated": "2026-04-14T08:04:28.232615+00:00",
+    "leafly_type": "Hybrid"
   },
   {
     "id": "white-iverson",
@@ -60038,7 +61216,8 @@
     "last_verified": null,
     "verification_status": "no_price_data",
     "catalog_version": "v10",
-    "catalog_updated": "2026-04-14T08:04:28.232615+00:00"
+    "catalog_updated": "2026-04-14T08:04:28.232615+00:00",
+    "leafly_type": "Indica"
   },
   {
     "id": "white-walker-live-resin",
@@ -60264,7 +61443,8 @@
     "last_verified": "2026-04-14T08:04:28.232615+00:00",
     "verification_status": "scraped",
     "catalog_version": "v10",
-    "catalog_updated": "2026-04-14T08:04:28.232615+00:00"
+    "catalog_updated": "2026-04-14T08:04:28.232615+00:00",
+    "leafly_type": "Hybrid"
   },
   {
     "id": "wingsuit",
@@ -60306,7 +61486,8 @@
     "last_verified": null,
     "verification_status": "no_price_data",
     "catalog_version": "v10",
-    "catalog_updated": "2026-04-14T08:04:28.232615+00:00"
+    "catalog_updated": "2026-04-14T08:04:28.232615+00:00",
+    "leafly_type": "Hybrid"
   },
   {
     "id": "wood-shiva",
@@ -60360,7 +61541,8 @@
     "last_verified": "2026-04-14T08:04:28.232615+00:00",
     "verification_status": "scraped",
     "catalog_version": "v10",
-    "catalog_updated": "2026-04-14T08:04:28.232615+00:00"
+    "catalog_updated": "2026-04-14T08:04:28.232615+00:00",
+    "leafly_type": "Sativa"
   },
   {
     "id": "wood-shiva-house-pack-4-20g-bags",
@@ -60414,7 +61596,8 @@
     "last_verified": "2026-04-14T08:04:28.232615+00:00",
     "verification_status": "scraped",
     "catalog_version": "v10",
-    "catalog_updated": "2026-04-14T08:04:28.232615+00:00"
+    "catalog_updated": "2026-04-14T08:04:28.232615+00:00",
+    "leafly_type": "Sativa"
   },
   {
     "id": "wyld",
@@ -60683,7 +61866,8 @@
     "last_verified": "2026-04-14T08:04:28.232615+00:00",
     "verification_status": "scraped",
     "catalog_version": "v10",
-    "catalog_updated": "2026-04-14T08:04:28.232615+00:00"
+    "catalog_updated": "2026-04-14T08:04:28.232615+00:00",
+    "leafly_type": "Hybrid"
   },
   {
     "id": "yuzu-blood-orange-5mg-thc-1-serving",
@@ -60973,7 +62157,8 @@
     "last_verified": null,
     "verification_status": "no_price_data",
     "catalog_version": "v10",
-    "catalog_updated": "2026-04-14T08:04:28.232615+00:00"
+    "catalog_updated": "2026-04-14T08:04:28.232615+00:00",
+    "leafly_type": "Hybrid"
   },
   {
     "id": "zodashi",
@@ -61017,7 +62202,8 @@
     "last_verified": "2026-04-14T08:04:28.232615+00:00",
     "verification_status": "scraped",
     "catalog_version": "v10",
-    "catalog_updated": "2026-04-14T08:04:28.232615+00:00"
+    "catalog_updated": "2026-04-14T08:04:28.232615+00:00",
+    "leafly_type": "Hybrid"
   },
   {
     "id": "zushiberry-shake-live-resin-cake-badder",
