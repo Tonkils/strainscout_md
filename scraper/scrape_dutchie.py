@@ -34,6 +34,8 @@ from pathlib import Path
 
 from playwright.async_api import async_playwright, Page, Response
 from scraper.utils import async_retry
+from scraper.category_map import normalize_category
+from pipeline.classify_and_report import classify_product_name
 
 # ── Paths ────────────────────────────────────────────────────────────────────
 BASE = Path(__file__).resolve().parent.parent
@@ -64,6 +66,16 @@ AGE_GATE_DOB = {"month": "05", "day": "27", "year": "1997"}
 MENU_TIMEOUT = 20_000
 PAGE_TIMEOUT = 60_000
 INTER_PAGE_DELAY = 3.0
+INTER_CATEGORY_DELAY = 2.0
+
+DUTCHIE_CATEGORIES = [
+    {"slug": "flower",       "category": "Flower"},
+    {"slug": "pre-rolls",    "category": "Pre-Roll"},
+    {"slug": "vaporizers",   "category": "Vape"},
+    {"slug": "concentrates", "category": "Concentrate"},
+    {"slug": "edibles",      "category": "Edible"},
+    {"slug": "topicals",     "category": "Topical"},
+]
 
 
 # ── Age-gate handler ─────────────────────────────────────────────────────────
@@ -241,6 +253,7 @@ async def _scrape_dom(page: Page, slug: str) -> list[dict]:
                         if m:
                             price = m.group(1)
                             break
+                    dom_cat, _ = classify_product_name(name)
                     products.append({
                         "id": f"dom-{i}",
                         "name": name,
@@ -248,7 +261,7 @@ async def _scrape_dom(page: Page, slug: str) -> list[dict]:
                         "strain_type": "",
                         "thc_pct": "",
                         "price_eighth": price,
-                        "product_type": "flower",
+                        "product_type": dom_cat,
                     })
             except Exception:
                 continue
@@ -261,10 +274,10 @@ async def _scrape_dom(page: Page, slug: str) -> list[dict]:
 # ── Main scraping logic ──────────────────────────────────────────────────────
 
 @async_retry(max_attempts=3, delay=2.0, backoff=2.0, exceptions=(Exception,))
-async def scrape_dispensary(page: Page, slug: str, name: str) -> dict:
-    """Scrape a single Dutchie dispensary. Returns a result dict."""
-    url = f"{DUTCHIE_BASE}/{slug}/products/flower"
-    log.info("Scraping %s  (%s)", name, url)
+async def scrape_dispensary(page: Page, slug: str, name: str, *, category_slug: str = "flower") -> dict:
+    """Scrape a single Dutchie dispensary for one category. Returns a result dict."""
+    url = f"{DUTCHIE_BASE}/{slug}/products/{category_slug}"
+    log.info("Scraping %s  [%s]  (%s)", name, category_slug, url)
 
     captured_products = []
     api_responses = []
@@ -344,11 +357,6 @@ async def scrape_dispensary(page: Page, slug: str, name: str) -> dict:
         "method": method,
     }
 
-    # Save per-dispensary file
-    out_path = RAW_DIR / f"dutchie_{slug}.json"
-    with open(out_path, "w", encoding="utf-8") as f:
-        json.dump(result, f, indent=2, ensure_ascii=False)
-
     return result
 
 
@@ -371,8 +379,30 @@ async def run(slugs: list[tuple[str, str]], headed: bool = False):
 
         for i, (slug, name) in enumerate(slugs):
             log.info("[%d/%d] %s", i + 1, len(slugs), name)
-            result = await scrape_dispensary(page, slug, name)
-            results.append(result)
+            all_products = []
+            last_result = None
+            for cat_info in DUTCHIE_CATEGORIES:
+                result = await scrape_dispensary(page, slug, name, category_slug=cat_info["slug"])
+                all_products.extend(result.get("products", []))
+                last_result = result
+                await asyncio.sleep(INTER_CATEGORY_DELAY)
+
+            # Deduplicate across categories by name
+            seen = set()
+            unique = []
+            for p in all_products:
+                key = p.get("name", "").lower()
+                if key and key not in seen:
+                    seen.add(key)
+                    unique.append(p)
+
+            # Write merged result
+            merged = {**last_result, "products": unique, "method": "multi_category"}
+            out_path = RAW_DIR / f"dutchie_{slug}.json"
+            with open(out_path, "w", encoding="utf-8") as f:
+                json.dump(merged, f, indent=2, ensure_ascii=False)
+            log.info("  %s: %d products across %d categories", slug, len(unique), len(DUTCHIE_CATEGORIES))
+            results.append(merged)
 
             if i < len(slugs) - 1:
                 await asyncio.sleep(INTER_PAGE_DELAY)

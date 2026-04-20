@@ -37,6 +37,9 @@ from datetime import datetime, timezone
 from pathlib import Path
 
 from playwright.async_api import async_playwright, Page, Response
+from scraper.category_map import CURALEAF_CATEGORY_IDS
+
+INTER_CATEGORY_DELAY = 2.0
 
 # ── Paths ────────────────────────────────────────────────────────────────────
 BASE = Path(__file__).resolve().parent.parent
@@ -349,7 +352,7 @@ async def _extract_from_dom(page: Page) -> list[dict]:
                         "strain_type": strain_type,
                         "thc_pct": thc,
                         "price_eighth": price,
-                        "product_type": "flower",
+                        "product_type": "Flower",
                     })
             except Exception:
                 continue
@@ -361,12 +364,12 @@ async def _extract_from_dom(page: Page) -> list[dict]:
 
 # ── Scrape single location ───────────────────────────────────────────────────
 
-async def scrape_location(page: Page, loc: dict) -> dict:
+async def scrape_location(page: Page, loc: dict, *, category_path: str = "/menu/flower-542", category_name: str = "Flower") -> dict:
     slug = loc["slug"]
     name = loc["name"]
     url_slug = loc["url_slug"]
-    url = f"https://curaleaf.com/shop/maryland/{url_slug}/recreational/menu/flower-542"
-    log.info("Scraping %s  (%s)", name, url)
+    url = f"https://curaleaf.com/shop/maryland/{url_slug}/recreational{category_path}"
+    log.info("Scraping %s  [%s]  (%s)", name, category_name, url)
 
     all_products = []
     method = "none"
@@ -381,8 +384,8 @@ async def scrape_location(page: Page, loc: dict) -> dict:
 
         # Check if we got redirected to state selector — try navigating again
         current_url = page.url
-        if "flower" not in current_url:
-            log.info("  Redirected to %s, navigating to flower menu again", current_url[:60])
+        if "menu" not in current_url:
+            log.info("  Redirected to %s, navigating to %s menu again", current_url[:60], category_name)
             await page.goto(url, wait_until="domcontentloaded", timeout=PAGE_TIMEOUT)
             await page.wait_for_timeout(3_000)
 
@@ -418,6 +421,10 @@ async def scrape_location(page: Page, loc: dict) -> dict:
                 method = "dom"
                 log.info("  DOM extraction: found %d products", len(dom_products))
 
+        # Tag all products with the category we scraped
+        for p in all_products:
+            p["product_type"] = category_name
+
         # Deduplicate
         seen = set()
         unique = []
@@ -428,7 +435,7 @@ async def scrape_location(page: Page, loc: dict) -> dict:
                 unique.append(p)
         all_products = unique
 
-        log.info("  %s: %d unique flower products  (method: %s)", slug, len(all_products), method)
+        log.info("  %s [%s]: %d unique products  (method: %s)", slug, category_name, len(all_products), method)
 
     except Exception as e:
         log.error("  %s: ERROR — %s", slug, e)
@@ -443,10 +450,6 @@ async def scrape_location(page: Page, loc: dict) -> dict:
         "products": all_products,
         "method": method,
     }
-
-    out_path = RAW_DIR / f"curaleaf_{slug}.json"
-    with open(out_path, "w", encoding="utf-8") as f:
-        json.dump(result, f, indent=2, ensure_ascii=False)
 
     return result
 
@@ -468,8 +471,35 @@ async def run(locations: list[dict], headed: bool = False):
 
         for i, loc in enumerate(locations):
             log.info("[%d/%d] %s", i + 1, len(locations), loc["name"])
-            result = await scrape_location(page, loc)
-            results.append(result)
+            all_products = []
+            last_result = None
+            for cat_info in CURALEAF_CATEGORY_IDS:
+                result = await scrape_location(
+                    page, loc,
+                    category_path=cat_info["path"],
+                    category_name=cat_info["category"],
+                )
+                all_products.extend(result.get("products", []))
+                last_result = result
+                await asyncio.sleep(INTER_CATEGORY_DELAY)
+
+            # Deduplicate across categories by name
+            seen = set()
+            unique = []
+            for p in all_products:
+                key = p.get("name", "").lower()
+                if key and key not in seen:
+                    seen.add(key)
+                    unique.append(p)
+
+            # Write merged result
+            merged = {**last_result, "products": unique, "method": "multi_category"}
+            out_path = RAW_DIR / f"curaleaf_{loc['slug']}.json"
+            with open(out_path, "w", encoding="utf-8") as f:
+                json.dump(merged, f, indent=2, ensure_ascii=False)
+            log.info("  %s: %d products across %d categories", loc["slug"], len(unique), len(CURALEAF_CATEGORY_IDS))
+            results.append(merged)
+
             if i < len(locations) - 1:
                 await asyncio.sleep(INTER_PAGE_DELAY)
 

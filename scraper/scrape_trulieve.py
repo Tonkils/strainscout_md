@@ -33,6 +33,10 @@ from datetime import datetime, timezone
 from pathlib import Path
 
 from playwright.async_api import async_playwright, Page
+from scraper.category_map import TRULIEVE_CATEGORY_URLS
+from pipeline.classify_and_report import classify_product_name
+
+INTER_CATEGORY_DELAY = 2.0
 
 # ── Paths ────────────────────────────────────────────────────────────────────
 BASE = Path(__file__).resolve().parent.parent
@@ -169,8 +173,6 @@ def _parse_trulieve_item(item: dict) -> dict | None:
                 if isinstance(v, (int, float)) and v > 0:
                     terpenes[k] = round(float(v), 3)
 
-    # Filter: only actual flower (not pre-rolls, ground, etc.)
-    # We keep all since the category page is already filtered to flower
     return {
         "id": str(item.get("id") or item.get("sku", "")),
         "name": name,
@@ -287,7 +289,7 @@ def _parse_single(obj: dict) -> dict | None:
         "strain_type": strain_type.strip(),
         "thc_pct": str(thc).replace("%", "").strip(),
         "price_eighth": str(price).replace("$", "").strip(),
-        "product_type": "flower",
+        "product_type": obj.get("_scrape_category", "Flower"),
     }
     if terpenes:
         result["terpenes"] = terpenes
@@ -297,12 +299,12 @@ def _parse_single(obj: dict) -> dict | None:
 
 # ── Scrape single location (with pagination) ────────────────────────────────
 
-async def scrape_location(page: Page, loc: dict) -> dict:
+async def scrape_location(page: Page, loc: dict, *, category_path: str = "/category/flower", category_name: str = "Flower") -> dict:
     slug = loc["slug"]
     name = loc["name"]
     store_id = loc["store_id"]
-    base_url = f"https://www.trulieve.com/category/flower?storeId={store_id}"
-    log.info("Scraping %s  (%s)", name, base_url)
+    base_url = f"https://www.trulieve.com{category_path}?storeId={store_id}"
+    log.info("Scraping %s  [%s]  (%s)", name, category_name, base_url)
 
     all_products = []
     method = "none"
@@ -394,9 +396,13 @@ async def scrape_location(page: Page, loc: dict) -> dict:
                         "strain_type": "",
                         "thc_pct": thc_match.group(1) if thc_match else "",
                         "price_eighth": price_match.group(1) if price_match else "",
-                        "product_type": "flower",
+                        "product_type": category_name,
                     })
                 method = "ssr+dom"
+
+        # Tag all products with the category we scraped
+        for p in all_products:
+            p["product_type"] = category_name
 
         # Deduplicate
         seen = set()
@@ -408,8 +414,8 @@ async def scrape_location(page: Page, loc: dict) -> dict:
                 unique.append(p)
         all_products = unique
 
-        log.info("  %s: %d unique flower products  (method: %s, load_more_clicks: %d)",
-                 slug, len(all_products), method, load_more_clicks)
+        log.info("  %s [%s]: %d unique products  (method: %s, load_more_clicks: %d)",
+                 slug, category_name, len(all_products), method, load_more_clicks)
 
     except Exception as e:
         log.error("  %s: ERROR — %s", slug, e)
@@ -425,10 +431,6 @@ async def scrape_location(page: Page, loc: dict) -> dict:
         "products": all_products,
         "method": method,
     }
-
-    out_path = RAW_DIR / f"trulieve_{slug}.json"
-    with open(out_path, "w", encoding="utf-8") as f:
-        json.dump(result, f, indent=2, ensure_ascii=False)
 
     return result
 
@@ -450,8 +452,35 @@ async def run(locations: list[dict], headed: bool = False):
 
         for i, loc in enumerate(locations):
             log.info("[%d/%d] %s", i + 1, len(locations), loc["name"])
-            result = await scrape_location(page, loc)
-            results.append(result)
+            all_products = []
+            last_result = None
+            for cat_info in TRULIEVE_CATEGORY_URLS:
+                result = await scrape_location(
+                    page, loc,
+                    category_path=cat_info["path"],
+                    category_name=cat_info["category"],
+                )
+                all_products.extend(result.get("products", []))
+                last_result = result
+                await asyncio.sleep(INTER_CATEGORY_DELAY)
+
+            # Deduplicate across categories by name
+            seen = set()
+            unique = []
+            for p in all_products:
+                key = p.get("name", "").lower()
+                if key and key not in seen:
+                    seen.add(key)
+                    unique.append(p)
+
+            # Write merged result
+            merged = {**last_result, "products": unique, "method": "multi_category"}
+            out_path = RAW_DIR / f"trulieve_{loc['slug']}.json"
+            with open(out_path, "w", encoding="utf-8") as f:
+                json.dump(merged, f, indent=2, ensure_ascii=False)
+            log.info("  %s: %d products across %d categories", loc["slug"], len(unique), len(TRULIEVE_CATEGORY_URLS))
+            results.append(merged)
+
             if i < len(locations) - 1:
                 await asyncio.sleep(3.0)
 

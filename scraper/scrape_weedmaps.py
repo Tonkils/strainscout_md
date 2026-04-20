@@ -31,6 +31,7 @@ from pathlib import Path
 
 from playwright.async_api import async_playwright, Page, Response
 from scraper.utils import async_retry
+from pipeline.classify_and_report import classify_product_name
 
 # ── Paths ────────────────────────────────────────────────────────────────────
 BASE = Path(__file__).resolve().parent.parent
@@ -365,12 +366,13 @@ async def _dom_extract_products(page: Page) -> list[dict]:
             if not name:
                 continue
 
+            dom_category, _ = classify_product_name(name)
             products.append({
                 "name": name,
                 "brand": brand,
                 "thc_pct": thc,
                 "price_eighth": price,
-                "category": "flower",
+                "category": dom_category.lower(),
                 "raw": {},
             })
         except Exception as exc:
