@@ -35,6 +35,7 @@ function loadMapScript(): Promise<void> {
 
 interface GoogleMapProps {
   className?: string;
+  style?: React.CSSProperties;
   initialCenter?: google.maps.LatLngLiteral;
   initialZoom?: number;
   onMapReady?: (map: google.maps.Map) => void;
@@ -42,6 +43,7 @@ interface GoogleMapProps {
 
 export function GoogleMapView({
   className,
+  style,
   initialCenter = { lat: 39.05, lng: -76.85 },
   initialZoom = 8,
   onMapReady,
@@ -66,5 +68,5 @@ export function GoogleMapView({
 
   useEffect(() => { init(); }, [init]);
 
-  return <div ref={containerRef} className={cn("w-full h-[500px]", className)} />;
+  return <div ref={containerRef} className={cn("w-full h-[500px]", className)} style={style} />;
 }

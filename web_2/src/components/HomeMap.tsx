@@ -21,10 +21,12 @@ export default function HomeMap({
   dispensaries,
   userLocation,
   className,
+  style,
 }: {
   dispensaries: DirectoryDispensary[];
   userLocation: { lat: number; lng: number } | null;
   className?: string;
+  style?: React.CSSProperties;
 }) {
   const router = useRouter();
   const mapRef = useRef<google.maps.Map | null>(null);
@@ -85,7 +87,8 @@ export default function HomeMap({
 
   return (
     <GoogleMapView
-      className={className ?? "w-full h-[380px] rounded-xl overflow-hidden"}
+      className={className ?? "w-full h-[380px]"}
+      style={style}
       initialCenter={MD_CENTER}
       initialZoom={8}
       onMapReady={handleMapReady}

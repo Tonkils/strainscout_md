@@ -2,7 +2,7 @@
 
 import { useState, useMemo, useCallback } from "react";
 import Link from "next/link";
-import { MapPin, ArrowRight, Loader2, Leaf, Cigarette, Wind, Beaker, Cookie, Globe, Navigation } from "lucide-react";
+import { MapPin, Loader2, Leaf, Cigarette, Wind, Beaker, Cookie, Globe, Navigation } from "lucide-react";
 import DealDigestBanner from "@/components/DealDigestBanner";
 import AgeGate from "@/components/AgeGate";
 import EmailPopup from "@/components/EmailPopup";
@@ -18,20 +18,67 @@ declare global {
   }
 }
 
-const BROWSE_CATEGORIES: { cat: ProductCategory; icon: React.ReactNode; desc: string }[] = [
-  { cat: "Flower",      icon: <Leaf className="w-5 h-5" />,      desc: "Traditional buds" },
-  { cat: "Pre-Roll",    icon: <Cigarette className="w-5 h-5" />, desc: "Ready-to-smoke" },
-  { cat: "Vape",        icon: <Wind className="w-5 h-5" />,       desc: "Carts & pods" },
-  { cat: "Concentrate", icon: <Beaker className="w-5 h-5" />,    desc: "Wax, rosin & more" },
-  { cat: "Edible",      icon: <Cookie className="w-5 h-5" />,    desc: "Gummies & edibles" },
+const INK = "#1A1A2E";
+const CREAM = "#FFF8EE";
+const MINT = "#7ECEB0";
+const CORAL = "#FF6B57";
+const BUTTER = "#FFD66B";
+const SKY = "#6BC5E8";
+const LAVENDER = "#B8A9E8";
+const LEAF = "#8BC34A";
+const GREEN = "#4EC96B";
+
+const CAT_HOVER_COLORS: Record<string, string> = {
+  Flower: MINT,
+  "Pre-Roll": LAVENDER,
+  Vape: BUTTER,
+  Concentrate: SKY,
+  Edible: "#FFB3B0",
+};
+
+const BROWSE_CATEGORIES: { cat: ProductCategory; icon: React.ReactNode; emoji: string }[] = [
+  { cat: "Flower",      icon: <Leaf style={{ width: 20, height: 20 }} />,      emoji: "🌿" },
+  { cat: "Pre-Roll",    icon: <Cigarette style={{ width: 20, height: 20 }} />, emoji: "🚬" },
+  { cat: "Vape",        icon: <Wind style={{ width: 20, height: 20 }} />,       emoji: "💨" },
+  { cat: "Concentrate", icon: <Beaker style={{ width: 20, height: 20 }} />,    emoji: "🧪" },
+  { cat: "Edible",      icon: <Cookie style={{ width: 20, height: 20 }} />,    emoji: "🍬" },
 ];
 
 const FALLBACK_STATS = {
   totalStrains: 844,
   totalDispensaries: 66,
-  totalBrands: 120,
-  lastUpdated: "March 2026",
+  lastUpdated: "April 2026",
 };
+
+function SectionHead({ title, tag, href, hrefLabel }: { title: string; tag?: string; href?: string; hrefLabel?: string }) {
+  return (
+    <div style={{ display: "flex", alignItems: "center", gap: "14px", marginBottom: "20px" }}>
+      <h2 style={{
+        fontFamily: "var(--font-heading), Georgia, serif",
+        fontSize: "20px",
+        fontWeight: 800,
+        color: INK,
+        whiteSpace: "nowrap",
+        letterSpacing: "-0.3px",
+      }}>{title}</h2>
+      <div style={{ flex: 1, height: "3px", background: INK, borderRadius: "2px" }} />
+      {tag && (
+        <span style={{
+          fontSize: "12px", fontWeight: 700, padding: "3px 12px",
+          border: `2px solid ${INK}`, borderRadius: "999px", background: MINT,
+          color: INK, whiteSpace: "nowrap",
+        }}>{tag}</span>
+      )}
+      {href && (
+        <Link href={href} style={{
+          fontSize: "12px", fontWeight: 700, color: INK, textDecoration: "none",
+          padding: "3px 12px", border: `2px solid ${INK}`, borderRadius: "999px",
+          whiteSpace: "nowrap",
+        }}>{hrefLabel ?? "See all →"}</Link>
+      )}
+    </div>
+  );
+}
 
 export default function HomePage() {
   const [ageVerified, setAgeVerified] = useState(false);
@@ -39,6 +86,7 @@ export default function HomePage() {
   const [zipLocating, setZipLocating] = useState(false);
   const [zipError, setZipError] = useState("");
   const [userLocation, setUserLocation] = useState<{ lat: number; lng: number } | null>(null);
+  const [catHover, setCatHover] = useState<string | null>(null);
 
   const { catalog, loading } = useCatalog();
   const { stats } = useCatalogStats();
@@ -98,7 +146,6 @@ export default function HomePage() {
     }
     setZipError("");
     setZipLocating(true);
-
     if (!window.google?.maps) {
       if (window._mapsLoading) await window._mapsLoading;
       if (!window.google?.maps) {
@@ -107,16 +154,14 @@ export default function HomePage() {
         return;
       }
     }
-
     const geocoder = new google.maps.Geocoder();
     geocoder.geocode({ address: `${zipInput}, Maryland, USA` }, (results, status) => {
       setZipLocating(false);
       if (status === "OK" && results?.[0]) {
-        const loc = {
+        setUserLocation({
           lat: results[0].geometry.location.lat(),
           lng: results[0].geometry.location.lng(),
-        };
-        setUserLocation(loc);
+        });
       } else {
         setZipError("Zip code not found in Maryland");
       }
@@ -124,316 +169,425 @@ export default function HomePage() {
   }, [zipInput]);
 
   return (
-    <div className="min-h-screen bg-background">
+    <div style={{ minHeight: "100vh", background: CREAM }}>
       <AgeGate onVerified={() => setAgeVerified(true)} />
       <EmailPopup show={ageVerified} delayMs={2000} />
 
+      {/* Ticker */}
+      <div style={{ background: INK, color: CREAM, fontSize: "11px", fontWeight: 600, letterSpacing: "0.5px", padding: "6px 0", overflow: "hidden", whiteSpace: "nowrap", borderBottom: `3px solid ${INK}` }}>
+        <div className="animate-marquee" style={{ display: "inline-block" }}>
+          {[
+            `PRICES UPDATED ${displayStats.lastUpdated.toUpperCase()}`,
+            `${displayStats.totalDispensaries} DISPENSARIES TRACKED`,
+            `${displayStats.totalStrains.toLocaleString()} STRAINS TRACKED`,
+            "ENTER YOUR ZIP TO FIND CHEAP WEED NEAR YOU",
+            "WEEKLY PRICE UPDATES EVERY TUESDAY",
+            `PRICES UPDATED ${displayStats.lastUpdated.toUpperCase()}`,
+            `${displayStats.totalDispensaries} DISPENSARIES TRACKED`,
+            `${displayStats.totalStrains.toLocaleString()} STRAINS TRACKED`,
+            "ENTER YOUR ZIP TO FIND CHEAP WEED NEAR YOU",
+            "WEEKLY PRICE UPDATES EVERY TUESDAY",
+          ].map((text, i) => (
+            <span key={i} style={{ marginRight: "48px" }}>
+              {text} <span style={{ color: CORAL }}>•</span>
+            </span>
+          ))}
+        </div>
+      </div>
+
       {/* Hero */}
-      <section className="relative overflow-hidden border-b border-border/30">
-        <div className="absolute inset-0 bg-gradient-to-b from-emerald-950/40 via-background/80 to-background" />
-        <div className="relative container py-12 sm:py-20 md:py-28">
-          <div className="max-w-2xl">
-            <h1 className="font-serif text-3xl sm:text-4xl md:text-6xl text-foreground leading-[1.1] mb-4 sm:mb-6">
-              Find the cheapest{" "}
-              <span className="text-primary">weed</span>{" "}
-              in Maryland
-            </h1>
-            <p className="text-base sm:text-lg text-muted-foreground max-w-xl mb-8">
-              Compare prices across{" "}
-              <span className="font-price text-primary">{displayStats.totalDispensaries}</span>{" "}
-              dispensaries. Enter your zip code to find what&apos;s cheapest near you.
-            </p>
+      <section style={{ padding: "50px 0 36px", textAlign: "center", position: "relative", overflow: "hidden" }}>
+        {/* Floating zigzag doodles */}
+        <svg style={{ position: "absolute", top: "20px", left: "8%", opacity: 0.5, pointerEvents: "none", animation: "none" }} width="80" height="28" viewBox="0 0 80 28">
+          <polyline points="0,14 10,4 20,24 30,4 40,24 50,4 60,24 70,4 80,14" fill="none" stroke={MINT} strokeWidth="3" strokeLinecap="round" strokeLinejoin="round"/>
+        </svg>
+        <svg style={{ position: "absolute", top: "60px", right: "6%", opacity: 0.5, pointerEvents: "none" }} width="60" height="22" viewBox="0 0 60 22">
+          <polyline points="0,11 8,3 16,19 24,3 32,19 40,3 48,19 52,11 60,11" fill="none" stroke={LAVENDER} strokeWidth="3" strokeLinecap="round" strokeLinejoin="round"/>
+        </svg>
+        <svg style={{ position: "absolute", bottom: "30px", left: "25%", opacity: 0.5, pointerEvents: "none" }} width="70" height="24" viewBox="0 0 70 24">
+          <polyline points="0,12 9,3 18,21 27,3 36,21 45,3 54,21 63,3 70,12" fill="none" stroke={BUTTER} strokeWidth="3" strokeLinecap="round" strokeLinejoin="round"/>
+        </svg>
 
-            {/* Zip Code Input */}
-            <div className="max-w-md">
-              <div className="flex items-stretch bg-card border border-border/50 rounded-lg overflow-hidden focus-within:border-primary/50 focus-within:shadow-lg focus-within:shadow-primary/10 transition-all">
-                <div className="flex items-center flex-1">
-                  <MapPin className="w-5 h-5 text-muted-foreground ml-4 shrink-0" />
-                  <input
-                    type="text"
-                    inputMode="numeric"
-                    placeholder="Enter zip code (e.g. 20878)"
-                    value={zipInput}
-                    maxLength={5}
-                    onChange={(e) => {
-                      setZipInput(e.target.value.replace(/\D/g, ""));
-                      setZipError("");
-                    }}
-                    onKeyDown={(e) => e.key === "Enter" && handleFindNearMe()}
-                    className="flex-1 bg-transparent px-3 py-4 text-sm sm:text-base text-foreground placeholder:text-muted-foreground focus:outline-none"
-                  />
-                </div>
-                <button
-                  onClick={handleFindNearMe}
-                  disabled={zipLocating}
-                  className="shrink-0 px-5 py-4 bg-cta text-cta-foreground font-semibold text-sm hover:bg-cta-hover transition-colors shadow-cta disabled:opacity-60 flex items-center gap-2"
-                >
-                  {zipLocating ? (
-                    <Loader2 className="w-4 h-4 animate-spin" />
-                  ) : (
-                    "Find Near Me"
-                  )}
-                </button>
-              </div>
-              {zipError && (
-                <p className="text-xs text-red-400 mt-2 pl-1">{zipError}</p>
-              )}
-            </div>
+        <div className="container" style={{ position: "relative", zIndex: 1 }}>
+          {/* Updated badge */}
+          <div style={{ display: "inline-flex", alignItems: "center", gap: "6px", fontSize: "12px", fontWeight: 700, padding: "5px 16px", border: `2.5px solid ${INK}`, borderRadius: "999px", background: MINT, color: INK, marginBottom: "20px" }}>
+            ⏰ Updated {displayStats.lastUpdated}
           </div>
-        </div>
-      </section>
 
-      {/* Browse by Category */}
-      <section className="border-b border-border/30">
-        <div className="container py-6 sm:py-8">
-          <div className="flex items-center justify-between mb-4">
-            <h2 className="font-serif text-base sm:text-lg text-foreground">Browse by Category</h2>
-            <Link href="/compare" className="text-xs text-primary hover:underline flex items-center gap-1">
-              All products <ArrowRight className="w-3 h-3" />
-            </Link>
-          </div>
-          <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-3">
-            {BROWSE_CATEGORIES.map(({ cat, icon, desc }) => (
-              <Link
-                key={cat}
-                href={`/category/${cat.toLowerCase()}`}
-                className="flex flex-col items-center text-center gap-2 p-4 bg-card border border-border/30 rounded-xl hover:border-primary/40 hover:bg-card/80 transition-all group"
-              >
-                <div className="w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center text-primary group-hover:bg-primary/20 transition-colors">
-                  {icon}
-                </div>
-                <div>
-                  <p className="text-sm font-medium text-foreground">{cat}</p>
-                  <p className="text-[10px] text-muted-foreground">{desc}</p>
-                  {!loading && categoryCounts[cat] != null && (
-                    <p className="text-[10px] font-price text-primary mt-0.5">
-                      {categoryCounts[cat].toLocaleString()} products
-                    </p>
-                  )}
-                </div>
-              </Link>
-            ))}
-          </div>
-        </div>
-      </section>
+          <h1 style={{
+            fontFamily: "var(--font-heading), Georgia, serif",
+            fontSize: "clamp(32px, 5.5vw, 56px)",
+            fontWeight: 900,
+            lineHeight: 1.08,
+            letterSpacing: "-2px",
+            color: INK,
+            marginBottom: "14px",
+          }}>
+            Find the{" "}
+            <span style={{ position: "relative", display: "inline-block" }}>
+              Cheapest Cannabis
+              <span style={{
+                content: "''",
+                position: "absolute",
+                bottom: "4px", left: "-4px", right: "-4px",
+                height: "14px",
+                background: BUTTER,
+                border: `2px solid ${INK}`,
+                borderRadius: "4px",
+                zIndex: -1,
+                transform: "rotate(-1deg)",
+                display: "block",
+              }} />
+            </span>
+            <br />Near You
+          </h1>
 
-      {/* Cheap Flower Near You */}
-      {cheapFlowerNearYou.length > 0 && (
-        <section className="border-b border-border/30">
-          <div className="container py-6 sm:py-8">
-            <div className="flex items-center justify-between mb-4">
-              <div>
-                <h2 className="font-serif text-lg sm:text-xl text-foreground">
-                  Cheap Flower Near You
-                </h2>
-                <p className="text-xs text-muted-foreground mt-0.5">
-                  Within 5 miles of {zipInput} · sorted by price
-                </p>
-              </div>
-              <Link
-                href="/compare?category=flower"
-                className="text-xs text-primary hover:underline flex items-center gap-1"
-              >
-                See all <ArrowRight className="w-3 h-3" />
-              </Link>
-            </div>
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
-              {cheapFlowerNearYou.map((strain) => {
-                const normalizedNearby = new Set(
-                  nearbyDispensaries.map((d) => d.name.toLowerCase().replace(/[^a-z0-9]/g, ""))
-                );
-                const bestNearbyPrice = [...(strain.prices || [])]
-                  .filter((p) =>
-                    normalizedNearby.has(p.dispensary.toLowerCase().replace(/[^a-z0-9]/g, ""))
-                  )
-                  .sort((a, b) => a.price - b.price)[0];
-
-                const dispensarySlug = bestNearbyPrice
-                  ? bestNearbyPrice.dispensary.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "")
-                  : null;
-                const dispensaryDir = bestNearbyPrice
-                  ? dispensaries.find(
-                      (d) =>
-                        d.name.toLowerCase().replace(/[^a-z0-9]/g, "") ===
-                        bestNearbyPrice.dispensary.toLowerCase().replace(/[^a-z0-9]/g, "")
-                    )
-                  : null;
-
-                return (
-                  <div
-                    key={strain.id}
-                    className="bg-card border border-border/40 rounded-xl p-4 hover:border-primary/40 transition-all"
-                  >
-                    <div className="flex items-start justify-between gap-2 mb-2">
-                      <div className="min-w-0">
-                        <span className="text-[10px] uppercase tracking-wider text-muted-foreground font-medium">
-                          {getCategoryFromStrain(strain)}
-                        </span>
-                        <Link
-                          href={`/strain/${strain.id}`}
-                          className="block font-medium text-foreground hover:text-primary transition-colors line-clamp-2 text-sm mt-0.5"
-                        >
-                          {strain.name}
-                        </Link>
-                        {strain.brand && (
-                          <p className="text-[11px] text-muted-foreground truncate mt-0.5">{strain.brand}</p>
-                        )}
-                      </div>
-                      {bestNearbyPrice && (
-                        <p className="font-price text-xl font-bold text-savings shrink-0">
-                          ${bestNearbyPrice.price}
-                        </p>
-                      )}
-                    </div>
-
-                    {bestNearbyPrice && (
-                      <div className="flex items-center gap-2 mt-3 pt-3 border-t border-border/30 flex-wrap">
-                        {dispensarySlug && (
-                          <Link
-                            href={`/dispensary/${dispensarySlug}`}
-                            className="flex items-center gap-1 text-xs text-muted-foreground hover:text-primary transition-colors"
-                          >
-                            <MapPin className="w-3 h-3 shrink-0" />
-                            <span className="truncate max-w-[120px]">{bestNearbyPrice.dispensary}</span>
-                          </Link>
-                        )}
-                        {dispensaryDir?.website && (
-                          <a
-                            href={dispensaryDir.website}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            className="flex items-center gap-1 text-xs text-primary hover:underline"
-                          >
-                            <Globe className="w-3 h-3 shrink-0" />
-                            Website
-                          </a>
-                        )}
-                      </div>
-                    )}
-                  </div>
-                );
-              })}
-            </div>
-          </div>
-        </section>
-      )}
-
-      {/* Dispensary Map */}
-      <section className="border-b border-border/30">
-        <div className="container py-6 sm:py-8">
-          <div className="flex items-center justify-between mb-4">
-            <div>
-              <h2 className="font-serif text-lg sm:text-xl text-foreground">Dispensary Map</h2>
-              <p className="text-xs text-muted-foreground mt-0.5">
-                {userLocation
-                  ? `Showing dispensaries near ${zipInput}`
-                  : "Enter your zip code above to find dispensaries near you"}
-              </p>
-            </div>
-            <Link
-              href="/map"
-              className="text-xs text-primary hover:underline flex items-center gap-1"
-            >
-              Full map <ArrowRight className="w-3 h-3" />
-            </Link>
-          </div>
-          <HomeMap
-            dispensaries={dispensaries}
-            userLocation={userLocation}
-            className="w-full h-[360px] sm:h-[420px] rounded-xl overflow-hidden"
-          />
-          <p className="text-[11px] text-muted-foreground mt-2">
-            Click a marker to view that dispensary&apos;s menu and pricing.
+          <p style={{ fontSize: "16px", fontWeight: 500, color: INK, opacity: 0.55, marginBottom: "26px" }}>
+            Compare prices across{" "}
+            <span style={{ fontFamily: "var(--font-heading)", fontWeight: 800, color: CORAL, opacity: 1 }}>
+              {displayStats.totalDispensaries}
+            </span>{" "}
+            Maryland dispensaries.{" "}
+            <span style={{ fontFamily: "var(--font-heading)", fontWeight: 800, color: CORAL, opacity: 1 }}>
+              {displayStats.totalStrains.toLocaleString()}
+            </span>{" "}
+            strains tracked.
           </p>
-        </div>
-      </section>
 
-      {/* Lowest Price Dispensary Near Me */}
-      <section className="border-b border-border/30">
-        <div className="container py-6 sm:py-8">
-          <h2 className="font-serif text-lg sm:text-xl text-foreground mb-4">
-            Lowest Price Dispensary Near Me
-          </h2>
-
-          {cheapestNearbyDispensary ? (
-            <div className="bg-card border border-savings/30 rounded-xl p-5 max-w-lg">
-              <div className="flex items-start justify-between gap-3">
-                <div className="min-w-0">
-                  <Link
-                    href={`/dispensary/${cheapestNearbyDispensary.name
-                      .toLowerCase()
-                      .replace(/[^a-z0-9]+/g, "-")
-                      .replace(/^-|-$/g, "")}`}
-                    className="font-semibold text-foreground hover:text-primary transition-colors"
-                  >
-                    {cheapestNearbyDispensary.name}
-                  </Link>
-                  <p className="text-xs text-muted-foreground mt-0.5">
-                    {cheapestNearbyDispensary.city} ·{" "}
-                    {cheapestNearbyDispensary.distance?.toFixed(1)} mi away
-                  </p>
-                  <p className="text-xs text-muted-foreground mt-0.5 truncate">
-                    {cheapestNearbyDispensary.full_address}
-                  </p>
-                </div>
-                {cheapestNearbyDispensary.price_avg != null && (
-                  <div className="shrink-0 text-right">
-                    <p className="text-[10px] text-muted-foreground uppercase tracking-wider">avg price</p>
-                    <p className="font-price text-2xl font-bold text-savings">
-                      ${cheapestNearbyDispensary.price_avg}
-                    </p>
-                  </div>
-                )}
-              </div>
-
-              <div className="flex items-center gap-3 mt-4 flex-wrap">
-                <Link
-                  href={`/dispensary/${cheapestNearbyDispensary.name
-                    .toLowerCase()
-                    .replace(/[^a-z0-9]+/g, "-")
-                    .replace(/^-|-$/g, "")}`}
-                  className="flex items-center gap-1.5 px-4 py-2 bg-primary text-primary-foreground text-xs font-semibold rounded-lg hover:bg-primary/90 transition-colors"
-                >
-                  <Leaf className="w-3.5 h-3.5" />
-                  View Menu
-                </Link>
-                {cheapestNearbyDispensary.website && (
-                  <a
-                    href={cheapestNearbyDispensary.website}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="flex items-center gap-1.5 px-4 py-2 border border-border text-xs text-muted-foreground rounded-lg hover:bg-muted transition-colors"
-                  >
-                    <Globe className="w-3.5 h-3.5" />
-                    Website
-                  </a>
-                )}
-                <a
-                  href={`https://www.google.com/maps/dir/?api=1&destination=${encodeURIComponent(cheapestNearbyDispensary.full_address)}`}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="flex items-center gap-1.5 px-4 py-2 border border-border text-xs text-muted-foreground rounded-lg hover:bg-muted transition-colors"
-                >
-                  <Navigation className="w-3.5 h-3.5" />
-                  Directions
-                </a>
-              </div>
-            </div>
-          ) : (
-            <div className="bg-card border border-border/30 rounded-xl p-6 max-w-lg text-center">
-              <MapPin className="w-8 h-8 text-muted-foreground/40 mx-auto mb-3" />
-              <p className="text-sm text-muted-foreground">
-                Enter your zip code above to find the cheapest dispensary within 5 miles.
-              </p>
-            </div>
+          {/* Zip code input */}
+          <div style={{ display: "flex", justifyContent: "center", maxWidth: "540px", margin: "0 auto", position: "relative" }}>
+            <span style={{ position: "absolute", left: "18px", top: "50%", transform: "translateY(-50%)", fontSize: "18px", opacity: 0.35, zIndex: 2, pointerEvents: "none" }}>📍</span>
+            <input
+              type="text"
+              inputMode="numeric"
+              placeholder="Enter your zip code..."
+              value={zipInput}
+              maxLength={5}
+              onChange={(e) => { setZipInput(e.target.value.replace(/\D/g, "")); setZipError(""); }}
+              onKeyDown={(e) => e.key === "Enter" && handleFindNearMe()}
+              style={{
+                fontFamily: "var(--font-body), system-ui, sans-serif",
+                fontSize: "16px",
+                fontWeight: 600,
+                padding: "14px 20px 14px 44px",
+                border: `3px solid ${INK}`,
+                borderRight: "none",
+                borderRadius: "14px 0 0 14px",
+                background: "#fff",
+                color: INK,
+                flex: 1,
+                outline: "none",
+              }}
+            />
+            <button
+              onClick={handleFindNearMe}
+              disabled={zipLocating}
+              style={{
+                fontFamily: "var(--font-body), system-ui, sans-serif",
+                fontSize: "15px",
+                fontWeight: 800,
+                padding: "14px 28px",
+                background: CORAL,
+                color: CREAM,
+                border: `3px solid ${INK}`,
+                borderRadius: "0 14px 14px 0",
+                textTransform: "uppercase",
+                letterSpacing: "0.5px",
+                whiteSpace: "nowrap",
+                cursor: zipLocating ? "not-allowed" : "pointer",
+                opacity: zipLocating ? 0.7 : 1,
+                display: "flex",
+                alignItems: "center",
+                gap: "6px",
+                transition: "background 0.1s",
+              }}
+            >
+              {zipLocating ? <Loader2 style={{ width: 16, height: 16, animation: "spin 1s linear infinite" }} /> : "Find Deals"}
+            </button>
+          </div>
+          {zipError && (
+            <p style={{ fontSize: "12px", color: CORAL, fontWeight: 700, marginTop: "8px" }}>{zipError}</p>
           )}
         </div>
       </section>
+
+      {/* Categories */}
+      <div className="container" style={{ paddingBottom: "24px" }}>
+        <div style={{ display: "flex", gap: "10px", justifyContent: "center", flexWrap: "wrap" }}>
+          {BROWSE_CATEGORIES.map(({ cat, emoji }) => (
+            <Link
+              key={cat}
+              href={`/category/${cat.toLowerCase()}`}
+              onMouseEnter={() => setCatHover(cat)}
+              onMouseLeave={() => setCatHover(null)}
+              style={{
+                fontSize: "13px",
+                fontWeight: 700,
+                padding: "9px 20px",
+                border: `3px solid ${INK}`,
+                borderRadius: "999px",
+                background: catHover === cat ? (CAT_HOVER_COLORS[cat] ?? BUTTER) : "#fff",
+                color: INK,
+                textDecoration: "none",
+                transform: catHover === cat ? "translateY(-3px)" : "none",
+                boxShadow: catHover === cat ? `4px 4px 0 ${INK}` : "none",
+                transition: "all 0.12s",
+                display: "inline-flex",
+                alignItems: "center",
+                gap: "6px",
+              }}
+            >
+              <span>{emoji}</span>
+              {cat}
+              {!loading && categoryCounts[cat] != null && (
+                <span style={{ fontSize: "10px", opacity: 0.5, fontWeight: 600 }}>
+                  {categoryCounts[cat].toLocaleString()}
+                </span>
+              )}
+            </Link>
+          ))}
+        </div>
+      </div>
+
+      {/* Cheap Flower Near You */}
+      {cheapFlowerNearYou.length > 0 && (
+        <div className="container" style={{ paddingBottom: "28px" }}>
+          <SectionHead
+            title="Cheapest near you"
+            tag={zipInput}
+            href="/compare?category=flower"
+            hrefLabel="See all →"
+          />
+          <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(200px, 1fr))", gap: "16px" }}>
+            {cheapFlowerNearYou.map((strain) => {
+              const normalizedNearby = new Set(
+                nearbyDispensaries.map((d) => d.name.toLowerCase().replace(/[^a-z0-9]/g, ""))
+              );
+              const bestNearbyPrice = [...(strain.prices || [])]
+                .filter((p) => normalizedNearby.has(p.dispensary.toLowerCase().replace(/[^a-z0-9]/g, "")))
+                .sort((a, b) => a.price - b.price)[0];
+              const dispensarySlug = bestNearbyPrice
+                ? bestNearbyPrice.dispensary.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "")
+                : null;
+              const dispensaryDir = bestNearbyPrice
+                ? dispensaries.find((d) =>
+                    d.name.toLowerCase().replace(/[^a-z0-9]/g, "") ===
+                    bestNearbyPrice.dispensary.toLowerCase().replace(/[^a-z0-9]/g, "")
+                  )
+                : null;
+
+              return (
+                <NearbyCard
+                  key={strain.id}
+                  strainId={strain.id}
+                  strainName={strain.name}
+                  brand={strain.brand}
+                  price={bestNearbyPrice?.price}
+                  dispensarySlug={dispensarySlug}
+                  dispensaryName={bestNearbyPrice?.dispensary}
+                  website={dispensaryDir?.website}
+                />
+              );
+            })}
+          </div>
+        </div>
+      )}
+
+      {/* Map section */}
+      <div className="container" style={{ paddingBottom: "28px" }}>
+        <SectionHead
+          title="Dispensary map"
+          tag={userLocation ? `Near ${zipInput}` : undefined}
+          href="/map"
+          hrefLabel="Full map →"
+        />
+        <div
+          style={{
+            border: `3px solid ${INK}`,
+            borderRadius: "18px",
+            background: SKY,
+            overflow: "hidden",
+            position: "relative",
+          }}
+        >
+          <HomeMap
+            dispensaries={dispensaries}
+            userLocation={userLocation}
+            className="w-full"
+            style={{ height: "380px" }}
+          />
+          {!userLocation && (
+            <div style={{
+              position: "absolute",
+              bottom: "16px",
+              left: "50%",
+              transform: "translateX(-50%)",
+              background: "rgba(255,248,238,0.95)",
+              border: `2.5px solid ${INK}`,
+              borderRadius: "12px",
+              padding: "8px 18px",
+              fontSize: "12px",
+              fontWeight: 700,
+              color: INK,
+              whiteSpace: "nowrap",
+              pointerEvents: "none",
+            }}>
+              📍 Enter your zip above to find nearby dispensaries
+            </div>
+          )}
+        </div>
+        <p style={{ fontSize: "11px", color: "rgba(26,26,46,0.5)", marginTop: "8px", textAlign: "center" }}>
+          Click any marker to view that dispensary&apos;s strains and pricing.
+        </p>
+      </div>
+
+      {/* Lowest Price Dispensary Near Me */}
+      <div className="container" style={{ paddingBottom: "28px" }}>
+        <SectionHead title="Lowest price dispensary near me" />
+
+        {cheapestNearbyDispensary ? (
+          <div
+            style={{
+              border: `3px solid ${INK}`,
+              borderRadius: "16px",
+              background: "#fff",
+              padding: "24px",
+              maxWidth: "520px",
+              boxShadow: `6px 6px 0 ${INK}`,
+            }}
+          >
+            <div style={{ display: "flex", alignItems: "flex-start", justifyContent: "space-between", gap: "12px", marginBottom: "16px" }}>
+              <div style={{ minWidth: 0 }}>
+                <Link
+                  href={`/dispensary/${cheapestNearbyDispensary.name.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "")}`}
+                  style={{ fontFamily: "var(--font-heading)", fontSize: "18px", fontWeight: 800, color: INK, textDecoration: "none" }}
+                >
+                  {cheapestNearbyDispensary.name}
+                </Link>
+                <p style={{ fontSize: "12px", color: "rgba(26,26,46,0.55)", marginTop: "3px" }}>
+                  {cheapestNearbyDispensary.city} · {cheapestNearbyDispensary.distance?.toFixed(1)} mi away
+                </p>
+                <p style={{ fontSize: "11px", color: "rgba(26,26,46,0.45)", marginTop: "2px", overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }}>
+                  {cheapestNearbyDispensary.full_address}
+                </p>
+              </div>
+              {cheapestNearbyDispensary.price_avg != null && (
+                <div style={{ textAlign: "right", flexShrink: 0 }}>
+                  <p style={{ fontSize: "10px", textTransform: "uppercase", letterSpacing: "0.08em", color: "rgba(26,26,46,0.45)", fontWeight: 700 }}>avg price</p>
+                  <p style={{ fontFamily: "var(--font-heading)", fontSize: "28px", fontWeight: 900, color: GREEN, lineHeight: 1 }}>
+                    ${cheapestNearbyDispensary.price_avg}
+                  </p>
+                </div>
+              )}
+            </div>
+            <div style={{ display: "flex", gap: "8px", flexWrap: "wrap" }}>
+              <Link
+                href={`/dispensary/${cheapestNearbyDispensary.name.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "")}`}
+                style={{ display: "inline-flex", alignItems: "center", gap: "6px", padding: "9px 18px", background: INK, color: CREAM, border: `3px solid ${INK}`, borderRadius: "10px", fontSize: "12px", fontWeight: 800, textDecoration: "none", textTransform: "uppercase" }}
+              >
+                <Leaf style={{ width: 12, height: 12 }} /> View Menu
+              </Link>
+              {cheapestNearbyDispensary.website && (
+                <a
+                  href={cheapestNearbyDispensary.website}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  style={{ display: "inline-flex", alignItems: "center", gap: "6px", padding: "9px 18px", background: "#fff", color: INK, border: `3px solid ${INK}`, borderRadius: "10px", fontSize: "12px", fontWeight: 700, textDecoration: "none" }}
+                >
+                  <Globe style={{ width: 12, height: 12 }} /> Website
+                </a>
+              )}
+              <a
+                href={`https://www.google.com/maps/dir/?api=1&destination=${encodeURIComponent(cheapestNearbyDispensary.full_address)}`}
+                target="_blank"
+                rel="noopener noreferrer"
+                style={{ display: "inline-flex", alignItems: "center", gap: "6px", padding: "9px 18px", background: "#fff", color: INK, border: `3px solid ${INK}`, borderRadius: "10px", fontSize: "12px", fontWeight: 700, textDecoration: "none" }}
+              >
+                <Navigation style={{ width: 12, height: 12 }} /> Directions
+              </a>
+            </div>
+          </div>
+        ) : (
+          <div style={{
+            border: `3px solid ${INK}`,
+            borderRadius: "16px",
+            background: "#fff",
+            padding: "32px",
+            maxWidth: "420px",
+            textAlign: "center",
+          }}>
+            <MapPin style={{ width: 32, height: 32, color: "rgba(26,26,46,0.25)", margin: "0 auto 12px" }} />
+            <p style={{ fontSize: "14px", fontWeight: 600, color: "rgba(26,26,46,0.55)" }}>
+              Enter your zip code above to find the cheapest dispensary within 5 miles.
+            </p>
+          </div>
+        )}
+      </div>
 
       <DealDigestBanner
         totalStrains={displayStats.totalStrains}
         totalDispensaries={displayStats.totalDispensaries}
       />
+    </div>
+  );
+}
+
+function NearbyCard({
+  strainId, strainName, brand, price, dispensarySlug, dispensaryName, website,
+}: {
+  strainId: string; strainName: string; brand?: string; price?: number;
+  dispensarySlug: string | null; dispensaryName?: string; website?: string;
+}) {
+  const [hovered, setHovered] = useState(false);
+  return (
+    <div
+      onMouseEnter={() => setHovered(true)}
+      onMouseLeave={() => setHovered(false)}
+      style={{
+        background: "#fff",
+        border: `3px solid ${INK}`,
+        borderRadius: "16px",
+        padding: "20px",
+        transform: hovered ? "translateY(-5px)" : "none",
+        boxShadow: hovered ? `6px 6px 0 ${INK}` : "none",
+        transition: "all 0.12s",
+      }}
+    >
+      {price != null && (
+        <div style={{ fontFamily: "var(--font-heading)", fontSize: "28px", fontWeight: 900, color: INK, lineHeight: 1, marginBottom: "8px" }}>
+          ${price}
+        </div>
+      )}
+      <Link
+        href={`/strain/${strainId}`}
+        style={{ fontFamily: "var(--font-heading)", fontSize: "15px", fontWeight: 700, color: INK, textDecoration: "none", display: "block", marginBottom: "4px" }}
+      >
+        {strainName}
+      </Link>
+      {brand && (
+        <p style={{ fontSize: "11px", color: "rgba(26,26,46,0.45)", textTransform: "uppercase", letterSpacing: "0.06em", marginBottom: "12px" }}>{brand}</p>
+      )}
+      <div style={{ borderTop: `2px dashed ${INK}`, paddingTop: "10px", marginTop: "auto", display: "flex", alignItems: "center", justifyContent: "space-between", flexWrap: "wrap", gap: "6px" }}>
+        {dispensarySlug && dispensaryName && (
+          <Link
+            href={`/dispensary/${dispensarySlug}`}
+            style={{ fontSize: "11px", fontWeight: 600, color: INK, textDecoration: "none", display: "flex", alignItems: "center", gap: "4px", maxWidth: "130px", overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }}
+          >
+            <span style={{ width: 8, height: 8, borderRadius: "50%", background: MINT, border: `2px solid ${INK}`, flexShrink: 0, display: "inline-block" }} />
+            {dispensaryName}
+          </Link>
+        )}
+        {website && (
+          <a
+            href={website}
+            target="_blank"
+            rel="noopener noreferrer"
+            style={{ fontSize: "11px", fontWeight: 700, color: CORAL, textDecoration: "none", display: "flex", alignItems: "center", gap: "4px" }}
+          >
+            <Globe style={{ width: 11, height: 11 }} /> Site
+          </a>
+        )}
+      </div>
     </div>
   );
 }
