@@ -124,14 +124,13 @@ export function getProductCategory(name: string): ProductCategory {
  */
 export function getCategoryFromStrain(strain: { product_category?: string; name: string }): ProductCategory {
   const cat = strain.product_category;
-  if (cat && cat !== "Other") {
-    // Validate it maps to a known ProductCategory
-    const known: ProductCategory[] = ["Flower", "Pre-Roll", "Vape", "Concentrate", "Edible", "Topical", "Other"];
-    if (known.includes(cat as ProductCategory)) {
-      return cat as ProductCategory;
-    }
+  if (cat && cat !== "Other" && cat !== "Flower") {
+    const specific: ProductCategory[] = ["Pre-Roll", "Vape", "Concentrate", "Edible", "Topical"];
+    if (specific.includes(cat as ProductCategory)) return cat as ProductCategory;
   }
-  return classifyProduct(strain.name).category;
+  const classified = classifyProduct(strain.name);
+  if (classified.category !== "Flower") return classified.category;
+  return "Flower";
 }
 
 /**

@@ -284,8 +284,12 @@ def main():
 
             # ── Determine product category (trust platform label over name guessing) ──
             from scraper.category_map import normalize_category
+            from pipeline.classify_and_report import classify_product_name
             raw_cat = prod.get("product_category") or prod.get("product_type") or ""
-            product_category = normalize_category(raw_cat, platform) if raw_cat else "Flower"
+            if raw_cat:
+                product_category = normalize_category(raw_cat, platform)
+            else:
+                product_category, _ = classify_product_name(raw_name)
 
             # ── Cross-verify using URL-encoded category ──
             category_confidence = assign_category_confidence(product_category, url_category)

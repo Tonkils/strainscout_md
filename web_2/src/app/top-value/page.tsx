@@ -1,9 +1,10 @@
 "use client";
 
-import { useMemo } from "react";
+import { useState, useMemo } from "react";
 import Link from "next/link";
 import { Trophy, TrendingDown, Store, Zap, Crown, Medal, Award, Loader2 } from "lucide-react";
 import { useCatalog } from "@/hooks/useCatalog";
+import { getCategoryFromStrain, CATEGORY_COLORS, CATEGORY_LABELS, type ProductCategory } from "@/lib/utils";
 
 function rankIcon(i: number) {
   if (i === 0) return <Crown className="w-5 h-5 text-amber-400" />;
@@ -18,11 +19,13 @@ function typeLabel(t: string) {
 
 export default function TopValuePage() {
   const { catalog, loading } = useCatalog();
+  const [activeCategory, setActiveCategory] = useState<ProductCategory | "All">("All");
 
   const valueRanked = useMemo(() => {
     if (!catalog) return [];
     return catalog.strains
       .filter((s) => s.price_min != null && s.price_min > 0 && s.thc)
+      .filter((s) => activeCategory === "All" || getCategoryFromStrain(s) === activeCategory)
       .map((s) => {
         const thcNum = typeof s.thc === "number" ? s.thc : parseFloat(String(s.thc)) || 0;
         const price = s.price_min!;
@@ -31,7 +34,7 @@ export default function TopValuePage() {
       })
       .sort((a, b) => Number(b.valueScore) - Number(a.valueScore))
       .slice(0, 50);
-  }, [catalog]);
+  }, [catalog, activeCategory]);
 
   const dispensaryRankings = useMemo(() => {
     if (!catalog) return [];
@@ -89,6 +92,33 @@ export default function TopValuePage() {
 
             {/* Value Leaderboard */}
             <div className="lg:col-span-2 space-y-6">
+              {/* Category Tabs */}
+              <div className="flex flex-wrap items-center gap-2">
+                <button
+                  onClick={() => setActiveCategory("All")}
+                  className={`px-3 py-1.5 rounded-full text-xs font-medium transition-colors ${
+                    activeCategory === "All"
+                      ? "bg-primary text-primary-foreground"
+                      : "bg-card border border-border/30 text-muted-foreground hover:text-foreground"
+                  }`}
+                >
+                  All
+                </button>
+                {(["Flower", "Pre-Roll", "Vape", "Concentrate", "Edible"] as ProductCategory[]).map((cat) => (
+                  <button
+                    key={cat}
+                    onClick={() => setActiveCategory(activeCategory === cat ? "All" : cat)}
+                    className={`px-3 py-1.5 rounded-full text-xs font-medium transition-colors ${
+                      activeCategory === cat
+                        ? CATEGORY_COLORS[cat]
+                        : "bg-card border border-border/30 text-muted-foreground hover:text-foreground"
+                    }`}
+                  >
+                    {CATEGORY_LABELS[cat]}
+                  </button>
+                ))}
+              </div>
+
               <div className="bg-card border border-border/30 rounded-lg p-5">
                 <div className="flex items-start gap-3">
                   <div className="w-10 h-10 rounded-lg bg-primary/15 flex items-center justify-center shrink-0">
@@ -114,13 +144,18 @@ export default function TopValuePage() {
                       <div className={`flex items-center gap-4 px-5 py-4 hover:bg-accent/20 transition-colors ${i < 3 ? "bg-accent/10" : ""}`}>
                         <div className="w-8 shrink-0 flex justify-center">{rankIcon(i)}</div>
                         <div className="flex-1 min-w-0">
-                          <div className="flex items-center gap-2">
+                          <div className="flex items-center gap-2 flex-wrap">
                             <span className="font-serif text-foreground">{strain.name}</span>
                             <span className={`px-1.5 py-0.5 rounded text-[9px] font-semibold uppercase ${
                               strain.type === "indica" ? "bg-indigo-500/15 text-indigo-400" :
                               strain.type === "sativa" ? "bg-amber-500/15 text-amber-400" :
                               "bg-emerald-500/15 text-emerald-400"
                             }`}>{typeLabel(strain.type)}</span>
+                            {activeCategory === "All" && getCategoryFromStrain(strain) !== "Flower" && (
+                              <span className={`px-1.5 py-0.5 rounded text-[9px] font-semibold uppercase ${CATEGORY_COLORS[getCategoryFromStrain(strain)]}`}>
+                                {getCategoryFromStrain(strain)}
+                              </span>
+                            )}
                           </div>
                           <p className="text-[10px] text-muted-foreground mt-0.5">
                             {strain.thc} THC · {strain.brand || "Unknown"} · {strain.dispensary_count ?? 0} dispensaries

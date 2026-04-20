@@ -4,7 +4,7 @@ import { useState, useMemo } from "react";
 import Link from "next/link";
 import { MapPin, ExternalLink, TrendingDown, Loader2 } from "lucide-react";
 import { useCatalog, type CatalogStrain } from "@/hooks/useCatalog";
-import { getProductCategory, CATEGORY_COLORS, type ProductCategory } from "@/lib/utils";
+import { getCategoryFromStrain, CATEGORY_COLORS, type ProductCategory } from "@/lib/utils";
 
 const CATEGORIES: { key: ProductCategory | "All"; label: string; emoji: string }[] = [
   { key: "All",        label: "All Categories", emoji: "🌿" },
@@ -25,7 +25,7 @@ function getBuyLink(strain: CatalogStrain, dispensaryName: string): string | nul
 function StrainRow({ strain }: { strain: CatalogStrain }) {
   const bestPrice = [...(strain.prices || [])].sort((a, b) => a.price - b.price)[0];
   const buyLink = bestPrice ? getBuyLink(strain, bestPrice.dispensary) : null;
-  const category = getProductCategory(strain.name);
+  const category = getCategoryFromStrain(strain);
   const categoryColor = CATEGORY_COLORS[category];
 
   return (
@@ -136,7 +136,7 @@ export default function CheapestPage() {
     const map: Record<string, CatalogStrain[]> = {};
     for (const strain of catalog.strains) {
       if (strain.price_min == null) continue;
-      const cat = getProductCategory(strain.name);
+      const cat = getCategoryFromStrain(strain);
       if (!map[cat]) map[cat] = [];
       map[cat].push(strain);
     }

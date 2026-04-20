@@ -185,7 +185,7 @@ def main():
             "name": s["name"],
             "brand": brand,
             "type": raw_type,
-            "product_category": s.get("product_category", "Flower"),
+            "product_category": s.get("product_category", "Other"),
             "category_confidence": s.get("category_confidence", "inferred"),
 
             # Lab data
