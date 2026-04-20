@@ -58,7 +58,7 @@ export function hasSignedUp(source?: string): boolean {
   return signups.some((s) => s.source === source);
 }
 
-type EmailSource = "footer" | "deal_digest" | "price_alert" | "compare_inline";
+type EmailSource = "footer" | "deal_digest" | "price_alert" | "compare_inline" | "popup";
 
 export function useEmailCapture(source: EmailSource) {
   const [email, setEmail] = useState("");
