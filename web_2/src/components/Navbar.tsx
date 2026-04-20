@@ -2,15 +2,15 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { Search, Menu, X, Leaf, TrendingDown, GitCompareArrows, Home, Building2, TrendingUp } from "lucide-react";
+import { Search, Menu, X } from "lucide-react";
 import { useState, useEffect, useRef } from "react";
 
 const navLinks = [
-  { href: "/", label: "Home", icon: Home },
-  { href: "/compare", label: "Compare", icon: GitCompareArrows },
-  { href: "/cheapest", label: "Cheapest", icon: TrendingDown },
-  { href: "/top-value", label: "Top Value", icon: TrendingUp },
-  { href: "/dispensaries", label: "Dispensaries", icon: Building2 },
+  { href: "/", label: "Home" },
+  { href: "/compare", label: "Compare" },
+  { href: "/cheapest", label: "Cheapest" },
+  { href: "/top-value", label: "Top Value" },
+  { href: "/dispensaries", label: "Dispensaries" },
 ];
 
 export default function Navbar() {
@@ -38,91 +38,200 @@ export default function Navbar() {
   }, [mobileOpen]);
 
   return (
-    <header ref={menuRef} className="sticky top-0 z-50 border-b border-border/50 bg-background/80 backdrop-blur-xl">
-      <nav className="container flex items-center justify-between h-14 sm:h-16">
-        <Link href="/" className="flex items-center gap-2 group">
-          <div className="w-8 h-8 rounded-lg bg-primary/20 flex items-center justify-center group-hover:bg-primary/30 transition-colors">
-            <Leaf className="w-5 h-5 text-primary" />
+    <header
+      ref={menuRef}
+      className="sticky top-0 z-50"
+      style={{ background: "#FFF8EE", borderBottom: "3px solid #1A1A2E" }}
+    >
+      <nav className="container flex items-center justify-between" style={{ height: "64px" }}>
+        {/* Logo */}
+        <Link href="/" className="flex items-center gap-2 group" style={{ textDecoration: "none" }}>
+          <div
+            style={{
+              width: "36px",
+              height: "36px",
+              background: "#8BC34A",
+              border: "3px solid #1A1A2E",
+              borderRadius: "50% 8px 50% 8px",
+              transform: "rotate(-20deg)",
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+              flexShrink: 0,
+            }}
+          >
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" style={{ transform: "rotate(20deg)" }}>
+              <path d="M12 2C6 2 2 8 2 14c0 4 2 7 5 8.5L12 22l5-0.5C20 20 22 17 22 14c0-6-4-12-10-12z" fill="#FFF8EE" />
+              <path d="M12 22V10" stroke="#1A1A2E" strokeWidth="1.5" strokeLinecap="round" />
+            </svg>
           </div>
-          <span className="font-serif text-lg sm:text-xl text-foreground tracking-tight">
-            Strain<span className="text-primary">Scout</span>{" "}
-            <span className="text-muted-foreground text-xs sm:text-sm font-sans font-light">MD</span>
+          <span
+            style={{
+              fontFamily: "var(--font-heading), Georgia, serif",
+              fontSize: "20px",
+              fontWeight: 800,
+              color: "#1A1A2E",
+              letterSpacing: "-0.02em",
+            }}
+          >
+            StrainScout
+            <sup style={{ fontSize: "11px", fontWeight: 700, color: "#FF6B57", marginLeft: "2px", verticalAlign: "super" }}>MD</sup>
           </span>
         </Link>
 
+        {/* Desktop nav links */}
         <div className="hidden md:flex items-center gap-1">
-          {navLinks.map((link) => (
-            <Link
-              key={link.href}
-              href={link.href}
-              className={`px-3 py-2 text-sm font-medium rounded-md transition-all duration-200 ${
-                pathname === link.href
-                  ? "text-primary bg-primary/10"
-                  : "text-muted-foreground hover:text-foreground hover:bg-accent"
-              }`}
-            >
-              {link.label}
-            </Link>
-          ))}
+          {navLinks.map((link) => {
+            const isActive = pathname === link.href;
+            return (
+              <Link
+                key={link.href}
+                href={link.href}
+                style={{
+                  padding: "6px 14px",
+                  borderRadius: "999px",
+                  border: "2px solid transparent",
+                  fontSize: "13px",
+                  fontWeight: 700,
+                  textDecoration: "none",
+                  transition: "all 0.15s",
+                  background: isActive ? "#1A1A2E" : "transparent",
+                  color: isActive ? "#FFF8EE" : "#1A1A2E",
+                  borderColor: isActive ? "#1A1A2E" : "transparent",
+                }}
+                onMouseEnter={(e) => {
+                  if (!isActive) {
+                    (e.currentTarget as HTMLElement).style.background = "#FFD66B";
+                    (e.currentTarget as HTMLElement).style.borderColor = "#1A1A2E";
+                  }
+                }}
+                onMouseLeave={(e) => {
+                  if (!isActive) {
+                    (e.currentTarget as HTMLElement).style.background = "transparent";
+                    (e.currentTarget as HTMLElement).style.borderColor = "transparent";
+                  }
+                }}
+              >
+                {link.label}
+              </Link>
+            );
+          })}
         </div>
 
+        {/* Right side: search button */}
         <div className="hidden md:flex items-center gap-2">
           <Link
             href="/compare"
-            className="w-9 h-9 rounded-md flex items-center justify-center text-muted-foreground hover:text-foreground hover:bg-accent transition-colors"
             aria-label="Search"
+            style={{
+              width: "40px",
+              height: "40px",
+              borderRadius: "50%",
+              border: "3px solid #1A1A2E",
+              background: "#FFF8EE",
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+              transition: "all 0.15s",
+              textDecoration: "none",
+              color: "#1A1A2E",
+            }}
+            onMouseEnter={(e) => {
+              (e.currentTarget as HTMLElement).style.background = "#7ECEB0";
+            }}
+            onMouseLeave={(e) => {
+              (e.currentTarget as HTMLElement).style.background = "#FFF8EE";
+            }}
           >
             <Search className="w-4 h-4" aria-hidden="true" />
           </Link>
         </div>
 
+        {/* Mobile hamburger */}
         <button
           onClick={() => setMobileOpen(!mobileOpen)}
-          className="md:hidden w-12 h-12 -mr-2 rounded-lg flex items-center justify-center text-muted-foreground hover:text-foreground active:bg-accent transition-colors"
+          className="md:hidden"
+          style={{
+            width: "44px",
+            height: "44px",
+            borderRadius: "8px",
+            border: "3px solid #1A1A2E",
+            background: "#FFF8EE",
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+            color: "#1A1A2E",
+          }}
           aria-label={mobileOpen ? "Close menu" : "Open menu"}
           aria-expanded={mobileOpen}
           aria-controls="mobile-nav-menu"
         >
-          {mobileOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
+          {mobileOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
         </button>
       </nav>
 
-      <div id="mobile-nav-menu" className={`md:hidden overflow-hidden transition-all duration-300 ease-in-out ${mobileOpen ? "max-h-[500px] opacity-100" : "max-h-0 opacity-0"}`}>
-        <div className="border-t border-border/50 bg-background/98 backdrop-blur-xl">
-          <div className="container py-3 space-y-1">
-            {navLinks.map((link) => {
-              const Icon = link.icon;
-              const isActive = pathname === link.href;
-              return (
-                <Link
-                  key={link.href}
-                  href={link.href}
-                  className={`flex items-center gap-3 px-4 py-3.5 text-base font-medium rounded-lg transition-colors ${
-                    isActive ? "text-primary bg-primary/10" : "text-foreground/80 hover:text-foreground active:bg-accent"
-                  }`}
-                >
-                  <Icon className={`w-5 h-5 ${isActive ? "text-primary" : "text-muted-foreground"}`} />
-                  {link.label}
-                  {isActive && <span className="ml-auto w-2 h-2 rounded-full bg-primary" />}
-                </Link>
-              );
-            })}
-            <div className="pt-2 mt-1 border-t border-border/30">
+      {/* Mobile menu */}
+      <div
+        id="mobile-nav-menu"
+        className="md:hidden"
+        style={{
+          overflow: "hidden",
+          maxHeight: mobileOpen ? "500px" : "0",
+          opacity: mobileOpen ? 1 : 0,
+          transition: "max-height 0.3s ease, opacity 0.2s ease",
+          borderTop: mobileOpen ? "3px solid #1A1A2E" : "none",
+          background: "#FFF8EE",
+        }}
+      >
+        <div className="container py-3" style={{ display: "flex", flexDirection: "column", gap: "4px" }}>
+          {navLinks.map((link) => {
+            const isActive = pathname === link.href;
+            return (
               <Link
-                href="/compare"
-                className="flex items-center gap-3 px-4 py-3.5 text-base font-medium text-foreground/80 hover:text-foreground active:bg-accent rounded-lg transition-colors"
+                key={link.href}
+                href={link.href}
+                style={{
+                  padding: "12px 16px",
+                  borderRadius: "12px",
+                  border: "2px solid",
+                  borderColor: isActive ? "#1A1A2E" : "transparent",
+                  background: isActive ? "#1A1A2E" : "transparent",
+                  color: isActive ? "#FFF8EE" : "#1A1A2E",
+                  fontSize: "15px",
+                  fontWeight: 700,
+                  textDecoration: "none",
+                  display: "block",
+                }}
               >
-                <Search className="w-5 h-5 text-muted-foreground" />
-                Search
+                {link.label}
               </Link>
-            </div>
-          </div>
+            );
+          })}
+          <Link
+            href="/compare"
+            style={{
+              padding: "12px 16px",
+              borderRadius: "12px",
+              border: "2px solid transparent",
+              color: "#1A1A2E",
+              fontSize: "15px",
+              fontWeight: 700,
+              textDecoration: "none",
+              display: "flex",
+              alignItems: "center",
+              gap: "8px",
+            }}
+          >
+            <Search className="w-4 h-4" />
+            Search
+          </Link>
         </div>
       </div>
 
       {mobileOpen && (
         <div
-          className="md:hidden fixed inset-0 top-[calc(3.5rem+1px)] bg-black/40 z-[-1]"
+          className="md:hidden fixed inset-0 bg-black/40 z-[-1]"
+          style={{ top: "calc(67px)" }}
           onClick={() => setMobileOpen(false)}
         />
       )}

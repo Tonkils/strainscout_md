@@ -2,12 +2,9 @@
 @import "tw-animate-css";
 @import "shadcn/tailwind.css";
 
-@custom-variant dark (&:is(.dark *));
-
 @theme inline {
-  --font-sans: 'Space Grotesk', system-ui, sans-serif;
-  --font-serif: 'DM Serif Display', Georgia, serif;
-  --font-mono: 'JetBrains Mono', monospace;
+  --font-sans: var(--font-body), system-ui, sans-serif;
+  --font-heading: var(--font-heading), Georgia, serif;
   --color-background: var(--background);
   --color-foreground: var(--foreground);
   --color-card: var(--card);
@@ -26,14 +23,13 @@
   --color-border: var(--border);
   --color-input: var(--input);
   --color-ring: var(--ring);
-  --color-emerald-950: oklch(0.22 0.07 160);
-  --color-cta: oklch(0.80 0.18 75);
-  --color-cta-hover: oklch(0.72 0.20 70);
-  --color-cta-foreground: oklch(0.14 0.04 160);
-  --color-cta-glow: oklch(0.80 0.18 75 / 0.15);
-  --color-savings: oklch(0.72 0.19 150);
-  --color-expensive: oklch(0.63 0.22 25);
-  --color-midrange: oklch(0.80 0.15 85);
+  --color-cta: var(--cta);
+  --color-cta-foreground: var(--cta-foreground);
+  --color-savings: var(--savings);
+  --color-butter: var(--butter);
+  --color-sky: var(--sky);
+  --color-lavender: var(--lavender);
+  --color-leaf: var(--leaf);
   --animate-marquee: marquee 30s linear infinite;
   --radius-sm: calc(var(--radius) - 4px);
   --radius-md: calc(var(--radius) - 2px);
@@ -48,33 +44,42 @@
 
 :root {
   --radius: 0.5rem;
-  --background: oklch(0.14 0.04 160);
-  --foreground: oklch(0.95 0.01 85);
-  --card: oklch(0.18 0.05 160);
-  --card-foreground: oklch(0.95 0.01 85);
-  --popover: oklch(0.18 0.05 160);
-  --popover-foreground: oklch(0.95 0.01 85);
-  --primary: oklch(0.62 0.17 155);
-  --primary-foreground: oklch(0.14 0.04 160);
-  --secondary: oklch(0.22 0.05 160);
-  --secondary-foreground: oklch(0.85 0.02 85);
-  --muted: oklch(0.20 0.04 160);
-  --muted-foreground: oklch(0.65 0.04 160);
-  --accent: oklch(0.25 0.06 160);
-  --accent-foreground: oklch(0.95 0.01 85);
-  --destructive: oklch(0.63 0.22 25);
-  --border: oklch(0.28 0.06 160);
-  --input: oklch(0.25 0.05 160);
-  --ring: oklch(0.62 0.17 155);
+  --background: #FFF8EE;
+  --foreground: #1A1A2E;
+  --card: #ffffff;
+  --card-foreground: #1A1A2E;
+  --popover: #ffffff;
+  --popover-foreground: #1A1A2E;
+  --primary: #7ECEB0;
+  --primary-foreground: #1A1A2E;
+  --secondary: #f5f0e8;
+  --secondary-foreground: #1A1A2E;
+  --muted: #f5f0e8;
+  --muted-foreground: rgba(26, 26, 46, 0.5);
+  --accent: #f5f0e8;
+  --accent-foreground: #1A1A2E;
+  --destructive: #FF6B57;
+  --border: #1A1A2E;
+  --input: #f5f0e8;
+  --ring: #7ECEB0;
+  --cta: #FF6B57;
+  --cta-foreground: #FFF8EE;
+  --savings: #4EC96B;
+  --butter: #FFD66B;
+  --sky: #6BC5E8;
+  --lavender: #B8A9E8;
+  --leaf: #8BC34A;
 }
 
 @layer base {
   * { @apply border-border outline-ring/50; }
   body {
     @apply bg-background text-foreground antialiased;
-    font-family: 'Space Grotesk', system-ui, sans-serif;
+    font-family: var(--font-body), system-ui, sans-serif;
   }
-  h1, h2, h3, h4 { font-family: 'DM Serif Display', Georgia, serif; }
+  h1, h2, h3, h4 {
+    font-family: var(--font-heading), Georgia, serif;
+  }
   button:not(:disabled), a[href], select:not(:disabled) { @apply cursor-pointer; }
 }
 
@@ -88,21 +93,21 @@
   }
   @media (min-width: 640px) { .container { padding-left: 1.5rem; padding-right: 1.5rem; } }
   @media (min-width: 1024px) { .container { padding-left: 2rem; padding-right: 2rem; max-width: 1400px; } }
-  .font-price { font-family: 'JetBrains Mono', monospace; font-variant-numeric: tabular-nums; }
-  .price-bar { background: linear-gradient(90deg, oklch(0.72 0.19 150), oklch(0.80 0.15 85), oklch(0.63 0.22 25)); }
+  .font-price { font-family: var(--font-heading), Georgia, serif; font-variant-numeric: tabular-nums; }
+  .price-bar { background: linear-gradient(90deg, #4EC96B, #FFD66B, #FF6B57); }
   .animate-marquee { animation: var(--animate-marquee); }
 }
 
 @layer utilities {
-  .text-savings { color: oklch(0.72 0.19 150); }
-  .text-expensive { color: oklch(0.63 0.22 25); }
-  .text-midrange { color: oklch(0.80 0.15 85); }
-  .text-cta { color: oklch(0.80 0.18 75); }
-  .bg-savings { background-color: oklch(0.72 0.19 150 / 0.15); }
-  .bg-expensive { background-color: oklch(0.63 0.22 25 / 0.15); }
-  .bg-cta { background-color: oklch(0.80 0.18 75); }
-  .bg-cta-hover { background-color: oklch(0.72 0.20 70); }
-  .bg-cta-glow { background-color: oklch(0.80 0.18 75 / 0.15); }
-  .shadow-cta { box-shadow: 0 4px 20px oklch(0.80 0.18 75 / 0.20); }
-  .shadow-cta-lg { box-shadow: 0 8px 32px oklch(0.80 0.18 75 / 0.25); }
+  .text-savings { color: #4EC96B; }
+  .text-expensive { color: #FF6B57; }
+  .text-midrange { color: #FFD66B; }
+  .text-cta { color: #FF6B57; }
+  .bg-savings { background-color: rgba(78, 201, 107, 0.15); }
+  .bg-expensive { background-color: rgba(255, 107, 87, 0.15); }
+  .bg-cta { background-color: #FF6B57; }
+  .bg-cta-hover { background-color: #e85a47; }
+  .bg-cta-glow { background-color: rgba(255, 107, 87, 0.12); }
+  .shadow-cta { box-shadow: 0 4px 16px rgba(255, 107, 87, 0.25); }
+  .shadow-cta-lg { box-shadow: 0 8px 28px rgba(255, 107, 87, 0.30); }
 }

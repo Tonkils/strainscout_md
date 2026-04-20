@@ -1,10 +1,25 @@
 import type { Metadata } from "next";
+import { Gabarito, Anybody } from "next/font/google";
 import "./globals.css";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import PostHogProvider, { PostHogPageView } from "@/components/PostHogProvider";
 import ErrorBoundary from "@/components/ErrorBoundary";
 import { Suspense } from "react";
+
+const gabarito = Gabarito({
+  subsets: ["latin"],
+  weight: ["400", "500", "600", "700", "800", "900"],
+  variable: "--font-body",
+  display: "swap",
+});
+
+const anybody = Anybody({
+  subsets: ["latin"],
+  weight: ["400", "500", "600", "700", "800", "900"],
+  variable: "--font-heading",
+  display: "swap",
+});
 
 export const metadata: Metadata = {
   title: {
@@ -54,16 +69,8 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className="dark"
+      className={`${gabarito.variable} ${anybody.variable}`}
     >
-      <head>
-        <link rel="preconnect" href="https://fonts.googleapis.com" />
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
-        <link
-          href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=JetBrains+Mono:wght@100..800&family=Space+Grotesk:wght@300..700&display=swap"
-          rel="stylesheet"
-        />
-      </head>
       <body className="min-h-screen bg-background text-foreground flex flex-col">
         <PostHogProvider>
         <Suspense fallback={null}><PostHogPageView /></Suspense>
@@ -84,6 +91,25 @@ export default function RootLayout({
             }),
           }}
         />
+        {/* Ticker */}
+        <div style={{ background: "#1A1A2E", color: "#FFF8EE", borderBottom: "3px solid #1A1A2E", overflow: "hidden", padding: "6px 0", fontSize: "12px", fontWeight: 600, letterSpacing: "0.04em" }}>
+          <div className="animate-marquee" style={{ display: "flex", gap: "3rem", whiteSpace: "nowrap", width: "max-content" }}>
+            {[...Array(2)].map((_, i) => (
+              <span key={i} style={{ display: "flex", gap: "3rem" }}>
+                <span>🌿 844+ strains tracked</span>
+                <span>·</span>
+                <span>💰 Prices updated weekly</span>
+                <span>·</span>
+                <span>📍 66 Maryland dispensaries</span>
+                <span>·</span>
+                <span>🔥 Find the cheapest near you</span>
+                <span>·</span>
+                <span>✅ No sign-up required</span>
+                <span>·</span>
+              </span>
+            ))}
+          </div>
+        </div>
         <Navbar />
         <ErrorBoundary>
           <main className="flex-1">{children}</main>
