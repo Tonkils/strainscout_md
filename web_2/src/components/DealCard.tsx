@@ -1,6 +1,6 @@
 import Link from "next/link";
 import type { CatalogStrain } from "@/hooks/useCatalog";
-import { MapPin, ExternalLink } from "lucide-react";
+import { ExternalLink } from "lucide-react";
 import { getCategoryFromStrain } from "@/lib/utils";
 
 interface DealCardProps {
@@ -87,7 +87,7 @@ export default function DealCard({ strain, hideCategory }: DealCardProps) {
           (e.currentTarget as HTMLElement).style.boxShadow = "6px 6px 0 #1A1A2E";
         }}
       >
-        {/* Badge */}
+        {/* Badge — absolute, top-right */}
         {badge && (
           <div
             style={{

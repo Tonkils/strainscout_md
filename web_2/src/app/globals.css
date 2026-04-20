@@ -93,7 +93,7 @@
   }
   @media (min-width: 640px) { .container { padding-left: 1.5rem; padding-right: 1.5rem; } }
   @media (min-width: 1024px) { .container { padding-left: 2rem; padding-right: 2rem; max-width: 1400px; } }
-  .font-price { font-family: var(--font-heading), Georgia, serif; font-variant-numeric: tabular-nums; }
+  .font-price { font-family: var(--font-heading), "Anybody", Georgia, serif; font-variant-numeric: tabular-nums; }
   .price-bar { background: linear-gradient(90deg, #4EC96B, #FFD66B, #FF6B57); }
   .animate-marquee { animation: var(--animate-marquee); }
 }
