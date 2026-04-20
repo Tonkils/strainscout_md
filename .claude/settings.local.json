@@ -7,7 +7,9 @@
       "Bash(python3 classify_test.py)",
       "Bash(find . -type d -iname \"*manus*\" 2>/dev/null | head -20)",
       "Bash(wc -l data/raw/weedmaps_*.json)",
-      "Bash(python:*)"
+      "Bash(python:*)",
+      "Read(//c/Users/jaretwyatt/.claude/plans//**)",
+      "Bash(mkdir -p /c/Users/jaretwyatt/.claude/plans/)"
     ]
   }
 }
