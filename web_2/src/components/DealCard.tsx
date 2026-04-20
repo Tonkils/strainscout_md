@@ -1,18 +1,12 @@
 import Link from "next/link";
 import type { CatalogStrain } from "@/hooks/useCatalog";
-import { MapPin, Beaker, ExternalLink } from "lucide-react";
-import { getCategoryFromStrain, CATEGORY_COLORS, TYPE_COLORS } from "@/lib/utils";
+import { MapPin, ExternalLink } from "lucide-react";
+import { getCategoryFromStrain } from "@/lib/utils";
 
 interface DealCardProps {
   strain: CatalogStrain;
   hideCategory?: boolean;
 }
-
-const GRADE_COLORS: Record<string, string> = {
-  A: "bg-primary/15 text-primary",
-  B: "bg-blue-500/15 text-blue-400",
-  C: "bg-yellow-500/15 text-yellow-400",
-};
 
 function getBuyLink(strain: CatalogStrain, dispensaryName: string): string | null {
   const ordering = strain.ordering_links?.[dispensaryName];
@@ -23,112 +17,322 @@ function getBuyLink(strain: CatalogStrain, dispensaryName: string): string | nul
   return null;
 }
 
+function getBadge(strain: CatalogStrain): { label: string; bg: string; color: string } | null {
+  const savings =
+    strain.price_max && strain.price_min && strain.price_max > strain.price_min
+      ? Math.round(((strain.price_max - strain.price_min) / strain.price_max) * 100)
+      : 0;
+
+  if (strain.price_min != null && strain.price_min <= 25) {
+    return { label: "Low Price", bg: "#7ECEB0", color: "#1A1A2E" };
+  }
+  if (savings >= 30) {
+    return { label: "Hot Deal", bg: "#FF6B57", color: "#FFF8EE" };
+  }
+  if (strain.dispensary_count != null && strain.dispensary_count <= 3) {
+    return { label: "Rare", bg: "#B8A9E8", color: "#1A1A2E" };
+  }
+  return null;
+}
+
 export default function DealCard({ strain, hideCategory }: DealCardProps) {
   const typeLabel = strain.type.charAt(0).toUpperCase() + strain.type.slice(1);
-  const typeKey = strain.type.toLowerCase();
   const bestPrice = [...(strain.prices || [])].sort((a, b) => a.price - b.price)[0];
   const savings =
     strain.price_max && strain.price_min && strain.price_max > strain.price_min
       ? Math.round(((strain.price_max - strain.price_min) / strain.price_max) * 100)
       : 0;
-  const terpenes = (strain.terpenes || []).filter((t) => t && t !== "Not_Found");
   const buyLink = bestPrice ? getBuyLink(strain, bestPrice.dispensary) : null;
   const category = getCategoryFromStrain(strain);
-  const categoryColor = CATEGORY_COLORS[category];
+  const badge = getBadge(strain);
+  const thcPct = Math.min(100, Math.max(0, strain.thc));
+
+  const typeColors: Record<string, string> = {
+    indica: "#B8A9E8",
+    sativa: "#FFD66B",
+    hybrid: "#7ECEB0",
+  };
+  const typeBg = typeColors[strain.type.toLowerCase()] ?? "#f5f0e8";
 
   return (
-    <Link href={`/strain/${strain.id}`}>
-      <div className="group relative bg-card border border-border/50 rounded-lg overflow-hidden hover:border-primary/30 transition-all duration-300 hover:shadow-lg hover:shadow-primary/5 cursor-pointer h-full flex flex-col">
-        <div className="p-5 flex flex-col flex-1">
-          {/* Type + Category + Grade + Savings */}
-          <div className="flex items-center gap-2 mb-3 flex-wrap">
-            <span className={`px-2 py-0.5 rounded text-[10px] font-semibold uppercase tracking-wider ${TYPE_COLORS[typeKey] || TYPE_COLORS.hybrid}`}>
+    <Link href={`/strain/${strain.id}`} style={{ textDecoration: "none" }}>
+      <div
+        className="group"
+        style={{
+          position: "relative",
+          background: "#fff",
+          border: "3px solid #1A1A2E",
+          borderRadius: "16px",
+          overflow: "visible",
+          cursor: "pointer",
+          height: "100%",
+          display: "flex",
+          flexDirection: "column",
+          transition: "transform 0.15s ease, box-shadow 0.15s ease",
+        }}
+        onMouseEnter={(e) => {
+          (e.currentTarget as HTMLElement).style.transform = "translateY(-5px)";
+          (e.currentTarget as HTMLElement).style.boxShadow = "6px 6px 0 #1A1A2E";
+        }}
+        onMouseLeave={(e) => {
+          (e.currentTarget as HTMLElement).style.transform = "translateY(0)";
+          (e.currentTarget as HTMLElement).style.boxShadow = "none";
+        }}
+        onMouseDown={(e) => {
+          (e.currentTarget as HTMLElement).style.transform = "translate(3px, 3px)";
+          (e.currentTarget as HTMLElement).style.boxShadow = "none";
+        }}
+        onMouseUp={(e) => {
+          (e.currentTarget as HTMLElement).style.transform = "translateY(-5px)";
+          (e.currentTarget as HTMLElement).style.boxShadow = "6px 6px 0 #1A1A2E";
+        }}
+      >
+        {/* Badge */}
+        {badge && (
+          <div
+            style={{
+              position: "absolute",
+              top: "-12px",
+              right: "16px",
+              background: badge.bg,
+              color: badge.color,
+              border: "2px solid #1A1A2E",
+              borderRadius: "999px",
+              padding: "2px 10px",
+              fontSize: "11px",
+              fontWeight: 800,
+              letterSpacing: "0.04em",
+              zIndex: 2,
+              textTransform: "uppercase",
+            }}
+          >
+            {badge.label}
+          </div>
+        )}
+
+        <div style={{ padding: "20px", flex: 1, display: "flex", flexDirection: "column" }}>
+          {/* Type + category tags */}
+          <div style={{ display: "flex", gap: "6px", marginBottom: "12px", flexWrap: "wrap" }}>
+            <span
+              style={{
+                background: typeBg,
+                border: "2px solid #1A1A2E",
+                borderRadius: "999px",
+                padding: "2px 10px",
+                fontSize: "10px",
+                fontWeight: 800,
+                color: "#1A1A2E",
+                textTransform: "uppercase",
+                letterSpacing: "0.05em",
+              }}
+            >
               {typeLabel}
             </span>
             {!hideCategory && category !== "Flower" && (
-              <span className={`px-2 py-0.5 rounded text-[10px] font-semibold uppercase tracking-wider ${categoryColor}`}>
+              <span
+                style={{
+                  background: "#f5f0e8",
+                  border: "2px solid #1A1A2E",
+                  borderRadius: "999px",
+                  padding: "2px 10px",
+                  fontSize: "10px",
+                  fontWeight: 700,
+                  color: "#1A1A2E",
+                  textTransform: "uppercase",
+                  letterSpacing: "0.04em",
+                }}
+              >
                 {category}
               </span>
             )}
-            {strain.grade && (
-              <span className={`px-1.5 py-0.5 rounded text-[9px] font-bold ${GRADE_COLORS[strain.grade] || GRADE_COLORS.C}`}>
-                Grade {strain.grade}
-              </span>
-            )}
             {savings >= 15 && (
-              <span className="ml-auto text-[10px] font-semibold text-muted-foreground px-2 py-0.5 rounded bg-muted/40">
-                {savings}% spread
+              <span
+                style={{
+                  marginLeft: "auto",
+                  background: "rgba(78,201,107,0.15)",
+                  border: "2px solid #4EC96B",
+                  borderRadius: "999px",
+                  padding: "2px 10px",
+                  fontSize: "10px",
+                  fontWeight: 700,
+                  color: "#1A1A2E",
+                }}
+              >
+                {savings}% off
               </span>
             )}
           </div>
 
-          {/* Name */}
-          <h3 className="font-serif text-lg text-foreground group-hover:text-primary transition-colors mb-1 line-clamp-2">
+          {/* Strain name */}
+          <h3
+            style={{
+              fontFamily: "var(--font-heading), Georgia, serif",
+              fontSize: "17px",
+              fontWeight: 800,
+              color: "#1A1A2E",
+              marginBottom: "4px",
+              lineHeight: 1.3,
+              display: "-webkit-box",
+              WebkitLineClamp: 2,
+              WebkitBoxOrient: "vertical",
+              overflow: "hidden",
+            }}
+          >
             {strain.name}
           </h3>
 
           {/* Brand */}
           {strain.brand && (
-            <p className="text-[10px] text-muted-foreground uppercase tracking-wider mb-2 truncate">{strain.brand}</p>
+            <p
+              style={{
+                fontSize: "10px",
+                color: "rgba(26,26,46,0.5)",
+                textTransform: "uppercase",
+                letterSpacing: "0.06em",
+                marginBottom: "10px",
+                overflow: "hidden",
+                textOverflow: "ellipsis",
+                whiteSpace: "nowrap",
+              }}
+            >
+              {strain.brand}
+            </p>
           )}
 
-          {/* THC + Terpenes */}
-          <div className="flex items-center gap-2 text-xs text-muted-foreground mb-4 flex-wrap">
-            {strain.thc > 0 && <span>THC {strain.thc}%</span>}
-            {terpenes.length > 0 && (
-              <span className="flex items-center gap-1">
-                <Beaker className="w-3 h-3" />
-                {terpenes.slice(0, 2).join(", ")}
-              </span>
-            )}
-          </div>
-
-          {/* Price */}
-          <div className="mt-auto">
-            <div className="flex items-end justify-between mb-2">
-              <div>
-                <p className="text-[10px] text-muted-foreground uppercase tracking-wider mb-1">From</p>
-                <p className="font-price text-2xl font-bold text-foreground">
-                  {strain.price_min != null ? `$${strain.price_min}` : "N/A"}
-                </p>
+          {/* THC bar */}
+          {strain.thc > 0 && (
+            <div style={{ marginBottom: "14px" }}>
+              <div style={{ display: "flex", justifyContent: "space-between", fontSize: "10px", fontWeight: 700, color: "#1A1A2E", marginBottom: "4px" }}>
+                <span>THC</span>
+                <span>{strain.thc}%</span>
               </div>
-              <p className="text-[10px] text-muted-foreground pb-1">
-                {strain.dispensary_count ?? 0} dispensar{(strain.dispensary_count ?? 0) === 1 ? "y" : "ies"}
-              </p>
+              <div
+                style={{
+                  height: "8px",
+                  background: "#f5f0e8",
+                  border: "2px solid #1A1A2E",
+                  borderRadius: "999px",
+                  overflow: "hidden",
+                }}
+              >
+                <div
+                  style={{
+                    height: "100%",
+                    width: `${thcPct}%`,
+                    background: "#7ECEB0",
+                    borderRadius: "999px",
+                  }}
+                />
+              </div>
             </div>
-            {bestPrice && (
-              <div className="flex items-center justify-between gap-2">
-                <div className="flex items-center gap-1 text-muted-foreground min-w-0">
-                  <MapPin className="w-3 h-3 shrink-0" />
-                  <span className="text-xs truncate">{bestPrice.dispensary}</span>
-                </div>
-                {buyLink && (
-                  <button
-                    type="button"
-                    onClick={(e) => {
-                      e.preventDefault();
-                      e.stopPropagation();
-                      window.open(buyLink, "_blank", "noopener,noreferrer");
-                    }}
-                    className="shrink-0 inline-flex items-center gap-1 px-2.5 py-1 rounded bg-cta text-cta-foreground text-[10px] font-semibold hover:bg-cta-hover transition-colors shadow-cta"
-                  >
-                    Buy <ExternalLink className="w-2.5 h-2.5" aria-hidden="true" />
-                  </button>
-                )}
-              </div>
-            )}
+          )}
+
+          {/* Price — push to bottom */}
+          <div style={{ marginTop: "auto" }}>
+            <p style={{ fontSize: "10px", color: "rgba(26,26,46,0.5)", textTransform: "uppercase", letterSpacing: "0.06em", marginBottom: "2px" }}>From</p>
+            <p
+              style={{
+                fontFamily: "var(--font-heading), Georgia, serif",
+                fontSize: "28px",
+                fontWeight: 900,
+                color: "#1A1A2E",
+                lineHeight: 1,
+              }}
+            >
+              {strain.price_min != null ? `$${strain.price_min}` : "N/A"}
+            </p>
           </div>
         </div>
 
-        {/* Price spread bar */}
-        {strain.price_min != null && strain.price_max != null && strain.price_max > strain.price_min && (
-          <div className="px-5 pb-4">
-            <div className="flex items-center justify-between text-[10px] text-muted-foreground mb-1.5">
-              <span className="font-price text-savings">${strain.price_min}</span>
-              <span>Price Range</span>
-              <span className="font-price text-expensive">${strain.price_max}</span>
+        {/* Dispensary row */}
+        {bestPrice && (
+          <div
+            style={{
+              padding: "10px 20px",
+              borderTop: "2px dashed #1A1A2E",
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "space-between",
+              gap: "8px",
+            }}
+          >
+            <div style={{ display: "flex", alignItems: "center", gap: "6px", minWidth: 0 }}>
+              <div
+                style={{
+                  width: "8px",
+                  height: "8px",
+                  borderRadius: "50%",
+                  background: "#7ECEB0",
+                  border: "2px solid #1A1A2E",
+                  flexShrink: 0,
+                }}
+              />
+              <span
+                style={{
+                  fontSize: "11px",
+                  color: "#1A1A2E",
+                  fontWeight: 600,
+                  overflow: "hidden",
+                  textOverflow: "ellipsis",
+                  whiteSpace: "nowrap",
+                }}
+              >
+                {bestPrice.dispensary}
+              </span>
             </div>
-            <div className="h-1.5 rounded-full price-bar opacity-60" />
+            <div style={{ display: "flex", alignItems: "center", gap: "6px", flexShrink: 0 }}>
+              <span style={{ fontSize: "10px", color: "rgba(26,26,46,0.5)", fontWeight: 600 }}>
+                {strain.dispensary_count ?? 0} loc
+              </span>
+              {buyLink && (
+                <button
+                  type="button"
+                  onClick={(e) => {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    window.open(buyLink, "_blank", "noopener,noreferrer");
+                  }}
+                  style={{
+                    display: "inline-flex",
+                    alignItems: "center",
+                    gap: "4px",
+                    padding: "4px 10px",
+                    background: "#FF6B57",
+                    color: "#FFF8EE",
+                    border: "2px solid #1A1A2E",
+                    borderRadius: "8px",
+                    fontSize: "10px",
+                    fontWeight: 800,
+                    textTransform: "uppercase",
+                    letterSpacing: "0.04em",
+                    cursor: "pointer",
+                  }}
+                >
+                  Buy <ExternalLink className="w-2.5 h-2.5" aria-hidden="true" />
+                </button>
+              )}
+            </div>
+          </div>
+        )}
+
+        {/* Price range bar */}
+        {strain.price_min != null && strain.price_max != null && strain.price_max > strain.price_min && (
+          <div style={{ padding: "8px 20px 16px" }}>
+            <div style={{ display: "flex", justifyContent: "space-between", fontSize: "10px", fontWeight: 700, color: "#1A1A2E", marginBottom: "4px" }}>
+              <span style={{ color: "#4EC96B" }}>${strain.price_min}</span>
+              <span style={{ color: "rgba(26,26,46,0.4)" }}>Price Range</span>
+              <span style={{ color: "#FF6B57" }}>${strain.price_max}</span>
+            </div>
+            <div
+              style={{
+                height: "6px",
+                border: "2px solid #1A1A2E",
+                borderRadius: "999px",
+                overflow: "hidden",
+              }}
+            >
+              <div className="price-bar" style={{ height: "100%" }} />
+            </div>
           </div>
         )}
       </div>

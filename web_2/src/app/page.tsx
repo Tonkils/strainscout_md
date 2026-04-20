@@ -1,13 +1,22 @@
 "use client";
 
-import { useState, useMemo, useEffect } from "react";
+import { useState, useMemo, useCallback } from "react";
 import Link from "next/link";
-import { Search, TrendingDown, DollarSign, Award, ArrowRight, Clock, Loader2, Leaf, MapPin, Cigarette, Wind, Beaker, Cookie } from "lucide-react";
-import DealCard from "@/components/DealCard";
-import StrainCardSkeleton from "@/components/StrainCardSkeleton";
+import { MapPin, ArrowRight, Loader2, Leaf, Cigarette, Wind, Beaker, Cookie, Globe, Navigation } from "lucide-react";
 import DealDigestBanner from "@/components/DealDigestBanner";
+import AgeGate from "@/components/AgeGate";
+import EmailPopup from "@/components/EmailPopup";
+import HomeMap from "@/components/HomeMap";
 import { useCatalog, useCatalogStats } from "@/hooks/useCatalog";
-import { getCategoryFromStrain, getProductCategory, filterStrains, type ProductCategory } from "@/lib/utils";
+import { useDispensaryDirectory, haversineDistance } from "@/hooks/useDispensaryDirectory";
+import { getCategoryFromStrain, type ProductCategory } from "@/lib/utils";
+
+declare global {
+  interface Window {
+    google?: typeof google;
+    _mapsLoading?: Promise<void>;
+  }
+}
 
 const BROWSE_CATEGORIES: { cat: ProductCategory; icon: React.ReactNode; desc: string }[] = [
   { cat: "Flower",      icon: <Leaf className="w-5 h-5" />,      desc: "Traditional buds" },
@@ -21,24 +30,19 @@ const FALLBACK_STATS = {
   totalStrains: 844,
   totalDispensaries: 66,
   totalBrands: 120,
-  avgPrice: 38,
-  lowestPrice: 20,
-  highestPrice: 75,
   lastUpdated: "March 2026",
-  validationScore: 99.8,
 };
 
 export default function HomePage() {
-  const [searchInput, setSearchInput] = useState("");
-  const [searchQuery, setSearchQuery] = useState("");
-  const { catalog, loading } = useCatalog();
+  const [ageVerified, setAgeVerified] = useState(false);
+  const [zipInput, setZipInput] = useState("");
+  const [zipLocating, setZipLocating] = useState(false);
+  const [zipError, setZipError] = useState("");
+  const [userLocation, setUserLocation] = useState<{ lat: number; lng: number } | null>(null);
 
-  // Debounce search input 300ms — input updates immediately, filter applies after delay
-  useEffect(() => {
-    const timer = setTimeout(() => setSearchQuery(searchInput), 300);
-    return () => clearTimeout(timer);
-  }, [searchInput]);
+  const { catalog, loading } = useCatalog();
   const { stats } = useCatalogStats();
+  const { dispensaries } = useDispensaryDirectory();
 
   const displayStats = stats.totalStrains > 0 ? stats : FALLBACK_STATS;
 
@@ -52,163 +56,132 @@ export default function HomePage() {
     return counts;
   }, [catalog]);
 
-  const cheapestStrains = useMemo(() => {
-    if (!catalog) return [];
+  const nearbyDispensaries = useMemo(() => {
+    if (!userLocation || dispensaries.length === 0) return [];
+    return dispensaries
+      .map((d) => ({
+        ...d,
+        distance: haversineDistance(userLocation.lat, userLocation.lng, d.lat, d.lng),
+      }))
+      .filter((d) => d.distance <= 5)
+      .sort((a, b) => a.distance - b.distance);
+  }, [dispensaries, userLocation]);
+
+  const cheapFlowerNearYou = useMemo(() => {
+    if (!catalog || nearbyDispensaries.length === 0) return [];
+    const nearbyNames = new Set(
+      nearbyDispensaries.map((d) => d.name.toLowerCase().replace(/[^a-z0-9]/g, ""))
+    );
     return catalog.strains
-      .filter((s) => s.price_min != null && getCategoryFromStrain(s) === "Flower")
+      .filter((s) => {
+        if (getCategoryFromStrain(s) !== "Flower" || s.price_min == null) return false;
+        return (s.prices || []).some((p) =>
+          nearbyNames.has(p.dispensary.toLowerCase().replace(/[^a-z0-9]/g, ""))
+        );
+      })
       .sort((a, b) => (a.price_min ?? 999) - (b.price_min ?? 999))
-      .slice(0, 6);
-  }, [catalog]);
+      .slice(0, 5);
+  }, [catalog, nearbyDispensaries]);
 
-  const filteredStrains = useMemo(() => {
-    if (!catalog) return [];
-    const flowerStrains = catalog.strains.filter(
-      (s) => s.price_avg != null && getCategoryFromStrain(s) === "Flower"
-    );
-    return filterStrains(flowerStrains, searchQuery)
-      .sort((a, b) => (a.price_min ?? 999) - (b.price_min ?? 999))
-      .slice(0, 12);
-  }, [catalog, searchQuery]);
-
-  const bestDeal = useMemo(() => {
-    if (!catalog) return null;
+  const cheapestNearbyDispensary = useMemo(() => {
     return (
-      catalog.strains
-        .filter((s) => s.price_min && s.price_max && s.price_max > s.price_min)
-        .sort((a, b) => b.price_max! - b.price_min! - (a.price_max! - a.price_min!))[0] || null
+      [...nearbyDispensaries]
+        .filter((d) => d.price_avg != null)
+        .sort((a, b) => (a.price_avg ?? 999) - (b.price_avg ?? 999))[0] ?? null
     );
-  }, [catalog]);
+  }, [nearbyDispensaries]);
+
+  const handleFindNearMe = useCallback(async () => {
+    if (!/^\d{5}$/.test(zipInput)) {
+      setZipError("Enter a valid 5-digit zip code");
+      return;
+    }
+    setZipError("");
+    setZipLocating(true);
+
+    if (!window.google?.maps) {
+      if (window._mapsLoading) await window._mapsLoading;
+      if (!window.google?.maps) {
+        setZipError("Maps still loading — please try again in a moment");
+        setZipLocating(false);
+        return;
+      }
+    }
+
+    const geocoder = new google.maps.Geocoder();
+    geocoder.geocode({ address: `${zipInput}, Maryland, USA` }, (results, status) => {
+      setZipLocating(false);
+      if (status === "OK" && results?.[0]) {
+        const loc = {
+          lat: results[0].geometry.location.lat(),
+          lng: results[0].geometry.location.lng(),
+        };
+        setUserLocation(loc);
+      } else {
+        setZipError("Zip code not found in Maryland");
+      }
+    });
+  }, [zipInput]);
 
   return (
     <div className="min-h-screen bg-background">
+      <AgeGate onVerified={() => setAgeVerified(true)} />
+      <EmailPopup show={ageVerified} delayMs={2000} />
+
       {/* Hero */}
-      <section className="relative overflow-hidden">
+      <section className="relative overflow-hidden border-b border-border/30">
         <div className="absolute inset-0 bg-gradient-to-b from-emerald-950/40 via-background/80 to-background" />
-        <div className="relative container py-10 sm:py-16 md:py-24">
-          <div className="max-w-3xl">
-            <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-primary/10 border border-primary/20 text-primary text-xs font-medium mb-4 sm:mb-6">
-              <Clock className="w-3 h-3" />
-              Updated {displayStats.lastUpdated}
-            </div>
-
-            <h1 className="font-serif text-3xl sm:text-4xl md:text-6xl text-foreground leading-[1.1] mb-3 sm:mb-4">
-              Find the Cheapest{" "}
-              <span className="text-primary">Cannabis</span>{" "}
-              <span className="block sm:inline">Near You</span>
+        <div className="relative container py-12 sm:py-20 md:py-28">
+          <div className="max-w-2xl">
+            <h1 className="font-serif text-3xl sm:text-4xl md:text-6xl text-foreground leading-[1.1] mb-4 sm:mb-6">
+              Find the cheapest{" "}
+              <span className="text-primary">weed</span>{" "}
+              in Maryland
             </h1>
-
-            <p className="text-base sm:text-lg text-muted-foreground max-w-xl mb-6 sm:mb-8">
+            <p className="text-base sm:text-lg text-muted-foreground max-w-xl mb-8">
               Compare prices across{" "}
               <span className="font-price text-primary">{displayStats.totalDispensaries}</span>{" "}
-              Maryland dispensaries.{" "}
-              <span className="font-price text-primary">{displayStats.totalStrains.toLocaleString()}</span>{" "}
-              strains tracked.
+              dispensaries. Enter your zip code to find what&apos;s cheapest near you.
             </p>
 
-            {/* Search */}
-            <div className="max-w-xl mb-8 sm:mb-10">
-              <div className="flex flex-col sm:flex-row items-stretch bg-card border border-border/50 rounded-lg overflow-hidden focus-within:border-primary/50 focus-within:shadow-lg focus-within:shadow-primary/10 transition-all">
+            {/* Zip Code Input */}
+            <div className="max-w-md">
+              <div className="flex items-stretch bg-card border border-border/50 rounded-lg overflow-hidden focus-within:border-primary/50 focus-within:shadow-lg focus-within:shadow-primary/10 transition-all">
                 <div className="flex items-center flex-1">
-                  <Search className="w-5 h-5 text-muted-foreground ml-4 shrink-0" />
+                  <MapPin className="w-5 h-5 text-muted-foreground ml-4 shrink-0" />
                   <input
                     type="text"
-                    placeholder="Search strain, brand, or terpene..."
-                    value={searchInput}
-                    onChange={(e) => setSearchInput(e.target.value)}
-                    maxLength={200}
-                    className="flex-1 bg-transparent px-3 sm:px-4 py-3.5 sm:py-4 text-sm sm:text-base text-foreground placeholder:text-muted-foreground focus:outline-none focus-visible:ring-2 focus-visible:ring-primary/50"
+                    inputMode="numeric"
+                    placeholder="Enter zip code (e.g. 20878)"
+                    value={zipInput}
+                    maxLength={5}
+                    onChange={(e) => {
+                      setZipInput(e.target.value.replace(/\D/g, ""));
+                      setZipError("");
+                    }}
+                    onKeyDown={(e) => e.key === "Enter" && handleFindNearMe()}
+                    className="flex-1 bg-transparent px-3 py-4 text-sm sm:text-base text-foreground placeholder:text-muted-foreground focus:outline-none"
                   />
                 </div>
-                <Link
-                  href={searchInput ? `/compare?q=${encodeURIComponent(searchInput)}` : "/compare"}
-                  className="sm:shrink-0 px-6 py-3.5 sm:py-4 bg-cta text-cta-foreground font-semibold text-sm hover:bg-cta-hover transition-colors shadow-cta text-center"
+                <button
+                  onClick={handleFindNearMe}
+                  disabled={zipLocating}
+                  className="shrink-0 px-5 py-4 bg-cta text-cta-foreground font-semibold text-sm hover:bg-cta-hover transition-colors shadow-cta disabled:opacity-60 flex items-center gap-2"
                 >
-                  Find Deals
-                </Link>
+                  {zipLocating ? (
+                    <Loader2 className="w-4 h-4 animate-spin" />
+                  ) : (
+                    "Find Near Me"
+                  )}
+                </button>
               </div>
-            </div>
-          </div>
-
-          {/* Stats Cards */}
-          <div className="flex sm:grid sm:grid-cols-3 gap-3 sm:gap-4 max-w-3xl overflow-x-auto sm:overflow-visible pb-2 sm:pb-0 -mx-4 px-4 sm:mx-0 sm:px-0">
-            <div className="bg-card/80 backdrop-blur border border-border/30 rounded-lg p-4 sm:p-5 min-w-[200px] sm:min-w-0">
-              <div className="flex items-center gap-3">
-                <div className="w-9 h-9 rounded-lg bg-savings flex items-center justify-center shrink-0">
-                  <TrendingDown className="w-4 h-4 text-savings" />
-                </div>
-                <div>
-                  <p className="text-[10px] text-muted-foreground uppercase tracking-wider">Lowest 8th in MD</p>
-                  <p className="font-price text-xl sm:text-2xl font-bold text-foreground">${displayStats.lowestPrice}</p>
-                </div>
-              </div>
-            </div>
-
-            <div className="bg-card/80 backdrop-blur border border-border/30 rounded-lg p-4 sm:p-5 min-w-[200px] sm:min-w-0">
-              <div className="flex items-center gap-3">
-                <div className="w-9 h-9 rounded-lg bg-primary/15 flex items-center justify-center shrink-0">
-                  <DollarSign className="w-4 h-4 text-primary" />
-                </div>
-                <div>
-                  <p className="text-[10px] text-muted-foreground uppercase tracking-wider">Average Price</p>
-                  <p className="font-price text-xl sm:text-2xl font-bold text-foreground">${displayStats.avgPrice}</p>
-                </div>
-              </div>
-            </div>
-
-            <div className="bg-card/80 backdrop-blur border border-border/30 rounded-lg p-4 sm:p-5 min-w-[200px] sm:min-w-0">
-              <div className="flex items-center gap-3">
-                <div className="w-9 h-9 rounded-lg bg-amber-500/15 flex items-center justify-center shrink-0">
-                  <Award className="w-4 h-4 text-amber-400" />
-                </div>
-                <div>
-                  <p className="text-[10px] text-muted-foreground uppercase tracking-wider">Verified Brands</p>
-                  <p className="font-price text-xl sm:text-2xl font-bold text-foreground">{displayStats.totalBrands}</p>
-                  <p className="text-xs text-primary">{displayStats.validationScore}% accuracy</p>
-                </div>
-              </div>
+              {zipError && (
+                <p className="text-xs text-red-400 mt-2 pl-1">{zipError}</p>
+              )}
             </div>
           </div>
         </div>
       </section>
-
-      {/* Cheapest Right Now Strip */}
-      {!loading && cheapestStrains.length > 0 && (
-        <section className="border-b border-border/30 bg-card/20">
-          <div className="container py-5 sm:py-6">
-            <div className="flex items-center justify-between mb-3">
-              <div className="flex items-center gap-2">
-                <TrendingDown className="w-4 h-4 text-savings" />
-                <h2 className="font-serif text-base sm:text-lg text-foreground">Cheapest Flower Right Now</h2>
-              </div>
-              <Link href="/compare?sort=price" className="text-xs text-primary hover:underline flex items-center gap-1">
-                See all <ArrowRight className="w-3 h-3" />
-              </Link>
-            </div>
-            <div className="flex gap-3 overflow-x-auto pb-1 -mx-4 px-4 sm:mx-0 sm:px-0 sm:grid sm:grid-cols-3 lg:grid-cols-6">
-              {cheapestStrains.map((strain) => {
-                const best = [...(strain.prices || [])].sort((a, b) => a.price - b.price)[0];
-                return (
-                  <Link
-                    key={strain.id}
-                    href={`/strain/${strain.id}`}
-                    className="min-w-[160px] sm:min-w-0 flex-shrink-0 bg-card border border-border/40 rounded-lg p-3 hover:border-primary/40 hover:bg-card/80 transition-all group"
-                  >
-                    <p className="font-price text-xl font-bold text-savings mb-0.5">${strain.price_min}</p>
-                    <p className="text-sm font-medium text-foreground group-hover:text-primary transition-colors line-clamp-1">{strain.name}</p>
-                    <p className="text-[10px] text-muted-foreground truncate">{strain.brand}</p>
-                    {best && (
-                      <div className="flex items-center gap-1 mt-1.5 text-[10px] text-muted-foreground">
-                        <MapPin className="w-3 h-3 shrink-0" />
-                        <span className="truncate">{best.dispensary}</span>
-                      </div>
-                    )}
-                  </Link>
-                );
-              })}
-            </div>
-          </div>
-        </section>
-      )}
 
       {/* Browse by Category */}
       <section className="border-b border-border/30">
@@ -244,78 +217,223 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* Strains Grid */}
-      <section className="container py-8 sm:py-12">
-        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 mb-6">
-          <h2 className="font-serif text-xl sm:text-2xl md:text-3xl text-foreground">
-            {searchQuery ? `Results for "${searchQuery}"` : "Cheapest Strains"}
-          </h2>
-          <div className="flex items-center gap-2 text-xs sm:text-sm text-muted-foreground">
-            <Leaf className="w-4 h-4" />
-            <span>{displayStats.totalStrains.toLocaleString()} verified strains</span>
-          </div>
-        </div>
+      {/* Cheap Flower Near You */}
+      {cheapFlowerNearYou.length > 0 && (
+        <section className="border-b border-border/30">
+          <div className="container py-6 sm:py-8">
+            <div className="flex items-center justify-between mb-4">
+              <div>
+                <h2 className="font-serif text-lg sm:text-xl text-foreground">
+                  Cheap Flower Near You
+                </h2>
+                <p className="text-xs text-muted-foreground mt-0.5">
+                  Within 5 miles of {zipInput} · sorted by price
+                </p>
+              </div>
+              <Link
+                href="/compare?category=flower"
+                className="text-xs text-primary hover:underline flex items-center gap-1"
+              >
+                See all <ArrowRight className="w-3 h-3" />
+              </Link>
+            </div>
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
+              {cheapFlowerNearYou.map((strain) => {
+                const normalizedNearby = new Set(
+                  nearbyDispensaries.map((d) => d.name.toLowerCase().replace(/[^a-z0-9]/g, ""))
+                );
+                const bestNearbyPrice = [...(strain.prices || [])]
+                  .filter((p) =>
+                    normalizedNearby.has(p.dispensary.toLowerCase().replace(/[^a-z0-9]/g, ""))
+                  )
+                  .sort((a, b) => a.price - b.price)[0];
 
-        {loading ? (
-          <div role="status" className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-3 sm:gap-4">
-            {Array.from({ length: 12 }).map((_, i) => (
-              <StrainCardSkeleton key={i} />
-            ))}
-          </div>
-        ) : filteredStrains.length > 0 ? (
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-3 sm:gap-4">
-            {filteredStrains.map((strain) => (
-              <DealCard key={strain.id} strain={strain} />
-            ))}
-          </div>
-        ) : (
-          <div className="text-center py-16">
-            <p className="text-muted-foreground text-lg">No strains found for &quot;{searchInput}&quot;</p>
-            <button onClick={() => { setSearchInput(""); setSearchQuery(""); }} className="mt-4 text-primary text-sm hover:underline">
-              Clear search
-            </button>
-          </div>
-        )}
+                const dispensarySlug = bestNearbyPrice
+                  ? bestNearbyPrice.dispensary.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "")
+                  : null;
+                const dispensaryDir = bestNearbyPrice
+                  ? dispensaries.find(
+                      (d) =>
+                        d.name.toLowerCase().replace(/[^a-z0-9]/g, "") ===
+                        bestNearbyPrice.dispensary.toLowerCase().replace(/[^a-z0-9]/g, "")
+                    )
+                  : null;
 
-        <div className="flex justify-center mt-8 sm:mt-10">
-          <Link
-            href="/compare"
-            className="inline-flex items-center gap-2 px-5 sm:px-6 py-3 rounded-lg bg-cta text-cta-foreground font-semibold text-sm hover:bg-cta-hover transition-all shadow-cta"
-          >
-            Browse All {displayStats.totalStrains.toLocaleString()} Strains
-            <ArrowRight className="w-4 h-4" />
-          </Link>
+                return (
+                  <div
+                    key={strain.id}
+                    className="bg-card border border-border/40 rounded-xl p-4 hover:border-primary/40 transition-all"
+                  >
+                    <div className="flex items-start justify-between gap-2 mb-2">
+                      <div className="min-w-0">
+                        <span className="text-[10px] uppercase tracking-wider text-muted-foreground font-medium">
+                          {getCategoryFromStrain(strain)}
+                        </span>
+                        <Link
+                          href={`/strain/${strain.id}`}
+                          className="block font-medium text-foreground hover:text-primary transition-colors line-clamp-2 text-sm mt-0.5"
+                        >
+                          {strain.name}
+                        </Link>
+                        {strain.brand && (
+                          <p className="text-[11px] text-muted-foreground truncate mt-0.5">{strain.brand}</p>
+                        )}
+                      </div>
+                      {bestNearbyPrice && (
+                        <p className="font-price text-xl font-bold text-savings shrink-0">
+                          ${bestNearbyPrice.price}
+                        </p>
+                      )}
+                    </div>
+
+                    {bestNearbyPrice && (
+                      <div className="flex items-center gap-2 mt-3 pt-3 border-t border-border/30 flex-wrap">
+                        {dispensarySlug && (
+                          <Link
+                            href={`/dispensary/${dispensarySlug}`}
+                            className="flex items-center gap-1 text-xs text-muted-foreground hover:text-primary transition-colors"
+                          >
+                            <MapPin className="w-3 h-3 shrink-0" />
+                            <span className="truncate max-w-[120px]">{bestNearbyPrice.dispensary}</span>
+                          </Link>
+                        )}
+                        {dispensaryDir?.website && (
+                          <a
+                            href={dispensaryDir.website}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="flex items-center gap-1 text-xs text-primary hover:underline"
+                          >
+                            <Globe className="w-3 h-3 shrink-0" />
+                            Website
+                          </a>
+                        )}
+                      </div>
+                    )}
+                  </div>
+                );
+              })}
+            </div>
+          </div>
+        </section>
+      )}
+
+      {/* Dispensary Map */}
+      <section className="border-b border-border/30">
+        <div className="container py-6 sm:py-8">
+          <div className="flex items-center justify-between mb-4">
+            <div>
+              <h2 className="font-serif text-lg sm:text-xl text-foreground">Dispensary Map</h2>
+              <p className="text-xs text-muted-foreground mt-0.5">
+                {userLocation
+                  ? `Showing dispensaries near ${zipInput}`
+                  : "Enter your zip code above to find dispensaries near you"}
+              </p>
+            </div>
+            <Link
+              href="/map"
+              className="text-xs text-primary hover:underline flex items-center gap-1"
+            >
+              Full map <ArrowRight className="w-3 h-3" />
+            </Link>
+          </div>
+          <HomeMap
+            dispensaries={dispensaries}
+            userLocation={userLocation}
+            className="w-full h-[360px] sm:h-[420px] rounded-xl overflow-hidden"
+          />
+          <p className="text-[11px] text-muted-foreground mt-2">
+            Click a marker to view that dispensary&apos;s menu and pricing.
+          </p>
         </div>
       </section>
 
-      <DealDigestBanner totalStrains={displayStats.totalStrains} totalDispensaries={displayStats.totalDispensaries} />
+      {/* Lowest Price Dispensary Near Me */}
+      <section className="border-b border-border/30">
+        <div className="container py-6 sm:py-8">
+          <h2 className="font-serif text-lg sm:text-xl text-foreground mb-4">
+            Lowest Price Dispensary Near Me
+          </h2>
 
-      {/* Ticker */}
-      <div className="border-t border-border/30 bg-card/50 overflow-hidden">
-        <div className="animate-marquee whitespace-nowrap py-3">
-          <span className="inline-flex items-center gap-6 text-xs text-muted-foreground">
-            <span><span className="font-price text-primary">{displayStats.totalStrains.toLocaleString()}</span> strains verified</span>
-            <span className="opacity-30">|</span>
-            <span><span className="font-price text-primary">{displayStats.totalDispensaries}</span> dispensaries tracked</span>
-            <span className="opacity-30">|</span>
-            <span><span className="font-price text-primary">{displayStats.totalBrands}</span> brands verified</span>
-            <span className="opacity-30">|</span>
-            <span>Validation score: <span className="font-price text-savings">{displayStats.validationScore}%</span></span>
-            <span className="opacity-30">|</span>
-            {bestDeal && (
-              <>
-                <span>Best deal: <span className="text-foreground">{bestDeal.name}</span> from <span className="font-price text-savings">${bestDeal.price_min}</span></span>
-                <span className="opacity-30">|</span>
-              </>
-            )}
-            <span>Data updates every Tuesday</span>
-            <span className="opacity-30">|</span>
-            <span><span className="font-price text-primary">{displayStats.totalStrains.toLocaleString()}</span> strains verified</span>
-            <span className="opacity-30">|</span>
-            <span><span className="font-price text-primary">{displayStats.totalDispensaries}</span> dispensaries tracked</span>
-          </span>
+          {cheapestNearbyDispensary ? (
+            <div className="bg-card border border-savings/30 rounded-xl p-5 max-w-lg">
+              <div className="flex items-start justify-between gap-3">
+                <div className="min-w-0">
+                  <Link
+                    href={`/dispensary/${cheapestNearbyDispensary.name
+                      .toLowerCase()
+                      .replace(/[^a-z0-9]+/g, "-")
+                      .replace(/^-|-$/g, "")}`}
+                    className="font-semibold text-foreground hover:text-primary transition-colors"
+                  >
+                    {cheapestNearbyDispensary.name}
+                  </Link>
+                  <p className="text-xs text-muted-foreground mt-0.5">
+                    {cheapestNearbyDispensary.city} ·{" "}
+                    {cheapestNearbyDispensary.distance?.toFixed(1)} mi away
+                  </p>
+                  <p className="text-xs text-muted-foreground mt-0.5 truncate">
+                    {cheapestNearbyDispensary.full_address}
+                  </p>
+                </div>
+                {cheapestNearbyDispensary.price_avg != null && (
+                  <div className="shrink-0 text-right">
+                    <p className="text-[10px] text-muted-foreground uppercase tracking-wider">avg price</p>
+                    <p className="font-price text-2xl font-bold text-savings">
+                      ${cheapestNearbyDispensary.price_avg}
+                    </p>
+                  </div>
+                )}
+              </div>
+
+              <div className="flex items-center gap-3 mt-4 flex-wrap">
+                <Link
+                  href={`/dispensary/${cheapestNearbyDispensary.name
+                    .toLowerCase()
+                    .replace(/[^a-z0-9]+/g, "-")
+                    .replace(/^-|-$/g, "")}`}
+                  className="flex items-center gap-1.5 px-4 py-2 bg-primary text-primary-foreground text-xs font-semibold rounded-lg hover:bg-primary/90 transition-colors"
+                >
+                  <Leaf className="w-3.5 h-3.5" />
+                  View Menu
+                </Link>
+                {cheapestNearbyDispensary.website && (
+                  <a
+                    href={cheapestNearbyDispensary.website}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="flex items-center gap-1.5 px-4 py-2 border border-border text-xs text-muted-foreground rounded-lg hover:bg-muted transition-colors"
+                  >
+                    <Globe className="w-3.5 h-3.5" />
+                    Website
+                  </a>
+                )}
+                <a
+                  href={`https://www.google.com/maps/dir/?api=1&destination=${encodeURIComponent(cheapestNearbyDispensary.full_address)}`}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex items-center gap-1.5 px-4 py-2 border border-border text-xs text-muted-foreground rounded-lg hover:bg-muted transition-colors"
+                >
+                  <Navigation className="w-3.5 h-3.5" />
+                  Directions
+                </a>
+              </div>
+            </div>
+          ) : (
+            <div className="bg-card border border-border/30 rounded-xl p-6 max-w-lg text-center">
+              <MapPin className="w-8 h-8 text-muted-foreground/40 mx-auto mb-3" />
+              <p className="text-sm text-muted-foreground">
+                Enter your zip code above to find the cheapest dispensary within 5 miles.
+              </p>
+            </div>
+          )}
         </div>
-      </div>
+      </section>
+
+      <DealDigestBanner
+        totalStrains={displayStats.totalStrains}
+        totalDispensaries={displayStats.totalDispensaries}
+      />
     </div>
   );
 }
