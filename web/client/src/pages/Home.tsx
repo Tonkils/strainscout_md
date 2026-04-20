@@ -7,7 +7,7 @@
 
 import { useState, useMemo, useEffect } from "react";
 import { Link } from "wouter";
-import { Search, TrendingDown, DollarSign, Award, ArrowRight, Clock, Loader2, Leaf } from "lucide-react";
+import { Search, ArrowRight, Clock, Loader2, Leaf } from "lucide-react";
 import Navbar from "@/components/Navbar";
 import ProductCard from "@/components/cards/ProductCard";
 import DealDigestBanner from "@/components/DealDigestBanner";
@@ -117,45 +117,6 @@ export default function Home() {
             </div>
           </div>
 
-          {/* Stats Cards — Mobile: horizontal scroll, Desktop: grid */}
-          <div className="flex sm:grid sm:grid-cols-3 gap-3 sm:gap-4 max-w-3xl overflow-x-auto sm:overflow-visible pb-2 sm:pb-0 -mx-4 px-4 sm:mx-0 sm:px-0 snap-x snap-mandatory">
-            <div className="bg-card/80 backdrop-blur border border-border/30 rounded-lg p-4 sm:p-5 min-w-[200px] sm:min-w-0 snap-start">
-              <div className="flex items-center gap-3">
-                <div className="w-9 h-9 sm:w-10 sm:h-10 rounded-lg bg-savings flex items-center justify-center shrink-0">
-                  <TrendingDown className="w-4 h-4 sm:w-5 sm:h-5 text-savings" />
-                </div>
-                <div>
-                  <p className="text-[10px] text-muted-foreground uppercase tracking-wider">Lowest 8th in MD</p>
-                  <p className="font-price text-xl sm:text-2xl font-bold text-foreground">${displayStats.lowestPrice}</p>
-                </div>
-              </div>
-            </div>
-
-            <div className="bg-card/80 backdrop-blur border border-border/30 rounded-lg p-4 sm:p-5 min-w-[200px] sm:min-w-0 snap-start">
-              <div className="flex items-center gap-3">
-                <div className="w-9 h-9 sm:w-10 sm:h-10 rounded-lg bg-primary/15 flex items-center justify-center shrink-0">
-                  <DollarSign className="w-4 h-4 sm:w-5 sm:h-5 text-primary" />
-                </div>
-                <div>
-                  <p className="text-[10px] text-muted-foreground uppercase tracking-wider">Average Price</p>
-                  <p className="font-price text-xl sm:text-2xl font-bold text-foreground">${displayStats.avgPrice}</p>
-                </div>
-              </div>
-            </div>
-
-            <div className="bg-card/80 backdrop-blur border border-border/30 rounded-lg p-4 sm:p-5 min-w-[200px] sm:min-w-0 snap-start">
-              <div className="flex items-center gap-3">
-                <div className="w-9 h-9 sm:w-10 sm:h-10 rounded-lg bg-amber-500/15 flex items-center justify-center shrink-0">
-                  <Award className="w-4 h-4 sm:w-5 sm:h-5 text-amber-400" />
-                </div>
-                <div>
-                  <p className="text-[10px] text-muted-foreground uppercase tracking-wider">Verified Brands</p>
-                  <p className="font-price text-xl sm:text-2xl font-bold text-foreground">{displayStats.totalBrands}</p>
-                  <p className="text-xs text-primary">{displayStats.validationScore}% accuracy</p>
-                </div>
-              </div>
-            </div>
-          </div>
         </div>
       </section>
 
