@@ -67,11 +67,37 @@ class TestCanonicalKey(unittest.TestCase):
         """'Wedding Cake' and 'wedding cake' map to the same key."""
         self.assertEqual(self.canonical("Wedding Cake"), self.canonical("wedding cake"))
 
-    def test_strips_brand_prefix(self):
-        """'Verano Wedding Cake' → same key as 'Wedding Cake'"""
-        with_brand = self.canonical("Verano Wedding Cake")
-        without_brand = self.canonical("Wedding Cake")
-        self.assertEqual(with_brand, without_brand)
+    def test_brand_preserved_in_key(self):
+        """Brand is incorporated into the key, not discarded."""
+        key_with_brand = self.canonical("Wedding Cake", "verano")
+        self.assertIn("verano", key_with_brand)
+
+    def test_different_brands_produce_different_keys(self):
+        """Same strain + different brands → different composite keys (no merge collision)."""
+        key_verano = self.canonical("Wedding Cake", "verano")
+        key_cookies = self.canonical("Wedding Cake", "cookies")
+        self.assertNotEqual(key_verano, key_cookies)
+
+    def test_same_brand_same_strain_case_insensitive(self):
+        """Same brand+strain with different casing → identical key."""
+        self.assertEqual(
+            self.canonical("Wedding Cake", "Verano"),
+            self.canonical("wedding cake", "verano"),
+        )
+
+    def test_brand_embedded_in_name_is_extracted(self):
+        """Brand embedded in the strain name (no pre-supplied brand) is extracted correctly."""
+        # 'Verano Wedding Cake' with no explicit brand arg should resolve
+        # to the same key as supplying brand='verano' explicitly.
+        key_embedded = self.canonical("Verano Wedding Cake")
+        key_explicit = self.canonical("Wedding Cake", "verano")
+        self.assertEqual(key_embedded, key_explicit)
+
+    def test_brandless_strain_uses_empty_brand_segment(self):
+        """Strain with no detectable brand produces a key whose brand segment is empty."""
+        key = self.canonical("Blue Dream")
+        brand_segment, _ = key.split("|", 1)
+        self.assertEqual(brand_segment, "")
 
     def test_normalizes_special_chars(self):
         """'GSC (Girl Scout Cookies)' and 'GSC Girl Scout Cookies' are comparable."""
