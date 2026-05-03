@@ -47,6 +47,18 @@ export default function DealCard({ strain, hideCategory }: DealCardProps) {
   const badge = getBadge(strain);
   const thcPct = Math.min(100, Math.max(0, strain.thc));
 
+  const hasRange =
+    strain.price_min != null &&
+    strain.price_max != null &&
+    strain.price_max > strain.price_min;
+
+  const priceDisplay =
+    strain.price_min != null
+      ? hasRange
+        ? `$${strain.price_min} – $${strain.price_max}`
+        : `$${strain.price_min}`
+      : "N/A";
+
   const typeColors: Record<string, string> = {
     indica: "#B8A9E8",
     sativa: "#FFD66B",
@@ -229,17 +241,19 @@ export default function DealCard({ strain, hideCategory }: DealCardProps) {
 
           {/* Price — push to bottom */}
           <div style={{ marginTop: "auto" }}>
-            <p style={{ fontSize: "10px", color: "rgba(26,26,46,0.5)", textTransform: "uppercase", letterSpacing: "0.06em", marginBottom: "2px" }}>From</p>
+            <p style={{ fontSize: "10px", color: "rgba(26,26,46,0.5)", textTransform: "uppercase", letterSpacing: "0.06em", marginBottom: "2px" }}>
+              {hasRange ? "Price Range" : "Best Price"}
+            </p>
             <p
               style={{
                 fontFamily: "var(--font-heading), Georgia, serif",
-                fontSize: "28px",
+                fontSize: hasRange ? "20px" : "28px",
                 fontWeight: 900,
                 color: "#1A1A2E",
                 lineHeight: 1,
               }}
             >
-              {strain.price_min != null ? `$${strain.price_min}` : "N/A"}
+              {priceDisplay}
             </p>
           </div>
         </div>

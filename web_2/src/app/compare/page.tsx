@@ -1,8 +1,8 @@
 "use client";
 
-import { useState, useMemo, useEffect, Suspense } from "react";
+import { useState, useMemo, useEffect, useRef, useCallback, Suspense } from "react";
 import Link from "next/link";
-import { useSearchParams } from "next/navigation";
+import { useSearchParams, useRouter } from "next/navigation";
 import { Search, ArrowUpDown, GitCompareArrows, Loader2, Beaker, MapPin, X, Building2, ChevronDown } from "lucide-react";
 import { useCatalog, type CatalogStrain } from "@/hooks/useCatalog";
 import StrainCardSkeleton from "@/components/StrainCardSkeleton";
@@ -22,6 +22,8 @@ const QUICK_FILTERS = [
 function ComparePageInner() {
   const { catalog, loading } = useCatalog();
   const searchParams = useSearchParams();
+  const router = useRouter();
+  const isFirstSearchSync = useRef(true);
   const [searchInput, setSearchInput] = useState(() => searchParams.get("q") ?? "");
   const [searchQuery, setSearchQuery] = useState(() => searchParams.get("q") ?? "");
 
@@ -30,7 +32,7 @@ function ComparePageInner() {
     const timer = setTimeout(() => setSearchQuery(searchInput), 300);
     return () => clearTimeout(timer);
   }, [searchInput]);
-  const [typeFilter, setTypeFilter] = useState("All");
+  const [typeFilter, setTypeFilter] = useState(() => searchParams.get("type") ?? "All");
   const [categoryFilter, setCategoryFilter] = useState<ProductCategory | "">(() => {
     const cat = searchParams.get("category");
     return cat ? cat as ProductCategory : "";
@@ -40,12 +42,36 @@ function ComparePageInner() {
     return (sort === "dispensaries" || sort === "name" || sort === "thc" || sort === "price" || sort === "brand")
       ? sort as SortKey : "price";
   });
-  const [sortDir, setSortDir] = useState<"asc" | "desc">("asc");
-  const [quickFilter, setQuickFilter] = useState("");
-  const [dispensaryFilter, setDispensaryFilter] = useState("");
+  const [sortDir, setSortDir] = useState<"asc" | "desc">(
+    () => (searchParams.get("dir") === "desc" ? "desc" : "asc")
+  );
+  const [quickFilter, setQuickFilter] = useState(() => searchParams.get("qf") ?? "");
+  const [dispensaryFilter, setDispensaryFilter] = useState(() => searchParams.get("disp") ?? "");
 
   // Analytics: track page view on mount
   useEffect(() => { trackPageViewed("compare"); }, []);
+
+  // URL helper — reads window.location.search directly to avoid stale closure
+  const updateUrl = useCallback(
+    (overrides: Record<string, string | null>) => {
+      const params = new URLSearchParams(window.location.search);
+      for (const [key, value] of Object.entries(overrides)) {
+        if (value) params.set(key, value);
+        else params.delete(key);
+      }
+      router.replace(`?${params.toString()}`, { scroll: false });
+    },
+    [router]
+  );
+
+  // Sync debounced search query to URL (skip the very first render to avoid echoing initial URL value)
+  useEffect(() => {
+    if (isFirstSearchSync.current) { isFirstSearchSync.current = false; return; }
+    const params = new URLSearchParams(window.location.search);
+    if (searchQuery) params.set("q", searchQuery);
+    else params.delete("q");
+    router.replace(`?${params.toString()}`, { scroll: false });
+  }, [searchQuery, router]);
 
   const [compareList, setCompareList] = useState<CatalogStrain[]>([]);
   const [showComparePanel, setShowComparePanel] = useState(false);
@@ -109,6 +135,7 @@ function ComparePageInner() {
     setSearchInput("");
     setSearchQuery("");
     setPage(1);
+    router.replace(window.location.pathname, { scroll: false });
   };
 
   const toggleCompare = (strain: CatalogStrain) => {
@@ -120,8 +147,15 @@ function ComparePageInner() {
   };
 
   const handleSort = (key: SortKey) => {
-    if (sortBy === key) setSortDir((d) => (d === "asc" ? "desc" : "asc"));
-    else { setSortBy(key); setSortDir("desc"); }
+    if (sortBy === key) {
+      const newDir = sortDir === "asc" ? "desc" : "asc";
+      setSortDir(newDir);
+      updateUrl({ sort: key, dir: newDir === "desc" ? "desc" : null });
+    } else {
+      setSortBy(key);
+      setSortDir("desc");
+      updateUrl({ sort: key, dir: "desc" });
+    }
   };
 
   return (
@@ -142,7 +176,7 @@ function ComparePageInner() {
         {/* Category filters */}
         <div className="flex flex-wrap items-center gap-2 mb-2">
           <button
-            onClick={() => { setCategoryFilter(""); setPage(1); trackFilterApplied("category", "all", "compare"); }}
+            onClick={() => { setCategoryFilter(""); updateUrl({ category: null }); setPage(1); trackFilterApplied("category", "all", "compare"); }}
             className={`px-3 py-1.5 rounded-full text-xs font-medium transition-colors ${
               !categoryFilter
                 ? "bg-primary text-primary-foreground"
@@ -154,7 +188,7 @@ function ComparePageInner() {
           {(["Flower", "Pre-Roll", "Vape", "Concentrate", "Edible"] as ProductCategory[]).map((cat) => (
             <button
               key={cat}
-              onClick={() => { const next = categoryFilter === cat ? "" : cat; setCategoryFilter(next); setPage(1); trackFilterApplied("category", next || "all", "compare"); }}
+              onClick={() => { const next = categoryFilter === cat ? "" : cat; setCategoryFilter(next); updateUrl({ category: next || null }); setPage(1); trackFilterApplied("category", next || "all", "compare"); }}
               className={`px-3 py-1.5 rounded-full text-xs font-medium transition-colors ${
                 categoryFilter === cat
                   ? CATEGORY_COLORS[cat]
@@ -171,7 +205,7 @@ function ComparePageInner() {
           {QUICK_FILTERS.map((qf) => (
             <button
               key={qf.id}
-              onClick={() => { const next = quickFilter === qf.id ? "" : qf.id; setQuickFilter(next); setPage(1); trackFilterApplied("quick_filter", next || "all", "compare"); }}
+              onClick={() => { const next = quickFilter === qf.id ? "" : qf.id; setQuickFilter(next); updateUrl({ qf: next || null }); setPage(1); trackFilterApplied("quick_filter", next || "all", "compare"); }}
               aria-pressed={quickFilter === qf.id}
               className={`px-3 py-1.5 rounded-full text-xs font-medium border transition-all ${
                 quickFilter === qf.id
@@ -189,7 +223,7 @@ function ComparePageInner() {
             <ChevronDown className="absolute right-2 top-1/2 -translate-y-1/2 w-3.5 h-3.5 text-muted-foreground pointer-events-none" />
             <select
               value={dispensaryFilter}
-              onChange={(e) => { setDispensaryFilter(e.target.value); setPage(1); }}
+              onChange={(e) => { setDispensaryFilter(e.target.value); updateUrl({ disp: e.target.value || null }); setPage(1); }}
               className={`appearance-none pl-8 pr-7 py-1.5 rounded-full text-xs font-medium border transition-all bg-card cursor-pointer focus:outline-none focus-visible:ring-2 focus-visible:ring-primary/50 ${
                 dispensaryFilter
                   ? "border-primary text-primary"
@@ -227,7 +261,7 @@ function ComparePageInner() {
                 className="flex-1 bg-transparent px-3 py-2.5 text-sm text-foreground placeholder:text-muted-foreground focus:outline-none focus-visible:ring-2 focus-visible:ring-primary/50"
               />
               {searchInput && (
-                <button onClick={() => { setSearchInput(""); setSearchQuery(""); }} className="mr-2 text-muted-foreground hover:text-foreground">
+                <button onClick={() => { setSearchInput(""); setSearchQuery(""); updateUrl({ q: null }); }} className="mr-2 text-muted-foreground hover:text-foreground">
                   <X className="w-4 h-4" />
                 </button>
               )}
@@ -239,7 +273,7 @@ function ComparePageInner() {
               {["All", "Indica", "Sativa", "Hybrid"].map((t) => (
                 <button
                   key={t}
-                  onClick={() => { setTypeFilter(t); setPage(1); }}
+                  onClick={() => { setTypeFilter(t); updateUrl({ type: t === "All" ? null : t }); setPage(1); }}
                   className={`px-2.5 py-1.5 rounded-md text-xs font-medium transition-all ${
                     typeFilter === t ? "bg-primary text-primary-foreground" : "text-muted-foreground hover:text-foreground"
                   }`}
