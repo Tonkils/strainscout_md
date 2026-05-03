@@ -12,7 +12,7 @@ import {
 } from "drizzle-orm/pg-core";
 
 export const roleEnum = pgEnum("role", ["user", "admin"]);
-export const emailSourceEnum = pgEnum("email_source", ["footer", "deal_digest", "price_alert", "compare_inline"]);
+export const emailSourceEnum = pgEnum("email_source", ["footer", "deal_digest", "price_alert", "compare_inline", "popup"]);
 export const emailStatusEnum = pgEnum("email_status", ["active", "unsubscribed"]);
 export const alertStatusEnum = pgEnum("alert_status", ["active", "paused", "triggered", "expired"]);
 export const notifiedEnum = pgEnum("notified", ["pending", "sent"]);

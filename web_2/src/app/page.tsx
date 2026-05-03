@@ -56,15 +56,19 @@ export default function HomePage() {
     return counts;
   }, [catalog]);
 
-  const nearbyDispensaries = useMemo(() => {
-    if (!userLocation || dispensaries.length === 0) return [];
-    return dispensaries
-      .map((d) => ({
-        ...d,
-        distance: haversineDistance(userLocation.lat, userLocation.lng, d.lat, d.lng),
-      }))
-      .filter((d) => d.distance <= 5)
-      .sort((a, b) => a.distance - b.distance);
+  const { nearbyDispensaries, activeRadius } = useMemo(() => {
+    if (!userLocation || dispensaries.length === 0)
+      return { nearbyDispensaries: [], activeRadius: 5 };
+    const withDistance = dispensaries.map((d) => ({
+      ...d,
+      distance: haversineDistance(userLocation.lat, userLocation.lng, d.lat, d.lng),
+    }));
+    for (const radius of [5, 10, 25, 50]) {
+      const filtered = withDistance.filter((d) => d.distance <= radius);
+      if (filtered.length > 0)
+        return { nearbyDispensaries: filtered.sort((a, b) => a.distance - b.distance), activeRadius: radius };
+    }
+    return { nearbyDispensaries: [], activeRadius: 50 };
   }, [dispensaries, userLocation]);
 
   const cheapFlowerNearYou = useMemo(() => {
@@ -227,7 +231,7 @@ export default function HomePage() {
                   Cheap Flower Near You
                 </h2>
                 <p className="text-xs text-muted-foreground mt-0.5">
-                  Within 5 miles of {zipInput} · sorted by price
+                  Within {activeRadius} miles of {zipInput} · sorted by price
                 </p>
               </div>
               <Link
@@ -423,7 +427,7 @@ export default function HomePage() {
             <div className="bg-card border border-border/30 rounded-xl p-6 max-w-lg text-center">
               <MapPin className="w-8 h-8 text-muted-foreground/40 mx-auto mb-3" />
               <p className="text-sm text-muted-foreground">
-                Enter your zip code above to find the cheapest dispensary within 5 miles.
+                Enter your zip code above to find the cheapest dispensary near you.
               </p>
             </div>
           )}
