@@ -1,10 +1,13 @@
 #!/usr/bin/env python3
 """
-Pipeline Step 5: Upload the production catalog + rebuilt SPA to IONOS webspace via SFTP.
+Pipeline Step 5: Upload the production catalog + Next.js static export to IONOS webspace via SFTP.
+
+The production app is web_2/ (Next.js static export). The legacy web/ Vite SPA was
+removed; --full-deploy is gone with it.
 
 Uploads:
   1. Catalog JSON to webspace /data/ directory
-  2. Optionally rebuilds and uploads the full SPA
+  2. Optionally the Next.js static export from web_2/out/
 
 Credentials from .env:
   IONOS_SFTP_HOST=access-5019966776.webspace-host.com
@@ -13,11 +16,9 @@ Credentials from .env:
   IONOS_SFTP_PASS=...
 
 Usage:
-    python -m publish.upload_ionos                # Upload catalog only
-    python -m publish.upload_ionos --full-deploy  # Rebuild Vite SPA (web/) + upload everything
-    python -m publish.upload_ionos --next-deploy        # Deploy Next.js static export (web_2/out/) + upload everything
-    python -m publish.upload_ionos --next-incremental   # Only upload changed Next.js files (fast)
-    python -m publish.upload_ionos --next-incremental  # Only upload changed Next.js files (fast)
+    python -m publish.upload_ionos                      # Upload catalog only
+    python -m publish.upload_ionos --next-deploy        # Deploy Next.js static export (web_2/out/) + catalog
+    python -m publish.upload_ionos --next-incremental   # Only upload changed Next.js files (fast) + catalog
 """
 
 import hashlib
@@ -41,7 +42,6 @@ except ImportError:
 
 BASE = Path(__file__).resolve().parent.parent
 OUTPUT_DIR = BASE / "data" / "output"
-WEB_DIST = BASE / "web" / "dist"          # Vite SPA build output (--full-deploy)
 NEXT_OUT = BASE / "web_2" / "out"         # Next.js static export output (--next-deploy)
 ENV_FILE = BASE / ".env"
 MANIFEST_FILE = Path(__file__).resolve().parent / "deploy_manifest_next.json"
@@ -94,37 +94,6 @@ RewriteRule ^(.*)$ /$1/ [L,R=301]
 
 # Custom 404 page (Next.js generates this as /404.html)
 ErrorDocument 404 /404.html
-"""
-
-HTACCESS_SPA = _SECURITY_HEADERS + """\
-# StrainScout MD — SPA Routing
-RewriteEngine On
-RewriteBase /
-
-# Force HTTPS
-RewriteCond %{HTTPS} off
-RewriteRule ^(.*)$ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
-
-# If file or directory exists, serve it directly
-RewriteCond %{REQUEST_FILENAME} !-f
-RewriteCond %{REQUEST_FILENAME} !-d
-
-# Otherwise, serve index.html (SPA client-side routing)
-RewriteRule ^(.*)$ /index.html [L]
-
-# Enable gzip compression
-<IfModule mod_deflate.c>
-  AddOutputFilterByType DEFLATE text/html text/css application/javascript application/json
-</IfModule>
-
-# Cache static assets for 1 year
-<IfModule mod_expires.c>
-  ExpiresActive On
-  ExpiresByType text/css "access plus 1 year"
-  ExpiresByType application/javascript "access plus 1 year"
-  ExpiresByType image/webp "access plus 1 year"
-  ExpiresByType application/json "access plus 1 day"
-</IfModule>
 """
 
 # IONOS credentials — must be set in .env (no hardcoded fallbacks)
@@ -350,25 +319,6 @@ def upload_catalog_only(sftp):
     return True
 
 
-def full_deploy(sftp):
-    """Upload entire SPA dist/ directory."""
-    if not WEB_DIST.exists():
-        print("ERROR: web/dist/ not found. Run 'vite build' first.")
-        return False
-
-    print(f"  Full deploy from: {WEB_DIST}")
-    count = upload_recursive(sftp, WEB_DIST, ".")
-    print(f"  Uploaded {count} files")
-
-    # Upload .htaccess for SPA routing
-    with sftp.open("./.htaccess", "w") as f:
-        f.write(HTACCESS_SPA)
-    print("    PUT: .htaccess (SPA routing)")
-
-    write_deploy_log("full_spa", count, 0, catalog_hash())
-    return True
-
-
 def next_deploy(sftp):
     """Upload Next.js static export (web_2/out/) to IONOS.
 
@@ -392,18 +342,13 @@ def next_deploy(sftp):
     return True
 
 
-def main(full_deploy_override=None):
+def main():
     parser = argparse.ArgumentParser(description="Upload to IONOS webspace")
-    parser.add_argument("--full-deploy", action="store_true",
-                        help="Upload Vite SPA (web/dist/), not just catalog")
     parser.add_argument("--next-deploy", action="store_true",
-                        help="Upload Next.js static export (web_2/out/) instead of Vite SPA")
+                        help="Upload Next.js static export (web_2/out/) + catalog")
     parser.add_argument("--next-incremental", action="store_true",
-                        help="Only upload changed/new Next.js files (fast incremental deploy)")
+                        help="Only upload changed/new Next.js files (fast incremental deploy) + catalog")
     args, _ = parser.parse_known_args()
-
-    if full_deploy_override is not None:
-        args.full_deploy = full_deploy_override
 
     print("=" * 70)
     print("PIPELINE STEP 5: UPLOAD TO IONOS")
@@ -435,8 +380,6 @@ def main(full_deploy_override=None):
             success = upload_catalog_only(sftp) and next_deploy_incremental(sftp)
         elif args.next_deploy:
             success = upload_catalog_only(sftp) and next_deploy(sftp)
-        elif args.full_deploy:
-            success = full_deploy(sftp)
         else:
             success = upload_catalog_only(sftp)
     finally:
