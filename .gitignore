@@ -12,4 +12,5 @@ web_2/node_modules/
 web_2/.next/
 web_2/out/
 web_2/.env.local
+web/.env.local
 .claude/settings.local.json
