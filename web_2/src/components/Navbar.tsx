@@ -11,6 +11,7 @@ const navLinks = [
   { href: "/cheapest", label: "Cheapest" },
   { href: "/top-value", label: "Top Value" },
   { href: "/dispensaries", label: "Dispensaries" },
+  { href: "/map", label: "Map" },
 ];
 
 export default function Navbar() {
