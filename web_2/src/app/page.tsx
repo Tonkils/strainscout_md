@@ -1,7 +1,8 @@
 "use client";
 
-import { useState, useMemo, useCallback } from "react";
+import { useState, useMemo, useCallback, useRef, useEffect, Suspense } from "react";
 import Link from "next/link";
+import { useSearchParams, useRouter } from "next/navigation";
 import { MapPin, ArrowRight, Loader2, Leaf, Cigarette, Wind, Beaker, Cookie, Globe, Navigation } from "lucide-react";
 import DealDigestBanner from "@/components/DealDigestBanner";
 import AgeGate from "@/components/AgeGate";
@@ -33,9 +34,13 @@ const FALLBACK_STATS = {
   lastUpdated: "March 2026",
 };
 
-export default function HomePage() {
+function HomePageInner() {
+  const searchParams = useSearchParams();
+  const router = useRouter();
+  const didAutoGeocode = useRef(false);
+
   const [ageVerified, setAgeVerified] = useState(false);
-  const [zipInput, setZipInput] = useState("");
+  const [zipInput, setZipInput] = useState(() => searchParams.get("zip") ?? "");
   const [zipLocating, setZipLocating] = useState(false);
   const [zipError, setZipError] = useState("");
   const [userLocation, setUserLocation] = useState<{ lat: number; lng: number } | null>(null);
@@ -117,11 +122,23 @@ export default function HomePage() {
           lng: results[0].geometry.location.lng(),
         };
         setUserLocation(loc);
+        const params = new URLSearchParams(window.location.search);
+        params.set("zip", zipInput);
+        router.replace(`?${params.toString()}`, { scroll: false });
       } else {
         setZipError("Zip code not found in Maryland");
       }
     });
-  }, [zipInput]);
+  }, [zipInput, router]);
+
+  // Auto-geocode on mount when a zip code is present in the URL
+  useEffect(() => {
+    const zipFromUrl = searchParams.get("zip");
+    if (!zipFromUrl || !/^\d{5}$/.test(zipFromUrl) || didAutoGeocode.current) return;
+    didAutoGeocode.current = true;
+    setZipInput(zipFromUrl);
+    handleFindNearMe();
+  }, [handleFindNearMe, searchParams]);
 
   return (
     <div className="min-h-screen bg-background">
@@ -435,5 +452,13 @@ export default function HomePage() {
         totalDispensaries={displayStats.totalDispensaries}
       />
     </div>
+  );
+}
+
+export default function HomePage() {
+  return (
+    <Suspense fallback={<div className="min-h-screen bg-background" />}>
+      <HomePageInner />
+    </Suspense>
   );
 }
