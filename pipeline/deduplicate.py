@@ -45,26 +45,39 @@ BRANDS = [
 BRANDS.sort(key=len, reverse=True)
 
 
-def canonical_key(name: str) -> str:
-    """Normalize a strain name to a canonical grouping key."""
-    n = name.strip()
-    nl = n.lower()
+def canonical_key(name: str, brand: str = "") -> str:
+    """Return a composite grouping key: '<normalized_brand>|<normalized_strain>'.
 
-    # Strip brand prefix
-    for brand in BRANDS:
-        if nl.startswith(brand):
-            rest = nl[len(brand):]
-            if rest and rest[0] in " |-:":
-                n = n[len(brand):].lstrip(" |-:")
-                nl = n.lower()
-                break
+    Brand identity is preserved rather than stripped so that identically-named
+    strains from different producers are kept as distinct catalog entries.
 
-    # Remove special chars but keep spaces/hyphens
-    n = re.sub(r"[^a-zA-Z0-9\s\-]", "", n)
-    # Collapse whitespace
-    n = re.sub(r"\s+", " ", n).strip().lower()
+    Priority:
+      1. Use the pre-extracted ``brand`` argument when supplied.
+      2. Otherwise attempt to detect a brand prefix in ``name`` via BRANDS.
+      3. Fall back to an empty brand segment (key starts with '|').
+    """
+    norm_brand = brand.strip().lower() if brand else ""
+    strain = name.strip()
 
-    return n if n else name.lower().strip()
+    # If no brand was pre-supplied, try to extract one from the raw name
+    if not norm_brand:
+        nl = strain.lower()
+        for b in BRANDS:
+            if nl.startswith(b):
+                rest = nl[len(b):]
+                if rest and rest[0] in " |-:":
+                    norm_brand = b
+                    strain = strain[len(b):].lstrip(" |-:")
+                    break
+
+    # Normalize the strain portion: drop punctuation, collapse whitespace
+    strain = re.sub(r"[^a-zA-Z0-9\s\-]", "", strain)
+    strain = re.sub(r"\s+", " ", strain).strip().lower()
+
+    if not strain:
+        strain = name.strip().lower()
+
+    return f"{norm_brand}|{strain}"
 
 
 def score_record(rec: dict) -> int:
@@ -117,10 +130,10 @@ def main():
     records = data["records"]
     print(f"Input: {len(records)} enriched records")
 
-    # Group by canonical name
+    # Group by composite key (brand + strain) to keep branded products separate
     groups = defaultdict(list)
     for rec in records:
-        key = canonical_key(rec["strain_name"])
+        key = canonical_key(rec["strain_name"], rec.get("brand", ""))
         groups[key].append(rec)
 
     # Merge each group into a single strain entry
@@ -172,9 +185,12 @@ def main():
             "dispensary_links": {},
         }
 
-        # Collect prices and dispensaries from ALL records in the group
-        seen_prices = set()
-        disp_set = set()
+        # Collect prices and dispensaries from ALL records in the group.
+        # Dedup by (dispensary, price) so the same listing scraped from multiple
+        # sources isn't double-counted, while still allowing a dispensary to carry
+        # the same brand+strain at two genuinely different price points.
+        seen_prices: set[tuple] = set()
+        disp_set: set[str] = set()
 
         for rec in group:
             disp = rec.get("dispensary", "")
@@ -226,7 +242,8 @@ def main():
 
         strain["dispensaries"] = sorted(disp_set)
 
-        # Compute price stats
+        # Compute price stats across all deduplicated price entries for this
+        # brand+strain combination. build_catalog.py reads these fields directly.
         price_vals = [p["price"] for p in strain["prices"]]
         if price_vals:
             strain["price_min"] = min(price_vals)
@@ -239,9 +256,11 @@ def main():
 
         strain["dispensary_count"] = len(disp_set)
 
-        # Generate slug-based ID
-        slug = re.sub(r"[^a-z0-9]+", "-", strain["name"].lower()).strip("-")
-        strain["id"] = slug
+        # Generate slug-based ID — include brand so same-named strains from
+        # different producers never collide in the catalog.
+        brand_slug = re.sub(r"[^a-z0-9]+", "-", (strain.get("brand") or "").lower()).strip("-")
+        name_slug = re.sub(r"[^a-z0-9]+", "-", strain["name"].lower()).strip("-")
+        strain["id"] = f"{brand_slug}-{name_slug}".strip("-") if brand_slug else name_slug
 
         deduped.append(strain)
 
