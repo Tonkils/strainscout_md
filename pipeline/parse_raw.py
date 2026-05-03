@@ -264,6 +264,7 @@ def main():
                     fname = os.path.basename(fpath)
                     print(f"  [STALE] {fname}: data is {age_days} days old")
                     stale_files.append({"file": fname, "age_days": age_days})
+                    continue
             except (ValueError, TypeError):
                 pass  # unparseable scraped_at — skip freshness check
 
